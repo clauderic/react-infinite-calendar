@@ -1,5 +1,5 @@
 <div align="center" style="margin-bottom: 30px;">
-<img src="https://s3.amazonaws.com/f.cl.ly/items/0e0n28182s3b2a082X0K/logo.png" width="250"/>
+<img src="https://raw.githubusercontent.com/clauderic/react-infinite-calendar/master/.github/logo.png" width="250"/>
 </div>
 #React Infinite Calendar
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]()
@@ -18,7 +18,7 @@ Features
 
 And mucho, mucho mas 🎉
 <div style="padding:30px">
-<img src="https://s3.amazonaws.com/f.cl.ly/items/391d102o3b0L0f1C1w0n/preview.gif" width="300" />
+<img src="https://raw.githubusercontent.com/clauderic/react-infinite-calendar/master/.github/preview.gif" width="300" />
 </div>
 
 Installation
