@@ -330,6 +330,7 @@
   text-align: center; }
 .Cal__Container__root {
   position: relative;
+  display: table;
   z-index: 1;
   font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
   line-height: 1.4em;
