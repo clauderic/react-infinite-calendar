@@ -64,7 +64,7 @@ import 'react-infinite-calendar/styles.css'; // only needs to be imported once
 
 // Render the Calendar
 var today = new Date();
-var minDate = Number(new Date()) - (24*60*60) * 7; // One week before today
+var minDate = Number(new Date()) - (24*60*60*1000) * 7; // One week before today
 
 render(
   <InfiniteCalendar
