@@ -88,60 +88,69 @@ describe("<InfiniteCalendar/> Callback Events", () => {
 });
 
 describe("<InfiniteCalendar/> Keyboard Support", function() {
-	it('should add one day when pressing the right arrow', () => {
+	this.timeout(5000);
+
+	it('should add one day when pressing the right arrow', (done) => {
 		const original = moment();
 		const expected = moment().add(1, 'day');
 		const wrapper = mount(<InfiniteCalendar selectedDate={original} keyboardSupport={true} />);
 
 		wrapper.simulate('keydown', {keyCode: keyCodes.right});
 		expect(wrapper.state().highlightedDate.format('YYYYMMDD')).to.equal(expected.format('YYYYMMDD'));
+		setTimeout(done);
 	})
-	it('should subtract one day when pressing the left arrow', () => {
+	it('should subtract one day when pressing the left arrow', (done) => {
 		const original = moment();
 		const expected = moment().subtract(1, 'day');
 		const wrapper = mount(<InfiniteCalendar selectedDate={original} keyboardSupport={true} />);
 
 		wrapper.simulate('keydown', {keyCode: keyCodes.left});
 		expect(wrapper.state().highlightedDate.format('YYYYMMDD')).to.equal(expected.format('YYYYMMDD'));
+		setTimeout(done);
 	})
-	it('should add seven days when pressing the down arrow', () => {
+	it('should add seven days when pressing the down arrow', (done) => {
 		const original = moment();
 		const expected = moment().add(7, 'day');
 		const wrapper = mount(<InfiniteCalendar selectedDate={original} keyboardSupport={true} />);
 
 		wrapper.simulate('keydown', {keyCode: keyCodes.down});
 		expect(wrapper.state().highlightedDate.format('YYYYMMDD')).to.equal(expected.format('YYYYMMDD'));
+		setTimeout(done);
 	})
-	it('should subtract seven days when pressing the up arrow', () => {
+	it('should subtract seven days when pressing the up arrow', (done) => {
 		const original = moment();
 		const expected = moment().subtract(7, 'day');
 		const wrapper = mount(<InfiniteCalendar selectedDate={original} keyboardSupport={true} />);
 
 		wrapper.simulate('keydown', {keyCode: keyCodes.up});
 		expect(wrapper.state().highlightedDate.format('YYYYMMDD')).to.equal(expected.format('YYYYMMDD'));
+		setTimeout(done);
 	})
-	it('should not subtract past minDate', () => {
+	it('should not subtract past minDate', (done) => {
 		const minDate = moment().add(1, 'day');
 		const wrapper = mount(<InfiniteCalendar minDate={minDate} keyboardSupport={true} />);
 
 		wrapper.simulate('keydown', {keyCode: keyCodes.left});
 		wrapper.simulate('keydown', {keyCode: keyCodes.up});
 		expect(wrapper.state().highlightedDate.format('YYYYMMDD')).to.equal(minDate.format('YYYYMMDD'));
+		setTimeout(done);
 	})
-	it('should not add past minDate', () => {
+	it('should not add past minDate', (done) => {
 		const maxDate = moment().add(1, 'day');
 		const wrapper = mount(<InfiniteCalendar maxDate={maxDate} keyboardSupport={true} />);
 
 		wrapper.simulate('keydown', {keyCode: keyCodes.right});
 		wrapper.simulate('keydown', {keyCode: keyCodes.down});
 		expect(wrapper.state().highlightedDate.format('YYYYMMDD')).to.equal(maxDate.format('YYYYMMDD'));
+		setTimeout(done);
 	})
-	it('should select the highlighted date when pressing enter', () => {
+	it('should select the highlighted date when pressing enter', (done) => {
 		const expected = moment().add(7, 'day');
 		const wrapper = mount(<InfiniteCalendar keyboardSupport={true} />);
 
 		wrapper.simulate('keydown', {keyCode: keyCodes.down});
 		wrapper.simulate('keydown', {keyCode: keyCodes.enter});
 		expect(wrapper.state().selectedDate.format('YYYYMMDD')).to.equal(expected.format('YYYYMMDD'));
+		setTimeout(done);
 	})
 });
