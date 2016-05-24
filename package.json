@@ -28,7 +28,7 @@
     "clean:umd": "rimraf dist/umd",
     "clean:es6": "rimraf dist/es6",
     "clean:commonjs": "rimraf dist/commonjs",
-    "test": "cross-env BABEL_ENV=testing karma start --single-run --browsers Firefox",
+    "test": "cross-env BABEL_ENV=testing karma start --single-run --browsers PhantomJS",
     "storybook": "start-storybook -p 9001",
     "deploy-storybook": "storybook-to-ghpages"
   },
