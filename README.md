@@ -1,7 +1,7 @@
 <div align="center" style="margin-bottom: 30px;">
 <img src="https://s3.amazonaws.com/f.cl.ly/items/0e0n28182s3b2a082X0K/logo.png" width="250"/>
-<h1>React Infinite Calendar</h1>
 </div>
+#React Infinite Calendar
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]()
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 ###Examples available here: <a href="#">http://clauderic.github.io/react-infinite-calendar/</a>
