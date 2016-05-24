@@ -78,6 +78,10 @@
         > .month, > .year {
             display: none;
         }
+        
+        &:before {
+            display: none;
+        }
 
         .selection {
             @include circle();

@@ -17,6 +17,7 @@
 
         .wrapper {
             position: relative;
+            flex-grow: 1;
             overflow: hidden;
             z-index: 1;
             border-top-right-radius: $borderRadius;
