@@ -14,7 +14,7 @@ const style = {
 
 chai.use(chaiEnzyme());
 
-describe("<InfiniteCalendar/> Selected Date", () => {
+describe("<InfiniteCalendar/> Selected Date", function() {
 	this.timeout(5000);
 
 	it('should default to `today` if no selected date is provided', (done) => {
@@ -39,7 +39,7 @@ describe("<InfiniteCalendar/> Selected Date", () => {
 	})
 });
 
-describe("<InfiniteCalendar/> Callback Events", () => {
+describe("<InfiniteCalendar/> Callback Events", function() {
 	this.timeout(5000);
 
 	it('should fire a callback onKeyDown', (done) => {
