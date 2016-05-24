@@ -91,7 +91,7 @@ For more usage examples, see [http://clauderic.github.io/react-infinite-calendar
 | className | String |  | Optional CSS class name to append to the root `InfiniteCalendar` element. |
 | overscanMonthCount | Number | 4 | Number of months to render above/below the visible months. Tweaking this can help reduce flickering during scrolling on certain browers/devices. |
 | disabledDays | Array of Numbers | | Array of days of the week that should be disabled. For example, to disable Monday and Sunday: `[0, 6]` |
-| disabledDates | Array of [Valid Dates](#) | | Array of arbitrary dates that should be disabled. Supports any input format supported by [moment.js](http://momentjs.com/docs/#/parsing/). For example: `['2016-01-08', new Date(), '20160520', {year: 2015, month: 03, day: 15}]` |
+| disabledDates | Array of [Valid Dates](http://momentjs.com/docs/#/parsing/) | | Array of arbitrary dates that should be disabled. Supports any input format supported by [moment.js](http://momentjs.com/docs/#/parsing/). For example: `['2016-01-08', new Date(), '20160520', {year: 2015, month: 03, day: 15}]` |
 | beforeSelect | Function | | Callback invoked before the state is mutated. Can be used to prevent the state from being changed by returning false. Example: `function(date) { return true / false; }` |
 | onSelect | Function | | Callback invoked after beforeSelect() returns true, but before the state of the calendar updates |
 | afterSelect | Function | | Callback invoked after the state of the calendar has sucessfully been updated |
