@@ -18,6 +18,19 @@
   "bugs": {
     "url": "https://github.com/clauderic/react-infinite-calendar/issues"
   },
+  "keywords": [
+    "react",
+    "reactjs",
+    "react-component",
+    "infinite",
+    "calendar",
+    "endless",
+    "date-picker",
+    "scrolling",
+    "virtual",
+    "date",
+    "picker"
+  ],
   "scripts": {
     "start": "node server.js",
     "build": "npm run build:commonjs && npm run build:es6 && npm run build:umd",
