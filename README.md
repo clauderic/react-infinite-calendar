@@ -2,6 +2,8 @@
 <img src="https://raw.githubusercontent.com/clauderic/react-infinite-calendar/master/.github/logo.png" width="250"/>
 </div>
 #React Infinite Calendar
+
+[![Join the chat at https://gitter.im/clauderic/react-infinite-calendar](https://badges.gitter.im/clauderic/react-infinite-calendar.svg)](https://gitter.im/clauderic/react-infinite-calendar?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]()
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 ###Examples available here: <a href="#">http://clauderic.github.io/react-infinite-calendar/</a>
