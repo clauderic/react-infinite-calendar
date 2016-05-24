@@ -1,0 +1,21 @@
+.root {
+    background-color: #FFF;
+
+    &.scrolling {
+        label {
+            opacity: 1;
+        }
+    }
+}
+
+:global {
+    .VirtualScroll {
+        position: relative;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        outline: none;
+    }
+    .Grid__cell {
+        position: absolute;
+    }
+}

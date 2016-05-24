@@ -1,0 +1,17 @@
+.enter {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+    transition: 0.25s ease;
+}
+.enter.enterActive {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+.leave {
+    transform: translate3d(0, 0, 0);
+    transition: 0.25s ease;
+}
+.leave.leaveActive {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+}

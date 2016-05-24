@@ -1,0 +1,65 @@
+@import "../variables";
+
+.root {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+
+    padding: 20px;
+    line-height: 1.3;
+    font-weight: 400;
+    border-top-left-radius: $borderRadius;
+    border-top-right-radius: $borderRadius;
+
+    &.blank {
+        height: 98px;
+
+        .wrapper {
+            color: rgba(255,255,255,0.5);
+            font-size: 18px;
+            cursor: default;
+        }
+    }
+    &.landscape {
+        align-items: flex-start;
+        min-width: 200px;
+        border-top-right-radius: 0;
+        border-bottom-left-radius: $borderRadius;
+
+        .dateWrapper.day {
+            flex-grow: 1;
+            height: 76px;
+        }
+    }
+}
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    cursor: pointer;
+}
+
+.dateWrapper {
+    position: relative;
+    display: block;
+    overflow: hidden;
+
+    &.day {
+        height: 38px;
+        font-size: 36px;
+        line-height: 36px;
+    }
+    &.year {
+        height: 20px;
+        color: rgba(255,255,255,0.5);
+        font-size: 18px;
+        line-height: 18px;
+    }
+}
+.date {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}

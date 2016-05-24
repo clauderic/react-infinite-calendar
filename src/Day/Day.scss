@@ -1,0 +1,120 @@
+@import "../variables";
+
+@mixin circle() {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: $rowHeight - 4px;
+    height: $rowHeight - 4px;
+    margin-top: -0.5 * ($rowHeight - 4px);
+    margin-left: -0.5 * ($rowHeight - 4px);
+    border-radius: 50%;
+}
+
+.root {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 1 / 7 * 100%;
+
+    list-style: none;
+
+    font-size: 16px;
+    text-align: center;
+
+    cursor: pointer;
+    user-select: none;
+
+    &.enabled {
+        &.highlighted, &:active, &:hover {
+            position: relative;
+            z-index: 1;
+
+            &:before {
+                @include circle();
+
+                background-color: #EFEFEF;
+                z-index: -1;
+            }
+        }
+
+        &:hover:before {
+            opacity: 0.5;
+        }
+        &.highlighted:before, &:active:before {
+            opacity: 1;
+        }
+    }
+
+    &:first-child {
+        position: relative;
+    }
+
+    &.today {
+        position: relative;
+        z-index: 2;
+
+        > span {
+            color: $textColor;
+        }
+
+        &.disabled > span {
+            color: #AAA;
+        }
+
+        &:before {
+            @include circle();
+            box-shadow: inset 0 0 0 1px;
+            z-index: -1;
+        }
+
+        &.disabled:before {
+            box-shadow: inset 0 0 0 1px #BBB;
+        }
+    }
+    &.selected {
+        position: relative;
+
+        > .month, > .year {
+            display: none;
+        }
+
+        .selection {
+            @include circle();
+            line-height: $rowHeight;
+            z-index: 2;
+
+            .month {
+                top: 9px;
+            }
+            .day {
+                position: relative;
+                top: 5px;
+
+                font-weight: bold;
+                font-size: 18px;
+            }
+        }
+    }
+    &.disabled {
+        cursor: default;
+        color: #AAA;
+        cursor: not-allowed;
+    }
+}
+
+.month, .year {
+    position: absolute;
+    left: 0;
+    right: 0;
+
+    font-size: 12px;
+    line-height: 12px;
+}
+
+.month {
+    top: 5px;
+}
+.year {
+    bottom: 5px;
+}
