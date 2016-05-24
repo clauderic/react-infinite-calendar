@@ -4,6 +4,7 @@
 #React Infinite Calendar
 ![npm version](https://img.shields.io/npm/v/react-infinite-calendar.svg)
 ![build](https://travis-ci.org/clauderic/react-infinite-calendar.svg?branch=master)
+![coverage](https://img.shields.io/codecov/c/github/clauderic/react-infinite-calendar.svg)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]()
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 [![Gitter](https://badges.gitter.im/clauderic/react-infinite-calendar.svg)](https://gitter.im/clauderic/react-infinite-calendar)
