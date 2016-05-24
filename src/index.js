@@ -3,14 +3,13 @@ import classNames from 'classnames';
 import moment from 'moment';
 import debounce from 'lodash/debounce';
 import range from 'lodash/range';
-import {getScrollSpeed, keyCodes, parseDate, validDate} from './utils';
+import {getScrollSpeed, getMonthsForYear, keyCodes, parseDate, validDate} from './utils';
 import defaultLocale from './locale';
 import defaultTheme from './theme';
 import Today from './Today';
 import Header from './Header';
 import List from './List';
 import Weekdays from './Weekdays';
-import Year from './Year';
 
 const containerStyle = require('./Container.scss');
 const dayStyle = require('./Day/Day.scss');
@@ -137,7 +136,7 @@ export default class InfiniteCalendar extends Component {
 		this._minDate = moment(props.minDate);
 		this._maxDate = moment(props.maxDate);
 
-		this.years = range(min.year(), max.year() + 1).map((year) => Year({year, min, max, rowHeight: props.rowHeight}));
+		this.years = range(min.year(), max.year() + 1).map((year) => getMonthsForYear(year, min, max));
 		this.months = [].concat.apply([], this.years);
 	}
 	updateLocale(locale) {
@@ -317,7 +316,7 @@ export default class InfiniteCalendar extends Component {
 		}
 	}
 	render() {
-		let {className, disabledDays, height, keyboardSupport, layout, overscanMonthCount, minDate, maxDate, shouldHeaderAnimate, showTodayHelper, showHeader, tabIndex, width, ...other} = this.props;
+		let {className, disabledDays, height, keyboardSupport, layout, overscanMonthCount, min, minDate, maxDate, shouldHeaderAnimate, showTodayHelper, showHeader, tabIndex, width, ...other} = this.props;
 		let disabledDates = this.getDisabledDates(this.props.disabledDates);
 		let locale = this.getLocale();
 		let theme = this.getTheme();
@@ -353,6 +352,7 @@ export default class InfiniteCalendar extends Component {
 							onScroll={this.onScroll}
 							isScrolling={isScrolling}
 							today={today}
+							min={parseDate(min)}
 							minDate={parseDate(minDate)}
 							maxDate={parseDate(maxDate)}
 							theme={theme}

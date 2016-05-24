@@ -57,6 +57,73 @@ export function getMonthsForYear(year, min, max) {
     return months.toArray('months');
 }
 
+export function getMonth(monthDate) {
+	let rows = {};
+	let daysInMonth = monthDate.daysInMonth();
+	let year = monthDate.year();
+	let month = monthDate.month();
+
+	let week, date, lastWeekVal;
+	let weekIndex = -1;
+
+	for (let i = 0; i < daysInMonth; i++) {
+		date = moment(new Date(year,month,i+1));
+		week = date.week();
+
+		if (week !== lastWeekVal) {
+			lastWeekVal = week;
+			weekIndex++;
+		}
+
+		if (!rows[weekIndex]) {
+			rows[weekIndex] = [];
+		}
+
+		rows[weekIndex].push({
+			date,
+			yyyymmdd: date.format('YYYYMMDD')
+		});
+	}
+
+	return {
+		date: monthDate,
+		rows: Object.keys(rows).map((row) => rows[row])
+	};
+}
+
+export function getWeeksInMonth(date, locale) {
+	let first = moment(date).startOf('month');
+	let last = moment(date).endOf('month');
+	let firstWeek = first.week();
+	let lastWeek = last.week();
+
+	// For those tricky months...
+	//
+	// SCENARIO 1
+	// firstWeek = 48
+	// lastWeek = 1
+	//
+	// SCENARIO 2
+	// firstWeek = 48
+	// lastWeek = 5
+	if (firstWeek > lastWeek) {
+		if (firstWeek > 50) {
+			firstWeek = 0;
+		} else {
+			lastWeek = last.weeksInYear() + 1;
+		}
+	}
+
+	let rows = lastWeek - firstWeek;
+
+	// If the last week contains 7 days, we need to add an extra row
+	if (last.clone().subtract(6,'day').day() == locale.week.dow) {
+		rows++;
+	}
+
+	return rows;
+}
+
 export function getScrollSpeed(settings) {
     settings = settings || {};
 

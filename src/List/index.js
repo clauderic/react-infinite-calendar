@@ -2,17 +2,11 @@ import React, {Component, PropTypes} from 'react';
 import {VirtualScroll} from 'react-virtualized';
 import classNames from 'classnames';
 import moment from 'moment';
-import {validParsedDate} from '../utils';
+import {getMonth, getWeeksInMonth, validParsedDate} from '../utils';
 import Month from '../Month';
 const style = require('./List.scss');
 
 export default class List extends Component {
-	constructor({months}) {
-		super();
-
-		this.monthMap = months.map((month) => month.date.format('YYYYMM'));
-		this.rowHeights = months.map((month) => month.height);
-	}
 	static propTypes = {
 		width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 		height: PropTypes.number,
@@ -26,6 +20,7 @@ export default class List extends Component {
 		overscanMonthCount: PropTypes.number,
 		isScrolling: PropTypes.bool,
 		today: validParsedDate,
+		min: validParsedDate,
 		minDate: validParsedDate,
 		maxDate: validParsedDate,
 		showOverlay: PropTypes.bool,
@@ -38,20 +33,37 @@ export default class List extends Component {
 
 		this.scrollEl = grid && grid.refs.scrollingContainer;
 	}
-	getRowHeight = ({index}) => {
-		return this.props.months[index].height;
+	cache = {};
+	memoize = function(param) {
+		if (!this.cache[param]) {
+			var result = getMonth(param); //custom function
+			this.cache[param] = result;
+		}
+		return this.cache[param];
+	}
+	monthHeights = [];
+	getMonthHeight = ({index}) => {
+		if (!this.monthHeights[index]) {
+			let {locale, months, rowHeight} = this.props;
+			let date = months[index];
+			let weeks = getWeeksInMonth(date, locale);
+			let height = weeks * rowHeight;
+			this.monthHeights[index] = height;
+		}
+
+		return this.monthHeights[index];
 	};
 	getMonthIndex = (date) => {
-		let index = this.monthMap.indexOf(moment(date).format('YYYYMM'));
+		let min = this.props.min.date;
+		let index = date.diff(min, 'months');
 
 		return index;
 	};
 	getDateOffset = (date) => {
-		let index = this.getMonthIndex(date);
-		let rowHeights = this.rowHeights.slice(0, index);
-		let offsetTop = rowHeights.reduce((a, b) => a + b, 0);
+		let {min, rowHeight} = this.props;
+		let weeks = date.clone().startOf('month').diff(min.date.clone().startOf('month'), 'weeks')
 
-		return offsetTop;
+		return weeks * rowHeight;
 	};
 	scrollToDate = (date, offset = 0) => {
 		if (this.scrollEl) {
@@ -63,29 +75,12 @@ export default class List extends Component {
 		let {scrollEl} = this;
 
 		if (scrollEl) {
-			// let scrollView = scrollEl.children[0];
-			// let currentScrollTop = scrollEl.scrollTop;
-			// let delta = -(offset - currentScrollTop);
-
-			// function onTransitionEnd () {
-			// 	scrollView.style.transform = 'translate3d(0,0,0)';
-			// 	scrollView.style.transition = '';
-				scrollEl.scrollTop = offset;
-
-			// 	scrollView.removeEventListener('transitionend', onTransitionEnd);
-			// }
-
-			// window.requestAnimationFrame(() => {
-			// 	scrollView.style.transform = `translate3d(0,${delta}px,0)`;
-			// 	scrollView.style.transition = 'transform 0.4s ease';
-			//
-			// 	scrollView.addEventListener('transitionend', onTransitionEnd);
-			// });
+			scrollEl.scrollTop = offset;
 		}
 	};
 	renderMonth = ({index, isScrolling}) => {
-		let {disabledDates, disabledDays, locale, maxDate, minDate, months, onDaySelect, rowHeight, selectedDate, showOverlay, theme, today} = this.props;
-		let {date, rows} = months[index];
+		let {disabledDates, disabledDays, locale, months, maxDate, minDate, onDaySelect, rowHeight, selectedDate, showOverlay, theme, today} = this.props;
+		let {date, rows} = this.memoize(months[index]);
 
 		return (
 			<Month
@@ -120,7 +115,7 @@ export default class List extends Component {
 				width={width}
 				height={height}
 				rowCount={months.length}
-				rowHeight={this.getRowHeight}
+				rowHeight={this.getMonthHeight}
 				rowRenderer={this.renderMonth}
 				onScroll={onScroll}
 				scrollTop={this.initScrollTop}
