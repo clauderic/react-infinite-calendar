@@ -3,7 +3,7 @@
 </div>
 
 # React Infinite Calendar
-![npm version](https://img.shields.io/npm/v/react-infinite-calendar.svg)
+[![npm version](https://img.shields.io/npm/v/react-infinite-calendar.svg)](https://www.npmjs.com/package/react-infinite-calendar)
 [![build](https://travis-ci.org/clauderic/react-infinite-calendar.svg?branch=master)](https://travis-ci.org/clauderic/react-infinite-calendar)
 [![coverage](https://img.shields.io/codecov/c/github/clauderic/react-infinite-calendar.svg)](https://codecov.io/gh/clauderic/react-infinite-calendar)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/clauderic/react-infinite-calendar/blob/master/LICENSE)
