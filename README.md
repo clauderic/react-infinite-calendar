@@ -2,6 +2,7 @@
 <img src="https://raw.githubusercontent.com/clauderic/react-infinite-calendar/master/.github/logo.png" width="250"/>
 </div>
 #React Infinite Calendar
+![npm version](https://img.shields.io/npm/v/react-infinite-calendar.svg)
 ![build](https://travis-ci.org/clauderic/react-infinite-calendar.svg?branch=master)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]()
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
