@@ -1,7 +1,7 @@
 import React from 'react';
 import chai, {expect} from 'chai';
 import chaiEnzyme from 'chai-enzyme';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import sinon from 'sinon';
 import moment from 'moment';
 import {keyCodes} from '../src/utils';
@@ -15,62 +15,74 @@ const style = {
 chai.use(chaiEnzyme());
 
 describe("<InfiniteCalendar/> Selected Date", () => {
-	it('should default to `today` if no selected date is provided', () => {
+	this.timeout(5000);
+
+	it('should default to `today` if no selected date is provided', (done) => {
 		const wrapper = mount(<InfiniteCalendar/>);
 		let selected = wrapper.find(`.${style.day.selected}`);
 
 		expect(selected).to.have.length(1);
 		expect(selected).to.have.data('date').equal(moment().format('YYYYMMDD'));
+		setTimeout(done);
 	})
-	it('should allow for no initial selected date', () => {
+	it('should allow for no initial selected date', (done) => {
 		const wrapper = mount(<InfiniteCalendar selectedDate={false} />);
 
 		expect(wrapper.find(`.${style.day.selected}`)).to.have.length(0);
+		setTimeout(done);
 	})
-	it('should scroll to `today` when there is no initial selected date', () => {
+	it('should scroll to `today` when there is no initial selected date', (done) => {
 		const wrapper = mount(<InfiniteCalendar selectedDate={false} />);
 
 		expect(wrapper.find(`.${style.day.today}`)).to.have.length(1);
+		setTimeout(done);
 	})
 });
 
 describe("<InfiniteCalendar/> Callback Events", () => {
-	it('should fire a callback onKeyDown', () => {
+	this.timeout(5000);
+
+	it('should fire a callback onKeyDown', (done) => {
 		const onKeyDown = sinon.spy();
 		const wrapper = mount(<InfiniteCalendar onKeyDown={onKeyDown} keyboardSupport={true} />);
 		wrapper.simulate('keydown', {keyCode: keyCodes.right});
 
 		expect(onKeyDown.calledOnce).to.equal(true);
+		setTimeout(done);
 	})
-	it('should fire a callback onScroll', () => {
+	it('should fire a callback onScroll', (done) => {
 		const onScroll = sinon.spy();
 
 		// No need to simulate a scroll event, <InfiniteCalendar/> already scrolls to the selected date on componentDidMount
 		mount(<InfiniteCalendar onScroll={onScroll} />);
 		expect(onScroll.calledOnce).to.equal(true);
+		setTimeout(done);
 	})
-	it('should fire a callback beforeSelect', () => {
+	it('should fire a callback beforeSelect', (done) => {
 		const beforeSelect = sinon.spy();
 		const wrapper = mount(<InfiniteCalendar beforeSelect={beforeSelect} />);
 		wrapper.find(Day).first().simulate('click');
 
 		expect(beforeSelect.calledOnce).to.equal(true);
+		setTimeout(done);
 	})
-	it('should fire a callback onSelect', () => {
+	it('should fire a callback onSelect', (done) => {
 		const onSelect = sinon.spy();
 		const wrapper = mount(<InfiniteCalendar onSelect={onSelect} />);
 		wrapper.find(Day).first().simulate('click');
 
 		expect(onSelect.calledOnce).to.equal(true);
+		setTimeout(done);
 	})
-	it('should fire a callback afterSelect', () => {
+	it('should fire a callback afterSelect', (done) => {
 		const afterSelect = sinon.spy();
 		const wrapper = mount(<InfiniteCalendar afterSelect={afterSelect} />);
 		wrapper.find(Day).first().simulate('click');
 
 		expect(afterSelect.calledOnce).to.equal(true);
+		setTimeout(done);
 	})
-	it('should allow for select event to be cancelled', () => {
+	it('should allow for select event to be cancelled', (done) => {
 		const expected = moment();
 		const beforeSelect = function() {
 			return false;
@@ -84,6 +96,7 @@ describe("<InfiniteCalendar/> Callback Events", () => {
 		expect(onSelect.called).to.equal(false);
 		expect(afterSelect.called).to.equal(false);
 		expect(wrapper.state().selectedDate.format('YYYYMMDD')).to.equal(expected.format('YYYYMMDD'));
+		setTimeout(done);
 	})
 });
 
