@@ -46,6 +46,9 @@ module.exports = function(config) {
 			}
 		},
 		reporters: ['progress', 'coverage'],
+		coverageReporter: {
+			reporters: [{type: 'lcov'}]
+		},
 		port: 9876,
 		colors: true,
 		logLevel: config.LOG_INFO,

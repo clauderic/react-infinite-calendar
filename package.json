@@ -30,7 +30,8 @@
     "clean:commonjs": "rimraf dist/commonjs",
     "test": "cross-env BABEL_ENV=testing karma start --single-run --browsers PhantomJS",
     "storybook": "start-storybook -p 9001",
-    "deploy-storybook": "storybook-to-ghpages"
+    "deploy-storybook": "storybook-to-ghpages",
+    "codecov": "cat coverage/*/lcov.info | codecov"
   },
   "dependencies": {
     "classnames": "^2.1.2",
@@ -66,6 +67,7 @@
     "chai": "^3.5.0",
     "chai-enzyme": "^0.4.2",
     "cheerio": "^0.20.0",
+    "codecov.io": "^0.1.6",
     "cross-env": "^1.0.7",
     "css-loader": "^0.23.1",
     "enzyme": "^2.3.0",
