@@ -1,14 +1,15 @@
 <div align="center" style="margin-bottom: 30px;">
 <img src="https://raw.githubusercontent.com/clauderic/react-infinite-calendar/master/.github/logo.png" width="250"/>
 </div>
-#React Infinite Calendar
+
+# React Infinite Calendar
 ![npm version](https://img.shields.io/npm/v/react-infinite-calendar.svg)
 ![build](https://travis-ci.org/clauderic/react-infinite-calendar.svg?branch=master)
 ![coverage](https://img.shields.io/codecov/c/github/clauderic/react-infinite-calendar.svg)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]()
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 [![Gitter](https://badges.gitter.im/clauderic/react-infinite-calendar.svg)](https://gitter.im/clauderic/react-infinite-calendar)
-###Examples available here: <a href="#">http://clauderic.github.io/react-infinite-calendar/</a>
+### Examples available here: <a href="#">http://clauderic.github.io/react-infinite-calendar/</a>
 
 Features
 ---------------
