@@ -102,7 +102,7 @@ For more usage examples, see [http://clauderic.github.io/react-infinite-calendar
 | afterSelect | Function | | Callback invoked after the state of the calendar has sucessfully been updated |
 | onScroll | Function | | Callback invoked when the scroll offset changes. `function (scrollTop: number) {}` |
 | onScrollEnd | Function | | Callback invoked `150ms` after the last onScroll event is triggered. `function (scrollTop: number) {}` |
-| keyboardSupport | Boolean | true | Keyboard support (`left`, `right`, `up`, `down`) |
+| keyboardSupport | Boolean | true | Keyboard support (`left`, `right`, `up`, `down`, `enter`) |
 | autoFocus | Boolean | true | Whether the Calendar root should be auto-focused when it mounts. This is useful when `keyboardSupport` is enabled (the calendar must be focused to listen for keyboard events) |
 | tabIndex | Number | 1 | Tab-index of the calendar |
 | layout | String | 'portrait' | Layout of the calendar. Should be one of `'portrait'` or `'landscape'` |
@@ -119,8 +119,10 @@ Contributions
 ------------
 Yes please! Feature requests / pull requests are welcome.
 
+---
+
 <div align="center">
-<sub>
-Made with <span style="color:#F84356">❤︎</span> in the heart of Montreal by <a href="https://github.com/clauderic">Claudéric Demers</a>.</a>
-</sub>
+<small>
+Made with ❤︎ in the heart of Montreal.</a>
+</small>
 </div>
