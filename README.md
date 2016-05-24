@@ -1,8 +1,8 @@
 <div align="center" style="margin-bottom: 30px;">
 <img src="https://s3.amazonaws.com/f.cl.ly/items/0e0n28182s3b2a082X0K/logo.png" width="250"/>
 
-<h1>React Infinite Calendar</h1>
-<h3>Examples available here: <a href="#">http://clauderic.github.io/react-infinite-calendar/</a></h3>
+<h1 style="margin-top: 0; margin-bottom:0; border-bottom: 0;">React Infinite Calendar</h1>
+<h3 style="margin-top: 0; margin-bottom: 50px;">Examples available here: <a href="#">http://clauderic.github.io/react-infinite-calendar/</a></h3>
 </div>
 
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]()
