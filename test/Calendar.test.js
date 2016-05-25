@@ -33,7 +33,12 @@ describe("<InfiniteCalendar/> Selected Date", function() {
 	})
 	it('should scroll to `today` when there is no initial selected date', (done) => {
 		const wrapper = mount(<InfiniteCalendar selectedDate={false} />);
+        const inst = wrapper.instance();
+        const list = inst.refs.List;
+		const expectedOffset = list.getDateOffset(moment());
+		const currentOffset = inst.getCurrentOffset();
 
+		expect(currentOffset).to.equal(expectedOffset);
 		expect(wrapper.find(`.${style.day.today}`)).to.have.length(1);
 		setTimeout(done);
 	})

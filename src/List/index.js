@@ -65,17 +65,18 @@ export default class List extends Component {
 
 		return weeks * rowHeight;
 	};
-	scrollToDate = (date, offset = 0) => {
+	getCurrentOffset = () => {
 		if (this.scrollEl) {
-			let offsetTop = this.getDateOffset(date);
-			this.scrollTo(offsetTop + offset);
+			return this.scrollEl.scrollTop;
 		}
+	}
+	scrollToDate = (date, offset = 0) => {
+		let offsetTop = this.getDateOffset(date);
+		this.scrollTo(offsetTop + offset);
 	};
 	scrollTo = (offset = 0) => {
-		let {scrollEl} = this;
-
-		if (scrollEl) {
-			scrollEl.scrollTop = offset;
+		if (this.scrollEl) {
+			this.scrollEl.scrollTop = offset;
 		}
 	};
 	renderMonth = ({index, isScrolling}) => {

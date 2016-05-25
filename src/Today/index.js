@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import classNames from 'classnames';
+import moment from 'moment';
 const style = require('./Today.scss');
 
 export default class Today extends Component {
@@ -7,19 +8,18 @@ export default class Today extends Component {
 		locale: PropTypes.object,
 		scrollToDate: PropTypes.func,
 		show: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
-		theme: PropTypes.object,
-		today: PropTypes.object
+		theme: PropTypes.object
 	};
 	shouldComponentUpdate(nextProps) {
 		let {locale, show, theme} = this.props;
 		return (nextProps.locale !== locale || nextProps.show !== show || nextProps.theme !== theme);
 	}
 	scrollToToday = () => {
-		let {today, scrollToDate} = this.props;
+		let {scrollToDate} = this.props;
 		let node = this.refs.node;
 		let height = node && node.offsetHeight;
 
-		scrollToDate(today.date, -height);
+		scrollToDate(moment(), -height);
 	};
 	render() {
 		let {locale, show, theme} = this.props;
