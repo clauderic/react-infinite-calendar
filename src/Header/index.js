@@ -10,7 +10,7 @@ export default class Header extends Component {
 		layout: PropTypes.string,
 		locale: PropTypes.object,
 		onClick: PropTypes.func,
-		selectedDate: PropTypes.object,
+		selectedDate: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 		shouldHeaderAnimate: PropTypes.bool,
 		theme: PropTypes.object
 	};
