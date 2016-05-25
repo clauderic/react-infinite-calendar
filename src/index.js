@@ -254,9 +254,7 @@ export default class InfiniteCalendar extends Component {
 		}
 		switch (e.keyCode) {
 			case keyCodes.enter:
-				this.setState({
-					selectedDate: moment(highlightedDate)
-				});
+				this.onDaySelect(moment(highlightedDate), e);
 				return;
 			case keyCodes.left:
 				delta = -1;
