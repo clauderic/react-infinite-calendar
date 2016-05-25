@@ -9,7 +9,7 @@ import defaultLocale from '../src/locale';
 
 chai.use(chaiEnzyme());
 
-describe("<Month/>", function () {
+describe("<Today/>", function () {
     it('should fire a callback once when clicked on', () => {
         const onClick = sinon.spy();
         const wrapper = shallow(<Today locale={defaultLocale} theme={defaultTheme} scrollToDate={onClick}/>);

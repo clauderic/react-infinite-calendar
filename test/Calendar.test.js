@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import chai, {expect} from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import { mount } from 'enzyme';
@@ -41,6 +42,22 @@ describe("<InfiniteCalendar/> Selected Date", function() {
 		expect(currentOffset).to.equal(expectedOffset);
 		expect(wrapper.find(`.${style.day.today}`)).to.have.length(1);
 		setTimeout(done);
+	})
+});
+
+describe("<InfiniteCalendar/> Methods", function() {
+	it('should scroll to a given date when scrollToDate is called', () => {
+		// Bootstrapping
+        const div = document.createElement('div');
+        document.body.appendChild(div);
+        const inst = ReactDOM.render(<InfiniteCalendar/>, div);
+
+		inst.scrollToDate(); // Should default to moment();
+
+		const expectedOffset = inst.getDateOffset(moment());
+		const actualOffset = inst.getCurrentOffset();
+		expect(expectedOffset).to.equal(actualOffset);
+		ReactDOM.unmountComponentAtNode(div);
 	})
 });
 
@@ -169,6 +186,15 @@ describe("<InfiniteCalendar/> Keyboard Support", function() {
 		wrapper.simulate('keydown', {keyCode: keyCodes.down});
 		wrapper.simulate('keydown', {keyCode: keyCodes.enter});
 		expect(wrapper.state().selectedDate.format('YYYYMMDD')).to.equal(expected.format('YYYYMMDD'));
+		setTimeout(done);
+	})
+	it('should fire an onSelect callback when pressing enter', (done) => {
+		const onSelect = sinon.spy();
+		const wrapper = mount(<InfiniteCalendar onSelect={onSelect} keyboardSupport={true} />);
+
+		wrapper.simulate('keydown', {keyCode: keyCodes.down});
+		wrapper.simulate('keydown', {keyCode: keyCodes.enter});
+		expect(onSelect.calledOnce).to.equal(true);
 		setTimeout(done);
 	})
 });
