@@ -13,7 +13,7 @@ import ReactDOM from 'react-dom';
 chai.use(chaiEnzyme());
 
 describe("<List/>", function() {
-    const months = getMonthsForYear(moment().year());
+    const months = getMonthsForYear();
 	const today = parseDate(moment());
     const min = parseDate(moment().startOf('year'));
     const max = parseDate(moment({year: 2050, month: 11, day: 31}));
