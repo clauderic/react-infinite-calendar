@@ -51,7 +51,7 @@ export function getMonthsForYear(year, min, max) {
     } else if (year) {
         months = moment(year, 'YYYY').range('year');
     } else {
-        months = moment.range('year');
+        months = moment().range('year');
     }
 
     return months.toArray('months');
