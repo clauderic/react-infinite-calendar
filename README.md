@@ -18,7 +18,7 @@ Features
 
 * **Infinite scroll** – Just keep scrollin', just keep scrollin'
 * **Flexible** – Min/max date, disabled dates, disabled days, etc.
-* **Localization and translation** – En français, s'il vous plait!
+* **Localization and translation** – En français, s'il vous plaît!
 * **Customizeable** – Customize and theme to your heart's content.
 * **Keyboard support** – ⬆️ ⬇️ ⬆️ ⬇️ ⬅️ ➡️ ⬅️ ➡️ ↩️
 * **Events and callbacks** – beforeSelect, onSelect, onScroll, yadda yadda yadda.
