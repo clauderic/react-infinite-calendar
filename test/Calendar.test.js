@@ -73,6 +73,18 @@ describe("<InfiniteCalendar/> Lifecycle Methods", function() {
 		expect(wrapper.props().selectedDate).to.equal(updated);
 		expect(wrapper.state().selectedDate.format('x')).to.equal(updated.format('x'));
 	})
+	it('updates when props.minDate changes', (done) => {
+		this.timeout(500);
+		const minDate = moment().subtract(10, 'day');
+		const wrapper = mount(<InfiniteCalendar />);
+
+		setTimeout(() => {
+			const spy = sinon.spy(InfiniteCalendar.prototype, 'updateYears');
+			wrapper.setProps({minDate});
+			expect(spy.calledOnce).to.equal(true);
+			done();
+		}, 500)
+	})
 	it('updates locale when props.locale changes', (done) => {
 		this.timeout(500);
 		const selectedDate = moment();
