@@ -51,6 +51,11 @@ describe("<InfiniteCalendar/> Selected Date", function() {
 
 		expect(wrapper.state().selectedDate.format('x')).to.equal(min.format('x'));
 	})
+	it('should not allow selectedDate to be disabled', () => {
+		const wrapper = mount(<InfiniteCalendar selectedDate={moment()} disabledDates={[moment()]} />);
+
+		expect(wrapper.find(`.{style.day.selected}`)).to.have.length(0);
+	})
 });
 
 describe("<InfiniteCalendar/> Lifecycle Methods", function() {
@@ -75,7 +80,7 @@ describe("<InfiniteCalendar/> Lifecycle Methods", function() {
 	})
 	it('updates when props.minDate changes', (done) => {
 		this.timeout(500);
-		const minDate = moment().subtract(10, 'day');
+		const minDate = moment().add(10, 'day');
 		const wrapper = mount(<InfiniteCalendar />);
 
 		setTimeout(() => {
