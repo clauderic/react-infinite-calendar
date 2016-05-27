@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import moment from 'moment';
 import debounce from 'lodash/debounce';
 import range from 'lodash/range';
-import {getScrollSpeed, getMonthsForYear, keyCodes, parseDate, validDate} from './utils';
+import {getScrollSpeed, getMonthsForYear, keyCodes, parseDate, validDate, validLayout} from './utils';
 import defaultLocale from './locale';
 import defaultTheme from './theme';
 import Today from './Today';
@@ -74,11 +74,7 @@ export default class InfiniteCalendar extends Component {
 		autoFocus: PropTypes.bool,
 		onKeyDown: PropTypes.func,
 		tabIndex: PropTypes.number,
-		layout: function(props, propName, componentName) {
-			if (['portrait', 'landscape'].indexOf(props[propName]) == -1) {
-				return new Error(`Invalid prop \`${propName}\` supplied to ${componentName}. Should be one of \`landscape\` or \`portrait\`.`);
-			}
-		},
+		layout: validLayout,
 		shouldHeaderAnimate: PropTypes.bool,
 		showOverlay: PropTypes.bool,
 		showTodayHelper: PropTypes.bool,

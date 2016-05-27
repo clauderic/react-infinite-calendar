@@ -177,3 +177,9 @@ export function validParsedDate(props, propName, componentName) {
         return new Error(`Invalid prop \`${propName}\` supplied to ${componentName}.`);
     }
 }
+
+export function validLayout(props, propName, componentName) {
+	if (['portrait', 'landscape'].indexOf(props[propName]) == -1) {
+		return new Error(`Invalid prop \`${propName}\` supplied to ${componentName}. Should be one of \`landscape\` or \`portrait\`.`);
+	}
+}
