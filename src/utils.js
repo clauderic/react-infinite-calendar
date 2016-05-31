@@ -69,8 +69,8 @@ export function getMonth(monthDate) {
 export function getWeeksInMonth(date, locale) {
 	let first = moment(date).startOf('month');
 	let last = moment(date).endOf('month');
-	let firstWeek = first.week();
-	let lastWeek = last.week();
+	let firstWeek = first.locale(locale.name).week();
+	let lastWeek = last.locale(locale.name).week();
 
 	// For those tricky months...
 	//
@@ -92,7 +92,7 @@ export function getWeeksInMonth(date, locale) {
 	let rows = lastWeek - firstWeek;
 
 	// If the last week contains 7 days, we need to add an extra row
-	if (last.clone().subtract(6,'day').day() == locale.week.dow) {
+	if (last.clone().subtract(6,'day').locale(locale.name).day() == locale.week.dow) {
 		rows++;
 	}
 
