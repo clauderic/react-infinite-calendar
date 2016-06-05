@@ -330,28 +330,8 @@ export default class InfiniteCalendar extends Component {
 				});
 
 			}
-		} else if (display == 'years') {
-			switch (e.keyCode) {
-				case keyCodes.enter:
-				case keyCodes.escape:
-					this.setDisplay('days');
-					this.scrollToDate(selectedDate, -40);
-					return;
-				case keyCodes.down:
-					delta = +1;
-					break;
-				case keyCodes.up:
-					delta = -1;
-					break;
-			}
-
-			if (delta) {
-				let newSelectedDate = selectedDate.clone().add(delta, 'year');
-
-				if (!newSelectedDate.isAfter(maxDate, 'day') && !newSelectedDate.isBefore(minDate, 'day')) {
-					this.onDaySelect(newSelectedDate, e);
-				}
-			}
+		} else if (display == 'years' && this.refs.years) {
+			this.refs.years.handleKeyDown(e);
 		}
 	};
 	clearHighlight() {

@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {VirtualScroll} from 'react-virtualized';
 import classNames from 'classnames';
+import {keyCodes} from '../utils';
 import moment from 'moment';
 const style = require('./Years.scss');
 
@@ -18,14 +19,21 @@ export default class Years extends Component {
         theme: PropTypes.object,
         years: PropTypes.array
     };
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            selectedYear: (props.selectedDate) ? props.selectedDate.year() : moment().year()
+        };
+    }
     componentDidMount() {
         let vs = this.refs.VirtualScroll;
 		let grid = vs && vs.refs.Grid;
 
 		this.scrollEl = grid && grid.refs.scrollingContainer;
     }
-    handleClick(year) {
-        let {hideYearsOnSelect, maxDate, minDate, onDaySelect, scrollToDate, selectedDate, setDisplay} = this.props;
+    handleClick(year, e) {
+        let {hideYearsOnSelect, scrollToDate, selectedDate, setDisplay} = this.props;
         let date = selectedDate || moment();
         let newDate = date.clone().year(year);
 
@@ -36,24 +44,59 @@ export default class Years extends Component {
                 setDisplay('days');
             }
 
-            if (!newDate.isBefore(minDate, 'day') && !newDate.isAfter(maxDate, 'day')) {
-                window.requestAnimationFrame(() => {
-                    setTimeout(() => {
-                        onDaySelect(newDate);
-                    });
+            window.requestAnimationFrame(() => {
+                setTimeout(() => {
+                    this.selectDate(newDate, e);
                 });
-            }
+            });
         });
+    }
+    selectDate(date, e) {
+        let {minDate, maxDate, onDaySelect} = this.props;
+
+        this.setState({
+            selectedYear: date.year()
+        });
+
+        if (!date.isBefore(minDate, 'day') && !date.isAfter(maxDate, 'day')) {
+            onDaySelect(date, e);
+        }
+    }
+    handleKeyDown(e) {
+        let {scrollToDate, setDisplay, selectedDate} = this.props;
+        let {selectedYear} = this.state;
+        let delta = 0;
+
+        switch (e.keyCode) {
+            case keyCodes.enter:
+            case keyCodes.escape:
+                setDisplay('days');
+                scrollToDate(selectedDate || moment(selectedYear, 'YYYY'), -40);
+                return;
+            case keyCodes.down:
+                delta = +1;
+                break;
+            case keyCodes.up:
+                delta = -1;
+                break;
+        }
+
+        if (delta) {
+            if (!selectedDate) selectedDate = moment();
+            let newSelectedDate = selectedDate.clone().add(delta, 'year');
+            this.selectDate(newSelectedDate, e);
+        }
     }
     render() {
         let {height, selectedDate, theme, width} = this.props;
+        let {selectedYear} = this.state;
         const currentYear = moment().year();
         let years = this.props.years.slice(0, this.props.years.length);
         // Add spacer rows at the top and bottom
         years.unshift(null);
         years.push(null);
 
-        let selectedYearIndex = years.indexOf((selectedDate) ? selectedDate.year() : currentYear);
+        let selectedYearIndex = years.indexOf(selectedYear);
         const rowHeight = 50;
         const containerHeight = (years.length * rowHeight < height + 50) ? years.length * rowHeight : height + 50;
 
