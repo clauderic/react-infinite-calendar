@@ -84,7 +84,7 @@ export default class Years extends Component {
         }
 
         if (delta) {
-            if (!selectedDate) selectedDate = moment();
+            if (!selectedDate) selectedDate = moment().year(selectedYear);
             let newSelectedDate = selectedDate.clone().add(delta, 'year');
             this.selectDate(newSelectedDate, e);
         }
