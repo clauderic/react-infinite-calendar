@@ -46,17 +46,19 @@ export default class Years extends Component {
 
             window.requestAnimationFrame(() => {
                 setTimeout(() => {
-                    this.selectDate(newDate, e);
+                    this.selectDate(newDate, e, !hideYearsOnSelect);
                 });
             });
         });
     }
-    selectDate(date, e) {
+    selectDate(date, e, updateState = true) {
         let {minDate, maxDate, onDaySelect} = this.props;
 
-        this.setState({
-            selectedYear: date.year()
-        });
+        if (updateState) {
+            this.setState({
+                selectedYear: date.year()
+            });
+        }
 
         if (!date.isBefore(minDate, 'day') && !date.isAfter(maxDate, 'day')) {
             onDaySelect(date, e);
