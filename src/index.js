@@ -245,7 +245,7 @@ export default class InfiniteCalendar extends Component {
 		}
 	};
 	handleKeyDown = (e) => {
-		let {onKeyDown} = this.props;
+		let {maxDate, minDate, onKeyDown} = this.props;
 		let {display, selectedDate, highlightedDate, showToday} = this.state;
 		let delta = 0;
 
@@ -281,7 +281,7 @@ export default class InfiniteCalendar extends Component {
 			}
 
 			if (delta) {
-				let {maxDate, minDate, rowHeight} = this.props;
+				let {rowHeight} = this.props;
 				let newHighlightedDate = moment(highlightedDate).add(delta, 'days');
 
 				// Make sure the new highlighted date isn't before min / max
@@ -343,7 +343,10 @@ export default class InfiniteCalendar extends Component {
 
 			if (delta) {
 				let newSelectedDate = selectedDate.clone().add(delta, 'year');
-				this.onDaySelect(newSelectedDate, e);
+
+				if (!newSelectedDate.isAfter(maxDate, 'day') && !newSelectedDate.isBefore(minDate, 'day')) {
+					this.onDaySelect(newSelectedDate, e);
+				}
 			}
 		}
 	};
