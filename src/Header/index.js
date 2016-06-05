@@ -18,7 +18,7 @@ export default class Header extends Component {
 		return shallowCompare(this, nextProps);
 	}
 	render() {
-		let {display, layout, locale, onClick, selectedDate, setDisplay, shouldHeaderAnimate, theme} = this.props;
+		let {display, layout, locale, scrollToDate, selectedDate, setDisplay, shouldHeaderAnimate, theme} = this.props;
 		let values = selectedDate && [
 			{
 				item: 'year',
@@ -26,7 +26,7 @@ export default class Header extends Component {
 				active: (display === 'years'),
 				title: (display === 'days') ? `Change year` : null,
 				handleClick: (e) => {
-					e.stopPropagation();
+					e && e.stopPropagation();
 					setDisplay('years');
 				}
 			},
@@ -37,12 +37,12 @@ export default class Header extends Component {
 				active: (display === 'days'),
 				title: (display === 'days') ? `Scroll to ${selectedDate.format(locale.headerFormat)}` : null,
 				handleClick: (e) => {
-					e.stopPropagation();
+					e && e.stopPropagation();
 
 					if (display !== 'days') {
 						setDisplay('days');
 					} else if (selectedDate) {
-						onClick(selectedDate, -40);
+						scrollToDate(selectedDate, -40);
 					}
 				}
 			}

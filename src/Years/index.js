@@ -68,6 +68,7 @@ export default class Years extends Component {
                                 className={classNames(style.year, {[style.active]: isActive, [style.currentYear]: (year == currentYear)})}
                                 onClick={() => this.handleClick(year)}
                                 title={`Set year to ${year}`}
+                                data-year={year}
                                 style={{color: (typeof theme.selectionColor == 'function') ? theme.selectionColor(selectedDate.clone().year(year)) : theme.selectionColor}}
                             >
                                 <span style={(year == currentYear) ? {borderColor: theme.todayColor} : null}>
