@@ -256,9 +256,13 @@ export default class InfiniteCalendar extends Component {
 			e.preventDefault();
 		}
 
+		if (!selectedDate) {
+			selectedDate = moment();
+		}
+
 		if (display == 'days') {
 			if (!highlightedDate) {
-				highlightedDate = this.state.selectedDate.clone();
+				highlightedDate = selectedDate.clone();
 				this.setState({highlightedDate});
 			}
 
