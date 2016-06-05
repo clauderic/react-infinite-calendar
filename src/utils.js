@@ -158,3 +158,9 @@ export function validLayout(props, propName, componentName) {
 		return new Error(`Invalid prop \`${propName}\` supplied to ${componentName}. Should be one of \`landscape\` or \`portrait\`.`);
 	}
 }
+
+export function validDisplay(props, propName, componentName) {
+	if (['years', 'days'].indexOf(props[propName]) == -1) {
+		return new Error(`Invalid prop \`${propName}\` supplied to ${componentName}. Should be one of \`days\` or \`years\`.`);
+	}
+}

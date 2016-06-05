@@ -16,10 +16,8 @@ export default class Today extends Component {
 	}
 	scrollToToday = () => {
 		let {scrollToDate} = this.props;
-		let node = this.refs.node;
-		let height = node && node.offsetHeight;
 
-		scrollToDate(moment(), -height);
+		scrollToDate(moment(), -40);
 	};
 	render() {
 		let {locale, show, theme} = this.props;

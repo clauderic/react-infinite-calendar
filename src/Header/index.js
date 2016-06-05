@@ -18,32 +18,49 @@ export default class Header extends Component {
 		return shallowCompare(this, nextProps);
 	}
 	render() {
-		let {layout, locale, onClick, selectedDate, shouldHeaderAnimate, theme} = this.props;
+		let {display, layout, locale, onClick, selectedDate, setDisplay, shouldHeaderAnimate, theme} = this.props;
 		let values = selectedDate && [
 			{
 				item: 'year',
-				value: selectedDate.year()
+				value: selectedDate.year(),
+				active: (display === 'years'),
+				title: (display === 'days') ? `Change year` : null,
+				handleClick: (e) => {
+					e.stopPropagation();
+					setDisplay('years');
+				}
 			},
 			{
 				item: 'day',
 				key: selectedDate.format('YYYYMMDD'),
-				value: selectedDate.format(locale.headerFormat)
+				value: selectedDate.format(locale.headerFormat),
+				active: (display === 'days'),
+				title: (display === 'days') ? `Scroll to ${selectedDate.format(locale.headerFormat)}` : null,
+				handleClick: (e) => {
+					e.stopPropagation();
+
+					if (display !== 'days') {
+						setDisplay('days');
+					} else if (selectedDate) {
+						onClick(selectedDate, -40);
+					}
+				}
 			}
 		];
 
 		return (
-			<div className={classNames(style.root, {[style.blank]: !selectedDate, [style.landscape]: layout == 'landscape'})} style={theme && {backgroundColor: theme.headerColor, color: theme.textColor.active}} onClick={selectedDate ? () => onClick(selectedDate) : null}>
+			<div className={classNames(style.root, {[style.blank]: !selectedDate, [style.landscape]: layout == 'landscape'})} style={theme && {backgroundColor: theme.headerColor, color: theme.textColor.active}}>
 				{(selectedDate) ?
-					<div className={style.wrapper} title={`Scroll to ${selectedDate.format(locale.headerFormat)}`} aria-label={selectedDate.format(locale.headerFormat + ' YYYY')}>
-						{values.map(({item, key, value}) => {
+					<div className={style.wrapper} aria-label={selectedDate.format(locale.headerFormat + ' YYYY')}>
+						{values.map(({handleClick, item, key, value, active, title}) => {
 							var output = (
-								<span key={`${item}-${key || value}`} className={style.date} aria-hidden={true}>
+								<span key={`${item}-${key || value}`} className={style.date} aria-hidden={true} onClick={handleClick}>
 									{value}
 								</span>
 							);
 
 							return (
-								<div key={item} className={classNames(style.dateWrapper, style[item])}>
+								<div key={item} className={classNames(style.dateWrapper, style[item], {[style.active]: active})} title={title}>
 									{(shouldHeaderAnimate) ?
 										<ReactCSSTransitionGroup transitionName={animation} transitionEnterTimeout={250} transitionLeaveTimeout={250}>
 											{output}
