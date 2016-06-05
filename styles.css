@@ -123,6 +123,7 @@
   position: absolute;
   top: 0;
   left: 0;
+  right: 0;
   bottom: 0; }
 .Cal__Animation__enter {
   opacity: 0;
@@ -375,8 +376,7 @@
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, white 100%); }
 
 .Cal__Years__list {
-  box-sizing: border-box;
-  padding: 40px 0; }
+  box-sizing: border-box; }
   .Cal__Years__list.Cal__Years__center {
     display: -webkit-box;
     display: -webkit-flex;
