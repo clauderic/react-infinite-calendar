@@ -37,31 +37,24 @@ export default class Years extends Component {
         let date = selectedDate || moment();
         let newDate = date.clone().year(year);
 
+        this.selectDate(newDate, e, !hideYearsOnSelect);
         scrollToDate(newDate, -40);
 
-        window.requestAnimationFrame(() => {
-            if (hideYearsOnSelect) {
-                setDisplay('days');
-            }
-
-            window.requestAnimationFrame(() => {
-                setTimeout(() => {
-                    this.selectDate(newDate, e, !hideYearsOnSelect);
-                });
-            });
-        });
+        if (hideYearsOnSelect) {
+            setDisplay('days');
+        }
     }
-    selectDate(date, e, updateState = true) {
+    selectDate(date, e, updateState = true, shouldHeaderAnimate = false) {
         let {minDate, maxDate, onDaySelect} = this.props;
 
-        if (updateState) {
-            this.setState({
-                selectedYear: date.year()
-            });
-        }
-
         if (!date.isBefore(minDate, 'day') && !date.isAfter(maxDate, 'day')) {
-            onDaySelect(date, e);
+            if (updateState) {
+                this.setState({
+                    selectedYear: date.year()
+                });
+            }
+
+            onDaySelect(date, e, shouldHeaderAnimate);
         }
     }
     handleKeyDown(e) {
@@ -85,6 +78,7 @@ export default class Years extends Component {
 
         if (delta) {
             if (!selectedDate) selectedDate = moment().year(selectedYear);
+
             let newSelectedDate = selectedDate.clone().add(delta, 'year');
             this.selectDate(newSelectedDate, e);
         }

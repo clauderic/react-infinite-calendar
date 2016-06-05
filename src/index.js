@@ -28,7 +28,8 @@ export default class InfiniteCalendar extends Component {
 		this.updateYears(props);
 		this.state = {
 			selectedDate: this.parseSelectedDate(props.selectedDate),
-			display: props.display
+			display: props.display,
+			shouldHeaderAnimate: props.shouldHeaderAnimate
 		};
 	}
 	static defaultProps = {
@@ -161,7 +162,7 @@ export default class InfiniteCalendar extends Component {
 	getTheme(customTheme = this.props.theme) {
 		return Object.assign({}, defaultTheme, customTheme);
 	}
-	onDaySelect = (selectedDate, e) => {
+	onDaySelect = (selectedDate, e, shouldHeaderAnimate = this.props.shouldHeaderAnimate) => {
 		let {afterSelect, beforeSelect, onSelect} = this.props;
 
 		if (!beforeSelect || typeof beforeSelect == 'function' && beforeSelect(selectedDate)) {
@@ -171,6 +172,7 @@ export default class InfiniteCalendar extends Component {
 
 			this.setState({
 				selectedDate,
+				shouldHeaderAnimate,
 				highlightedDate: selectedDate.clone()
 			}, () => {
 				this.clearHighlight();
@@ -356,7 +358,6 @@ export default class InfiniteCalendar extends Component {
 			minDate,
 			max,
 			maxDate,
-			shouldHeaderAnimate,
 			showTodayHelper,
 			showHeader,
 			tabIndex,
@@ -366,7 +367,7 @@ export default class InfiniteCalendar extends Component {
 		let disabledDates = this.getDisabledDates(this.props.disabledDates);
 		let locale = this.getLocale();
 		let theme = this.getTheme();
-		let {display, isScrolling, selectedDate, showToday} = this.state;
+		let {display, isScrolling, selectedDate, showToday, shouldHeaderAnimate} = this.state;
 		let today = this.today = parseDate(moment());
 
 		// Selected date should not be disabled

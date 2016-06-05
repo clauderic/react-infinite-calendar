@@ -12,7 +12,8 @@ export default class Header extends Component {
 		onClick: PropTypes.func,
 		selectedDate: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 		shouldHeaderAnimate: PropTypes.bool,
-		theme: PropTypes.object
+		theme: PropTypes.object,
+		display: PropTypes.string
 	};
 	shouldComponentUpdate(nextProps) {
 		return shallowCompare(this, nextProps);
@@ -53,19 +54,13 @@ export default class Header extends Component {
 				{(selectedDate) ?
 					<div className={style.wrapper} aria-label={selectedDate.format(locale.headerFormat + ' YYYY')}>
 						{values.map(({handleClick, item, key, value, active, title}) => {
-							var output = (
-								<span key={`${item}-${key || value}`} className={style.date} aria-hidden={true} onClick={handleClick}>
-									{value}
-								</span>
-							);
-
 							return (
 								<div key={item} className={classNames(style.dateWrapper, style[item], {[style.active]: active})} title={title}>
-									{(shouldHeaderAnimate) ?
-										<ReactCSSTransitionGroup transitionName={animation} transitionEnterTimeout={250} transitionLeaveTimeout={250}>
-											{output}
-										</ReactCSSTransitionGroup>
-									: output}
+									<ReactCSSTransitionGroup transitionName={animation} transitionEnterTimeout={250} transitionLeaveTimeout={250} transitionEnter={shouldHeaderAnimate} transitionLeave={shouldHeaderAnimate}>
+										<span key={`${item}-${key || value}`} className={style.date} aria-hidden={true} onClick={handleClick}>
+											{value}
+										</span>
+									</ReactCSSTransitionGroup>
 								</div>
 							);
 						})}
