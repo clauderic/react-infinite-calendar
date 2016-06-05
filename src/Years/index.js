@@ -9,6 +9,8 @@ export default class Years extends Component {
         height: PropTypes.number,
         width: PropTypes.number,
         hideYearsOnSelect: PropTypes.bool,
+        maxDate: PropTypes.object,
+        minDate: PropTypes.object,
         onDaySelect: PropTypes.func,
         scrollToDate: PropTypes.func,
         selectedDate: PropTypes.object,
@@ -17,8 +19,9 @@ export default class Years extends Component {
         years: PropTypes.array
     };
     handleClick(year) {
-        let {hideYearsOnSelect, onDaySelect, scrollToDate, selectedDate, setDisplay} = this.props;
-        let newDate = selectedDate.clone().year(year);
+        let {hideYearsOnSelect, maxDate, minDate, onDaySelect, scrollToDate, selectedDate, setDisplay} = this.props;
+        let date = selectedDate || moment();
+        let newDate = date.clone().year(year);
 
         scrollToDate(newDate, -40);
 
@@ -26,11 +29,14 @@ export default class Years extends Component {
             if (hideYearsOnSelect) {
                 setDisplay('days');
             }
-            window.requestAnimationFrame(() => {
-                setTimeout(() => {
-                    onDaySelect(newDate);
+
+            if (!newDate.isBefore(minDate, 'day') && !newDate.isAfter(maxDate, 'day')) {
+                window.requestAnimationFrame(() => {
+                    setTimeout(() => {
+                        onDaySelect(newDate);
+                    });
                 });
-            });
+            }
         });
     }
     render() {
@@ -62,6 +68,7 @@ export default class Years extends Component {
                                 className={classNames(style.year, {[style.active]: isActive, [style.currentYear]: (year == currentYear)})}
                                 onClick={() => this.handleClick(year)}
                                 title={`Set year to ${year}`}
+                                style={{color: (typeof theme.selectionColor == 'function') ? theme.selectionColor(selectedDate.clone().year(year)) : theme.selectionColor}}
                             >
                                 <span style={(year == currentYear) ? {borderColor: theme.todayColor} : null}>
                                     {year}

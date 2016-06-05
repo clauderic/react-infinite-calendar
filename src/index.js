@@ -392,6 +392,8 @@ export default class InfiniteCalendar extends Component {
 							width={width}
 							height={height}
 							onDaySelect={this.onDaySelect}
+							minDate={minDate}
+							maxDate={maxDate}
 							selectedDate={selectedDate}
 							theme={theme}
 							years={range(moment(min).year(), moment(max).year() + 1)}

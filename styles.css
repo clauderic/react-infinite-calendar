@@ -104,14 +104,18 @@
 .Cal__Header__dateWrapper {
   position: relative;
   display: block;
-  overflow: hidden; }
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.5);
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease; }
+  .Cal__Header__dateWrapper.Cal__Header__active {
+    color: white; }
   .Cal__Header__dateWrapper.Cal__Header__day {
     height: 38px;
     font-size: 36px;
     line-height: 36px; }
   .Cal__Header__dateWrapper.Cal__Header__year {
     height: 20px;
-    color: rgba(255, 255, 255, 0.5);
     font-size: 18px;
     line-height: 18px; }
 
@@ -119,8 +123,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  bottom: 0;
-  right: 0; }
+  bottom: 0; }
 .Cal__Animation__enter {
   opacity: 0;
   -webkit-transform: translate3d(0, -100%, 0);
@@ -335,6 +338,96 @@
           flex-grow: 1;
   font-weight: 500;
   text-align: center; }
+.Cal__Years__root {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #F9F9F9; }
+  .Cal__Years__root:before, .Cal__Years__root:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 100px;
+    pointer-events: none;
+    z-index: 1; }
+  .Cal__Years__root:before {
+    top: 0;
+    background: -webkit-linear-gradient(top, white 0%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(to bottom, white 0%, rgba(255, 255, 255, 0) 100%); }
+  .Cal__Years__root:after {
+    bottom: 0;
+    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, white 100%);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, white 100%); }
+
+.Cal__Years__list {
+  box-sizing: border-box;
+  padding: 40px 0; }
+  .Cal__Years__list.Cal__Years__center {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center; }
+
+.Cal__Years__year {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  -webkit-user-select: none; }
+  .Cal__Years__year > span {
+    color: #666; }
+  .Cal__Years__year:hover > span, .Cal__Years__year.Cal__Years__active > span {
+    color: inherit; }
+  .Cal__Years__year:hover, .Cal__Years__year.Cal__Years__active {
+    position: relative;
+    z-index: 2; }
+  .Cal__Years__year.Cal__Years__active {
+    font-size: 32px; }
+  .Cal__Years__year.Cal__Years__currentYear {
+    position: relative; }
+    .Cal__Years__year.Cal__Years__currentYear > span {
+      min-width: 50px;
+      padding-bottom: 5px;
+      border-bottom: 3px solid; }
+    .Cal__Years__year.Cal__Years__currentYear.Cal__Years__active > span {
+      padding-bottom: 10px;
+      min-width: 85px; }
 .Cal__Container__root {
   position: relative;
   display: table;
