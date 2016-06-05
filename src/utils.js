@@ -9,7 +9,8 @@ export const keyCodes = {
     down: 40,
     shift: 16,
     control: 17,
-    command: 91
+    command: 91,
+    escape: 27
 };
 
 export function getDaysInMonth(date) {

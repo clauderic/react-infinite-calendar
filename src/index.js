@@ -246,73 +246,105 @@ export default class InfiniteCalendar extends Component {
 	};
 	handleKeyDown = (e) => {
 		let {onKeyDown} = this.props;
-		let {highlightedDate, showToday} = this.state;
+		let {display, selectedDate, highlightedDate, showToday} = this.state;
 		let delta = 0;
 
 		if (typeof onKeyDown == 'function') {
 			onKeyDown(e);
 		}
-		if (!highlightedDate) {
-			highlightedDate = this.state.selectedDate.clone();
-			this.setState({highlightedDate});
-		}
-
 		if ([keyCodes.left, keyCodes.up, keyCodes.right, keyCodes.down].indexOf(e.keyCode) > -1 && typeof e.preventDefault == 'function') {
 			e.preventDefault();
 		}
-		switch (e.keyCode) {
-			case keyCodes.enter:
-				this.onDaySelect(moment(highlightedDate), e);
-				return;
-			case keyCodes.left:
-				delta = -1;
-				break;
-			case keyCodes.right:
-				delta = +1;
-				break;
-			case keyCodes.down:
-				delta = +7;
-				break;
-			case keyCodes.up:
-				delta = -7;
-				break;
-		}
 
-		if (delta) {
-			let {maxDate, minDate, rowHeight} = this.props;
-			let newHighlightedDate = moment(highlightedDate).add(delta, 'days');
-
-			// Make sure the new highlighted date isn't before min / max
-			if (newHighlightedDate.isBefore(minDate)) {
-				newHighlightedDate = moment(minDate);
-			} else if (newHighlightedDate.isAfter(maxDate)) {
-				newHighlightedDate = moment(maxDate);
+		if (display == 'days') {
+			if (!highlightedDate) {
+				highlightedDate = this.state.selectedDate.clone();
+				this.setState({highlightedDate});
 			}
 
-			// Update the highlight indicator
-			this.clearHighlight();
-			let highlightedEl = this.highlightedEl = this.node.querySelector(`[data-date='${newHighlightedDate.format('YYYYMMDD')}']`);
-			if (highlightedEl) {
+			switch (e.keyCode) {
+				case keyCodes.enter:
+					this.onDaySelect(moment(highlightedDate), e);
+					return;
+				case keyCodes.left:
+					delta = -1;
+					break;
+				case keyCodes.right:
+					delta = +1;
+					break;
+				case keyCodes.down:
+					delta = +7;
+					break;
+				case keyCodes.up:
+					delta = -7;
+					break;
+			}
+
+			if (delta) {
+				let {maxDate, minDate, rowHeight} = this.props;
+				let newHighlightedDate = moment(highlightedDate).add(delta, 'days');
+
+				// Make sure the new highlighted date isn't before min / max
+				if (newHighlightedDate.isBefore(minDate)) {
+					newHighlightedDate = moment(minDate);
+				} else if (newHighlightedDate.isAfter(maxDate)) {
+					newHighlightedDate = moment(maxDate);
+				}
+
+				// Update the highlight indicator
+				this.clearHighlight();
+
+				// Scroll the view
+				if (!this.currentOffset) this.currentOffset = this.getCurrentOffset();
+				let currentOffset = this.currentOffset;
+				let monthOffset = this.getDateOffset(newHighlightedDate);
+				let navOffset = (showToday) ? 36 : 0;
+
+				let highlightedEl = this.highlightedEl = this.node.querySelector(`[data-date='${newHighlightedDate.format('YYYYMMDD')}']`);
+
+				// Edge-case: if the user tries to use the keyboard when the new highlighted date isn't rendered because it's too far off-screen
+				// We need to scroll to the month of the new highlighted date so it renders
+				if (!highlightedEl) {
+					this.scrollTo(monthOffset - navOffset);
+					return;
+				}
+
 				highlightedEl.classList.add(style.day.highlighted);
+
+				let dateOffset = highlightedEl.offsetTop - rowHeight;
+				let newOffset = monthOffset + dateOffset;
+
+
+				if (currentOffset !== newOffset) {
+					this.currentOffset = newOffset;
+					this.scrollTo(newOffset - navOffset);
+				}
+
+				// Update the reference to the currently highlighted date
+				this.setState({
+					highlightedDate: newHighlightedDate
+				});
+
+			}
+		} else if (display == 'years') {
+			switch (e.keyCode) {
+				case keyCodes.enter:
+				case keyCodes.escape:
+					this.setDisplay('days');
+					this.scrollToDate(selectedDate, -40);
+					return;
+				case keyCodes.down:
+					delta = +1;
+					break;
+				case keyCodes.up:
+					delta = -1;
+					break;
 			}
 
-			// Scroll the view
-			if (!this.currentOffset) this.currentOffset = this.getCurrentOffset();
-			let currentOffset = this.currentOffset;
-			let monthOffset = this.getDateOffset(newHighlightedDate);
-			let dateOffset = highlightedEl.offsetTop - rowHeight;
-			let newOffset = monthOffset + dateOffset;
-			let navOffset = (showToday) ? 36 : 0;
-
-			if (currentOffset !== newOffset) {
-				this.currentOffset = newOffset;
-				this.scrollTo(newOffset - navOffset);
+			if (delta) {
+				let newSelectedDate = selectedDate.clone().add(delta, 'year');
+				this.onDaySelect(newSelectedDate, e);
 			}
-
-			// Update the reference to the currently highlighted date
-			this.setState({
-				highlightedDate: newHighlightedDate
-			});
 		}
 	};
 	clearHighlight() {
@@ -358,7 +390,7 @@ export default class InfiniteCalendar extends Component {
 		return (
 			<div tabIndex={tabIndex} onKeyDown={keyboardSupport && this.handleKeyDown} className={classNames(className, style.container.root, {[style.container.landscape]: layout == 'landscape'})} style={{color: theme.textColor.default, width}} aria-label="Calendar" ref="node">
 				{showHeader &&
-					<Header selectedDate={selectedDate} shouldHeaderAnimate={shouldHeaderAnimate} layout={layout} theme={theme} locale={locale} onClick={this.scrollToDate} setDisplay={this.setDisplay} display={display} />
+					<Header selectedDate={selectedDate} shouldHeaderAnimate={shouldHeaderAnimate} layout={layout} theme={theme} locale={locale} scrollToDate={this.scrollToDate} setDisplay={this.setDisplay} display={display} />
 				}
 				<div className={style.container.wrapper}>
 					<Weekdays theme={theme} />
@@ -389,6 +421,7 @@ export default class InfiniteCalendar extends Component {
 					</div>
 					{display == 'years' &&
 						<Years
+							ref="years"
 							width={width}
 							height={height}
 							onDaySelect={this.onDaySelect}
