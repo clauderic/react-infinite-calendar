@@ -20,13 +20,12 @@ const style = require('./src/Day/Day.scss');
 const CustomDay = ({currentYear, mmt, yyyymmdd, day, isToday, isDisabled, isSelected, monthShort, locale, theme, customData}) => {
   const className = `${isToday ? style.today : ''} ${isSelected ? style.selected: ''} ${isDisabled ? style.disabled : style.enabled}`
 	var year = mmt.year();
-  const currentData = customData[yyyymmdd]
-  const textColor = currentData ? currentData.color : theme.textColor.default
+  const currentDayData = customData[yyyymmdd]
 
 	return (
       <div className={className} style={(isToday) ? {color: theme.todayColor} : null}>
         {(day === 1) && <span className={style.month}>{monthShort}</span>}
-        <span style={{color: textColor}} >{day}</span>
+        <span style={(currentDayData) && {color: currentDayData.color}} >{day}</span>
         {(day === 1 && currentYear !== year) && <span className={style.year}>{year}</span>}
         {isSelected &&
          <div className={style.selection}
