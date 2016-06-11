@@ -25,7 +25,7 @@
     cursor: pointer;
     user-select: none;
 
-    &.enabled {
+    > div.enabled {
         &.highlighted, &:active, &:hover {
             position: relative;
             z-index: 1;
@@ -50,11 +50,11 @@
         position: relative;
     }
 
-    &.today {
+    > div.today {
         position: relative;
         z-index: 2;
 
-        > span {
+        >  span {
             color: $textColor;
         }
 
@@ -72,7 +72,8 @@
             box-shadow: inset 0 0 0 1px #BBB;
         }
     }
-    &.selected {
+
+    > div.selected {
         position: relative;
 
         > .month, > .year {
@@ -100,7 +101,7 @@
             }
         }
     }
-    &.disabled {
+    > div.disabled {
         cursor: default;
         color: #AAA;
         cursor: not-allowed;

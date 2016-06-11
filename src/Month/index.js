@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import classNames from 'classnames';
-import Day from '../Day';
+import {withEvents, DefaultDay} from '../Day';
 const style = require('./Month.scss');
 
 export default class Month extends Component {
@@ -8,7 +8,7 @@ export default class Month extends Component {
 		return (!nextProps.isScrolling && !this.props.isScrolling);
 	}
 	renderRows() {
-		let {disabledDates, disabledDays, displayDate, locale, maxDate, minDate, onDaySelect, rowHeight, rows, selectedDate, today, theme} = this.props;
+		let {disabledDates, disabledDays, displayDate, locale, maxDate, minDate, onDaySelect, rowHeight, rows, selectedDate, today, theme, DayComponent, ...other} = this.props;
 		let currentYear = today.date.year();
 		let monthShort = displayDate.format('MMM');
 		let monthRows = [];
@@ -17,6 +17,8 @@ export default class Month extends Component {
 		let isSelected = false;
 		let isToday = false;
 		let row, date, days;
+    let Day = DayComponent || DefaultDay
+    Day = withEvents(Day)
 
 		// Oh the things we do in the name of performance...
 		for (let i = 0, len = rows.length; i < len; i++) {
@@ -38,6 +40,7 @@ export default class Month extends Component {
 
 				days[k] = (
 					<Day
+            {...other}
 						key={`day-${day}`}
 						currentYear={currentYear}
 						date={date}
@@ -48,7 +51,7 @@ export default class Month extends Component {
 						isSelected={isSelected}
 						locale={locale}
 						monthShort={monthShort}
-						theme={theme}
+            theme={theme}
 					/>
 				);
 			}
