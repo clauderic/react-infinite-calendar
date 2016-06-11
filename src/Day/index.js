@@ -4,7 +4,7 @@ const style = require('./Day.scss');
 // todo add hover event
 export const withEvents = Component => ({date : {date: mmt, yyyymmdd}, isDisabled, handleDayClick, ...other}) => (
     <li className={style.root}
-      onClick={isDisabled ? null : handleDayClick.bind(this, mmt)}
+      onClick={(isDisabled || !handleDayClick) ? null : handleDayClick.bind(this, mmt)}
       data-date={yyyymmdd} >
       <Component
         {...other}
@@ -18,7 +18,7 @@ export const DefaultDay = ({currentYear, mmt, yyyymmdd, day, isToday, isDisabled
 	var year = mmt.year();
 
 	return (
-    <div className={className} style={(isToday) ? {color: theme.todayColor} : null}>
+    <div data-date={yyyymmdd} className={className} style={(isToday) ? {color: theme.todayColor} : null}>
 			{(day === 1) && <span className={style.month}>{monthShort}</span>}
 			<span>{day}</span>
 			{(day === 1 && currentYear !== year) && <span className={style.year}>{year}</span>}
@@ -31,3 +31,5 @@ export const DefaultDay = ({currentYear, mmt, yyyymmdd, day, isToday, isDisabled
     </div>
 	);
 }
+
+export default withEvents(DefaultDay)

@@ -5,7 +5,6 @@ import { shallow } from 'enzyme';
 import moment from 'moment';
 import {getMonth, parseDate} from '../src/utils';
 import Month from '../src/Month';
-import Day from '../src/Day';
 
 chai.use(chaiEnzyme());
 
@@ -23,6 +22,6 @@ describe("<Month/>", () => {
 				today={today}
 			/>
 		);
-		expect(wrapper.find(Day)).to.have.length(moment().daysInMonth());
+		expect(wrapper.find('Day')).to.have.length(moment().daysInMonth());
 	})
 });

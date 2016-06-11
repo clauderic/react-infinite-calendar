@@ -19,6 +19,7 @@ export default class Month extends Component {
 		let row, date, days;
     let Day = DayComponent || DefaultDay
     Day = withEvents(Day)
+    Day.displayName = 'Day'
 
 		// Oh the things we do in the name of performance...
 		for (let i = 0, len = rows.length; i < len; i++) {
