@@ -34,6 +34,7 @@ export default class List extends Component {
 		this.scrollEl = grid && grid.refs.scrollingContainer;
 	}
 	cache = {};
+	state = {};
 	memoize = function(param) {
 		if (!this.cache[param]) {
 			var result = getMonth(param); //custom function
@@ -74,9 +75,9 @@ export default class List extends Component {
 		let offsetTop = this.getDateOffset(date);
 		this.scrollTo(offsetTop + offset);
 	};
-	scrollTo = (offset = 0) => {
+	scrollTo = (scrollTop = 0) => {
 		if (this.scrollEl) {
-			this.scrollEl.scrollTop = offset;
+			this.scrollEl.scrollTop = scrollTop;
 		}
 	};
 	renderMonth = ({index, isScrolling}) => {
@@ -117,6 +118,7 @@ export default class List extends Component {
 				height={height}
 				rowCount={months.length}
 				rowHeight={this.getMonthHeight}
+				estimatedRowSize={rowHeight * 5}
 				rowRenderer={this.renderMonth}
 				onScroll={onScroll}
 				scrollTop={this.initScrollTop}

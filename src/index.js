@@ -3,13 +3,14 @@ import classNames from 'classnames';
 import moment from 'moment';
 import debounce from 'lodash/debounce';
 import range from 'lodash/range';
-import {getScrollSpeed, getMonthsForYear, keyCodes, parseDate, validDate, validLayout} from './utils';
+import {getScrollSpeed, getMonthsForYear, keyCodes, parseDate, validDate, validDisplay, validLayout} from './utils';
 import defaultLocale from './locale';
 import defaultTheme from './theme';
 import Today from './Today';
 import Header from './Header';
 import List from './List';
 import Weekdays from './Weekdays';
+import Years from './Years';
 
 const containerStyle = require('./Container.scss');
 const dayStyle = require('./Day/Day.scss');
@@ -26,7 +27,9 @@ export default class InfiniteCalendar extends Component {
 		this.updateLocale(props.locale);
 		this.updateYears(props);
 		this.state = {
-			selectedDate: this.parseSelectedDate(props.selectedDate)
+			selectedDate: this.parseSelectedDate(props.selectedDate),
+			display: props.display,
+			shouldHeaderAnimate: props.shouldHeaderAnimate
 		};
 	}
 	static defaultProps = {
@@ -35,6 +38,7 @@ export default class InfiniteCalendar extends Component {
 		rowHeight: 56,
 		overscanMonthCount: 4,
 		layout: 'portrait',
+		display: 'days',
 		selectedDate: new Date(),
 		min: {year: 1980, month: 0, day: 0},
 		minDate: {year: 1980, month: 0, day: 0},
@@ -48,7 +52,8 @@ export default class InfiniteCalendar extends Component {
 		showHeader: true,
 		tabIndex: 1,
 		locale: {},
-		theme: {}
+		theme: {},
+		hideYearsOnSelect: true
 	};
 	static propTypes = {
 		selectedDate: validDate,
@@ -75,6 +80,8 @@ export default class InfiniteCalendar extends Component {
 		onKeyDown: PropTypes.func,
 		tabIndex: PropTypes.number,
 		layout: validLayout,
+		display: validDisplay,
+		hideYearsOnSelect: PropTypes.bool,
 		shouldHeaderAnimate: PropTypes.bool,
 		showOverlay: PropTypes.bool,
 		showTodayHelper: PropTypes.bool,
@@ -91,6 +98,7 @@ export default class InfiniteCalendar extends Component {
 	}
 	componentWillReceiveProps(next) {
 		let {min, minDate, max, maxDate, locale, selectedDate} = this.props;
+		let {display} = this.state;
 
 		if (next.locale !== locale) {
 			this.updateLocale(next.locale);
@@ -110,6 +118,11 @@ export default class InfiniteCalendar extends Component {
 					selectedDate: _selectedDate
 				});
 			}
+		}
+		if (next.display !== display) {
+			this.setState({
+				display: next.display
+			});
 		}
 	}
 	parseSelectedDate(selectedDate) {
@@ -149,7 +162,7 @@ export default class InfiniteCalendar extends Component {
 	getTheme(customTheme = this.props.theme) {
 		return Object.assign({}, defaultTheme, customTheme);
 	}
-	onDaySelect = (selectedDate, e) => {
+	onDaySelect = (selectedDate, e, shouldHeaderAnimate = this.props.shouldHeaderAnimate) => {
 		let {afterSelect, beforeSelect, onSelect} = this.props;
 
 		if (!beforeSelect || typeof beforeSelect == 'function' && beforeSelect(selectedDate)) {
@@ -159,6 +172,7 @@ export default class InfiniteCalendar extends Component {
 
 			this.setState({
 				selectedDate,
+				shouldHeaderAnimate,
 				highlightedDate: selectedDate.clone()
 			}, () => {
 				this.clearHighlight();
@@ -233,74 +247,93 @@ export default class InfiniteCalendar extends Component {
 		}
 	};
 	handleKeyDown = (e) => {
-		let {onKeyDown} = this.props;
-		let {highlightedDate, showToday} = this.state;
+		let {maxDate, minDate, onKeyDown} = this.props;
+		let {display, selectedDate, highlightedDate, showToday} = this.state;
 		let delta = 0;
 
 		if (typeof onKeyDown == 'function') {
 			onKeyDown(e);
 		}
-		if (!highlightedDate) {
-			highlightedDate = this.state.selectedDate.clone();
-			this.setState({highlightedDate});
-		}
-
 		if ([keyCodes.left, keyCodes.up, keyCodes.right, keyCodes.down].indexOf(e.keyCode) > -1 && typeof e.preventDefault == 'function') {
 			e.preventDefault();
 		}
-		switch (e.keyCode) {
-			case keyCodes.enter:
-				this.onDaySelect(moment(highlightedDate), e);
-				return;
-			case keyCodes.left:
-				delta = -1;
-				break;
-			case keyCodes.right:
-				delta = +1;
-				break;
-			case keyCodes.down:
-				delta = +7;
-				break;
-			case keyCodes.up:
-				delta = -7;
-				break;
+
+		if (!selectedDate) {
+			selectedDate = moment();
 		}
 
-		if (delta) {
-			let {maxDate, minDate, rowHeight} = this.props;
-			let newHighlightedDate = moment(highlightedDate).add(delta, 'days');
-
-			// Make sure the new highlighted date isn't before min / max
-			if (newHighlightedDate.isBefore(minDate)) {
-				newHighlightedDate = moment(minDate);
-			} else if (newHighlightedDate.isAfter(maxDate)) {
-				newHighlightedDate = moment(maxDate);
+		if (display == 'days') {
+			if (!highlightedDate) {
+				highlightedDate = selectedDate.clone();
+				this.setState({highlightedDate});
 			}
 
-			// Update the highlight indicator
-			this.clearHighlight();
-			let highlightedEl = this.highlightedEl = this.node.querySelector(`[data-date='${newHighlightedDate.format('YYYYMMDD')}']`);
-			if (highlightedEl) {
+			switch (e.keyCode) {
+				case keyCodes.enter:
+					this.onDaySelect(moment(highlightedDate), e);
+					return;
+				case keyCodes.left:
+					delta = -1;
+					break;
+				case keyCodes.right:
+					delta = +1;
+					break;
+				case keyCodes.down:
+					delta = +7;
+					break;
+				case keyCodes.up:
+					delta = -7;
+					break;
+			}
+
+			if (delta) {
+				let {rowHeight} = this.props;
+				let newHighlightedDate = moment(highlightedDate).add(delta, 'days');
+
+				// Make sure the new highlighted date isn't before min / max
+				if (newHighlightedDate.isBefore(minDate)) {
+					newHighlightedDate = moment(minDate);
+				} else if (newHighlightedDate.isAfter(maxDate)) {
+					newHighlightedDate = moment(maxDate);
+				}
+
+				// Update the highlight indicator
+				this.clearHighlight();
+
+				// Scroll the view
+				if (!this.currentOffset) this.currentOffset = this.getCurrentOffset();
+				let currentOffset = this.currentOffset;
+				let monthOffset = this.getDateOffset(newHighlightedDate);
+				let navOffset = (showToday) ? 36 : 0;
+
+				let highlightedEl = this.highlightedEl = this.node.querySelector(`[data-date='${newHighlightedDate.format('YYYYMMDD')}']`);
+
+				// Edge-case: if the user tries to use the keyboard when the new highlighted date isn't rendered because it's too far off-screen
+				// We need to scroll to the month of the new highlighted date so it renders
+				if (!highlightedEl) {
+					this.scrollTo(monthOffset - navOffset);
+					return;
+				}
+
 				highlightedEl.classList.add(style.day.highlighted);
+
+				let dateOffset = highlightedEl.offsetTop - rowHeight;
+				let newOffset = monthOffset + dateOffset;
+
+
+				if (currentOffset !== newOffset) {
+					this.currentOffset = newOffset;
+					this.scrollTo(newOffset - navOffset);
+				}
+
+				// Update the reference to the currently highlighted date
+				this.setState({
+					highlightedDate: newHighlightedDate
+				});
+
 			}
-
-			// Scroll the view
-			if (!this.currentOffset) this.currentOffset = this.getCurrentOffset();
-			let currentOffset = this.currentOffset;
-			let monthOffset = this.getDateOffset(newHighlightedDate);
-			let dateOffset = highlightedEl.offsetTop - rowHeight;
-			let newOffset = monthOffset + dateOffset;
-			let navOffset = (showToday) ? 36 : 0;
-
-			if (currentOffset !== newOffset) {
-				this.currentOffset = newOffset;
-				this.scrollTo(newOffset - navOffset);
-			}
-
-			// Update the reference to the currently highlighted date
-			this.setState({
-				highlightedDate: newHighlightedDate
-			});
+		} else if (display == 'years' && this.refs.years) {
+			this.refs.years.handleKeyDown(e);
 		}
 	};
 	clearHighlight() {
@@ -309,12 +342,32 @@ export default class InfiniteCalendar extends Component {
 			this.highlightedEl = null;
 		}
 	}
+	setDisplay = (display) => {
+		this.setState({display});
+	}
 	render() {
-		let {className, disabledDays, height, keyboardSupport, layout, overscanMonthCount, min, minDate, maxDate, shouldHeaderAnimate, showTodayHelper, showHeader, tabIndex, width, ...other} = this.props;
+		let {
+			className,
+			disabledDays,
+			height,
+			hideYearsOnSelect,
+			keyboardSupport,
+			layout,
+			overscanMonthCount,
+			min,
+			minDate,
+			max,
+			maxDate,
+			showTodayHelper,
+			showHeader,
+			tabIndex,
+			width,
+			...other
+		} = this.props;
 		let disabledDates = this.getDisabledDates(this.props.disabledDates);
 		let locale = this.getLocale();
 		let theme = this.getTheme();
-		let {isScrolling, selectedDate, showToday} = this.state;
+		let {display, isScrolling, selectedDate, showToday, shouldHeaderAnimate} = this.state;
 		let today = this.today = parseDate(moment());
 
 		// Selected date should not be disabled
@@ -325,7 +378,7 @@ export default class InfiniteCalendar extends Component {
 		return (
 			<div tabIndex={tabIndex} onKeyDown={keyboardSupport && this.handleKeyDown} className={classNames(className, style.container.root, {[style.container.landscape]: layout == 'landscape'})} style={{color: theme.textColor.default, width}} aria-label="Calendar" ref="node">
 				{showHeader &&
-					<Header selectedDate={selectedDate} shouldHeaderAnimate={shouldHeaderAnimate} layout={layout} theme={theme} locale={locale} onClick={this.scrollToDate} />
+					<Header selectedDate={selectedDate} shouldHeaderAnimate={shouldHeaderAnimate} layout={layout} theme={theme} locale={locale} scrollToDate={this.scrollToDate} setDisplay={this.setDisplay} display={display} />
 				}
 				<div className={style.container.wrapper}>
 					<Weekdays theme={theme} />
@@ -354,6 +407,22 @@ export default class InfiniteCalendar extends Component {
 							overscanMonthCount={overscanMonthCount}
 						/>
 					</div>
+					{display == 'years' &&
+						<Years
+							ref="years"
+							width={width}
+							height={height}
+							onDaySelect={this.onDaySelect}
+							minDate={minDate}
+							maxDate={maxDate}
+							selectedDate={selectedDate}
+							theme={theme}
+							years={range(moment(min).year(), moment(max).year() + 1)}
+							setDisplay={this.setDisplay}
+							scrollToDate={this.scrollToDate}
+							hideYearsOnSelect={hideYearsOnSelect}
+						/>
+					}
 				</div>
 			</div>
 		);

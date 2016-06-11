@@ -43,7 +43,12 @@
     position: relative;
     display: block;
     overflow: hidden;
+    color: rgba(255,255,255,0.5);
+    transition: color 0.3s ease;
 
+    &.active {
+        color: rgb(255,255,255);
+    }
     &.day {
         height: 38px;
         font-size: 36px;
@@ -51,7 +56,6 @@
     }
     &.year {
         height: 20px;
-        color: rgba(255,255,255,0.5);
         font-size: 18px;
         line-height: 18px;
     }
@@ -60,6 +64,6 @@
     position: absolute;
     top: 0;
     left: 0;
-    bottom: 0;
     right: 0;
+    bottom: 0;
 }

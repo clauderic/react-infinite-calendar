@@ -24,19 +24,27 @@ describe("<Header/>", () => {
         expect(wrapper.find(`.${style.root}`).hasClass(style.blank)).to.equal(true);
         expect(wrapper.text()).to.equal(defaultLocale.blank);
 	})
-    it('fires a callback when clicked on', () => {
+    it('switches display from years to date', () => {
 		const onClick = sinon.spy();
-        const wrapper = shallow(<Header selectedDate={moment()} onClick={onClick} locale={defaultLocale}/>);
+        const wrapper = shallow(<Header display={'years'} selectedDate={moment()} setDisplay={onClick} locale={defaultLocale}/>);
 
-        wrapper.simulate('click');
+        wrapper.find(`.${style.day} .${style.date}`).simulate('click');
         expect(onClick.calledOnce).to.equal(true);
 	})
-    it('does not fire a callback when clicked on if there is no selectedDate', () => {
+	it('scrolls to the selected date when date is clicked', () => {
+		// But only if display={'days'}!
 		const onClick = sinon.spy();
-        const wrapper = shallow(<Header onClick={onClick} locale={defaultLocale}/>);
+        const wrapper = shallow(<Header display={'days'} selectedDate={moment()} scrollToDate={onClick} locale={defaultLocale}/>);
 
-        wrapper.simulate('click');
-        expect(onClick.called).to.equal(false);
+        wrapper.find(`.${style.day} .${style.date}`).simulate('click');
+        expect(onClick.calledOnce).to.equal(true);
+	})
+    it('switches display from date to years', () => {
+		const onClick = sinon.spy();
+        const wrapper = shallow(<Header display={'days'} selectedDate={moment()} setDisplay={onClick} locale={defaultLocale}/>);
+
+        wrapper.find(`.${style.year} .${style.date}`).simulate('click');
+        expect(onClick.called).to.equal(true);
 	})
     it('honors the current theme', () => {
         const wrapper = mount(<Header theme={{headerColor: 'red', textColor: {active: 'blue'}}} locale={defaultLocale}/>);

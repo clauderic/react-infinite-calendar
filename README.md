@@ -20,9 +20,10 @@ Features
 * **Flexible** – Min/max date, disabled dates, disabled days, etc.
 * **Localization and translation** – En français, s'il vous plaît!
 * **Customizeable** – Customize and theme to your heart's content.
+* **Year selection** – For rapidly jumping from year to year
 * **Keyboard support** – ⬆️ ⬇️ ⬆️ ⬇️ ⬅️ ➡️ ⬅️ ➡️ ↩️
 * **Events and callbacks** – beforeSelect, onSelect, onScroll, yadda yadda yadda.
-* **Mobile-friendly**
+* **Mobile-friendly** – Silky smooth scrolling on mobile
 
 And mucho, mucho mas 🎉
 <div style="padding:30px">
@@ -91,6 +92,7 @@ For more usage examples, see [http://clauderic.github.io/react-infinite-calendar
 | max                 | [Date](http://momentjs.com/docs/#/parsing/)            | new&nbsp;Date(2050,11,31)                                                                            | The maximum month that can be scrolled to. Supports any input format supported by [moment.js](http://momentjs.com/docs/#/parsing/)                                                                                                          |
 | minDate             | [Date](http://momentjs.com/docs/#/parsing/)            | new&nbsp;Date(1980,0,1)                                                                              | The minimum date that is selectable. Supports any input format supported by [moment.js](http://momentjs.com/docs/#/parsing/)                                                                                                                |
 | maxDate             | [Date](http://momentjs.com/docs/#/parsing/)            | new&nbsp;Date(2050,11,31)                                                                            | The maximum date that is selectable. Supports any input format supported by [moment.js](http://momentjs.com/docs/#/parsing/)                                                                                                                |
+| display             | String                                                 | 'days'                                                                                               | Whether to display the `years` or `days` view.                                                                                                                                                                                              |
 | locale              | Object                                                 | See [default locale](https://github.com/clauderic/react-infinite-calendar/blob/master/src/locale.js) | By default, React Infinite Calendar comes with the `English` locale strings. You can use this to change the language, or change the first day of the week. See [moment.js documentation](http://momentjs.com/docs/#/i18n/) for more details |
 | theme               | Object                                                 | See [default theme](https://github.com/clauderic/react-infinite-calendar/blob/master/src/theme.js)   | Basic customization of the colors                                                                                                                                                                                                           |
 | width               | Number or String                                       | 400                                                                                                  | Width of the calendar. Use number for pixel width, string for percentage, for example: `width={400}` or `width={'80%'}`                                                                                                                     |
@@ -113,6 +115,18 @@ For more usage examples, see [http://clauderic.github.io/react-infinite-calendar
 | shouldHeaderAnimate | Boolean                                                | true                                                                                                 | Enable/Disable the header animation                                                                                                                                                                                                         |
 | showOverlay         | Boolean                                                | true                                                                                                 | Show/hide the month overlay when scrolling                                                                                                                                                                                                  |
 | showTodayHelper     | Boolean                                                | true                                                                                                 | Show/hide the floating back to `Today` helper                                                                                                                                                                                               |
+| hideYearsOnSelect   | Boolean                                                | true                                                                                                 | Whether to automatically hide the `years` view on select.                                                                                                                                                                                   |
+
+Changelog
+------------
+### 1.1.13 – Year selection 🎉
+Just click on the year in the header to test it out. The current year is underlined with the current `theme.todayColor` (orange by default). Keyboard support has also been tweaked to support this new functionality. Here's a preview:
+<div>
+<img width="325" alt="Year selection" src="https://cloud.githubusercontent.com/assets/1416436/15803422/b58e8704-2aaa-11e6-9c93-b1aa64fadc2e.png">
+</div>
+
+### 1.1.12 – Bug fixes 🙃
+Fixes an issue with row calculation ([#5](https://github.com/clauderic/react-infinite-calendar/issues/5))
 
 Dependencies
 ------------
@@ -120,7 +134,7 @@ React Infinite Calendar has few dependencies. It relies on the great work done b
 
 Contributions
 ------------
-Yes please! Feature requests / pull requests are welcome.
+Yes please! Feature requests / pull requests are welcome. Have a suggestion or just want to say hello? Come chat on [gitter](https://gitter.im/clauderic/react-infinite-calendar)!
 
 
 <div align="center">
