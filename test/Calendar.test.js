@@ -147,6 +147,14 @@ describe("<InfiniteCalendar/> Callback Events", function() {
 		expect(onKeyDown.calledOnce).to.equal(true);
 		setTimeout(done);
 	})
+	it('should fire a callback onClick', (done) => {
+		const onClick = sinon.spy();
+
+		const wrapper = mount(<InfiniteCalendar onClick={onClick} />);
+		wrapper.simulate('click');
+		expect(onClick.calledOnce).to.equal(true);
+		setTimeout(done);
+	})
 	it('should fire a callback onScroll', (done) => {
 		const onScroll = sinon.spy();
 
