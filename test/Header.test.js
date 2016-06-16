@@ -24,6 +24,13 @@ describe("<Header/>", () => {
         expect(wrapper.find(`.${style.root}`).hasClass(style.blank)).to.equal(true);
         expect(wrapper.text()).to.equal(defaultLocale.blank);
 	})
+	it('renders a blank state with custom text if no selected date and text is specified', () => {
+		const customText = 'Custom text';
+		const wrapper = mount(<Header selectedDate={false} noSelectedDateHeaderText={customText}/>);
+
+		expect(wrapper.find(`.${style.root}`).hasClass(style.blank)).to.equal(true);
+		expect(wrapper.text()).to.equal(customText);
+	})
     it('switches display from years to date', () => {
 		const onClick = sinon.spy();
         const wrapper = shallow(<Header display={'years'} selectedDate={moment()} setDisplay={onClick} locale={defaultLocale}/>);

@@ -53,7 +53,8 @@ export default class InfiniteCalendar extends Component {
 		tabIndex: 1,
 		locale: {},
 		theme: {},
-		hideYearsOnSelect: true
+		hideYearsOnSelect: true,
+		noSelectedDateHeaderText: ''
 	};
 	static propTypes = {
 		selectedDate: validDate,
@@ -85,7 +86,8 @@ export default class InfiniteCalendar extends Component {
 		shouldHeaderAnimate: PropTypes.bool,
 		showOverlay: PropTypes.bool,
 		showTodayHelper: PropTypes.bool,
-		showHeader: PropTypes.bool
+		showHeader: PropTypes.bool,
+		noSelectedDateHeaderText: PropTypes.string
 	};
 	componentDidMount() {
 		let {autoFocus, keyboardSupport} = this.props;
@@ -362,6 +364,7 @@ export default class InfiniteCalendar extends Component {
 			showHeader,
 			tabIndex,
 			width,
+			noSelectedDateHeaderText,
 			...other
 		} = this.props;
 		let disabledDates = this.getDisabledDates(this.props.disabledDates);
@@ -378,7 +381,7 @@ export default class InfiniteCalendar extends Component {
 		return (
 			<div tabIndex={tabIndex} onKeyDown={keyboardSupport && this.handleKeyDown} className={classNames(className, style.container.root, {[style.container.landscape]: layout == 'landscape'})} style={{color: theme.textColor.default, width}} aria-label="Calendar" ref="node">
 				{showHeader &&
-					<Header selectedDate={selectedDate} shouldHeaderAnimate={shouldHeaderAnimate} layout={layout} theme={theme} locale={locale} scrollToDate={this.scrollToDate} setDisplay={this.setDisplay} display={display} />
+					<Header selectedDate={selectedDate} shouldHeaderAnimate={shouldHeaderAnimate} layout={layout} theme={theme} locale={locale} scrollToDate={this.scrollToDate} setDisplay={this.setDisplay} display={display} noSelectedDateHeaderText={noSelectedDateHeaderText}/>
 				}
 				<div className={style.container.wrapper}>
 					<Weekdays theme={theme} />
