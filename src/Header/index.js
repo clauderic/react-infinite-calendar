@@ -13,13 +13,14 @@ export default class Header extends Component {
 		selectedDate: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 		shouldHeaderAnimate: PropTypes.bool,
 		theme: PropTypes.object,
-		display: PropTypes.string
+		display: PropTypes.string,
+		noSelectedDateHeaderText: PropTypes.string
 	};
 	shouldComponentUpdate(nextProps) {
 		return shallowCompare(this, nextProps);
 	}
 	render() {
-		let {display, layout, locale, scrollToDate, selectedDate, setDisplay, shouldHeaderAnimate, theme} = this.props;
+		let {display, layout, locale, scrollToDate, selectedDate, setDisplay, shouldHeaderAnimate, theme, noSelectedDateHeaderText} = this.props;
 		let values = selectedDate && [
 			{
 				item: 'year',
@@ -65,7 +66,7 @@ export default class Header extends Component {
 							);
 						})}
 					</div>
-				: <div className={style.wrapper}>{locale.blank}</div>}
+				: <div className={style.wrapper}>{(noSelectedDateHeaderText) ? noSelectedDateHeaderText : locale.blank}</div>}
 			</div>
 		);
 	}

@@ -116,6 +116,7 @@ For more usage examples, see [http://clauderic.github.io/react-infinite-calendar
 | showOverlay         | Boolean                                                | true                                                                                                 | Show/hide the month overlay when scrolling                                                                                                                                                                                                  |
 | showTodayHelper     | Boolean                                                | true                                                                                                 | Show/hide the floating back to `Today` helper                                                                                                                                                                                               |
 | hideYearsOnSelect   | Boolean                                                | true                                                                                                 | Whether to automatically hide the `years` view on select.                                                                                                                                                                                   |
+| noSelectedDateHeaderText	| String | | Custom text to display when `selectedDate` is `false`
 
 Changelog
 ------------
