@@ -12,10 +12,13 @@ export default class List extends Component {
 		height: PropTypes.number,
 		rowHeight: PropTypes.number,
 		selectedDate: PropTypes.object,
+		selectedDateEnd: PropTypes.object,
 		disabledDates: PropTypes.arrayOf(PropTypes.string),
 		disabledDays: PropTypes.arrayOf(PropTypes.number),
 		months: PropTypes.arrayOf(PropTypes.object),
 		onDaySelect: PropTypes.func,
+		onDayOver: PropTypes.func,
+		onDayUp: PropTypes.func,
 		onScroll: PropTypes.func,
 		overscanMonthCount: PropTypes.number,
 		isScrolling: PropTypes.bool,
@@ -81,19 +84,23 @@ export default class List extends Component {
 		}
 	};
 	renderMonth = ({index, isScrolling}) => {
-		let {disabledDates, disabledDays, locale, months, maxDate, minDate, onDaySelect, rowHeight, selectedDate, showOverlay, theme, today} = this.props;
+		let {disabledDates, disabledDays, locale, months, maxDate, minDate, onDaySelect, onDayDown, onDayOver, onDayUp, rowHeight, selectedDate, selectedDateEnd, showOverlay, theme, today} = this.props;
 		let {date, rows} = this.memoize(months[index]);
 
 		return (
 			<Month
 				key={`Month-${index}`}
 				selectedDate={selectedDate}
+				selectedDateEnd={selectedDateEnd}
 				displayDate={date}
 				disabledDates={disabledDates}
 				disabledDays={disabledDays}
 				maxDate={maxDate}
 				minDate={minDate}
 				onDaySelect={onDaySelect}
+				onDayDown={onDayDown}
+				onDayOver={onDayOver}
+				onDayUp={onDayUp}
 				rows={rows}
 				rowHeight={rowHeight}
 				isScrolling={isScrolling}

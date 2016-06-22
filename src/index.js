@@ -28,6 +28,8 @@ export default class InfiniteCalendar extends Component {
 		this.updateYears(props);
 		this.state = {
 			selectedDate: this.parseSelectedDate(props.selectedDate),
+			selectedDateEnd: this.parseSelectedDate(props.selectedDateEnd),
+			dragging: false,
 			display: props.display,
 			shouldHeaderAnimate: props.shouldHeaderAnimate
 		};
@@ -40,6 +42,8 @@ export default class InfiniteCalendar extends Component {
 		layout: 'portrait',
 		display: 'days',
 		selectedDate: new Date(),
+		selectedDateEnd: new Date(),
+		endDate: new Date(),
 		min: {year: 1980, month: 0, day: 0},
 		minDate: {year: 1980, month: 0, day: 0},
 		max: {year: 2050, month: 11, day: 31},
@@ -57,6 +61,8 @@ export default class InfiniteCalendar extends Component {
 	};
 	static propTypes = {
 		selectedDate: validDate,
+		selectedDateEnd: validDate,
+		endDate: validDate,
 		min: validDate,
 		max: validDate,
 		minDate: validDate,
@@ -169,9 +175,13 @@ export default class InfiniteCalendar extends Component {
 			if (typeof onSelect == 'function') {
 				onSelect(selectedDate, e);
 			}
+			var dragging = false;
+			var selectedDateEnd = selectedDate;
 
 			this.setState({
 				selectedDate,
+				selectedDateEnd,
+				dragging,
 				shouldHeaderAnimate,
 				highlightedDate: selectedDate.clone()
 			}, () => {
@@ -179,6 +189,45 @@ export default class InfiniteCalendar extends Component {
 				if (typeof afterSelect == 'function') {
 					afterSelect(selectedDate);
 				}
+			});
+		}
+	};
+	onDayDown = (selectedDate, e, shouldHeaderAnimate = this.props.shouldHeaderAnimate) => {
+		let {afterSelect, beforeSelect, onSelect} = this.props;
+
+		if (!beforeSelect || typeof beforeSelect == 'function' && beforeSelect(selectedDate)) {
+			if (typeof onSelect == 'function') {
+				onSelect(selectedDate, e);
+			}
+			var dragging = true;
+			var selectedDateEnd = selectedDate;
+			this.setState({
+				selectedDate,
+				selectedDateEnd,
+				dragging,
+				shouldHeaderAnimate,
+				highlightedDate: selectedDate.clone()
+			}, () => {
+				this.clearHighlight();
+				if (typeof afterSelect == 'function') {
+					afterSelect(selectedDate);
+				}
+			});
+		}
+	};
+	onDayOver = (selectedDateEnd, e, shouldHeaderAnimate = this.props.shouldHeaderAnimate) => {
+		if(this.state.dragging) {
+			this.setState({
+				selectedDateEnd,
+			});
+		}
+	};
+	onDayUp = (selectedDateEnd, e, shouldHeaderAnimate = this.props.shouldHeaderAnimate) => {
+		if(this.state.dragging) {
+			var dragging = false;
+			this.setState({
+				selectedDateEnd,
+				dragging
 			});
 		}
 	};
@@ -367,7 +416,7 @@ export default class InfiniteCalendar extends Component {
 		let disabledDates = this.getDisabledDates(this.props.disabledDates);
 		let locale = this.getLocale();
 		let theme = this.getTheme();
-		let {display, isScrolling, selectedDate, showToday, shouldHeaderAnimate} = this.state;
+		let {display, isScrolling, selectedDate, selectedDateEnd, showToday, shouldHeaderAnimate} = this.state;
 		let today = this.today = parseDate(moment());
 
 		// Selected date should not be disabled
@@ -392,10 +441,14 @@ export default class InfiniteCalendar extends Component {
 							width={width}
 							height={height}
 							selectedDate={parseDate(selectedDate)}
+							selectedDateEnd={parseDate(selectedDateEnd)}
 							disabledDates={disabledDates}
 							disabledDays={disabledDays}
 							months={this.months}
 							onDaySelect={this.onDaySelect}
+							onDayDown={this.onDayDown}
+							onDayOver={this.onDayOver}
+							onDayUp={this.onDayUp}
 							onScroll={this.onScroll}
 							isScrolling={isScrolling}
 							today={today}
