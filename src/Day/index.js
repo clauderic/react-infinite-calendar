@@ -1,7 +1,7 @@
 import React from 'react';
 const style = require('./Day.scss');
 
-export default function Day({currentYear, date, day, handleDayClick, handleDayDown, handleDayOver, handleDayUp, isDisabled, isToday, isSelected, isSelectedBetween, isSelectedEnd, monthShort, locale, theme}) {
+export default function Day({currentYear, date, day, handleDayClick, handleDayDown, handleDayOver, handleDayUp, handleTouchStart, isDisabled, isToday, isSelected, isSelectedBetween, isSelectedEnd, monthShort, locale, theme}) {
 	var {date: mmt, yyyymmdd} = date;
 	var year = mmt.year();
 
@@ -19,6 +19,7 @@ export default function Day({currentYear, date, day, handleDayClick, handleDayDo
 			onMouseDown={(!isDisabled && handleDayDown) ? handleDayDown.bind(this, mmt) : null}
 			onMouseOver={(!isDisabled && handleDayOver) ? handleDayOver.bind(this, mmt) : null}
 			onMouseUp={(!isDisabled && handleDayUp) ? handleDayUp.bind(this, mmt) : null}
+			onTouchStart={(!isDisabled && handleDayUp) ? handleTouchStart.bind(this, mmt) : null}
 		>
 			{(day === 1) && <span className={style.month}>{monthShort}</span>}
 			<span>{day}</span>
