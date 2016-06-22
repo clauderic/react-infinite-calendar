@@ -29,7 +29,7 @@ export default class InfiniteCalendar extends Component {
 		this.state = {
 			selectedDate: this.parseSelectedDate(props.selectedDate),
 			selectedDateEnd: this.parseSelectedDate(props.selectedDateEnd),
-			dragging: false,
+			dragging: 0, //direction -1 reverse 0 nodrag 1 forwards
 			display: props.display,
 			shouldHeaderAnimate: props.shouldHeaderAnimate
 		};
@@ -171,11 +171,13 @@ export default class InfiniteCalendar extends Component {
 	onDaySelect = (selectedDate, e, shouldHeaderAnimate = this.props.shouldHeaderAnimate) => {
 		let {afterSelect, beforeSelect, onSelect} = this.props;
 
-		if (!beforeSelect || typeof beforeSelect == 'function' && beforeSelect(selectedDate)) {
+		if(this.state.selectedDate == selectedDate) return;
+
+		if (!beforeSelect || typeof beforeSelect == 'function' && beforeSelect(selectedDate,null)) {
 			if (typeof onSelect == 'function') {
-				onSelect(selectedDate, e);
+				onSelect(selectedDate,null, e);
 			}
-			var dragging = false;
+			var dragging = 0;
 			var selectedDateEnd = selectedDate;
 
 			this.setState({
@@ -187,7 +189,7 @@ export default class InfiniteCalendar extends Component {
 			}, () => {
 				this.clearHighlight();
 				if (typeof afterSelect == 'function') {
-					afterSelect(selectedDate);
+					afterSelect(selectedDate,null);
 				}
 			});
 		}
@@ -195,11 +197,13 @@ export default class InfiniteCalendar extends Component {
 	onDayDown = (selectedDate, e, shouldHeaderAnimate = this.props.shouldHeaderAnimate) => {
 		let {afterSelect, beforeSelect, onSelect} = this.props;
 
-		if (!beforeSelect || typeof beforeSelect == 'function' && beforeSelect(selectedDate)) {
+		if (!beforeSelect || typeof beforeSelect == 'function' && beforeSelect(selectedDate,null)) {
 			if (typeof onSelect == 'function') {
-				onSelect(selectedDate, e);
+				onSelect(selectedDate, null, e);
 			}
-			var dragging = true;
+			
+			
+			var dragging = 1;
 			var selectedDateEnd = selectedDate;
 			this.setState({
 				selectedDate,
@@ -210,25 +214,72 @@ export default class InfiniteCalendar extends Component {
 			}, () => {
 				this.clearHighlight();
 				if (typeof afterSelect == 'function') {
-					afterSelect(selectedDate);
+					afterSelect(selectedDate,null);
 				}
 			});
 		}
 	};
-	onDayOver = (selectedDateEnd, e, shouldHeaderAnimate = this.props.shouldHeaderAnimate) => {
-		if(this.state.dragging) {
+	onDayOver = (overDate, e, shouldHeaderAnimate = this.props.shouldHeaderAnimate) => {
+		if(this.state.dragging!==0) {
+			var selectedDate = this.state.selectedDate;
+			var selectedDateEnd = this.state.selectedDateEnd;
+			var dragging = this.state.dragging;
+			if(dragging==1) {
+				selectedDateEnd = overDate;
+			} else if(dragging==-1) {
+				selectedDate = overDate;
+			}
+			if(selectedDate>selectedDateEnd) {
+				dragging = -dragging;
+				var tmp = selectedDate;
+				selectedDate = selectedDateEnd;
+				selectedDateEnd = tmp;
+			}
+
 			this.setState({
-				selectedDateEnd,
-			});
-		}
-	};
-	onDayUp = (selectedDateEnd, e, shouldHeaderAnimate = this.props.shouldHeaderAnimate) => {
-		if(this.state.dragging) {
-			var dragging = false;
-			this.setState({
+				selectedDate,
 				selectedDateEnd,
 				dragging
 			});
+		}
+	};
+	onDayUp = (overDate, e, shouldHeaderAnimate = this.props.shouldHeaderAnimate) => {
+		let {afterSelect, beforeSelect, onSelect} = this.props;
+		if(this.state.dragging!==0) {
+			var selectedDate = this.state.selectedDate;
+			var selectedDateEnd = this.state.selectedDateEnd;
+
+			if(this.state.dragging==1) {
+				selectedDateEnd = overDate;
+			} else if(this.state.dragging==-1) {
+				selectedDate = overDate;
+			}
+			if(selectedDate>selectedDateEnd) {
+				var tmp = selectedDate;
+				selectedDate = selectedDateEnd;
+				selectedDateEnd = tmp;
+			}
+
+			if (!beforeSelect || typeof beforeSelect == 'function' && beforeSelect(selectedDate,selectedDateEnd)) {
+				if (typeof onSelect == 'function') {
+					onSelect(selectedDate, selectedDateEnd, e);
+				}
+
+				var dragging = 0;
+		
+			this.setState({
+					selectedDate,
+				selectedDateEnd,
+					dragging,
+					shouldHeaderAnimate
+				}, () => {
+					this.clearHighlight();
+					if (typeof afterSelect == 'function') {
+						afterSelect(selectedDate, selectedDateEnd);
+					}
+			});
+
+			}
 		}
 	};
 	getCurrentOffset = () => {

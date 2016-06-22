@@ -5,6 +5,11 @@ export default function Day({currentYear, date, day, handleDayClick, handleDayDo
 	var {date: mmt, yyyymmdd} = date;
 	var year = mmt.year();
 
+	var highlightStyle = style.selection;
+	if(isSelected && !isSelectedEnd) highlightStyle = style.selectionStart;
+	if(!isSelected && isSelectedEnd) highlightStyle = style.selectionEnd;
+	if(!isSelected && !isSelectedEnd && isSelectedBetween) highlightStyle = style.selectionBetween;
+
 	return (
 		<li
 			style={(isToday) ? {color: theme.todayColor} : null}
@@ -19,7 +24,7 @@ export default function Day({currentYear, date, day, handleDayClick, handleDayDo
 			<span>{day}</span>
 			{(day === 1 && currentYear !== year) && <span className={style.year}>{year}</span>}
 			{(isSelected || isSelectedBetween || isSelectedEnd) &&
-				<div className={style.selection} style={{backgroundColor: (typeof theme.selectionColor == 'function') ? theme.selectionColor(mmt) : theme.selectionColor, color: theme.textColor.active}}>
+				<div className={highlightStyle} style={{backgroundColor: (typeof theme.selectionColor == 'function') ? theme.selectionColor(mmt) : theme.selectionColor, color: theme.textColor.active}}>
 					<span className={style.month}>{(isToday) ? (locale.todayLabel.short || locale.todayLabel.long) : monthShort}</span>
 					<span className={style.day}>{day}</span>
 				</div>

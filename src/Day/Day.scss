@@ -9,7 +9,41 @@
     height: $rowHeight - 4px;
     margin-top: -0.5 * ($rowHeight - 4px);
     margin-left: -0.5 * ($rowHeight - 4px);
-    border-radius: 50%;
+    border-radius: 50% 50% 50% 50%;
+}
+
+@mixin semicircleL() {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: $rowHeight - 4px;
+    height: $rowHeight - 4px;
+    margin-top: -0.5 * ($rowHeight - 4px);
+    margin-left: -0.5 * ($rowHeight - 4px);
+    border-radius: 50% 0% 0% 50%;
+}
+@mixin semicircleR() {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: $rowHeight - 4px;
+    height: $rowHeight - 4px;
+    margin-top: -0.5 * ($rowHeight - 4px);
+    margin-left: -0.5 * ($rowHeight - 4px);
+    border-radius: 0% 50% 50% 0%;
+}
+@mixin square() {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: $rowHeight - 4px;
+    height: $rowHeight - 4px;
+    margin-top: -0.5 * ($rowHeight - 4px);
+    margin-left: -0.5 * ($rowHeight - 4px);
+    border-radius: 0%;
 }
 
 .root {
@@ -85,6 +119,54 @@
 
         .selection {
             @include circle();
+            line-height: $rowHeight;
+            z-index: 2;
+
+            .month {
+                top: 9px;
+            }
+            .day {
+                position: relative;
+                top: 5px;
+
+                font-weight: bold;
+                font-size: 18px;
+            }
+        }
+        .selectionStart {
+            @include semicircleL();
+            line-height: $rowHeight;
+            z-index: 2;
+
+            .month {
+                top: 9px;
+            }
+            .day {
+                position: relative;
+                top: 5px;
+
+                font-weight: bold;
+                font-size: 18px;
+            }
+        }
+        .selectionEnd {
+            @include semicircleR();
+            line-height: $rowHeight;
+            z-index: 2;
+
+            .month {
+                top: 9px;
+            }
+            .day {
+                position: relative;
+                top: 5px;
+
+                font-weight: bold;
+                font-size: 18px;
+            }
+        }
+        .selectionBetween {
+            @include square();
             line-height: $rowHeight;
             z-index: 2;
 
