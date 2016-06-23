@@ -4,6 +4,7 @@ module.exports = {
         active: '#FFF'
     },
     selectionColor: '#559FFF',
+    selectionHoverColor: '#99cFFF',
     todayColor: '#FFA726',
     weekdayColor: '#559FFF',
     headerColor: '#448AFF',

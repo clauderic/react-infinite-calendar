@@ -1,14 +1,18 @@
 import React from 'react';
 const style = require('./Day.scss');
 
-export default function Day({currentYear, date, day, handleDayClick, handleDayDown, handleDayOver, handleDayUp, handleTouchStart, isDisabled, isToday, isSelected, isSelectedBetween, isSelectedEnd, monthShort, locale, theme}) {
+export default function Day({currentYear, date, day, handleDayClick, handleDayDown, handleDayOver, handleDayUp, handleTouchStart, isDisabled, isToday, isSelected, isHovered, dragging, isSelectedBetween, isSelectedEnd, monthShort, locale, theme}) {
 	var {date: mmt, yyyymmdd} = date;
 	var year = mmt.year();
 
 	var highlightStyle = style.selection;
-	if(isSelected && !isSelectedEnd) highlightStyle = style.selectionStart;
-	if(!isSelected && isSelectedEnd) highlightStyle = style.selectionEnd;
-	if(!isSelected && !isSelectedEnd && isSelectedBetween) highlightStyle = style.selectionBetween;
+	if(isSelected && (!isSelectedEnd || dragging!==0)) highlightStyle += " "+style.selectionStart;
+	else if(!isSelected && isSelectedEnd) highlightStyle += " "+style.selectionEnd;
+	else if(!isSelected && !isSelectedEnd && isSelectedBetween) highlightStyle += " "+style.selectionBetween;
+	
+	var backgroundColor = (typeof theme.selectionColor == 'function') ? theme.selectionColor(mmt) : theme.selectionColor;
+	if(dragging==1 && !isSelected) backgroundColor = (typeof theme.selectionHoverColor == 'function') ? theme.selectionHoverColor(mmt) : theme.selectionHoverColor;
+	else if(dragging==-1 && !isSelectedEnd) backgroundColor = (typeof theme.selectionHoverColor == 'function') ? theme.selectionHoverColor(mmt) : theme.selectionHoverColor;
 
 	return (
 		<li
@@ -24,9 +28,14 @@ export default function Day({currentYear, date, day, handleDayClick, handleDayDo
 			{(day === 1) && <span className={style.month}>{monthShort}</span>}
 			<span>{day}</span>
 			{(day === 1 && currentYear !== year) && <span className={style.year}>{year}</span>}
-			{(isSelected || isSelectedBetween || isSelectedEnd) &&
-				<div className={highlightStyle} style={{backgroundColor: (typeof theme.selectionColor == 'function') ? theme.selectionColor(mmt) : theme.selectionColor, color: theme.textColor.active}}>
+			{(isSelected || isSelectedEnd) &&
+				<div className={highlightStyle} style={{backgroundColor: backgroundColor, color: theme.textColor.active}}>
 					<span className={style.month}>{(isToday) ? (locale.todayLabel.short || locale.todayLabel.long) : monthShort}</span>
+					<span className={style.day}>{day}</span>
+				</div>
+			}
+			{(isSelectedBetween) &&
+				<div className={highlightStyle} style={{backgroundColor: backgroundColor, color: theme.textColor.active}}>
 					<span className={style.day}>{day}</span>
 				</div>
 			}
