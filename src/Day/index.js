@@ -11,8 +11,10 @@ export default function Day({currentYear, date, day, handleDayClick, handleDayDo
 	else if(!isSelected && !isSelectedEnd && isSelectedBetween) highlightStyle += " "+style.selectionBetween;
 	
 	var backgroundColor = (typeof theme.selectionColor == 'function') ? theme.selectionColor(mmt) : theme.selectionColor;
-	if(dragging==1 && !isSelected) backgroundColor = (typeof theme.selectionHoverColor == 'function') ? theme.selectionHoverColor(mmt) : theme.selectionHoverColor;
-	else if(dragging==-1 && !isSelectedEnd) backgroundColor = (typeof theme.selectionHoverColor == 'function') ? theme.selectionHoverColor(mmt) : theme.selectionHoverColor;
+	if(dragging==1 && !isSelected && !isDisabled) backgroundColor = (typeof theme.selectionHoverColor == 'function') ? theme.selectionHoverColor(mmt) : theme.selectionHoverColor;
+	else if(dragging==-1 && !isSelectedEnd && !isDisabled) backgroundColor = (typeof theme.selectionHoverColor == 'function') ? theme.selectionHoverColor(mmt) : theme.selectionHoverColor;
+	else if(isDisabled) backgroundColor = (typeof theme.selectionDisabledColor == 'function') ? theme.selectionDisabledColor(mmt) : theme.selectionDisabledColor;
+
 
 	return (
 		<li

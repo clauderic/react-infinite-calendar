@@ -5,6 +5,7 @@ module.exports = {
     },
     selectionColor: '#559FFF',
     selectionHoverColor: '#99cFFF',
+    selectionDisabledColor: '#ccc',
     todayColor: '#FFA726',
     weekdayColor: '#559FFF',
     headerColor: '#448AFF',
