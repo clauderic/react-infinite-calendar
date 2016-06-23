@@ -11,6 +11,7 @@ export default class Header extends Component {
 		locale: PropTypes.object,
 		onClick: PropTypes.func,
 		selectedDate: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+		selectedDateEnd: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 		shouldHeaderAnimate: PropTypes.bool,
 		theme: PropTypes.object,
 		display: PropTypes.string
@@ -18,9 +19,10 @@ export default class Header extends Component {
 	shouldComponentUpdate(nextProps) {
 		return shallowCompare(this, nextProps);
 	}
-	render() {
-		let {display, layout, locale, scrollToDate, selectedDate, setDisplay, shouldHeaderAnimate, theme} = this.props;
-		let values = selectedDate && [
+	getDateValues(selectedDate) {
+		let {display, locale, scrollToDate, setDisplay} = this.props;
+
+		return [
 			{
 				item: 'year',
 				value: selectedDate.year(),
@@ -48,12 +50,17 @@ export default class Header extends Component {
 				}
 			}
 		];
+	}
+	render() {
+		let {layout, locale, selectedDate, selectedDateEnd, shouldHeaderAnimate, theme} = this.props;
+		let startValues = selectedDate && this.getDateValues(selectedDate);
+		let numDays = selectedDateEnd.diff(selectedDate,'days'); //{ numDays && "+ "+numDays+" days"}
 
 		return (
 			<div className={classNames(style.root, {[style.blank]: !selectedDate, [style.landscape]: layout == 'landscape'})} style={theme && {backgroundColor: theme.headerColor, color: theme.textColor.active}}>
 				{(selectedDate) ?
 					<div className={style.wrapper} aria-label={selectedDate.format(locale.headerFormat + ' YYYY')}>
-						{values.map(({handleClick, item, key, value, active, title}) => {
+						{startValues.map(({handleClick, item, key, value, active, title}) => {
 							return (
 								<div key={item} className={classNames(style.dateWrapper, style[item], {[style.active]: active})} title={title}>
 									<ReactCSSTransitionGroup transitionName={animation} transitionEnterTimeout={250} transitionLeaveTimeout={250} transitionEnter={shouldHeaderAnimate} transitionLeave={shouldHeaderAnimate}>
@@ -64,6 +71,7 @@ export default class Header extends Component {
 								</div>
 							);
 						})}
+						{ selectedDateEnd && !selectedDate.isSame(selectedDateEnd) && locale.rangeLabel+" "+selectedDateEnd.format(locale.headerFormat)}
 					</div>
 				: <div className={style.wrapper}>{locale.blank}</div>}
 			</div>

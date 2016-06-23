@@ -3,6 +3,7 @@ module.exports = {
     todayLabel: {
         long: 'Today'
     },
+    rangeLabel: 'to',
     blank: 'Select a date...',
     headerFormat: 'ddd, MMM Do',
     week: {
