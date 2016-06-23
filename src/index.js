@@ -246,7 +246,7 @@ export default class InfiniteCalendar extends Component {
 		}
 	};
 	onDayOver = (selectedHovering, e, shouldHeaderAnimate = this.props.shouldHeaderAnimate) => {
-		if(this.state.dragging!==0 && this.props.allowRanges) {
+		if(this.state.dragging!==0 && !this.state.touchBehavior && this.props.allowRanges) {
 			var selectedDate = this.state.selectedDate;
 			var selectedDateEnd = this.state.selectedDateEnd;
 			var dragging = this.state.dragging;
