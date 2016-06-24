@@ -54,7 +54,9 @@ export default class Header extends Component {
 	render() {
 		let {layout, locale, selectedDate, selectedDateEnd, shouldHeaderAnimate, theme} = this.props;
 		let startValues = selectedDate && this.getDateValues(selectedDate);
-		let numDays = selectedDateEnd.diff(selectedDate,'days'); //{ numDays && "+ "+numDays+" days"}
+		// let numDays = selectedDateEnd.diff(selectedDate,'days');
+		let endLabel = "";
+		if(selectedDate && selectedDateEnd && !selectedDate.isSame(selectedDateEnd)) endLabel = locale.rangeLabel+" "+selectedDateEnd.format(locale.headerFormat);
 
 		return (
 			<div className={classNames(style.root, {[style.blank]: !selectedDate, [style.landscape]: layout == 'landscape'})} style={theme && {backgroundColor: theme.headerColor, color: theme.textColor.active}}>
@@ -71,7 +73,7 @@ export default class Header extends Component {
 								</div>
 							);
 						})}
-						{ selectedDateEnd && !selectedDate.isSame(selectedDateEnd) && locale.rangeLabel+" "+selectedDateEnd.format(locale.headerFormat)}
+						<span className={style.rangeLabel}>{ endLabel }</span>
 					</div>
 				: <div className={style.wrapper}>{locale.blank}</div>}
 			</div>

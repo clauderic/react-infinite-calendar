@@ -107,7 +107,7 @@ export default class InfiniteCalendar extends Component {
 		}
 	}
 	componentWillReceiveProps(next) {
-		let {min, minDate, max, maxDate, locale, selectedDate} = this.props;
+		let {min, minDate, max, maxDate, locale, selectedDate, selectedDateEnd} = this.props;
 		let {display} = this.state;
 
 		if (next.locale !== locale) {
@@ -116,16 +116,29 @@ export default class InfiniteCalendar extends Component {
 		if (next.min !== min || next.minDate !== minDate || next.max !== max || next.maxDate !== maxDate) {
 			this.updateYears(next);
 		}
-		if (next.selectedDate !== selectedDate) {
-			this.setState({
-				selectedDate: this.parseSelectedDate(next.selectedDate)
-			});
+		if (next.selectedDate !== selectedDate || next.selectedDateEnd !== selectedDateEnd) {
+			if (next.selectedDate !== selectedDate) {
+				this.setState({
+					selectedDate: this.parseSelectedDate(next.selectedDate)
+				});
+			}
+			if (next.selectedDateEnd !== selectedDateEnd) {
+				this.setState({
+					selectedDateEnd: this.parseSelectedDate(next.selectedDateEnd)
+				});
+			}
 		} else if (next.minDate !== minDate || next.maxDate !== maxDate) {
 			// Need to make sure the currently selected date is not before the new minDate or after maxDate
 			let _selectedDate = this.parseSelectedDate(this.state.selectedDate);
 			if (!_selectedDate.isSame(this.state.selectedDate, 'day')) {
 				this.setState({
 					selectedDate: _selectedDate
+				});
+			}
+			let _selectedDateEnd = this.parseSelectedDate(this.state.selectedDateEnd);
+			if (!_selectedDateEnd.isSame(this.state.selectedDateEnd, 'day')) {
+				this.setState({
+					selectedDateEnd: _selectedDateEnd
 				});
 			}
 		}
