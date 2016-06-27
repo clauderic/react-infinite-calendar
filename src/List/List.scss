@@ -22,5 +22,9 @@
     .Grid__cell {
         position: absolute;
         width: 100% !important;
+        -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
     }
 }

@@ -232,13 +232,9 @@ export default class InfiniteCalendar extends Component {
 	onDayDown = (selectedDate, e) => {
 		let {afterSelect, beforeSelect, onSelect, allowRanges} = this.props;
 
-		if(this.state.touchBehavior || !allowRanges) return;
+		if(this.state.touchBehavior || !allowRanges) return false;
 
 		if (!beforeSelect || typeof beforeSelect == 'function' && beforeSelect(selectedDate,null)) {
-			if (typeof onSelect == 'function') {
-				onSelect(selectedDate, null, e);
-			}
-			
 			var dragging = 1;
 			var selectedDateEnd = selectedDate;
 			var selectedHovering = null;
@@ -248,13 +244,9 @@ export default class InfiniteCalendar extends Component {
 				selectedHovering,
 				dragging,
 				highlightedDate: selectedDate.clone()
-			}, () => {
-				this.clearHighlight();
-				if (typeof afterSelect == 'function') {
-					afterSelect(selectedDate,null);
-				}
 			});
 		}
+		return false;
 	};
 	onDayOver = (selectedHovering, e) => {
 		if(this.state.dragging!==0 && !this.state.touchBehavior && this.props.allowRanges) {
@@ -281,6 +273,7 @@ export default class InfiniteCalendar extends Component {
 				dragging
 			});
 		}
+		return false;
 	};
 	onDayUp = (overDate, e) => {
 		let {afterSelect, beforeSelect, onSelect, allowRanges} = this.props;
@@ -288,6 +281,8 @@ export default class InfiniteCalendar extends Component {
 
 			var selectedDate = this.state.selectedDate;
 			var selectedDateEnd = this.state.selectedDateEnd;
+			var dragging = 0;
+			var selectedHovering = null;
 
 			if(this.state.dragging==1) {
 				selectedDateEnd = overDate;
@@ -300,13 +295,14 @@ export default class InfiniteCalendar extends Component {
 				selectedDateEnd = tmp;
 			}
 
-			if (!beforeSelect || typeof beforeSelect == 'function' && beforeSelect(selectedDate,selectedDateEnd)) {
+			var valid = true;
+			if(beforeSelect || typeof beforeSelect == 'function') valid = beforeSelect(selectedDate,selectedDateEnd);
+
+			if (valid) {
 				if (typeof onSelect == 'function') {
 					onSelect(selectedDate, selectedDateEnd, e);
 				}
 
-				var dragging = 0;
-				var selectedHovering = null;
 				this.setState({
 					selectedDate,
 					selectedDateEnd,
@@ -318,9 +314,18 @@ export default class InfiniteCalendar extends Component {
 						afterSelect(selectedDate, selectedDateEnd);
 					}
 				});
-
+			} else {
+				selectedDate = null;
+				selectedDateEnd = null;
+				this.setState({
+					selectedDate,
+					selectedDateEnd,
+					selectedHovering,
+					dragging,
+				});
 			}
 		}
+		return false;
 	};
 	onTouchStart = (startDate, e) => {
 		var touchBehavior = true;
