@@ -230,9 +230,9 @@ export default class InfiniteCalendar extends Component {
 		}
 	};
 	onDayDown = (selectedDate, e) => {
-		let {afterSelect, beforeSelect, onSelect} = this.props;
+		let {afterSelect, beforeSelect, onSelect, allowRanges} = this.props;
 
-		if(this.state.touchBehavior || !this.props.allowRanges) return;
+		if(this.state.touchBehavior || !allowRanges) return;
 
 		if (!beforeSelect || typeof beforeSelect == 'function' && beforeSelect(selectedDate,null)) {
 			if (typeof onSelect == 'function') {
@@ -283,8 +283,8 @@ export default class InfiniteCalendar extends Component {
 		}
 	};
 	onDayUp = (overDate, e) => {
-		let {afterSelect, beforeSelect, onSelect} = this.props;
-		if(this.state.dragging!==0 && !this.state.touchBehavior && this.props.allowRanges) {
+		let {afterSelect, beforeSelect, onSelect, allowRanges} = this.props;
+		if(this.state.dragging!==0 && !this.state.touchBehavior && allowRanges) {
 
 			var selectedDate = this.state.selectedDate;
 			var selectedDateEnd = this.state.selectedDateEnd;
