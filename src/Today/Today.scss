@@ -33,9 +33,15 @@
         top: 50%;
         margin-top: -6px;
         margin-left: 5px;
+        transform: rotate(270deg);
+        transition: transform 0.3s ease;
     }
 
     &.chevronUp .chevron {
         transform: rotate(180deg);
+    }
+
+    &.chevronDown .chevron {
+        transform: rotate(360deg);
     }
 }

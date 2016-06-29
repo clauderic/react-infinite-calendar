@@ -237,9 +237,9 @@ export default class InfiniteCalendar extends Component {
 		let newState;
 
 		if (scrollTop >= this.todayOffset + height - monthHeight + rowHeight * todayHelperRowOffset) {
-			if (showToday !== 1) newState = 1;
-		} else if (scrollTop <= this.todayOffset - rowHeight * todayHelperRowOffset) {
-			if (showToday !== -1) newState = -1;
+			if (showToday !== 1) newState = 1; //today is above the fold
+		} else if (scrollTop <= this.todayOffset - monthHeight - rowHeight * todayHelperRowOffset) {
+			if (showToday !== -1) newState = -1; //today is below the fold
 		} else if (showToday && scrollSpeed <= 1) {
 			newState = false;
 		}
