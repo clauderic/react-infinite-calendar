@@ -106,7 +106,7 @@ export default class List extends Component {
 	};
 	render() {
 		let {height, isScrolling, onScroll, overscanMonthCount, months, rowHeight, selectedDate, today, width} = this.props;
-		if (!this.initScrollTop) this.initScrollTop = this.getDateOffset(selectedDate && selectedDate.date || today.date);
+		if (!this._initScrollTop) this._initScrollTop = this.getDateOffset(selectedDate && selectedDate.date || today.date);
 		if (typeof width == 'string' && width.indexOf('%') !== -1) {
 			width = window.innerWidth * parseInt(width.replace('%', ''), 10) / 100; // See https://github.com/bvaughn/react-virtualized/issues/229
 		}
@@ -121,7 +121,7 @@ export default class List extends Component {
 				estimatedRowSize={rowHeight * 5}
 				rowRenderer={this.renderMonth}
 				onScroll={onScroll}
-				scrollTop={this.initScrollTop}
+				scrollTop={this._initScrollTop}
 				className={classNames(style.root, {[style.scrolling]: isScrolling})}
 				style={{lineHeight: `${rowHeight}px`}}
 				overscanRowCount={overscanMonthCount}
