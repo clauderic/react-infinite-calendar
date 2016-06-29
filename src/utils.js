@@ -1,5 +1,6 @@
 import moment from 'moment';
 import 'moment-range';
+import getScrollbarSize from 'dom-helpers/util/scrollbarSize';
 
 export const keyCodes = {
     enter: 13,
@@ -165,3 +166,5 @@ export function validDisplay(props, propName, componentName) {
 		return new Error(`Invalid prop \`${propName}\` supplied to ${componentName}. Should be one of \`days\` or \`years\`.`);
 	}
 }
+
+export const scrollbarSize = getScrollbarSize();
