@@ -1,5 +1,8 @@
 Changelog
 ------------
+### 1.1.16
+Fixes issues with UMD build and externals.
+
 ### 1.1.15
 - Fixes issues with weekdays not properly aligning with dates when scrollbars are visible (#21)
 - Updated to the latest version of `react-virtualized`, which addresses an edge-case bug where an initial scroll offset prop is specified before external CSS stylesheets have loaded (#23)
