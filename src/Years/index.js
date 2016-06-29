@@ -8,7 +8,7 @@ const style = require('./Years.scss');
 export default class Years extends Component {
     static propTypes = {
         height: PropTypes.number,
-        width: PropTypes.number,
+        width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         hideYearsOnSelect: PropTypes.bool,
         maxDate: PropTypes.object,
         minDate: PropTypes.object,
@@ -95,6 +95,10 @@ export default class Years extends Component {
         let selectedYearIndex = years.indexOf(selectedYear);
         const rowHeight = 50;
         const containerHeight = (years.length * rowHeight < height + 50) ? years.length * rowHeight : height + 50;
+
+        if (typeof width == 'string' && width.indexOf('%') !== -1) {
+			width = window.innerWidth * parseInt(width.replace('%', ''), 10) / 100; // See https://github.com/bvaughn/react-virtualized/issues/229
+		}
 
         return (
             <div
