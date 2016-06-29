@@ -51,20 +51,19 @@
   },
   "dependencies": {
     "classnames": "^2.1.2",
+    "dom-helpers": "^2.4.0",
     "lodash": "^4.12.0",
     "moment": "^2.13.0",
     "moment-range": "^2.2.0",
-    "react-addons-css-transition-group": "^0.14.0 || ^15.0.0",
-    "react-addons-shallow-compare": "^0.14.0 || ^15.0.0",
     "react-virtualized": "^7.3.2"
   },
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0",
-    "react-dom": "^0.14.0 || ^15.0.0"
+    "react-dom": "^0.14.0 || ^15.0.0",
+    "react-addons-css-transition-group": "^0.14.0 || ^15.0.0",
+    "react-addons-shallow-compare": "^0.14.0 || ^15.0.0"
   },
   "devDependencies": {
-    "@kadira/storybook": "git+https://github.com/kadirahq/react-storybook.git",
-    "@kadira/storybook-deployer": "^1.0.0",
     "autoprefixer": "^6.3.6",
     "babel-cli": "^6.9.0",
     "babel-core": "^6.3.15",
@@ -114,9 +113,7 @@
     "postcss-loader": "^0.9.1",
     "qs": "^6.2.0",
     "raw-loader": "^0.5.1",
-    "react-addons-pure-render-mixin": "^15.0.2",
     "react-addons-test-utils": "^15.1.0",
-    "react-highlight": "^0.8.0",
     "redux": "^3.5.2",
     "rimraf": "^2.5.2",
     "sass-loader": "^3.2.0",
