@@ -124,7 +124,7 @@ React Infinite Calendar has few dependencies. It relies on the great work done b
 
 Reporting Issues
 ----------------
-If you find any [issues](https://github.com/clauderic/react-infinite-calendar/issues), please report it along with any relevant details to reproduce it. The easiest way to do so is to fork this [jsfiddle](https://jsfiddle.net/clauderic/4rhn03do/).
+If you find an [issue](https://github.com/clauderic/react-infinite-calendar/issues), please report it along with any relevant details to reproduce it. The easiest way to do so is to fork this [jsfiddle](https://jsfiddle.net/clauderic/4rhn03do/).
 
 Contributions
 ------------
