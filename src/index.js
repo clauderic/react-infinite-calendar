@@ -37,6 +37,7 @@ export default class InfiniteCalendar extends Component {
 		height: 500,
 		rowHeight: 56,
 		overscanMonthCount: 4,
+		todayHelperRowOffset: 4,
 		layout: 'portrait',
 		display: 'days',
 		selectedDate: new Date(),
@@ -68,6 +69,7 @@ export default class InfiniteCalendar extends Component {
 		rowHeight: PropTypes.number,
 		className: PropTypes.string,
 		overscanMonthCount: PropTypes.number,
+		todayHelperRowOffset: PropTypes.number,
 		disabledDays: PropTypes.arrayOf(PropTypes.number),
 		disabledDates: PropTypes.arrayOf(validDate),
 		beforeSelect: PropTypes.func,
@@ -225,14 +227,18 @@ export default class InfiniteCalendar extends Component {
 		if (typeof onScrollEnd == 'function') onScrollEnd(this.scrollTop);
 	}, 150);
 	updateTodayHelperPosition = (scrollSpeed) => {
-		if (!this.todayOffset) this.todayOffset = this.getDateOffset(this.today.date);
-		let {scrollTop} = this;
+		let date = this.today.date;
+		if (!this.todayOffset) this.todayOffset = this.getDateOffset(date);
+
+		let scrollTop = this.scrollTop;
 		let {showToday} = this.state;
+		let {height, rowHeight, todayHelperRowOffset} = this.props;
+		let monthHeight = this.list && this.list.getMonthHeight(this.list.getMonthIndex(date)) || rowHeight * 4;
 		let newState;
 
-		if (scrollTop >= this.todayOffset + 480) {
+		if (scrollTop >= this.todayOffset + height - monthHeight + rowHeight * todayHelperRowOffset) {
 			if (showToday !== 1) newState = 1;
-		} else if (scrollTop <= this.todayOffset - 500) {
+		} else if (scrollTop <= this.todayOffset - rowHeight * todayHelperRowOffset) {
 			if (showToday !== -1) newState = -1;
 		} else if (showToday && scrollSpeed <= 1) {
 			newState = false;
