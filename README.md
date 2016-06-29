@@ -122,6 +122,10 @@ Dependencies
 ------------
 React Infinite Calendar has few dependencies. It relies on the great work done by [`react-virtualized/VirtualScroll`](https://github.com/bvaughn/react-virtualized) for handling virtual scrolling logic and [`Moment.js`](https://github.com/moment/moment/) for handling date manipulation. It also has the following peer dependencies: [`react`](https://www.npmjs.com/package/react), [`react-dom`](https://www.npmjs.com/package/react-dom), [`react-addons-shallow-compare`](https://www.npmjs.com/package/react-addons-shallow-compare), and [`react-addons-css-transition-group`](https://www.npmjs.com/package/react-addons-css-transition-group).
 
+Reporting Issues
+----------------
+If you find any [issues](https://github.com/clauderic/react-infinite-calendar/issues), please report it along with any relevant details to reproduce it. The easiest way to do so is to fork this [jsfiddle](https://jsfiddle.net/clauderic/4rhn03do/).
+
 Contributions
 ------------
 Yes please! Feature requests / pull requests are welcome. Have a suggestion or just want to say hello? Come chat on [gitter](https://gitter.im/clauderic/react-infinite-calendar)!
