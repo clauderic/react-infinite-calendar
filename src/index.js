@@ -228,17 +228,17 @@ export default class InfiniteCalendar extends Component {
 	}, 150);
 	updateTodayHelperPosition = (scrollSpeed) => {
 		let date = this.today.date;
-		if (!this.todayOffset) this.todayOffset = this.getDateOffset(date);
+		if (!this.todayOffset) this.todayOffset = this.getDateOffset(date); //scrollTop offset of the month "today" is in
 
 		let scrollTop = this.scrollTop;
 		let {showToday} = this.state;
 		let {height, rowHeight, todayHelperRowOffset} = this.props;
-		let monthHeight = this.list && this.list.getMonthHeight(this.list.getMonthIndex(date)) || rowHeight * 4;
 		let newState;
+		let dayOffset = Math.ceil((date.date()-7+moment(date).startOf("month").day())/7)*rowHeight; //offset of "today" within its month
 
-		if (scrollTop >= this.todayOffset + height - monthHeight + rowHeight * todayHelperRowOffset) {
+		if (scrollTop >= this.todayOffset + dayOffset + rowHeight * (todayHelperRowOffset+1)) {
 			if (showToday !== 1) newState = 1; //today is above the fold
-		} else if (scrollTop <= this.todayOffset - monthHeight - rowHeight * todayHelperRowOffset) {
+		} else if (scrollTop + height <= this.todayOffset + dayOffset + rowHeight - rowHeight * (todayHelperRowOffset+1)) {
 			if (showToday !== -1) newState = -1; //today is below the fold
 		} else if (showToday && scrollSpeed <= 1) {
 			newState = false;
@@ -374,7 +374,7 @@ export default class InfiniteCalendar extends Component {
 		let locale = this.getLocale();
 		let theme = this.getTheme();
 		let {display, isScrolling, selectedDate, showToday, shouldHeaderAnimate} = this.state;
-		let today = this.today = parseDate(moment());
+		let today = this.today = parseDate(moment("2016-06-29"));
 
 		// Selected date should not be disabled
 		if (selectedDate && (disabledDates && disabledDates.indexOf(selectedDate.format('YYYYMMDD')) !== -1 || disabledDays && disabledDays.indexOf(selectedDate.day()) !== -1)) {
