@@ -374,7 +374,7 @@ export default class InfiniteCalendar extends Component {
 		let locale = this.getLocale();
 		let theme = this.getTheme();
 		let {display, isScrolling, selectedDate, showToday, shouldHeaderAnimate} = this.state;
-		let today = this.today = parseDate(moment("2016-06-29"));
+		let today = this.today = parseDate(moment());
 
 		// Selected date should not be disabled
 		if (selectedDate && (disabledDates && disabledDates.indexOf(selectedDate.format('YYYYMMDD')) !== -1 || disabledDays && disabledDays.indexOf(selectedDate.day()) !== -1)) {
