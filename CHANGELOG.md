@@ -1,5 +1,8 @@
 Changelog
 ------------
+### 1.1.17
+Tweaking today helper behavior when scrolled above/below the fold (#25)
+
 ### 1.1.16
 Fixes issues with UMD build and externals.
 
