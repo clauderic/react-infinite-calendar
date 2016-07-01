@@ -41,10 +41,19 @@
     position: absolute;
     top: 50%;
     margin-top: -6px;
-    margin-left: 5px; }
+    margin-left: 5px;
+    -webkit-transform: rotate(270deg);
+            transform: rotate(270deg);
+    -webkit-transition: -webkit-transform 0.3s ease;
+    transition: -webkit-transform 0.3s ease;
+    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, -webkit-transform 0.3s ease; }
   .Cal__Today__root.Cal__Today__chevronUp .Cal__Today__chevron {
     -webkit-transform: rotate(180deg);
             transform: rotate(180deg); }
+  .Cal__Today__root.Cal__Today__chevronDown .Cal__Today__chevron {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); }
 .Cal__Header__root {
   display: -webkit-box;
   display: -ms-flexbox;
