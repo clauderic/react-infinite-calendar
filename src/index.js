@@ -228,18 +228,18 @@ export default class InfiniteCalendar extends Component {
 	}, 150);
 	updateTodayHelperPosition = (scrollSpeed) => {
 		let date = this.today.date;
-		if (!this.todayOffset) this.todayOffset = this.getDateOffset(date);
+		if (!this.todayOffset) this.todayOffset = this.getDateOffset(date); //scrollTop offset of the month "today" is in
 
 		let scrollTop = this.scrollTop;
 		let {showToday} = this.state;
 		let {height, rowHeight, todayHelperRowOffset} = this.props;
-		let monthHeight = this.list && this.list.getMonthHeight(this.list.getMonthIndex(date)) || rowHeight * 4;
 		let newState;
+		let dayOffset = Math.ceil((date.date()-7+moment(date).startOf("month").day())/7)*rowHeight; //offset of "today" within its month
 
-		if (scrollTop >= this.todayOffset + height - monthHeight + rowHeight * todayHelperRowOffset) {
-			if (showToday !== 1) newState = 1;
-		} else if (scrollTop <= this.todayOffset - rowHeight * todayHelperRowOffset) {
-			if (showToday !== -1) newState = -1;
+		if (scrollTop >= this.todayOffset + dayOffset + rowHeight * (todayHelperRowOffset+1)) {
+			if (showToday !== 1) newState = 1; //today is above the fold
+		} else if (scrollTop + height <= this.todayOffset + dayOffset + rowHeight - rowHeight * (todayHelperRowOffset+1)) {
+			if (showToday !== -1) newState = -1; //today is below the fold
 		} else if (showToday && scrollSpeed <= 1) {
 			newState = false;
 		}
