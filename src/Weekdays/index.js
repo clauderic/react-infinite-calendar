@@ -19,10 +19,17 @@ export default class Weekdays extends Component {
 
 		return (
 			<ul className={style.root} style={{backgroundColor: theme.weekdayColor, color: theme.textColor.active, paddingRight: scrollbarSize}} aria-hidden={true}>
-				{range(0,7).map((val, index) => {
-					return (
-						<li key={`Weekday-${index}`} className={style.day}>{moment().weekday(index).format('ddd')}</li>
-					);
+				{range(0,8).map((val, index) => {
+				  if (index === 0) {
+            return (
+						  <li key={`Weekday-${index}`} className={style.day}>{moment().weekday(index).format('ddd')}</li>
+					  );
+				  }
+				  else {
+            return (
+						  <li key={`Weekday-${index}`} className={style.day}>{moment().weekday(index - 1).format('ddd')}</li>
+					  );
+				  }
 				})}
 			</ul>
 		);
