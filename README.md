@@ -46,14 +46,18 @@ import InfiniteCalendar from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css'; // Make sure to import the default stylesheet
 
 // Not using an ES6 transpiler
-var InfiniteCalendar = require('react-infinite-calendar').default;
+var InfiniteCalendar = require('react-infinite-calendar');
 require('react-infinite-calendar/styles.css');
 ```
 
-Alternatively, an UMD build is also available:
+Alternatively, an UMD build is also available.
 ```html
 <link rel="stylesheet" href="react-infinite-calendar/styles.css">
 <script src="react-infinite-calendar/dist/umd/react-infinite-calendar.js"></script>
+<script>
+var InfiniteCalendar = window.InfiniteCalendar.default;
+...
+</script>
 ```
 
 Usage
