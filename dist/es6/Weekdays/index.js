@@ -37,7 +37,7 @@ var Weekdays = function (_Component) {
 						return React.createElement(
 							'li',
 							{ key: 'Weekday-' + index, className: style.week },
-							locale.todayLabel.long
+							"Idag"
 						);
 					} else {
 						return React.createElement(
