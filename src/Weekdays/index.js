@@ -11,11 +11,14 @@ export default class Weekdays extends Component {
 		locale: PropTypes.object,
 		theme: PropTypes.object
 	};
+
 	shouldComponentUpdate(nextProps) {
 		return shallowCompare(this, nextProps);
 	}
 	render() {
-		let {theme, locale} = this.props;
+		let {theme} = this.props;
+
+		console.log(this);
 
 		return (
 			<ul className={style.root} style={{backgroundColor: theme.weekdayColor, color: theme.textColor.active, paddingRight: scrollbarSize}} aria-hidden={true}>

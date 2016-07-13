@@ -24,10 +24,10 @@ var Weekdays = function (_Component) {
 	}, {
 		key: 'render',
 		value: function render() {
-			var _props = this.props;
-			var theme = _props.theme;
-			var locale = _props.locale;
+			var theme = this.props.theme;
 
+
+			console.log(this);
 
 			return React.createElement(
 				'ul',

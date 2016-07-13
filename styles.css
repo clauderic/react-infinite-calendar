@@ -322,6 +322,102 @@
           flex-grow: 1;
   font-weight: 500;
   text-align: center; }
+.Cal__Week__root {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 14.28571%;
+  list-style: none;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none; }
+  .Cal__Week__root.Cal__Week__enabled.Cal__Week__highlighted, .Cal__Week__root.Cal__Week__enabled:active, .Cal__Week__root.Cal__Week__enabled:hover {
+    position: relative;
+    z-index: 1; }
+    .Cal__Week__root.Cal__Week__enabled.Cal__Week__highlighted:before, .Cal__Week__root.Cal__Week__enabled:active:before, .Cal__Week__root.Cal__Week__enabled:hover:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 52px;
+      height: 52px;
+      margin-top: -26px;
+      margin-left: -26px;
+      border-radius: 50%;
+      background-color: #EFEFEF;
+      z-index: -1; }
+  .Cal__Week__root.Cal__Week__enabled:hover:before {
+    opacity: 0.5; }
+  .Cal__Week__root.Cal__Week__enabled.Cal__Week__highlighted:before, .Cal__Week__root.Cal__Week__enabled:active:before {
+    opacity: 1; }
+  .Cal__Week__root:first-child {
+    position: relative; }
+  .Cal__Week__root.Cal__Week__today {
+    position: relative;
+    z-index: 2; }
+    .Cal__Week__root.Cal__Week__today > span {
+      color: #3d3d3d; }
+    .Cal__Week__root.Cal__Week__today.Cal__Week__disabled > span {
+      color: #AAA; }
+    .Cal__Week__root.Cal__Week__today:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 52px;
+      height: 52px;
+      margin-top: -26px;
+      margin-left: -26px;
+      border-radius: 50%;
+      box-shadow: inset 0 0 0 1px;
+      z-index: -1; }
+    .Cal__Week__root.Cal__Week__today.Cal__Week__disabled:before {
+      box-shadow: inset 0 0 0 1px #BBB; }
+  .Cal__Week__root.Cal__Week__selected {
+    position: relative; }
+    .Cal__Week__root.Cal__Week__selected > .Cal__Week__month, .Cal__Week__root.Cal__Week__selected > .Cal__Week__year {
+      display: none; }
+    .Cal__Week__root.Cal__Week__selected:before {
+      display: none; }
+    .Cal__Week__root.Cal__Week__selected .Cal__Week__selection {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 52px;
+      height: 52px;
+      margin-top: -26px;
+      margin-left: -26px;
+      border-radius: 50%;
+      line-height: 56px;
+      z-index: 2; }
+      .Cal__Week__root.Cal__Week__selected .Cal__Week__selection .Cal__Week__month {
+        top: 9px; }
+      .Cal__Week__root.Cal__Week__selected .Cal__Week__selection .Cal__Week__day {
+        position: relative;
+        top: 5px;
+        font-weight: bold;
+        font-size: 18px; }
+  .Cal__Week__root.Cal__Week__disabled {
+    cursor: default;
+    color: #AAA;
+    cursor: not-allowed; }
+
+.Cal__Week__month, .Cal__Week__year {
+  position: absolute;
+  left: 0;
+  right: 0;
+  font-size: 12px;
+  line-height: 12px; }
+
+.Cal__Week__month {
+  top: 5px; }
+
+.Cal__Week__year {
+  bottom: 5px; }
 .Cal__Years__root {
   position: absolute;
   left: 0;
