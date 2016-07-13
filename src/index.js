@@ -10,13 +10,16 @@ import Today from './Today';
 import Header from './Header';
 import List from './List';
 import Weekdays from './Weekdays';
+import Week from './Week';
 import Years from './Years';
 
 const containerStyle = require('./Container.scss');
 const dayStyle = require('./Day/Day.scss');
+const weekStyle = require('./Week/Week.scss');
 const style = {
 	container: containerStyle,
-	day: dayStyle
+	day: dayStyle,
+	week: weekStyle
 };
 
 export default class InfiniteCalendar extends Component {

@@ -10,6 +10,7 @@ import Today from './Today';
 import Header from './Header';
 import List from './List';
 import Weekdays from './Weekdays';
+import Week from './Week';
 import Years from './Years';
 
 var containerStyle = {
@@ -30,9 +31,22 @@ var dayStyle = {
 	'selection': 'Cal__Day__selection',
 	'day': 'Cal__Day__day'
 };
+var weekStyle = {
+	'root': 'Cal__Week__root',
+	'enabled': 'Cal__Week__enabled',
+	'highlighted': 'Cal__Week__highlighted',
+	'today': 'Cal__Week__today',
+	'disabled': 'Cal__Week__disabled',
+	'selected': 'Cal__Week__selected',
+	'month': 'Cal__Week__month',
+	'year': 'Cal__Week__year',
+	'selection': 'Cal__Week__selection',
+	'day': 'Cal__Week__day'
+};
 var style = {
 	container: containerStyle,
-	day: dayStyle
+	day: dayStyle,
+	week: weekStyle
 };
 
 var InfiniteCalendar = function (_Component) {

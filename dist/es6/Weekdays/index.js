@@ -24,7 +24,9 @@ var Weekdays = function (_Component) {
 	}, {
 		key: 'render',
 		value: function render() {
-			var theme = this.props.theme;
+			var _props = this.props;
+			var theme = _props.theme;
+			var locale = _props.locale;
 
 
 			return React.createElement(
@@ -34,8 +36,8 @@ var Weekdays = function (_Component) {
 					if (index === 0) {
 						return React.createElement(
 							'li',
-							{ key: 'Weekday-' + index, className: style.day },
-							moment().weekday(index).format('ddd')
+							{ key: 'Weekday-' + index, className: style.week },
+							locale.todayLabel.long
 						);
 					} else {
 						return React.createElement(

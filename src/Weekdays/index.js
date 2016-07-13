@@ -15,14 +15,14 @@ export default class Weekdays extends Component {
 		return shallowCompare(this, nextProps);
 	}
 	render() {
-		let {theme} = this.props;
+		let {theme, locale} = this.props;
 
 		return (
 			<ul className={style.root} style={{backgroundColor: theme.weekdayColor, color: theme.textColor.active, paddingRight: scrollbarSize}} aria-hidden={true}>
 				{range(0,8).map((val, index) => {
 				  if (index === 0) {
             return (
-						  <li key={`Weekday-${index}`} className={style.day}>{moment().weekday(index).format('ddd')}</li>
+						  <li key={`Weekday-${index}`} className={style.week}>{locale.todayLabel.long}</li>
 					  );
 				  }
 				  else {
