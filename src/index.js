@@ -51,7 +51,7 @@ export default class InfiniteCalendar extends Component {
 		autoFocus: true,
 		shouldHeaderAnimate: true,
 		showOverlay: true,
-		showTodayHelper: true,
+		showTodayHelper: false,
 		showHeader: false,
 		tabIndex: 1,
 		locale: {},
