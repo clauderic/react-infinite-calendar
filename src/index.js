@@ -10,7 +10,6 @@ import Today from './Today';
 import Header from './Header';
 import List from './List';
 import Weekdays from './Weekdays';
-import Week from './Week';
 import Years from './Years';
 
 const containerStyle = require('./Container.scss');
@@ -53,11 +52,12 @@ export default class InfiniteCalendar extends Component {
 		shouldHeaderAnimate: true,
 		showOverlay: true,
 		showTodayHelper: true,
-		showHeader: true,
+		showHeader: false,
 		tabIndex: 1,
 		locale: {},
 		theme: {},
-		hideYearsOnSelect: true
+		hideYearsOnSelect: true,
+		displaySelectionText: false,
 	};
 	static propTypes = {
 		selectedDate: validDate,
@@ -90,7 +90,8 @@ export default class InfiniteCalendar extends Component {
 		shouldHeaderAnimate: PropTypes.bool,
 		showOverlay: PropTypes.bool,
 		showTodayHelper: PropTypes.bool,
-		showHeader: PropTypes.bool
+		showHeader: PropTypes.bool,
+		displaySelectionText: PropTypes.bool,
 	};
 	componentDidMount() {
 		let {autoFocus, keyboardSupport} = this.props;
@@ -102,7 +103,7 @@ export default class InfiniteCalendar extends Component {
 		}
 	}
 	componentWillReceiveProps(next) {
-		let {min, minDate, max, maxDate, locale, selectedDate} = this.props;
+		let {min, minDate, max, maxDate, locale, selectedDate, displaySelectionText} = this.props;
 		let {display} = this.state;
 
 		if (next.locale !== locale) {
@@ -371,6 +372,7 @@ export default class InfiniteCalendar extends Component {
 			showHeader,
 			tabIndex,
 			width,
+			displaySelectionText,
 			...other
 		} = this.props;
 		let disabledDates = this.getDisabledDates(this.props.disabledDates);
@@ -390,7 +392,7 @@ export default class InfiniteCalendar extends Component {
 					<Header selectedDate={selectedDate} shouldHeaderAnimate={shouldHeaderAnimate} layout={layout} theme={theme} locale={locale} scrollToDate={this.scrollToDate} setDisplay={this.setDisplay} display={display} />
 				}
 				<div className={style.container.wrapper}>
-					<Weekdays theme={theme} />
+					<Weekdays theme={theme} locale={locale} />
 					<div className={style.container.listWrapper}>
 						{showTodayHelper &&
 							<Today scrollToDate={this.scrollToDate} show={showToday} today={today} theme={theme} locale={locale} />
@@ -414,6 +416,7 @@ export default class InfiniteCalendar extends Component {
 							theme={theme}
 							locale={locale}
 							overscanMonthCount={overscanMonthCount}
+							displaySelectionText={displaySelectionText}
 						/>
 					</div>
 					{display == 'years' &&

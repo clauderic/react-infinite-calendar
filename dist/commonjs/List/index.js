@@ -121,11 +121,13 @@ var List = function (_Component) {
 			var showOverlay = _this$props3.showOverlay;
 			var theme = _this$props3.theme;
 			var today = _this$props3.today;
+			var displaySelectionText = _this$props3.displaySelectionText;
 
 			var _this$memoize = _this.memoize(months[index]);
 
 			var date = _this$memoize.date;
 			var rows = _this$memoize.rows;
+			var weeks = _this$memoize.weeks;
 
 
 			return _react2.default.createElement(_Month2.default, {
@@ -138,12 +140,14 @@ var List = function (_Component) {
 				minDate: minDate,
 				onDaySelect: onDaySelect,
 				rows: rows,
+				weeks: weeks,
 				rowHeight: rowHeight,
 				isScrolling: isScrolling,
 				showOverlay: showOverlay,
 				today: today,
 				theme: theme,
-				locale: locale
+				locale: locale,
+				displaySelectionText: displaySelectionText
 			});
 		}, _temp), _possibleConstructorReturn(_this, _ret);
 	}
@@ -213,6 +217,7 @@ List.propTypes = {
 	maxDate: _utils.validParsedDate,
 	showOverlay: _react.PropTypes.bool,
 	theme: _react.PropTypes.object,
-	locale: _react.PropTypes.object
+	locale: _react.PropTypes.object,
+	displaySelectionText: _react.PropTypes.bool
 };
 exports.default = List;

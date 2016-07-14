@@ -54,10 +54,6 @@ var _Weekdays = require('./Weekdays');
 
 var _Weekdays2 = _interopRequireDefault(_Weekdays);
 
-var _Week = require('./Week');
-
-var _Week2 = _interopRequireDefault(_Week);
-
 var _Years = require('./Years');
 
 var _Years2 = _interopRequireDefault(_Years);
@@ -373,6 +369,7 @@ var InfiniteCalendar = function (_Component) {
 			var maxDate = _props2.maxDate;
 			var locale = _props2.locale;
 			var selectedDate = _props2.selectedDate;
+			var displaySelectionText = _props2.displaySelectionText;
 			var display = this.state.display;
 
 
@@ -487,8 +484,9 @@ var InfiniteCalendar = function (_Component) {
 			var showHeader = _props3.showHeader;
 			var tabIndex = _props3.tabIndex;
 			var width = _props3.width;
+			var displaySelectionText = _props3.displaySelectionText;
 
-			var other = _objectWithoutProperties(_props3, ['className', 'disabledDays', 'height', 'hideYearsOnSelect', 'keyboardSupport', 'layout', 'overscanMonthCount', 'min', 'minDate', 'max', 'maxDate', 'showTodayHelper', 'showHeader', 'tabIndex', 'width']);
+			var other = _objectWithoutProperties(_props3, ['className', 'disabledDays', 'height', 'hideYearsOnSelect', 'keyboardSupport', 'layout', 'overscanMonthCount', 'min', 'minDate', 'max', 'maxDate', 'showTodayHelper', 'showHeader', 'tabIndex', 'width', 'displaySelectionText']);
 
 			var disabledDates = this.getDisabledDates(this.props.disabledDates);
 			var locale = this.getLocale();
@@ -514,7 +512,7 @@ var InfiniteCalendar = function (_Component) {
 				_react2.default.createElement(
 					'div',
 					{ className: style.container.wrapper },
-					_react2.default.createElement(_Weekdays2.default, { theme: theme }),
+					_react2.default.createElement(_Weekdays2.default, { theme: theme, locale: locale }),
 					_react2.default.createElement(
 						'div',
 						{ className: style.container.listWrapper },
@@ -537,7 +535,8 @@ var InfiniteCalendar = function (_Component) {
 							maxDate: (0, _utils.parseDate)(maxDate),
 							theme: theme,
 							locale: locale,
-							overscanMonthCount: overscanMonthCount
+							overscanMonthCount: overscanMonthCount,
+							displaySelectionText: displaySelectionText
 						}))
 					),
 					display == 'years' && _react2.default.createElement(_Years2.default, {
@@ -580,11 +579,12 @@ InfiniteCalendar.defaultProps = {
 	shouldHeaderAnimate: true,
 	showOverlay: true,
 	showTodayHelper: true,
-	showHeader: true,
+	showHeader: false,
 	tabIndex: 1,
 	locale: {},
 	theme: {},
-	hideYearsOnSelect: true
+	hideYearsOnSelect: true,
+	displaySelectionText: false
 };
 InfiniteCalendar.propTypes = {
 	selectedDate: _utils.validDate,
@@ -617,6 +617,7 @@ InfiniteCalendar.propTypes = {
 	shouldHeaderAnimate: _react.PropTypes.bool,
 	showOverlay: _react.PropTypes.bool,
 	showTodayHelper: _react.PropTypes.bool,
-	showHeader: _react.PropTypes.bool
+	showHeader: _react.PropTypes.bool,
+	displaySelectionText: _react.PropTypes.bool
 };
 exports.default = InfiniteCalendar;

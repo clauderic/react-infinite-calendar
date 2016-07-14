@@ -24,10 +24,10 @@ var Weekdays = function (_Component) {
 	}, {
 		key: 'render',
 		value: function render() {
-			var theme = this.props.theme;
+			var _props = this.props;
+			var theme = _props.theme;
+			var locale = _props.locale;
 
-
-			console.log(this);
 
 			return React.createElement(
 				'ul',
@@ -36,14 +36,14 @@ var Weekdays = function (_Component) {
 					if (index === 0) {
 						return React.createElement(
 							'li',
-							{ key: 'Weekday-' + index, className: style.week },
-							"Idag"
+							{ key: 'Weekday-' + index, className: style.day },
+							locale.todayLabel.long
 						);
 					} else {
 						return React.createElement(
 							'li',
 							{ key: 'Weekday-' + index, className: style.day },
-							moment().weekday(index - 1).format('ddd')
+							moment().weekday(index - 1).format('dd')
 						);
 					}
 				})

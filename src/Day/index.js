@@ -1,7 +1,7 @@
 import React from 'react';
 const style = require('./Day.scss');
 
-export default function Day({currentYear, date, day, handleDayClick, isDisabled, isToday, isSelected, monthShort, locale, theme}) {
+export default function Day({currentYear, date, day, handleDayClick, isDisabled, isToday, isSelected, monthShort, locale, theme, displaySelectionText}) {
 	var {date: mmt, yyyymmdd} = date;
 	var year = mmt.year();
 
@@ -17,7 +17,7 @@ export default function Day({currentYear, date, day, handleDayClick, isDisabled,
 			{(day === 1 && currentYear !== year) && <span className={style.year}>{year}</span>}
 			{isSelected &&
 				<div className={style.selection} style={{backgroundColor: (typeof theme.selectionColor == 'function') ? theme.selectionColor(mmt) : theme.selectionColor, color: theme.textColor.active}}>
-					<span className={style.month}>{(isToday) ? (locale.todayLabel.short || locale.todayLabel.long) : monthShort}</span>
+					{displaySelectionText && <span className={style.month}>{(isToday) ? (locale.todayLabel.short || locale.todayLabel.long) : monthShort}</span>}
 					<span className={style.day}>{day}</span>
 				</div>
 			}

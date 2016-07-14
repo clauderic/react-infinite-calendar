@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import Day from '../Day';
+import Week from '../Week';
 var style = {
 	'root': 'Cal__Month__root',
 	'row': 'Cal__Month__row',
@@ -35,9 +36,11 @@ var Month = function (_Component) {
 			var onDaySelect = _props.onDaySelect;
 			var rowHeight = _props.rowHeight;
 			var rows = _props.rows;
+			var weeks = _props.weeks;
 			var selectedDate = _props.selectedDate;
 			var today = _props.today;
 			var theme = _props.theme;
+			var displaySelectionText = _props.displaySelectionText;
 
 			var currentYear = today.date.year();
 			var monthShort = displayDate.format('MMM');
@@ -47,6 +50,7 @@ var Month = function (_Component) {
 			var isSelected = false;
 			var isToday = false;
 			var row = void 0,
+			    week = void 0,
 			    date = void 0,
 			    days = void 0;
 
@@ -63,7 +67,23 @@ var Month = function (_Component) {
 					isToday = today && date.yyyymmdd == today.yyyymmdd;
 					isDisabled = minDate && date.yyyymmdd < minDate.yyyymmdd || maxDate && date.yyyymmdd > maxDate.yyyymmdd || disabledDays && disabledDays.length && disabledDays.indexOf(date.date.day()) !== -1 || disabledDates && disabledDates.length && disabledDates.indexOf(date.yyyymmdd) !== -1;
 
-					days[k] = React.createElement(Day, {
+					if (date.date.format('e') === '0') {
+						days[0] = React.createElement(Week, {
+							key: 'week-' + (i + 1),
+							currentYear: currentYear,
+							date: date,
+							day: day,
+							handleDayClick: onDaySelect,
+							isDisabled: isDisabled,
+							isToday: isToday,
+							isSelected: isSelected,
+							locale: locale,
+							monthShort: monthShort,
+							theme: theme
+						});
+					}
+
+					days[days.length] = React.createElement(Day, {
 						key: 'day-' + day,
 						currentYear: currentYear,
 						date: date,
@@ -74,7 +94,8 @@ var Month = function (_Component) {
 						isSelected: isSelected,
 						locale: locale,
 						monthShort: monthShort,
-						theme: theme
+						theme: theme,
+						displaySelectionText: displaySelectionText
 					});
 				}
 				monthRows[i] = React.createElement(
@@ -95,6 +116,8 @@ var Month = function (_Component) {
 			var rows = _props2.rows;
 			var showOverlay = _props2.showOverlay;
 			var theme = _props2.theme;
+			var week = _props2.week;
+			var displaySelectionText = _props2.displaySelectionText;
 
 
 			return React.createElement(

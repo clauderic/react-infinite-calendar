@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import classNames from 'classnames';
 import Day from '../Day';
+import Week from '../Week';
 const style = require('./Month.scss');
 
 export default class Month extends Component {
@@ -8,7 +9,7 @@ export default class Month extends Component {
 		return (!nextProps.isScrolling && !this.props.isScrolling);
 	}
 	renderRows() {
-		let {disabledDates, disabledDays, displayDate, locale, maxDate, minDate, onDaySelect, rowHeight, rows, selectedDate, today, theme} = this.props;
+		let {disabledDates, disabledDays, displayDate, locale, maxDate, minDate, onDaySelect, rowHeight, rows, weeks, selectedDate, today, theme, displaySelectionText} = this.props;
 		let currentYear = today.date.year();
 		let monthShort = displayDate.format('MMM');
 		let monthRows = [];
@@ -16,12 +17,14 @@ export default class Month extends Component {
 		let isDisabled = false;
 		let isSelected = false;
 		let isToday = false;
-		let row, date, days;
+		let row, week, date, days;
 
 		// Oh the things we do in the name of performance...
 		for (let i = 0, len = rows.length; i < len; i++) {
 			row = rows[i];
 			days = [];
+
+			
 
 			for (let k = 0, len = row.length; k < len; k++) {
 				date = row[k];
@@ -36,7 +39,23 @@ export default class Month extends Component {
 					disabledDates && disabledDates.length && disabledDates.indexOf(date.yyyymmdd) !== -1
 				);
 
-				days[k] = (
+				if (date.date.format('e') === '0') {
+					days[0] = (<Week
+						key={`week-${i + 1}`}
+						currentYear={currentYear}
+						date={date}
+						day={day}
+						handleDayClick={onDaySelect}
+						isDisabled={isDisabled}
+						isToday={isToday}
+						isSelected={isSelected}
+						locale={locale}
+						monthShort={monthShort}
+						theme={theme}
+					/>);
+				}
+				
+				days[days.length] = (
 					<Day
 						key={`day-${day}`}
 						currentYear={currentYear}
@@ -49,6 +68,7 @@ export default class Month extends Component {
 						locale={locale}
 						monthShort={monthShort}
 						theme={theme}
+						displaySelectionText={displaySelectionText}
 					/>
 				);
 			}
@@ -62,7 +82,7 @@ export default class Month extends Component {
 		return monthRows;
 	}
 	render() {
-		let {displayDate, today, rows, showOverlay, theme} = this.props;
+		let {displayDate, today, rows, showOverlay, theme, week, displaySelectionText} = this.props;
 
 		return (
 			<div className={style.root}>

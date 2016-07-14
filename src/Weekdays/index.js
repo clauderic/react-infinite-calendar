@@ -16,21 +16,18 @@ export default class Weekdays extends Component {
 		return shallowCompare(this, nextProps);
 	}
 	render() {
-		let {theme} = this.props;
-
-		console.log(this);
+		let {theme, locale} = this.props;
 
 		return (
 			<ul className={style.root} style={{backgroundColor: theme.weekdayColor, color: theme.textColor.active, paddingRight: scrollbarSize}} aria-hidden={true}>
 				{range(0,8).map((val, index) => {
 				  if (index === 0) {
             return (
-						  <li key={`Weekday-${index}`} className={style.week}>{"Idag"}</li>
+						  <li key={`Weekday-${index}`} className={style.day}>{locale.todayLabel.long}</li>
 					  );
-				  }
-				  else {
+				  } else {
             return (
-						  <li key={`Weekday-${index}`} className={style.day}>{moment().weekday(index - 1).format('ddd')}</li>
+						  <li key={`Weekday-${index}`} className={style.day}>{moment().weekday(index - 1).format('dd')}</li>
 					  );
 				  }
 				})}

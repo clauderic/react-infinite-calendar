@@ -9,24 +9,27 @@
     height: $rowHeight - 4px;
     margin-top: -0.5 * ($rowHeight - 4px);
     margin-left: -0.5 * ($rowHeight - 4px);
-    border-radius: 50%;
+    /*border-radius: 50%;*/
+
 }
 
 .root {
+    border: 1px solid black;
     display: inline-block;
     box-sizing: border-box;
-    width: 1 / 7 * 100%;
+    width: 1 / 8 * 100%;
 
     list-style: none;
 
     font-size: 16px;
+    font-weight: bold;
     text-align: center;
 
     cursor: pointer;
     user-select: none;
 
     &.enabled {
-        &.highlighted, &:active, &:hover {
+        /*&.highlighted, &:active, &:hover {
             position: relative;
             z-index: 1;
 
@@ -36,7 +39,7 @@
                 background-color: #EFEFEF;
                 z-index: -1;
             }
-        }
+        }*/
 
         &:hover:before {
             opacity: 0.5;

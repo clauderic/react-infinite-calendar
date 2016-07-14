@@ -23,6 +23,7 @@ export default function Day(_ref) {
 	var monthShort = _ref.monthShort;
 	var locale = _ref.locale;
 	var theme = _ref.theme;
+	var displaySelectionText = _ref.displaySelectionText;
 	var mmt = date.date;
 	var yyyymmdd = date.yyyymmdd;
 
@@ -54,7 +55,7 @@ export default function Day(_ref) {
 		isSelected && React.createElement(
 			'div',
 			{ className: style.selection, style: { backgroundColor: typeof theme.selectionColor == 'function' ? theme.selectionColor(mmt) : theme.selectionColor, color: theme.textColor.active } },
-			React.createElement(
+			displaySelectionText && React.createElement(
 				'span',
 				{ className: style.month },
 				isToday ? locale.todayLabel.short || locale.todayLabel.long : monthShort
