@@ -57,7 +57,7 @@ export default class InfiniteCalendar extends Component {
 		locale: {},
 		theme: {},
 		hideYearsOnSelect: true,
-		displaySelectionText: false,
+		showSelectionText: false,
 	};
 	static propTypes = {
 		selectedDate: validDate,
@@ -91,7 +91,7 @@ export default class InfiniteCalendar extends Component {
 		showOverlay: PropTypes.bool,
 		showTodayHelper: PropTypes.bool,
 		showHeader: PropTypes.bool,
-		displaySelectionText: PropTypes.bool,
+		showSelectionText: PropTypes.bool,
 	};
 	componentDidMount() {
 		let {autoFocus, keyboardSupport} = this.props;
@@ -103,7 +103,7 @@ export default class InfiniteCalendar extends Component {
 		}
 	}
 	componentWillReceiveProps(next) {
-		let {min, minDate, max, maxDate, locale, selectedDate, displaySelectionText} = this.props;
+		let {min, minDate, max, maxDate, locale, selectedDate, showSelectionText} = this.props;
 		let {display} = this.state;
 
 		if (next.locale !== locale) {
@@ -372,7 +372,7 @@ export default class InfiniteCalendar extends Component {
 			showHeader,
 			tabIndex,
 			width,
-			displaySelectionText,
+			showSelectionText,
 			...other
 		} = this.props;
 		let disabledDates = this.getDisabledDates(this.props.disabledDates);
@@ -416,7 +416,7 @@ export default class InfiniteCalendar extends Component {
 							theme={theme}
 							locale={locale}
 							overscanMonthCount={overscanMonthCount}
-							displaySelectionText={displaySelectionText}
+							showSelectionText={showSelectionText}
 						/>
 					</div>
 					{display == 'years' &&

@@ -9,7 +9,7 @@ export default class Month extends Component {
 		return (!nextProps.isScrolling && !this.props.isScrolling);
 	}
 	renderRows() {
-		let {disabledDates, disabledDays, displayDate, locale, maxDate, minDate, onDaySelect, rowHeight, rows, weeks, selectedDate, today, theme, displaySelectionText} = this.props;
+		let {disabledDates, disabledDays, displayDate, locale, maxDate, minDate, onDaySelect, rowHeight, rows, weeks, selectedDate, today, theme, showSelectionText} = this.props;
 		let currentYear = today.date.year();
 		let monthShort = displayDate.format('MMM');
 		let monthRows = [];
@@ -68,7 +68,7 @@ export default class Month extends Component {
 						locale={locale}
 						monthShort={monthShort}
 						theme={theme}
-						displaySelectionText={displaySelectionText}
+						showSelectionText={showSelectionText}
 					/>
 				);
 			}
@@ -82,7 +82,7 @@ export default class Month extends Component {
 		return monthRows;
 	}
 	render() {
-		let {displayDate, today, rows, showOverlay, theme, week, displaySelectionText} = this.props;
+		let {displayDate, today, rows, showOverlay, theme, week, showSelectionText} = this.props;
 
 		return (
 			<div className={style.root}>

@@ -14,7 +14,8 @@ export default function Week({currentYear, date, day, handleDayClick, isDisabled
 			data-date={yyyymmdd}
 			//onClick={(!isDisabled && handleDayClick) ? handleDayClick.bind(this, mmt) : null}
 		>
-			<span>{weekNumber}</span>
+			<span className={`${style.weekNumber}`}>v.{weekNumber}</span>
+			<span className={`${style.weekDistance}`}>v.{weeksFromNow}</span>
 		</li>
 	);
 }
