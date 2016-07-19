@@ -10,6 +10,7 @@
     margin-top: -0.5 * ($rowHeight - 4px);
     margin-left: -0.5 * ($rowHeight - 4px);
     border-radius: 50%;
+    background-color: $todayColor;
 }
 
 .root {
@@ -54,10 +55,6 @@
         position: relative;
         z-index: 2;
 
-        > span {
-            color: $textColor;
-        }
-
         &.disabled > span {
             color: #AAA;
         }
@@ -98,6 +95,13 @@
                 font-weight: bold;
                 font-size: 18px;
             }
+            .dayHiddenText {
+                position: relative;
+                top: 0px;
+
+                font-weight: bold;
+                font-size: 18px;
+            }
         }
     }
     &.disabled {
@@ -121,4 +125,8 @@
 }
 .year {
     bottom: 5px;
+}
+.weekSelected {
+    background-color: $selectedWeekBackground;
+    color: white;
 }

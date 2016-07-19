@@ -1,11 +1,11 @@
 module.exports = {
     textColor: {
-        default: '#333',
+        default: '#3E3F40',
         active: '#FFF'
     },
-    selectionColor: '#559FFF',
-    todayColor: '#FFA726',
-    weekdayColor: '#559FFF',
+    selectionColor: '#3E3F40',
+    todayColor: '#F5387A',
+    weekdayColor: '#FFFFFF',
     headerColor: '#448AFF',
     floatingNav: {
         background: 'rgba(56, 87, 138, 0.94)',

@@ -1,21 +1,20 @@
 import React from 'react';
+import moment from 'moment';
 const style = require('./Week.scss');
 
-export default function Week({currentYear, date, day, handleDayClick, isDisabled, isToday, isSelected, monthShort, locale, theme}) {
+export default function Week({currentYear, date, day, isDisabled, isSelected, monthShort, locale, theme, rowHeight}) {
 	var {date: mmt, yyyymmdd} = date;
-	var year = date.date.year();
 	var weekNumber = date.date.format('ww');
-	var weeksFromNow = "+1 v";
+	var weekDistance = moment().format('ww') - weekNumber;
+	var weekDistanceLabel = weekDistance === 0 ? "0 v" : weekDistance < 0 ? "+" +
+	 Math.abs(weekDistance) + " v" : "-" + weekDistance + " v";
 
 	return (
-		<li
-			//style={(isToday) ? {color: theme.todayColor} : null}
-			className={`${style.root}${isSelected ? ' ' + style.selected : ''}${isDisabled ? ' ' + style.disabled : ' ' + style.enabled}`}
-			data-date={yyyymmdd}
-			//onClick={(!isDisabled && handleDayClick) ? handleDayClick.bind(this, mmt) : null}
-		>
-			<span className={`${style.weekNumber}`}>v.{weekNumber}</span>
-			<span className={`${style.weekDistance}`}>v.{weeksFromNow}</span>
+		<li className={`${style.root}${isSelected ? ' ' + style.selected : ''}`}>
+			<div className={`${style.weekContainer}`} style={{height: rowHeight}}>
+				<span className={`${style.weekItem} ${style.weekNumber}`}>v.{weekNumber}</span>
+				<span className={`${style.weekItem} ${style.weekDistance}`}>{weekDistanceLabel}</span>
+			</div>
 		</li>
 	);
 }

@@ -28,19 +28,18 @@ var dayStyle = {
 	'month': 'Cal__Day__month',
 	'year': 'Cal__Day__year',
 	'selection': 'Cal__Day__selection',
-	'day': 'Cal__Day__day'
+	'day': 'Cal__Day__day',
+	'dayHiddenText': 'Cal__Day__dayHiddenText',
+	'weekSelected': 'Cal__Day__weekSelected'
 };
 var weekStyle = {
 	'root': 'Cal__Week__root',
-	'enabled': 'Cal__Week__enabled',
-	'highlighted': 'Cal__Week__highlighted',
-	'today': 'Cal__Week__today',
-	'disabled': 'Cal__Week__disabled',
 	'selected': 'Cal__Week__selected',
-	'month': 'Cal__Week__month',
-	'year': 'Cal__Week__year',
 	'selection': 'Cal__Week__selection',
-	'day': 'Cal__Week__day'
+	'weekContainer': 'Cal__Week__weekContainer',
+	'weekItem': 'Cal__Week__weekItem',
+	'weekNumber': 'Cal__Week__weekNumber',
+	'weekDistance': 'Cal__Week__weekDistance'
 };
 var style = {
 	container: containerStyle,
@@ -83,6 +82,11 @@ var InfiniteCalendar = function (_Component) {
 					}
 				});
 			}
+		};
+
+		_this.onWeekSelect = function (selectedDate) {
+			//console.log(selectedDate.view);
+			return selectedDate;
 		};
 
 		_this.getCurrentOffset = function () {
@@ -312,7 +316,7 @@ var InfiniteCalendar = function (_Component) {
 			var maxDate = _props2.maxDate;
 			var locale = _props2.locale;
 			var selectedDate = _props2.selectedDate;
-			var displaySelectionText = _props2.displaySelectionText;
+			var showSelectionText = _props2.showSelectionText;
 			var display = this.state.display;
 
 
@@ -427,8 +431,8 @@ var InfiniteCalendar = function (_Component) {
 			var showHeader = _props3.showHeader;
 			var tabIndex = _props3.tabIndex;
 			var width = _props3.width;
-			var displaySelectionText = _props3.displaySelectionText;
-			var other = babelHelpers.objectWithoutProperties(_props3, ['className', 'disabledDays', 'height', 'hideYearsOnSelect', 'keyboardSupport', 'layout', 'overscanMonthCount', 'min', 'minDate', 'max', 'maxDate', 'showTodayHelper', 'showHeader', 'tabIndex', 'width', 'displaySelectionText']);
+			var showSelectionText = _props3.showSelectionText;
+			var other = babelHelpers.objectWithoutProperties(_props3, ['className', 'disabledDays', 'height', 'hideYearsOnSelect', 'keyboardSupport', 'layout', 'overscanMonthCount', 'min', 'minDate', 'max', 'maxDate', 'showTodayHelper', 'showHeader', 'tabIndex', 'width', 'showSelectionText']);
 
 			var disabledDates = this.getDisabledDates(this.props.disabledDates);
 			var locale = this.getLocale();
@@ -469,6 +473,7 @@ var InfiniteCalendar = function (_Component) {
 							disabledDays: disabledDays,
 							months: this.months,
 							onDaySelect: this.onDaySelect,
+							onWeekSelect: this.onWeekSelect,
 							onScroll: this.onScroll,
 							isScrolling: isScrolling,
 							today: today,
@@ -478,7 +483,7 @@ var InfiniteCalendar = function (_Component) {
 							theme: theme,
 							locale: locale,
 							overscanMonthCount: overscanMonthCount,
-							displaySelectionText: displaySelectionText
+							showSelectionText: showSelectionText
 						}))
 					),
 					display == 'years' && React.createElement(Years, {
@@ -519,13 +524,13 @@ InfiniteCalendar.defaultProps = {
 	autoFocus: true,
 	shouldHeaderAnimate: true,
 	showOverlay: true,
-	showTodayHelper: true,
+	showTodayHelper: false,
 	showHeader: false,
 	tabIndex: 1,
 	locale: {},
 	theme: {},
 	hideYearsOnSelect: true,
-	displaySelectionText: false
+	showSelectionText: false
 };
 InfiniteCalendar.propTypes = {
 	selectedDate: validDate,
@@ -559,6 +564,6 @@ InfiniteCalendar.propTypes = {
 	showOverlay: PropTypes.bool,
 	showTodayHelper: PropTypes.bool,
 	showHeader: PropTypes.bool,
-	displaySelectionText: PropTypes.bool
+	showSelectionText: PropTypes.bool
 };
 export default InfiniteCalendar;

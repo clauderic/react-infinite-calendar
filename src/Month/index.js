@@ -9,15 +9,16 @@ export default class Month extends Component {
 		return (!nextProps.isScrolling && !this.props.isScrolling);
 	}
 	renderRows() {
-		let {disabledDates, disabledDays, displayDate, locale, maxDate, minDate, onDaySelect, rowHeight, rows, weeks, selectedDate, today, theme, showSelectionText} = this.props;
+		let {disabledDates, disabledDays, displayDate, locale, maxDate, minDate, onDaySelect, handleWeekClick, rowHeight, rows, weeks, selectedDate, today, theme, showSelectionText} = this.props;
 		let currentYear = today.date.year();
 		let monthShort = displayDate.format('MMM');
 		let monthRows = [];
 		let day = 0;
 		let isDisabled = false;
 		let isSelected = false;
+		let isWeekSelected = false;
 		let isToday = false;
-		let row, week, date, days;
+		let row, date, days;
 
 		// Oh the things we do in the name of performance...
 		for (let i = 0, len = rows.length; i < len; i++) {
@@ -45,13 +46,12 @@ export default class Month extends Component {
 						currentYear={currentYear}
 						date={date}
 						day={day}
-						handleDayClick={onDaySelect}
 						isDisabled={isDisabled}
-						isToday={isToday}
 						isSelected={isSelected}
 						locale={locale}
 						monthShort={monthShort}
 						theme={theme}
+						rowHeight={rowHeight}
 					/>);
 				}
 				
@@ -65,6 +65,7 @@ export default class Month extends Component {
 						isDisabled={isDisabled}
 						isToday={isToday}
 						isSelected={isSelected}
+						isWeekSelected={isWeekSelected}
 						locale={locale}
 						monthShort={monthShort}
 						theme={theme}
@@ -73,7 +74,15 @@ export default class Month extends Component {
 				);
 			}
 			monthRows[i] = (
-				<ul className={classNames(style.row, {[style.partial]: row.length !== 7})} style={{height: rowHeight}} key={`Row-${i}`} role="row" aria-label={`Week ${i + 1}`}>
+				<ul 
+					className={classNames(style.row, {[style.partial]: row.length !== 7})}
+					style={{height: rowHeight}}
+					key={`Row-${i}`}
+					role="row"
+					aria-label={`Week ${days[0].props.date.date.format('ww')}`}
+					data-week={`${days[0].props.date.date.format('YYYY-ww')}`}
+					onClick={handleWeekClick.bind(this)}
+				>
 					{days}
 				</ul>
 			);

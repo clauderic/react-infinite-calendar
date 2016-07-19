@@ -1,109 +1,47 @@
 @import "../variables";
 
-@mixin circle() {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: $rowHeight - 4px;
-    height: $rowHeight - 4px;
-    margin-top: -0.5 * ($rowHeight - 4px);
-    margin-left: -0.5 * ($rowHeight - 4px);
-    border-radius: 50%;
-}
-
 .root {
-    border: 1px solid black;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #ADADAD;
+
+    background-color: #DEDEDE;
+
     display: inline-block;
     box-sizing: border-box;
     width: 1 / 8 * 100%;
-
-    list-style: none;
-
-    font-size: 11px;
-    text-align: center;
-
+    
     cursor: pointer;
     user-select: none;
 
-    &.enabled {
-        /*&.highlighted, &:active, &:hover {
-            position: relative;
-            z-index: 1;
-
-            &:before {
-                @include circle();
-
-                background-color: #EFEFEF;
-                z-index: -1;
-            }
-        }*/
-
-        &:hover:before {
-            opacity: 0.5;
-        }
-        &.highlighted:before, &:active:before {
-            opacity: 1;
-        }
-    }
-
-    &:first-child {
-        position: relative;
-    }
-
     &.selected {
-        position: relative;
-
-        > .month, > .year {
-            display: none;
-        }
-        
-        &:before {
-            display: none;
-        }
-
         .selection {
-            @include circle();
             line-height: $rowHeight;
-            z-index: 2;
-
-            .month {
-                top: 9px;
-            }
-            .day {
-                position: relative;
-                top: 5px;
-
-                font-weight: bold;
-                font-size: 18px;
-            }
+            z-index: 4;
         }
     }
-    &.disabled {
-        cursor: default;
-        color: #AAA;
-        cursor: not-allowed;
-    }
 }
 
-.month, .year {
-    position: absolute;
-    left: 0;
-    right: 0;
+.weekContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
-    font-size: 12px;
-    line-height: 12px;
+    font-size: 11px;
+    text-align: center;
 }
 
-.month {
-    top: 5px;
+.weekItem {
+    height: $rowHeight/2;
+    z-index: 3;
 }
-.year {
-    bottom: 5px;
-}
+
 .weekNumber {
-    display: flex;
+    position: relative;
+    top: -5px;
 }
+
 .weekDistance {
-    display: flex;
+    position: relative;
+    top: -20px;
 }

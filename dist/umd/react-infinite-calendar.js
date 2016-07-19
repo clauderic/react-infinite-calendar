@@ -178,6 +178,11 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 			};
 
+			_this.onWeekSelect = function (selectedDate) {
+				//console.log(selectedDate.view);
+				return selectedDate;
+			};
+
 			_this.getCurrentOffset = function () {
 				return _this.scrollTop;
 			};
@@ -405,7 +410,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				var maxDate = _props2.maxDate;
 				var locale = _props2.locale;
 				var selectedDate = _props2.selectedDate;
-				var displaySelectionText = _props2.displaySelectionText;
+				var showSelectionText = _props2.showSelectionText;
 				var display = this.state.display;
 
 
@@ -520,9 +525,9 @@ return /******/ (function(modules) { // webpackBootstrap
 				var showHeader = _props3.showHeader;
 				var tabIndex = _props3.tabIndex;
 				var width = _props3.width;
-				var displaySelectionText = _props3.displaySelectionText;
+				var showSelectionText = _props3.showSelectionText;
 
-				var other = _objectWithoutProperties(_props3, ['className', 'disabledDays', 'height', 'hideYearsOnSelect', 'keyboardSupport', 'layout', 'overscanMonthCount', 'min', 'minDate', 'max', 'maxDate', 'showTodayHelper', 'showHeader', 'tabIndex', 'width', 'displaySelectionText']);
+				var other = _objectWithoutProperties(_props3, ['className', 'disabledDays', 'height', 'hideYearsOnSelect', 'keyboardSupport', 'layout', 'overscanMonthCount', 'min', 'minDate', 'max', 'maxDate', 'showTodayHelper', 'showHeader', 'tabIndex', 'width', 'showSelectionText']);
 
 				var disabledDates = this.getDisabledDates(this.props.disabledDates);
 				var locale = this.getLocale();
@@ -563,6 +568,7 @@ return /******/ (function(modules) { // webpackBootstrap
 								disabledDays: disabledDays,
 								months: this.months,
 								onDaySelect: this.onDaySelect,
+								onWeekSelect: this.onWeekSelect,
 								onScroll: this.onScroll,
 								isScrolling: isScrolling,
 								today: today,
@@ -572,7 +578,7 @@ return /******/ (function(modules) { // webpackBootstrap
 								theme: theme,
 								locale: locale,
 								overscanMonthCount: overscanMonthCount,
-								displaySelectionText: displaySelectionText
+								showSelectionText: showSelectionText
 							}))
 						),
 						display == 'years' && _react2.default.createElement(_Years2.default, {
@@ -614,13 +620,13 @@ return /******/ (function(modules) { // webpackBootstrap
 		autoFocus: true,
 		shouldHeaderAnimate: true,
 		showOverlay: true,
-		showTodayHelper: true,
+		showTodayHelper: false,
 		showHeader: false,
 		tabIndex: 1,
 		locale: {},
 		theme: {},
 		hideYearsOnSelect: true,
-		displaySelectionText: false
+		showSelectionText: false
 	};
 	InfiniteCalendar.propTypes = {
 		selectedDate: _utils.validDate,
@@ -654,7 +660,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		showOverlay: _react.PropTypes.bool,
 		showTodayHelper: _react.PropTypes.bool,
 		showHeader: _react.PropTypes.bool,
-		displaySelectionText: _react.PropTypes.bool
+		showSelectionText: _react.PropTypes.bool
 	};
 	exports.default = InfiniteCalendar;
 
@@ -16249,12 +16255,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = {
 	    textColor: {
-	        default: '#333',
+	        default: '#3E3F40',
 	        active: '#FFF'
 	    },
-	    selectionColor: '#559FFF',
-	    todayColor: '#FFA726',
-	    weekdayColor: '#559FFF',
+	    selectionColor: '#3E3F40',
+	    todayColor: '#F5387A',
+	    weekdayColor: '#FFFFFF',
 	    headerColor: '#448AFF',
 	    floatingNav: {
 	        background: 'rgba(56, 87, 138, 0.94)',
@@ -16669,12 +16675,13 @@ return /******/ (function(modules) { // webpackBootstrap
 				var maxDate = _this$props3.maxDate;
 				var minDate = _this$props3.minDate;
 				var onDaySelect = _this$props3.onDaySelect;
+				var onWeekSelect = _this$props3.onWeekSelect;
 				var rowHeight = _this$props3.rowHeight;
 				var selectedDate = _this$props3.selectedDate;
 				var showOverlay = _this$props3.showOverlay;
 				var theme = _this$props3.theme;
 				var today = _this$props3.today;
-				var displaySelectionText = _this$props3.displaySelectionText;
+				var showSelectionText = _this$props3.showSelectionText;
 
 				var _this$memoize = _this.memoize(months[index]);
 
@@ -16692,6 +16699,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					maxDate: maxDate,
 					minDate: minDate,
 					onDaySelect: onDaySelect,
+					handleWeekClick: onWeekSelect,
 					rows: rows,
 					weeks: weeks,
 					rowHeight: rowHeight,
@@ -16700,7 +16708,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					today: today,
 					theme: theme,
 					locale: locale,
-					displaySelectionText: displaySelectionText
+					showSelectionText: showSelectionText
 				});
 			}, _temp), _possibleConstructorReturn(_this, _ret);
 		}
@@ -16761,6 +16769,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		disabledDays: _react.PropTypes.arrayOf(_react.PropTypes.number),
 		months: _react.PropTypes.arrayOf(_react.PropTypes.object),
 		onDaySelect: _react.PropTypes.func,
+		onWeekSelect: _react.PropTypes.func,
 		onScroll: _react.PropTypes.func,
 		overscanMonthCount: _react.PropTypes.number,
 		isScrolling: _react.PropTypes.bool,
@@ -16771,7 +16780,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		showOverlay: _react.PropTypes.bool,
 		theme: _react.PropTypes.object,
 		locale: _react.PropTypes.object,
-		displaySelectionText: _react.PropTypes.bool
+		showSelectionText: _react.PropTypes.bool
 	};
 	exports.default = List;
 
@@ -42946,13 +42955,14 @@ return /******/ (function(modules) { // webpackBootstrap
 				var maxDate = _props.maxDate;
 				var minDate = _props.minDate;
 				var onDaySelect = _props.onDaySelect;
+				var handleWeekClick = _props.handleWeekClick;
 				var rowHeight = _props.rowHeight;
 				var rows = _props.rows;
 				var weeks = _props.weeks;
 				var selectedDate = _props.selectedDate;
 				var today = _props.today;
 				var theme = _props.theme;
-				var displaySelectionText = _props.displaySelectionText;
+				var showSelectionText = _props.showSelectionText;
 
 				var currentYear = today.date.year();
 				var monthShort = displayDate.format('MMM');
@@ -42960,9 +42970,9 @@ return /******/ (function(modules) { // webpackBootstrap
 				var day = 0;
 				var isDisabled = false;
 				var isSelected = false;
+				var isWeekSelected = false;
 				var isToday = false;
 				var row = void 0,
-				    week = void 0,
 				    date = void 0,
 				    days = void 0;
 
@@ -42985,13 +42995,12 @@ return /******/ (function(modules) { // webpackBootstrap
 								currentYear: currentYear,
 								date: date,
 								day: day,
-								handleDayClick: onDaySelect,
 								isDisabled: isDisabled,
-								isToday: isToday,
 								isSelected: isSelected,
 								locale: locale,
 								monthShort: monthShort,
-								theme: theme
+								theme: theme,
+								rowHeight: rowHeight
 							});
 						}
 
@@ -43004,15 +43013,24 @@ return /******/ (function(modules) { // webpackBootstrap
 							isDisabled: isDisabled,
 							isToday: isToday,
 							isSelected: isSelected,
+							isWeekSelected: isWeekSelected,
 							locale: locale,
 							monthShort: monthShort,
 							theme: theme,
-							displaySelectionText: displaySelectionText
+							showSelectionText: showSelectionText
 						});
 					}
 					monthRows[i] = _react2.default.createElement(
 						'ul',
-						{ className: (0, _classnames2.default)(style.row, _defineProperty({}, style.partial, row.length !== 7)), style: { height: rowHeight }, key: 'Row-' + i, role: 'row', 'aria-label': 'Week ' + (i + 1) },
+						{
+							className: (0, _classnames2.default)(style.row, _defineProperty({}, style.partial, row.length !== 7)),
+							style: { height: rowHeight },
+							key: 'Row-' + i,
+							role: 'row',
+							'aria-label': 'Week ' + days[0].props.date.date.format('ww'),
+							'data-week': '' + days[0].props.date.date.format('YYYY-ww'),
+							onClick: handleWeekClick.bind(this)
+						},
 						days
 					);
 				}
@@ -43029,7 +43047,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				var showOverlay = _props2.showOverlay;
 				var theme = _props2.theme;
 				var week = _props2.week;
-				var displaySelectionText = _props2.displaySelectionText;
+				var showSelectionText = _props2.showSelectionText;
 
 
 				return _react2.default.createElement(
@@ -43085,10 +43103,11 @@ return /******/ (function(modules) { // webpackBootstrap
 		var isDisabled = _ref.isDisabled;
 		var isToday = _ref.isToday;
 		var isSelected = _ref.isSelected;
+		var isWeekSelected = _ref.isWeekSelected;
 		var monthShort = _ref.monthShort;
 		var locale = _ref.locale;
 		var theme = _ref.theme;
-		var displaySelectionText = _ref.displaySelectionText;
+		var showSelectionText = _ref.showSelectionText;
 		var mmt = date.date;
 		var yyyymmdd = date.yyyymmdd;
 
@@ -43097,12 +43116,12 @@ return /******/ (function(modules) { // webpackBootstrap
 		return _react2.default.createElement(
 			'li',
 			{
-				style: isToday ? { color: theme.todayColor } : null,
-				className: '' + style.root + (isToday ? ' ' + style.today : '') + (isSelected ? ' ' + style.selected : '') + (isDisabled ? ' ' + style.disabled : ' ' + style.enabled),
+				style: isToday ? { color: theme.textColor.active } : null,
+				className: '' + style.root + (isToday ? ' ' + style.today : '') + (isSelected ? ' ' + style.selected : '') + (isDisabled ? ' ' + style.disabled : ' ' + style.enabled) + (isWeekSelected ? ' ' + style.weekSelected : ''),
 				'data-date': yyyymmdd,
 				onClick: !isDisabled && handleDayClick ? handleDayClick.bind(this, mmt) : null
 			},
-			day === 1 && _react2.default.createElement(
+			showSelectionText && day === 1 && _react2.default.createElement(
 				'span',
 				{ className: style.month },
 				monthShort
@@ -43112,7 +43131,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				null,
 				day
 			),
-			day === 1 && currentYear !== year && _react2.default.createElement(
+			showSelectionText && day === 1 && currentYear !== year && _react2.default.createElement(
 				'span',
 				{ className: style.year },
 				year
@@ -43120,14 +43139,14 @@ return /******/ (function(modules) { // webpackBootstrap
 			isSelected && _react2.default.createElement(
 				'div',
 				{ className: style.selection, style: { backgroundColor: typeof theme.selectionColor == 'function' ? theme.selectionColor(mmt) : theme.selectionColor, color: theme.textColor.active } },
-				displaySelectionText && _react2.default.createElement(
+				showSelectionText && _react2.default.createElement(
 					'span',
 					{ className: style.month },
 					isToday ? locale.todayLabel.short || locale.todayLabel.long : monthShort
 				),
 				_react2.default.createElement(
 					'span',
-					{ className: style.day },
+					{ className: (!showSelectionText && style.dayHiddenText, showSelectionText && style.day) },
 					day
 				)
 			)
@@ -43139,7 +43158,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-	module.exports = {"root":"Cal__Day__root","enabled":"Cal__Day__enabled","highlighted":"Cal__Day__highlighted","today":"Cal__Day__today","disabled":"Cal__Day__disabled","selected":"Cal__Day__selected","month":"Cal__Day__month","year":"Cal__Day__year","selection":"Cal__Day__selection","day":"Cal__Day__day"};
+	module.exports = {"root":"Cal__Day__root","enabled":"Cal__Day__enabled","highlighted":"Cal__Day__highlighted","today":"Cal__Day__today","disabled":"Cal__Day__disabled","selected":"Cal__Day__selected","month":"Cal__Day__month","year":"Cal__Day__year","selection":"Cal__Day__selection","day":"Cal__Day__day","dayHiddenText":"Cal__Day__dayHiddenText","weekSelected":"Cal__Day__weekSelected"};
 
 /***/ },
 /* 354 */,
@@ -43157,6 +43176,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _moment = __webpack_require__(4);
+
+	var _moment2 = _interopRequireDefault(_moment);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var style = __webpack_require__(356);
@@ -43165,32 +43188,36 @@ return /******/ (function(modules) { // webpackBootstrap
 		var currentYear = _ref.currentYear;
 		var date = _ref.date;
 		var day = _ref.day;
-		var handleDayClick = _ref.handleDayClick;
 		var isDisabled = _ref.isDisabled;
-		var isToday = _ref.isToday;
 		var isSelected = _ref.isSelected;
 		var monthShort = _ref.monthShort;
 		var locale = _ref.locale;
 		var theme = _ref.theme;
+		var rowHeight = _ref.rowHeight;
 		var mmt = date.date;
 		var yyyymmdd = date.yyyymmdd;
 
-		var year = date.date.year();
 		var weekNumber = date.date.format('ww');
-		var weeksFromNow = "+1 v";
+		var weekDistance = (0, _moment2.default)().format('ww') - weekNumber;
+		var weekDistanceLabel = weekDistance === 0 ? "0 v" : weekDistance < 0 ? "+" + Math.abs(weekDistance) + " v" : "-" + weekDistance + " v";
 
 		return _react2.default.createElement(
 			'li',
-			{
-				//style={(isToday) ? {color: theme.todayColor} : null}
-				className: '' + style.root + (isSelected ? ' ' + style.selected : '') + (isDisabled ? ' ' + style.disabled : ' ' + style.enabled),
-				'data-date': yyyymmdd
-				//onClick={(!isDisabled && handleDayClick) ? handleDayClick.bind(this, mmt) : null}
-			},
+			{ className: '' + style.root + (isSelected ? ' ' + style.selected : '') },
 			_react2.default.createElement(
-				'span',
-				null,
-				weekNumber
+				'div',
+				{ className: '' + style.weekContainer, style: { height: rowHeight } },
+				_react2.default.createElement(
+					'span',
+					{ className: style.weekItem + ' ' + style.weekNumber },
+					'v.',
+					weekNumber
+				),
+				_react2.default.createElement(
+					'span',
+					{ className: style.weekItem + ' ' + style.weekDistance },
+					weekDistanceLabel
+				)
 			)
 		);
 	}
@@ -43200,7 +43227,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-	module.exports = {"root":"Cal__Week__root","enabled":"Cal__Week__enabled","highlighted":"Cal__Week__highlighted","today":"Cal__Week__today","disabled":"Cal__Week__disabled","selected":"Cal__Week__selected","month":"Cal__Week__month","year":"Cal__Week__year","selection":"Cal__Week__selection","day":"Cal__Week__day"};
+	module.exports = {"root":"Cal__Week__root","selected":"Cal__Week__selected","selection":"Cal__Week__selection","weekContainer":"Cal__Week__weekContainer","weekItem":"Cal__Week__weekItem","weekNumber":"Cal__Week__weekNumber","weekDistance":"Cal__Week__weekDistance"};
 
 /***/ },
 /* 357 */,
@@ -43283,12 +43310,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				return _react2.default.createElement(
 					'ul',
-					{ className: style.root, style: { backgroundColor: theme.weekdayColor, color: theme.textColor.active, paddingRight: _utils.scrollbarSize }, 'aria-hidden': true },
+					{ className: style.root, style: { backgroundColor: theme.weekdayColor, color: theme.textColor.default, paddingRight: _utils.scrollbarSize }, 'aria-hidden': true },
 					(0, _range2.default)(0, 8).map(function (val, index) {
 						if (index === 0) {
 							return _react2.default.createElement(
 								'li',
-								{ key: 'Weekday-' + index, className: style.day },
+								{ key: 'Weekday-today', className: style.today },
 								locale.todayLabel.long
 							);
 						} else {
@@ -43317,7 +43344,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-	module.exports = {"root":"Cal__Weekdays__root","day":"Cal__Weekdays__day"};
+	module.exports = {"root":"Cal__Weekdays__root","day":"Cal__Weekdays__day","today":"Cal__Weekdays__today"};
 
 /***/ },
 /* 364 */,

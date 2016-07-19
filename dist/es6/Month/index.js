@@ -34,13 +34,14 @@ var Month = function (_Component) {
 			var maxDate = _props.maxDate;
 			var minDate = _props.minDate;
 			var onDaySelect = _props.onDaySelect;
+			var handleWeekClick = _props.handleWeekClick;
 			var rowHeight = _props.rowHeight;
 			var rows = _props.rows;
 			var weeks = _props.weeks;
 			var selectedDate = _props.selectedDate;
 			var today = _props.today;
 			var theme = _props.theme;
-			var displaySelectionText = _props.displaySelectionText;
+			var showSelectionText = _props.showSelectionText;
 
 			var currentYear = today.date.year();
 			var monthShort = displayDate.format('MMM');
@@ -48,9 +49,9 @@ var Month = function (_Component) {
 			var day = 0;
 			var isDisabled = false;
 			var isSelected = false;
+			var isWeekSelected = false;
 			var isToday = false;
 			var row = void 0,
-			    week = void 0,
 			    date = void 0,
 			    days = void 0;
 
@@ -73,13 +74,12 @@ var Month = function (_Component) {
 							currentYear: currentYear,
 							date: date,
 							day: day,
-							handleDayClick: onDaySelect,
 							isDisabled: isDisabled,
-							isToday: isToday,
 							isSelected: isSelected,
 							locale: locale,
 							monthShort: monthShort,
-							theme: theme
+							theme: theme,
+							rowHeight: rowHeight
 						});
 					}
 
@@ -92,15 +92,24 @@ var Month = function (_Component) {
 						isDisabled: isDisabled,
 						isToday: isToday,
 						isSelected: isSelected,
+						isWeekSelected: isWeekSelected,
 						locale: locale,
 						monthShort: monthShort,
 						theme: theme,
-						displaySelectionText: displaySelectionText
+						showSelectionText: showSelectionText
 					});
 				}
 				monthRows[i] = React.createElement(
 					'ul',
-					{ className: classNames(style.row, babelHelpers.defineProperty({}, style.partial, row.length !== 7)), style: { height: rowHeight }, key: 'Row-' + i, role: 'row', 'aria-label': 'Week ' + (i + 1) },
+					{
+						className: classNames(style.row, babelHelpers.defineProperty({}, style.partial, row.length !== 7)),
+						style: { height: rowHeight },
+						key: 'Row-' + i,
+						role: 'row',
+						'aria-label': 'Week ' + days[0].props.date.date.format('ww'),
+						'data-week': '' + days[0].props.date.date.format('YYYY-ww'),
+						onClick: handleWeekClick.bind(this)
+					},
 					days
 				);
 			}
@@ -117,7 +126,7 @@ var Month = function (_Component) {
 			var showOverlay = _props2.showOverlay;
 			var theme = _props2.theme;
 			var week = _props2.week;
-			var displaySelectionText = _props2.displaySelectionText;
+			var showSelectionText = _props2.showSelectionText;
 
 
 			return React.createElement(

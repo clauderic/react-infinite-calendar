@@ -8,12 +8,29 @@
     padding: 0;
     margin: 0;
     list-style: none;
+
+    box-shadow: 0px 1px  5px grey;
 }
 
 .day {
     padding: 15px 0;
-    flex-basis: 1 / 7 * 100%;
+    flex-basis: 1 / 8 * 100%;
     flex-grow: 1;
     font-weight: 500;
     text-align: center;
+}
+
+.today {
+    padding: 15px 0;
+    flex-basis: 1 / 8 * 100%;
+    flex-grow: 1;
+    font-weight: 500;
+    text-align: center;
+
+    border-style: solid;
+    border-width: 1px 1px 0px 1px;
+    border-color: #ADADAD;
+
+    background-color: #DEDEDE;
+    color: $todayColor;
 }

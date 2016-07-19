@@ -34,7 +34,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var style = {
 	'root': 'Cal__Weekdays__root',
-	'day': 'Cal__Weekdays__day'
+	'day': 'Cal__Weekdays__day',
+	'today': 'Cal__Weekdays__today'
 };
 
 var Weekdays = function (_Component) {
@@ -61,12 +62,12 @@ var Weekdays = function (_Component) {
 
 			return _react2.default.createElement(
 				'ul',
-				{ className: style.root, style: { backgroundColor: theme.weekdayColor, color: theme.textColor.active, paddingRight: _utils.scrollbarSize }, 'aria-hidden': true },
+				{ className: style.root, style: { backgroundColor: theme.weekdayColor, color: theme.textColor.default, paddingRight: _utils.scrollbarSize }, 'aria-hidden': true },
 				(0, _range2.default)(0, 8).map(function (val, index) {
 					if (index === 0) {
 						return _react2.default.createElement(
 							'li',
-							{ key: 'Weekday-' + index, className: style.day },
+							{ key: 'Weekday-today', className: style.today },
 							locale.todayLabel.long
 						);
 					} else {

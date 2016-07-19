@@ -19,11 +19,11 @@ export default class Weekdays extends Component {
 		let {theme, locale} = this.props;
 
 		return (
-			<ul className={style.root} style={{backgroundColor: theme.weekdayColor, color: theme.textColor.active, paddingRight: scrollbarSize}} aria-hidden={true}>
+			<ul className={style.root} style={{backgroundColor: theme.weekdayColor, color: theme.textColor.default, paddingRight: scrollbarSize}} aria-hidden={true}>
 				{range(0,8).map((val, index) => {
 				  if (index === 0) {
             return (
-						  <li key={`Weekday-${index}`} className={style.day}>{locale.todayLabel.long}</li>
+						  <li key={`Weekday-today`} className={style.today}>{locale.todayLabel.long}</li>
 					  );
 				  } else {
             return (

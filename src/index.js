@@ -188,6 +188,10 @@ export default class InfiniteCalendar extends Component {
 			});
 		}
 	};
+	onWeekSelect = (selectedDate) => {
+		//console.log(selectedDate.view);
+		return selectedDate;
+	};
 	getCurrentOffset = () => {
 		return this.scrollTop;
 	}
@@ -407,6 +411,7 @@ export default class InfiniteCalendar extends Component {
 							disabledDays={disabledDays}
 							months={this.months}
 							onDaySelect={this.onDaySelect}
+							onWeekSelect={this.onWeekSelect}
 							onScroll={this.onScroll}
 							isScrolling={isScrolling}
 							today={today}

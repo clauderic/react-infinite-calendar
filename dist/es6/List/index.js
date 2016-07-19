@@ -84,12 +84,13 @@ var List = function (_Component) {
 			var maxDate = _this$props3.maxDate;
 			var minDate = _this$props3.minDate;
 			var onDaySelect = _this$props3.onDaySelect;
+			var onWeekSelect = _this$props3.onWeekSelect;
 			var rowHeight = _this$props3.rowHeight;
 			var selectedDate = _this$props3.selectedDate;
 			var showOverlay = _this$props3.showOverlay;
 			var theme = _this$props3.theme;
 			var today = _this$props3.today;
-			var displaySelectionText = _this$props3.displaySelectionText;
+			var showSelectionText = _this$props3.showSelectionText;
 
 			var _this$memoize = _this.memoize(months[index]);
 
@@ -107,6 +108,7 @@ var List = function (_Component) {
 				maxDate: maxDate,
 				minDate: minDate,
 				onDaySelect: onDaySelect,
+				handleWeekClick: onWeekSelect,
 				rows: rows,
 				weeks: weeks,
 				rowHeight: rowHeight,
@@ -115,7 +117,7 @@ var List = function (_Component) {
 				today: today,
 				theme: theme,
 				locale: locale,
-				displaySelectionText: displaySelectionText
+				showSelectionText: showSelectionText
 			});
 		}, _temp), babelHelpers.possibleConstructorReturn(_this, _ret);
 	}
@@ -175,6 +177,7 @@ List.propTypes = {
 	disabledDays: PropTypes.arrayOf(PropTypes.number),
 	months: PropTypes.arrayOf(PropTypes.object),
 	onDaySelect: PropTypes.func,
+	onWeekSelect: PropTypes.func,
 	onScroll: PropTypes.func,
 	overscanMonthCount: PropTypes.number,
 	isScrolling: PropTypes.bool,
@@ -185,6 +188,6 @@ List.propTypes = {
 	showOverlay: PropTypes.bool,
 	theme: PropTypes.object,
 	locale: PropTypes.object,
-	displaySelectionText: PropTypes.bool
+	showSelectionText: PropTypes.bool
 };
 export default List;

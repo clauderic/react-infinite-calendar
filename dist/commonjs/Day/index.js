@@ -21,7 +21,9 @@ var style = {
 	'month': 'Cal__Day__month',
 	'year': 'Cal__Day__year',
 	'selection': 'Cal__Day__selection',
-	'day': 'Cal__Day__day'
+	'day': 'Cal__Day__day',
+	'dayHiddenText': 'Cal__Day__dayHiddenText',
+	'weekSelected': 'Cal__Day__weekSelected'
 };
 
 function Day(_ref) {
@@ -32,10 +34,11 @@ function Day(_ref) {
 	var isDisabled = _ref.isDisabled;
 	var isToday = _ref.isToday;
 	var isSelected = _ref.isSelected;
+	var isWeekSelected = _ref.isWeekSelected;
 	var monthShort = _ref.monthShort;
 	var locale = _ref.locale;
 	var theme = _ref.theme;
-	var displaySelectionText = _ref.displaySelectionText;
+	var showSelectionText = _ref.showSelectionText;
 	var mmt = date.date;
 	var yyyymmdd = date.yyyymmdd;
 
@@ -44,12 +47,12 @@ function Day(_ref) {
 	return _react2.default.createElement(
 		'li',
 		{
-			style: isToday ? { color: theme.todayColor } : null,
-			className: '' + style.root + (isToday ? ' ' + style.today : '') + (isSelected ? ' ' + style.selected : '') + (isDisabled ? ' ' + style.disabled : ' ' + style.enabled),
+			style: isToday ? { color: theme.textColor.active } : null,
+			className: '' + style.root + (isToday ? ' ' + style.today : '') + (isSelected ? ' ' + style.selected : '') + (isDisabled ? ' ' + style.disabled : ' ' + style.enabled) + (isWeekSelected ? ' ' + style.weekSelected : ''),
 			'data-date': yyyymmdd,
 			onClick: !isDisabled && handleDayClick ? handleDayClick.bind(this, mmt) : null
 		},
-		day === 1 && _react2.default.createElement(
+		showSelectionText && day === 1 && _react2.default.createElement(
 			'span',
 			{ className: style.month },
 			monthShort
@@ -59,7 +62,7 @@ function Day(_ref) {
 			null,
 			day
 		),
-		day === 1 && currentYear !== year && _react2.default.createElement(
+		showSelectionText && day === 1 && currentYear !== year && _react2.default.createElement(
 			'span',
 			{ className: style.year },
 			year
@@ -67,14 +70,14 @@ function Day(_ref) {
 		isSelected && _react2.default.createElement(
 			'div',
 			{ className: style.selection, style: { backgroundColor: typeof theme.selectionColor == 'function' ? theme.selectionColor(mmt) : theme.selectionColor, color: theme.textColor.active } },
-			displaySelectionText && _react2.default.createElement(
+			showSelectionText && _react2.default.createElement(
 				'span',
 				{ className: style.month },
 				isToday ? locale.todayLabel.short || locale.todayLabel.long : monthShort
 			),
 			_react2.default.createElement(
 				'span',
-				{ className: style.day },
+				{ className: (!showSelectionText && style.dayHiddenText, showSelectionText && style.day) },
 				day
 			)
 		)

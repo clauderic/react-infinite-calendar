@@ -16,6 +16,7 @@ export default class List extends Component {
 		disabledDays: PropTypes.arrayOf(PropTypes.number),
 		months: PropTypes.arrayOf(PropTypes.object),
 		onDaySelect: PropTypes.func,
+		onWeekSelect: PropTypes.func,
 		onScroll: PropTypes.func,
 		overscanMonthCount: PropTypes.number,
 		isScrolling: PropTypes.bool,
@@ -82,7 +83,7 @@ export default class List extends Component {
 		}
 	};
 	renderMonth = ({index, isScrolling}) => {
-		let {disabledDates, disabledDays, locale, months, maxDate, minDate, onDaySelect, rowHeight, selectedDate, showOverlay, theme, today, showSelectionText} = this.props;
+		let {disabledDates, disabledDays, locale, months, maxDate, minDate, onDaySelect, onWeekSelect, rowHeight, selectedDate, showOverlay, theme, today, showSelectionText} = this.props;
 		let {date, rows, weeks} = this.memoize(months[index]);
 
 		return (
@@ -95,6 +96,7 @@ export default class List extends Component {
 				maxDate={maxDate}
 				minDate={minDate}
 				onDaySelect={onDaySelect}
+				handleWeekClick={onWeekSelect}
 				rows={rows}
 				weeks={weeks}
 				rowHeight={rowHeight}

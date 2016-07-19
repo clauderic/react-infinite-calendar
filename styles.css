@@ -171,6 +171,7 @@
       margin-top: -26px;
       margin-left: -26px;
       border-radius: 50%;
+      background-color: #F5387A;
       background-color: #EFEFEF;
       z-index: -1; }
   .Cal__Day__root.Cal__Day__enabled:hover:before {
@@ -182,8 +183,6 @@
   .Cal__Day__root.Cal__Day__today {
     position: relative;
     z-index: 2; }
-    .Cal__Day__root.Cal__Day__today > span {
-      color: #3d3d3d; }
     .Cal__Day__root.Cal__Day__today.Cal__Day__disabled > span {
       color: #AAA; }
     .Cal__Day__root.Cal__Day__today:before {
@@ -196,6 +195,7 @@
       margin-top: -26px;
       margin-left: -26px;
       border-radius: 50%;
+      background-color: #F5387A;
       box-shadow: inset 0 0 0 1px;
       z-index: -1; }
     .Cal__Day__root.Cal__Day__today.Cal__Day__disabled:before {
@@ -216,6 +216,7 @@
       margin-top: -26px;
       margin-left: -26px;
       border-radius: 50%;
+      background-color: #F5387A;
       line-height: 56px;
       z-index: 2; }
       .Cal__Day__root.Cal__Day__selected .Cal__Day__selection .Cal__Day__month {
@@ -223,6 +224,11 @@
       .Cal__Day__root.Cal__Day__selected .Cal__Day__selection .Cal__Day__day {
         position: relative;
         top: 5px;
+        font-weight: bold;
+        font-size: 18px; }
+      .Cal__Day__root.Cal__Day__selected .Cal__Day__selection .Cal__Day__dayHiddenText {
+        position: relative;
+        top: 0px;
         font-weight: bold;
         font-size: 18px; }
   .Cal__Day__root.Cal__Day__disabled {
@@ -242,101 +248,52 @@
 
 .Cal__Day__year {
   bottom: 5px; }
+
+.Cal__Day__weekSelected {
+  background-color: #5C676B;
+  color: white; }
 .Cal__Week__root {
-  border: 1px solid black;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #ADADAD;
+  background-color: #DEDEDE;
   display: inline-block;
   box-sizing: border-box;
   width: 12.5%;
-  list-style: none;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
   cursor: pointer;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none; }
-  .Cal__Week__root.Cal__Week__enabled {
-    /*&.highlighted, &:active, &:hover {
-            position: relative;
-            z-index: 1;
+  .Cal__Week__root.Cal__Week__selected .Cal__Week__selection {
+    line-height: 56px;
+    z-index: 4; }
 
-            &:before {
-                @include circle();
+.Cal__Week__weekContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 11px;
+  text-align: center; }
 
-                background-color: #EFEFEF;
-                z-index: -1;
-            }
-        }*/ }
-    .Cal__Week__root.Cal__Week__enabled:hover:before {
-      opacity: 0.5; }
-    .Cal__Week__root.Cal__Week__enabled.Cal__Week__highlighted:before, .Cal__Week__root.Cal__Week__enabled:active:before {
-      opacity: 1; }
-  .Cal__Week__root:first-child {
-    position: relative; }
-  .Cal__Week__root.Cal__Week__today {
-    position: relative;
-    z-index: 2; }
-    .Cal__Week__root.Cal__Week__today > span {
-      color: #3d3d3d; }
-    .Cal__Week__root.Cal__Week__today.Cal__Week__disabled > span {
-      color: #AAA; }
-    .Cal__Week__root.Cal__Week__today:before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 52px;
-      height: 52px;
-      margin-top: -26px;
-      margin-left: -26px;
-      /*border-radius: 50%;*/
-      box-shadow: inset 0 0 0 1px;
-      z-index: -1; }
-    .Cal__Week__root.Cal__Week__today.Cal__Week__disabled:before {
-      box-shadow: inset 0 0 0 1px #BBB; }
-  .Cal__Week__root.Cal__Week__selected {
-    position: relative; }
-    .Cal__Week__root.Cal__Week__selected > .Cal__Week__month, .Cal__Week__root.Cal__Week__selected > .Cal__Week__year {
-      display: none; }
-    .Cal__Week__root.Cal__Week__selected:before {
-      display: none; }
-    .Cal__Week__root.Cal__Week__selected .Cal__Week__selection {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 52px;
-      height: 52px;
-      margin-top: -26px;
-      margin-left: -26px;
-      /*border-radius: 50%;*/
-      line-height: 56px;
-      z-index: 2; }
-      .Cal__Week__root.Cal__Week__selected .Cal__Week__selection .Cal__Week__month {
-        top: 9px; }
-      .Cal__Week__root.Cal__Week__selected .Cal__Week__selection .Cal__Week__day {
-        position: relative;
-        top: 5px;
-        font-weight: bold;
-        font-size: 18px; }
-  .Cal__Week__root.Cal__Week__disabled {
-    cursor: default;
-    color: #AAA;
-    cursor: not-allowed; }
+.Cal__Week__weekItem {
+  height: 28px;
+  z-index: 3; }
 
-.Cal__Week__month, .Cal__Week__year {
-  position: absolute;
-  left: 0;
-  right: 0;
-  font-size: 12px;
-  line-height: 12px; }
+.Cal__Week__weekNumber {
+  position: relative;
+  top: -5px; }
 
-.Cal__Week__month {
-  top: 5px; }
-
-.Cal__Week__year {
-  bottom: 5px; }
+.Cal__Week__weekDistance {
+  position: relative;
+  top: -20px; }
 .Cal__Month__root {
   position: relative;
   background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.05) 100%);
@@ -406,17 +363,33 @@
   display: flex;
   padding: 0;
   margin: 0;
-  list-style: none; }
+  list-style: none;
+  box-shadow: 0px 1px  5px grey; }
 
 .Cal__Weekdays__day {
   padding: 15px 0;
-  -ms-flex-preferred-size: 14.28571%;
-      flex-basis: 14.28571%;
+  -ms-flex-preferred-size: 12.5%;
+      flex-basis: 12.5%;
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
   font-weight: 500;
   text-align: center; }
+
+.Cal__Weekdays__today {
+  padding: 15px 0;
+  -ms-flex-preferred-size: 12.5%;
+      flex-basis: 12.5%;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  font-weight: 500;
+  text-align: center;
+  border-style: solid;
+  border-width: 1px 1px 0px 1px;
+  border-color: #ADADAD;
+  background-color: #DEDEDE;
+  color: #F5387A; }
 .Cal__Years__root {
   position: absolute;
   left: 0;
