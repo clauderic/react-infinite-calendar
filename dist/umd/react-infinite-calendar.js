@@ -606,7 +606,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	InfiniteCalendar.defaultProps = {
 		width: 400,
 		height: 500,
-		rowHeight: 56,
+		rowHeight: 40,
 		overscanMonthCount: 4,
 		todayHelperRowOffset: 4,
 		layout: 'portrait',
@@ -43227,7 +43227,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-	module.exports = {"root":"Cal__Week__root","selected":"Cal__Week__selected","selection":"Cal__Week__selection","weekContainer":"Cal__Week__weekContainer","weekItem":"Cal__Week__weekItem","weekNumber":"Cal__Week__weekNumber","weekDistance":"Cal__Week__weekDistance"};
+	module.exports = {"root":"Cal__Week__root","weekContainer":"Cal__Week__weekContainer","weekItem":"Cal__Week__weekItem","weekNumber":"Cal__Week__weekNumber","weekDistance":"Cal__Week__weekDistance"};
 
 /***/ },
 /* 357 */,

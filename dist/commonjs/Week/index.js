@@ -17,8 +17,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var style = {
 	'root': 'Cal__Week__root',
-	'selected': 'Cal__Week__selected',
-	'selection': 'Cal__Week__selection',
 	'weekContainer': 'Cal__Week__weekContainer',
 	'weekItem': 'Cal__Week__weekItem',
 	'weekNumber': 'Cal__Week__weekNumber',

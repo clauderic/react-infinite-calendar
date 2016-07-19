@@ -37,7 +37,7 @@ export default class InfiniteCalendar extends Component {
 	static defaultProps = {
 		width: 400,
 		height: 500,
-		rowHeight: 56,
+		rowHeight: 40,
 		overscanMonthCount: 4,
 		todayHelperRowOffset: 4,
 		layout: 'portrait',

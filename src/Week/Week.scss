@@ -14,12 +14,7 @@
     cursor: pointer;
     user-select: none;
 
-    &.selected {
-        .selection {
-            line-height: $rowHeight;
-            z-index: 4;
-        }
-    }
+    line-height: $rowHeight;
 }
 
 .weekContainer {

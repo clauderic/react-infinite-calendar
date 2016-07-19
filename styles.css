@@ -264,10 +264,8 @@
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
-          user-select: none; }
-  .Cal__Week__root.Cal__Week__selected .Cal__Week__selection {
-    line-height: 56px;
-    z-index: 4; }
+          user-select: none;
+  line-height: 56px; }
 
 .Cal__Week__weekContainer {
   display: -webkit-box;
@@ -389,7 +387,8 @@
   border-width: 1px 1px 0px 1px;
   border-color: #ADADAD;
   background-color: #DEDEDE;
-  color: #F5387A; }
+  color: #F5387A;
+  cursor: pointer; }
 .Cal__Years__root {
   position: absolute;
   left: 0;
