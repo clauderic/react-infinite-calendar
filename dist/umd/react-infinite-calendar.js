@@ -43028,7 +43028,7 @@ return /******/ (function(modules) { // webpackBootstrap
 							key: 'Row-' + i,
 							role: 'row',
 							'aria-label': 'Week ' + days[0].props.date.date.format('ww'),
-							'data-week': '' + days[0].props.date.date.format('YYYY-ww'),
+							'data-week': '' + days[0].props.date.date.format('YYYY-MM-DD'),
 							onClick: handleWeekClick.bind(this)
 						},
 						days
