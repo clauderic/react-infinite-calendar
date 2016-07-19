@@ -43118,7 +43118,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			{
 				style: isToday ? { color: theme.textColor.active } : null,
 				className: '' + style.root + (isToday ? ' ' + style.today : '') + (isSelected ? ' ' + style.selected : '') + (isDisabled ? ' ' + style.disabled : ' ' + style.enabled) + (isWeekSelected ? ' ' + style.weekSelected : ''),
-				'data-date': yyyymmdd,
+				'data-date': date.date.format('YYYY-MM-DD'),
 				onClick: !isDisabled && handleDayClick ? handleDayClick.bind(this, mmt) : null
 			},
 			showSelectionText && day === 1 && _react2.default.createElement(
