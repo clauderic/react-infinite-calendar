@@ -396,7 +396,7 @@ export default class InfiniteCalendar extends Component {
 					<Header selectedDate={selectedDate} shouldHeaderAnimate={shouldHeaderAnimate} layout={layout} theme={theme} locale={locale} scrollToDate={this.scrollToDate} setDisplay={this.setDisplay} display={display} />
 				}
 				<div className={style.container.wrapper}>
-					<Weekdays theme={theme} locale={locale} />
+					<Weekdays theme={theme} locale={locale} scrollToDate={this.scrollToDate} />
 					<div className={style.container.listWrapper}>
 						{showTodayHelper &&
 							<Today scrollToDate={this.scrollToDate} show={showToday} today={today} theme={theme} locale={locale} />
