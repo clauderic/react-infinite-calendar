@@ -136,7 +136,11 @@ export default class InfiniteCalendar extends Component {
 			var nextSelectedDate = next.selectedDate;
 			var nextSelectedDateEnd = next.selectedDateEnd;
 
-			if(nextSelectedDate>nextSelectedDateEnd) {
+			if(nextSelectedDateEnd===false) {
+				nextSelectedDateEnd = nextSelectedDate;
+			} else if(nextSelectedDate===false) {
+				nextSelectedDateEnd = false;
+			} else if(nextSelectedDate>nextSelectedDateEnd) {
 				var tmp = nextSelectedDate;
 				nextSelectedDate = nextSelectedDateEnd;
 				nextSelectedDateEnd = tmp;
