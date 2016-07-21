@@ -4,15 +4,12 @@
   left: 0;
   right: 0;
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-  -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
   -webkit-box-pack: center;
-  -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
   height: 32px;
@@ -44,17 +41,24 @@
     position: absolute;
     top: 50%;
     margin-top: -6px;
-    margin-left: 5px; }
+    margin-left: 5px;
+    -webkit-transform: rotate(270deg);
+            transform: rotate(270deg);
+    -webkit-transition: -webkit-transform 0.3s ease;
+    transition: -webkit-transform 0.3s ease;
+    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, -webkit-transform 0.3s ease; }
   .Cal__Today__root.Cal__Today__chevronUp .Cal__Today__chevron {
     -webkit-transform: rotate(180deg);
             transform: rotate(180deg); }
+  .Cal__Today__root.Cal__Today__chevronDown .Cal__Today__chevron {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); }
 .Cal__Header__root {
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-  -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
   box-sizing: border-box;
@@ -71,7 +75,6 @@
       cursor: default; }
   .Cal__Header__root.Cal__Header__landscape {
     -webkit-box-align: start;
-    -webkit-align-items: flex-start;
         -ms-flex-align: start;
                 -ms-grid-row-align: flex-start;
             align-items: flex-start;
@@ -80,23 +83,19 @@
     border-bottom-left-radius: 3px; }
     .Cal__Header__root.Cal__Header__landscape .Cal__Header__dateWrapper.Cal__Header__day {
       -webkit-box-flex: 1;
-      -webkit-flex-grow: 1;
           -ms-flex-positive: 1;
               flex-grow: 1;
       height: 76px; }
 
 .Cal__Header__wrapper {
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
       -ms-flex-direction: column;
           flex-direction: column;
   -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
   cursor: pointer; }
@@ -289,15 +288,12 @@
     top: 0;
     bottom: 56px;
     display: -webkit-box;
-    display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-align: center;
-    -webkit-align-items: center;
         -ms-flex-align: center;
             align-items: center;
     -webkit-box-pack: center;
-    -webkit-justify-content: center;
         -ms-flex-pack: center;
             justify-content: center; }
   .Cal__Month__label.Cal__Month__partialFirstRow {
@@ -307,24 +303,10 @@
   background-color: #FFF; }
   .Cal__List__root.Cal__List__scrolling label {
     opacity: 1; }
-
-.VirtualScroll {
-  position: relative;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-  outline: none; }
-
-.Grid__innerScrollContainer {
-  width: 100% !important; }
-
-.Grid__cell {
-  position: absolute;
-  width: 100% !important; }
 .Cal__Weekdays__root {
   position: relative;
   z-index: 5;
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   padding: 0;
@@ -333,8 +315,9 @@
 
 .Cal__Weekdays__day {
   padding: 15px 0;
+  -ms-flex-preferred-size: 14.28571%;
+      flex-basis: 14.28571%;
   -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
   font-weight: 500;
@@ -346,15 +329,12 @@
   bottom: 0;
   z-index: 10;
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-  -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
   -webkit-box-pack: center;
-  -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
   background-color: #F9F9F9; }
@@ -379,30 +359,24 @@
   box-sizing: border-box; }
   .Cal__Years__list.Cal__Years__center {
     display: -webkit-box;
-    display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-align: center;
-    -webkit-align-items: center;
         -ms-flex-align: center;
             align-items: center;
     -webkit-box-pack: center;
-    -webkit-justify-content: center;
         -ms-flex-pack: center;
             justify-content: center; }
 
 .Cal__Years__year {
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   height: 100%;
   -webkit-box-align: center;
-  -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
   -webkit-box-pack: center;
-  -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
   font-size: 18px;
@@ -440,25 +414,35 @@
   outline: none; }
   .Cal__Container__root.Cal__Container__landscape {
     display: -webkit-box;
-    display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
-    -webkit-flex-direction: row;
         -ms-flex-direction: row;
             flex-direction: row; }
     .Cal__Container__root.Cal__Container__landscape .Cal__Container__wrapper {
       position: relative;
       -webkit-box-flex: 1;
-      -webkit-flex-grow: 1;
           -ms-flex-positive: 1;
               flex-grow: 1;
       overflow: hidden;
       z-index: 1;
       border-top-right-radius: 3px;
       border-bottom-right-radius: 3px; }
+  .Cal__Container__root .VirtualScroll {
+    -webkit-overflow-scrolling: touch;
+    outline: none;
+    overflow-x: hidden !important; }
+  .Cal__Container__root .Grid__innerScrollContainer {
+    width: 100% !important; }
 
 .Cal__Container__listWrapper {
   position: relative;
   overflow: hidden; }
+
+.VirtualScroll {
+  position: relative;
+  overflow: auto; }
+
+.Grid__cell {
+  position: absolute; }

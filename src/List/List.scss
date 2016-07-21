@@ -8,23 +8,3 @@
         }
     }
 }
-
-:global {
-    .VirtualScroll {
-        position: relative;
-        overflow: auto;
-        -webkit-overflow-scrolling: touch;
-        outline: none;
-    }
-    .Grid__innerScrollContainer {
-        width: 100% !important;
-    }
-    .Grid__cell {
-        position: absolute;
-        width: 100% !important;
-        -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-    }
-}
