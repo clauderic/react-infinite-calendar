@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import classNames from 'classnames';
 import Day from '../Day';
 import Week from '../Week';
+import moment from 'moment';
 const style = require('./Month.scss');
 
 export default class Month extends Component {
@@ -9,7 +10,7 @@ export default class Month extends Component {
 		return (!nextProps.isScrolling && !this.props.isScrolling);
 	}
 	renderRows() {
-		let {disabledDates, disabledDays, displayDate, locale, maxDate, minDate, onDaySelect, handleWeekClick, rowHeight, rows, weeks, selectedDate, today, theme, showSelectionText} = this.props;
+		let {disabledDates, disabledDays, displayDate, locale, maxDate, minDate, onDaySelect, onWeekSelect, rowHeight, rows, weeks, selectedDate, selectedWeek, today, theme, showSelectionText} = this.props;
 		let currentYear = today.date.year();
 		let monthShort = displayDate.format('MMM');
 		let monthRows = [];
@@ -25,12 +26,11 @@ export default class Month extends Component {
 			row = rows[i];
 			days = [];
 
-			
-
 			for (let k = 0, len = row.length; k < len; k++) {
 				date = row[k];
 				day++;
 
+				isWeekSelected = (selectedWeek && date.date.format('YYYY-ww') === selectedWeek.date.format('YYYY-ww'));
 				isSelected = (selectedDate && date.yyyymmdd == selectedDate.yyyymmdd);
 				isToday = (today && date.yyyymmdd == today.yyyymmdd);
 				isDisabled = (
@@ -46,8 +46,10 @@ export default class Month extends Component {
 						currentYear={currentYear}
 						date={date}
 						day={day}
+						handleWeekClick={onWeekSelect}
 						isDisabled={isDisabled}
 						isSelected={isSelected}
+						isWeekSelected={isWeekSelected}
 						locale={locale}
 						monthShort={monthShort}
 						theme={theme}
@@ -81,7 +83,6 @@ export default class Month extends Component {
 					role="row"
 					aria-label={`Week ${days[0].props.date.date.format('ww')}`}
 					data-week={`${days[0].props.date.date.format('YYYY-MM-DD')}`}
-					onClick={handleWeekClick.bind(this)}
 				>
 					{days}
 				</ul>
@@ -90,6 +91,12 @@ export default class Month extends Component {
 
 		return monthRows;
 	}
+
+	scrollToToday = () => {
+		let {scrollToDate} = this.props;
+		scrollToDate(moment(), -40);
+	};
+	
 	render() {
 		let {displayDate, today, rows, showOverlay, theme, week, showSelectionText} = this.props;
 

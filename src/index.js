@@ -29,6 +29,7 @@ export default class InfiniteCalendar extends Component {
 		this.updateLocale(props.locale);
 		this.updateYears(props);
 		this.state = {
+			selectedWeek: this.parseSelectedWeek(props.selectedWeek),
 			selectedDate: this.parseSelectedDate(props.selectedDate),
 			display: props.display,
 			shouldHeaderAnimate: props.shouldHeaderAnimate
@@ -43,6 +44,7 @@ export default class InfiniteCalendar extends Component {
 		layout: 'portrait',
 		display: 'days',
 		selectedDate: new Date(),
+		selectedWeek: null,
 		min: {year: 1980, month: 0, day: 0},
 		minDate: {year: 1980, month: 0, day: 0},
 		max: {year: 2050, month: 11, day: 31},
@@ -61,6 +63,7 @@ export default class InfiniteCalendar extends Component {
 	};
 	static propTypes = {
 		selectedDate: validDate,
+		selectedWeek: validDate,
 		min: validDate,
 		max: validDate,
 		minDate: validDate,
@@ -103,7 +106,7 @@ export default class InfiniteCalendar extends Component {
 		}
 	}
 	componentWillReceiveProps(next) {
-		let {min, minDate, max, maxDate, locale, selectedDate, showSelectionText} = this.props;
+		let {min, minDate, max, maxDate, locale, selectedDate, selectedWeek, showSelectionText} = this.props;
 		let {display} = this.state;
 
 		if (next.locale !== locale) {
@@ -145,6 +148,20 @@ export default class InfiniteCalendar extends Component {
 
 		return selectedDate;
 	}
+	parseSelectedWeek(selectedWeek) {
+		if (selectedWeek) {
+			selectedWeek = moment(selectedWeek);
+
+			// Selected Date should not be before min date or after max date
+			if (selectedWeek.isBefore(this._minDate)) {
+				return this._minDate;
+			} else if (selectedWeek.isAfter(this._maxDate)) {
+				return this._maxDate;
+			}
+		}
+
+		return selectedWeek;
+	}
 	updateYears(props = this.props) {
 		let min = this._min = moment(props.min);
 		let max = this._max = moment(props.max);
@@ -179,18 +196,25 @@ export default class InfiniteCalendar extends Component {
 			this.setState({
 				selectedDate,
 				shouldHeaderAnimate,
-				highlightedDate: selectedDate.clone()
+				highlightedDate: selectedDate.clone(),
+				selectedWeek: null
 			}, () => {
 				this.clearHighlight();
+				this.scrollToDate(selectedDate, 0);
+
 				if (typeof afterSelect == 'function') {
 					afterSelect(selectedDate);
 				}
 			});
 		}
 	};
-	onWeekSelect = (selectedDate) => {
-		//console.log(selectedDate.view);
-		return selectedDate;
+	onWeekSelect = (selectedWeek) => {
+		this.setState({
+			selectedWeek,
+			selectedDate: null
+		}, () => {
+			this.clearHighlight();
+		});
 	};
 	getCurrentOffset = () => {
 		return this.scrollTop;
@@ -382,7 +406,7 @@ export default class InfiniteCalendar extends Component {
 		let disabledDates = this.getDisabledDates(this.props.disabledDates);
 		let locale = this.getLocale();
 		let theme = this.getTheme();
-		let {display, isScrolling, selectedDate, showToday, shouldHeaderAnimate} = this.state;
+		let {display, isScrolling, selectedDate, selectedWeek, showToday, shouldHeaderAnimate} = this.state;
 		let today = this.today = parseDate(moment());
 
 		// Selected date should not be disabled
@@ -407,6 +431,7 @@ export default class InfiniteCalendar extends Component {
 							width={width}
 							height={height}
 							selectedDate={parseDate(selectedDate)}
+							selectedWeek={parseDate(selectedWeek)}
 							disabledDates={disabledDates}
 							disabledDays={disabledDays}
 							months={this.months}

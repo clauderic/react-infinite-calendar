@@ -7,36 +7,22 @@
 
     background-color: #DEDEDE;
 
-    display: inline-block;
+    display: inline-flex;
+    flex-direction: column;
     box-sizing: border-box;
     width: 1 / 8 * 100%;
     
     cursor: pointer;
     user-select: none;
 
-    line-height: $rowHeight;
-}
-
-.weekContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
     font-size: 11px;
     text-align: center;
 }
 
 .weekItem {
-    height: $rowHeight/2;
     z-index: 3;
 }
-
-.weekNumber {
-    position: relative;
-    top: -5px;
-}
-
-.weekDistance {
-    position: relative;
-    top: -20px;
+.weekSelected {
+    background-color: $selectedWeekBackground;
+    color: white;
 }

@@ -12,6 +12,7 @@ export default class List extends Component {
 		height: PropTypes.number,
 		rowHeight: PropTypes.number,
 		selectedDate: PropTypes.object,
+		selectedWeek: PropTypes.object,
 		disabledDates: PropTypes.arrayOf(PropTypes.string),
 		disabledDays: PropTypes.arrayOf(PropTypes.number),
 		months: PropTypes.arrayOf(PropTypes.object),
@@ -32,7 +33,7 @@ export default class List extends Component {
 	componentDidMount() {
 		let vs = this.refs.VirtualScroll;
 		let grid = vs && vs._grid;
-		
+
 		this.scrollEl = grid && grid._scrollingContainer;
 	}
 	cache = {};
@@ -64,9 +65,9 @@ export default class List extends Component {
 	};
 	getDateOffset = (date) => {
 		let {min, rowHeight} = this.props;
-		let weeks = date.clone().startOf('month').diff(min.date.clone().startOf('month'), 'weeks')
-
-		return weeks * rowHeight;
+		let weeks = date.clone().startOf('week').diff(min.date.clone().startOf('month'), 'weeks')
+		
+		return (weeks  * rowHeight) + rowHeight;
 	};
 	getCurrentOffset = () => {
 		if (this.scrollEl) {
@@ -83,20 +84,21 @@ export default class List extends Component {
 		}
 	};
 	renderMonth = ({index, isScrolling}) => {
-		let {disabledDates, disabledDays, locale, months, maxDate, minDate, onDaySelect, onWeekSelect, rowHeight, selectedDate, showOverlay, theme, today, showSelectionText} = this.props;
+		let {disabledDates, disabledDays, locale, months, maxDate, minDate, onDaySelect, onWeekSelect, rowHeight, selectedDate, selectedWeek, showOverlay, theme, today, showSelectionText} = this.props;
 		let {date, rows, weeks} = this.memoize(months[index]);
 
 		return (
 			<Month
 				key={`Month-${index}`}
 				selectedDate={selectedDate}
+				selectedWeek={selectedWeek}
 				displayDate={date}
 				disabledDates={disabledDates}
 				disabledDays={disabledDays}
 				maxDate={maxDate}
 				minDate={minDate}
 				onDaySelect={onDaySelect}
-				handleWeekClick={onWeekSelect}
+				onWeekSelect={onWeekSelect}
 				rows={rows}
 				weeks={weeks}
 				rowHeight={rowHeight}
