@@ -29,6 +29,27 @@ describe("<InfiniteCalendar/> Selected Date", function() {
 
 		expect(wrapper.find(`.${style.day.selected}`)).to.have.length(0);
 	})
+	it('should allow for initial selected date range', () => {
+		const start = moment();
+		const end = moment().add(1, 'day');
+		const wrapper = mount(<InfiniteCalendar allowRanges={true} selectedDate={start} selectedDateEnd={end} />);
+
+		expect(wrapper.find(`.${style.day.selected}`)).to.have.length(2);
+	})
+	it('should allow for no initial selected range when start date is not set', () => {
+		const end = moment();
+		const wrapper = mount(<InfiniteCalendar selectedDate={false} selectedDateEnd={end} />);
+
+		expect(wrapper.find(`.${style.day.selected}`)).to.have.length(0);
+	})
+	it('should reverse date range when with start>end', () => {
+		const end = moment();
+		const start = moment().add(1, 'day');
+		const wrapper = mount(<InfiniteCalendar allowRanges={true} selectedDate={start} selectedDateEnd={end} />);
+
+		expect(wrapper.find(`.${style.day.selected}`)).to.have.length(2);
+		expect(wrapper.state().selectedDate.format('x')).to.be.below(wrapper.state().selectedDateEnd.format('x'));
+	})
 	it('should scroll to `today` when there is no initial selected date', () => {
 		const wrapper = mount(<InfiniteCalendar selectedDate={false} />);
         const inst = wrapper.instance();
@@ -77,6 +98,15 @@ describe("<InfiniteCalendar/> Lifecycle Methods", function() {
 		wrapper.setProps({selectedDate: updated});
 		expect(wrapper.props().selectedDate).to.equal(updated);
 		expect(wrapper.state().selectedDate.format('x')).to.equal(updated.format('x'));
+	})
+	it('updates the selectedDateEnd state when props.selectedDateEnd changes', () => {
+		const start = moment();
+		const initial = moment();
+		const updated = moment().add(1, 'day');
+		const wrapper = mount(<InfiniteCalendar selectedDate={start} selectedDateEnd={initial}/>);
+		wrapper.setProps({selectedDateEnd: updated});
+		expect(wrapper.props().selectedDateEnd).to.equal(updated);
+		expect(wrapper.state().selectedDateEnd.format('x')).to.equal(updated.format('x'));
 	})
 	it('updates when props.minDate changes', (done) => {
 		this.timeout(500);
@@ -193,6 +223,35 @@ describe("<InfiniteCalendar/> Callback Events", function() {
 		expect(onSelect.called).to.equal(false);
 		expect(afterSelect.called).to.equal(false);
 		expect(wrapper.state().selectedDate.format('YYYYMMDD')).to.equal(expected.format('YYYYMMDD'));
+		setTimeout(done);
+	})
+});
+
+describe("<InfiniteCalendar/> Range Selection", function() {
+	this.timeout(3000);
+
+	it('should select a range when clicking two days', (done) => {
+		const wrapper = mount(<InfiniteCalendar allowRanges={true} />);
+		wrapper.find(Day).first().simulate('mousedown');
+		wrapper.find(Day).first().simulate('mouseup');
+		wrapper.find(Day).first().simulate('click');
+
+		// wrapper.find(Day).second().simulate('mousedown');
+		// wrapper.find(Day).second().simulate('mouseup');
+		// wrapper.find(Day).second().simulate('click');
+
+		//TODO: how do I assert that the proper days were selected
+
+		setTimeout(done);
+	})
+	it('should select a range when clicking and dragging', (done) => {
+		const wrapper = mount(<InfiniteCalendar allowRanges={true} rangeSelectWithDrag={true} />);
+		wrapper.find(Day).first().simulate('mousedown');
+		// wrapper.find(Day).second().simulate('mouseover');
+		// wrapper.find(Day).third().simulate('mouseup');
+
+		//TODO: how do I assert that the proper days were selected
+
 		setTimeout(done);
 	})
 });

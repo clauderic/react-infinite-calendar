@@ -30,7 +30,11 @@ export default class InfiniteCalendar extends Component {
 		var selectedDate = props.selectedDate;
 		var selectedDateEnd = props.selectedDateEnd;
 
-		if(selectedDate>selectedDateEnd) {
+		if(selectedDateEnd===false) {
+			selectedDateEnd = selectedDate;
+		} else if(selectedDate===false) {
+			selectedDateEnd = false;
+		} else if(selectedDate>selectedDateEnd) {
 			var tmp = selectedDate;
 			selectedDate = selectedDateEnd;
 			selectedDateEnd = tmp;
@@ -54,7 +58,7 @@ export default class InfiniteCalendar extends Component {
 		layout: 'portrait',
 		display: 'days',
 		selectedDate: new Date(),
-		selectedDateEnd: new Date(),
+		selectedDateEnd: false,
 		endDate: new Date(),
 		min: {year: 1980, month: 0, day: 0},
 		minDate: {year: 1980, month: 0, day: 0},
@@ -63,7 +67,7 @@ export default class InfiniteCalendar extends Component {
 		keyboardSupport: true,
 		autoFocus: true,
 		allowRanges: false,
-		rangeSelectWithDrag: true,
+		rangeSelectWithDrag: false,
 		shouldHeaderAnimate: true,
 		showOverlay: true,
 		showTodayHelper: true,
