@@ -421,11 +421,12 @@ export default class InfiniteCalendar extends Component {
 				}
 				<div className={style.container.wrapper}>
 					<Weekdays theme={theme} locale={locale} scrollToDate={this.scrollToDate} />
-					<div className={style.container.listWrapper}>
+					<div id="test" className={style.container.listWrapper}>
 						{showTodayHelper &&
 							<Today scrollToDate={this.scrollToDate} show={showToday} today={today} theme={theme} locale={locale} />
 						}
 						<List
+							id="test"
 							ref="List"
 							{...other}
 							width={width}

@@ -8,12 +8,12 @@ export default function Week({currentYear, date, day, handleWeekClick, isDisable
 	var weekDistance = moment().format('ww') - weekNumber;
 	var weekDistanceLabel = weekDistance === 0 ? "0 v" : weekDistance < 0 ? "+" +
 	 Math.abs(weekDistance) + " v" : "-" + weekDistance + " v";
-  var weekItemHeight = rowHeight/2;
+  	var weekItemHeight = rowHeight/2;
 
 	return (
-		<li className={`${style.root}${isSelected ? ' ' + style.selected : ''}${isWeekSelected ? ' ' + style.weekSelected : ''}`}
-				onClick={handleWeekClick.bind(this, date.date)}
-				style={{height: rowHeight}} >
+		<li className={`${style.root}${isWeekSelected ? ' ' + style.weekSelected : ''}`}
+			onClick={handleWeekClick.bind(this, date.date)}
+			style={{height: rowHeight}, (isWeekSelected) ? { 'backgroundColor': theme.selectedWeekBackground } : { 'backgroundColor': theme.weekBackground }} >
 			<span className={`${style.weekItem}`} style={{height: weekItemHeight}}>v.{weekNumber}</span>
 			<span className={`${style.weekItem}`} style={{height: weekItemHeight}}>{weekDistanceLabel}</span>
 		</li>

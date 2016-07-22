@@ -26,11 +26,13 @@ export default class Month extends Component {
 			row = rows[i];
 			days = [];
 
+			date = row[0];
+			isWeekSelected = (selectedWeek && date.date.format('YYYY-ww') === selectedWeek.date.format('YYYY-ww'));
+
 			for (let k = 0, len = row.length; k < len; k++) {
 				date = row[k];
 				day++;
 
-				isWeekSelected = (selectedWeek && date.date.format('YYYY-ww') === selectedWeek.date.format('YYYY-ww'));
 				isSelected = (selectedDate && date.yyyymmdd == selectedDate.yyyymmdd);
 				isToday = (today && date.yyyymmdd == today.yyyymmdd);
 				isDisabled = (
@@ -77,7 +79,7 @@ export default class Month extends Component {
 			}
 			monthRows[i] = (
 				<ul 
-					className={classNames(style.row, {[style.partial]: row.length !== 7})}
+					className={classNames(style.row, {[style.partial]: row.length !== 7 && !isWeekSelected})}
 					style={{height: rowHeight}}
 					key={`Row-${i}`}
 					role="row"

@@ -5,7 +5,7 @@
     border-width: 1px;
     border-color: #ADADAD;
 
-    background-color: #DEDEDE;
+    background-color: $weekBackground;
 
     display: inline-flex;
     flex-direction: column;
@@ -22,6 +22,7 @@
 .weekItem {
     z-index: 3;
 }
+
 .weekSelected {
     background-color: $selectedWeekBackground;
     color: white;
