@@ -43,20 +43,20 @@ export default class List extends Component {
 		this.scrollEl.lastChild.id = "test";
 		console.log(this.scrollEl.lastChild);
 
-		Events.scrollEvent.register('begin', function() {
-      console.log("begin", arguments);
-    });
+		// Events.scrollEvent.register('begin', function() {
+		// 	console.log("begin", arguments);
+		// });
 
-    Events.scrollEvent.register('end', function() {
-      console.log("end", arguments);
-      //grid._scrollingContainer.scrollTop = arguments[2];
-    });
+	 //    Events.scrollEvent.register('end', function() {
+		//     console.log("end", arguments);
+		//     //grid._scrollingContainer.scrollTop = arguments[2];
+	 //    });
 	}
 
-	componentWillUnmount() {
-    Events.scrollEvent.remove('begin');
-    Events.scrollEvent.remove('end');
-  }
+	// componentWillUnmount() {
+	// 	Events.scrollEvent.remove('begin');
+	// 	Events.scrollEvent.remove('end');
+	// }
 
 	cache = {};
 	state = {};
