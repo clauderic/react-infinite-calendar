@@ -41,7 +41,7 @@ export default class List extends Component {
 
 		this.scrollEl = grid && grid._scrollingContainer;
 		this.scrollEl.lastChild.id = "test";
-		console.log(this.scrollEl.lastChild);
+		//console.log(this.scrollEl.lastChild);
 
 		// Events.scrollEvent.register('begin', function() {
 		// 	console.log("begin", arguments);

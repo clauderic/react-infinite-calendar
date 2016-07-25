@@ -143,23 +143,23 @@ var List = function (_Component) {
 
 			this.scrollEl = grid && grid._scrollingContainer;
 			this.scrollEl.lastChild.id = "test";
-			console.log(this.scrollEl.lastChild);
+			//console.log(this.scrollEl.lastChild);
 
-			Events.scrollEvent.register('begin', function () {
-				console.log("begin", arguments);
-			});
+			// Events.scrollEvent.register('begin', function() {
+			// 	console.log("begin", arguments);
+			// });
 
-			Events.scrollEvent.register('end', function () {
-				console.log("end", arguments);
-				//grid._scrollingContainer.scrollTop = arguments[2];
-			});
+			//    Events.scrollEvent.register('end', function() {
+			//     console.log("end", arguments);
+			//     //grid._scrollingContainer.scrollTop = arguments[2];
+			//    });
 		}
-	}, {
-		key: 'componentWillUnmount',
-		value: function componentWillUnmount() {
-			Events.scrollEvent.remove('begin');
-			Events.scrollEvent.remove('end');
-		}
+
+		// componentWillUnmount() {
+		// 	Events.scrollEvent.remove('begin');
+		// 	Events.scrollEvent.remove('end');
+		// }
+
 	}, {
 		key: 'render',
 		value: function render() {
