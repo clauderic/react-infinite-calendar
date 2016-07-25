@@ -6,10 +6,10 @@ import {getMonth, getWeeksInMonth, validParsedDate} from '../utils';
 import Month from '../Month';
 
 const style   = require('./List.scss');
-var Scroll  = require('react-scroll');
+// var Scroll  = require('react-scroll');
 
-var Events     = Scroll.Events;
-var scroll     = Scroll.animateScroll;
+// var Events     = Scroll.Events;
+// var scroll     = Scroll.animateScroll;
 
 export default class List extends Component {
 	static propTypes = {
@@ -105,10 +105,10 @@ export default class List extends Component {
 			//this.scrollEl.scrollTop = scrollTop;
 			console.log("trying to scroll \"" + this.scrollEl.lastChild.id + "\"");
 
-			scroll.scrollTo(scrollTop, {
-				containerId: this.scrollEl.lastChild.id,
-			  smooth: true,
-			});
+			// scroll.scrollTo(scrollTop, {
+			// 	containerId: this.scrollEl.lastChild.id,
+			//   smooth: true,
+			// });
 		}
 	};
 	renderMonth = ({index, isScrolling}) => {
