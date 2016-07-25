@@ -14,8 +14,8 @@ export default function Week({currentYear, date, day, handleWeekClick, isDisable
 		<li className={`${style.root}${isWeekSelected ? ' ' + style.weekSelected : ''}`}
 			onClick={handleWeekClick.bind(this, date.date)}
 			style={{height: rowHeight}, (isWeekSelected) ? { 'backgroundColor': theme.selectedWeekBackground } : { 'backgroundColor': theme.weekBackground }} >
-			<span className={`${style.weekItem}`} style={{height: weekItemHeight}}>v.{weekNumber}</span>
-			<span className={`${style.weekItem}`} style={{height: weekItemHeight}}>{weekDistanceLabel}</span>
+			<span className={`${style.weekItem}`} style={{height: weekItemHeight, bottom: '5px'}}>v.{weekNumber}</span>
+			<span className={`${style.weekItem}`} style={{height: weekItemHeight, bottom: '15px'}}>{weekDistanceLabel}</span>
 		</li>
 	);
 }
