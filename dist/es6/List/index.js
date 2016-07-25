@@ -9,10 +9,10 @@ var style = {
 	'root': 'Cal__List__root',
 	'scrolling': 'Cal__List__scrolling'
 };
-var Scroll = require('react-scroll');
+// var Scroll  = require('react-scroll');
 
-var Events = Scroll.Events;
-var scroll = Scroll.animateScroll;
+// var Events     = Scroll.Events;
+// var scroll     = Scroll.animateScroll;
 
 var List = function (_Component) {
 	babelHelpers.inherits(List, _Component);
@@ -79,10 +79,10 @@ var List = function (_Component) {
 				//this.scrollEl.scrollTop = scrollTop;
 				console.log("trying to scroll \"" + _this.scrollEl.lastChild.id + "\"");
 
-				scroll.scrollTo(scrollTop, {
-					containerId: _this.scrollEl.lastChild.id,
-					smooth: true
-				});
+				// scroll.scrollTo(scrollTop, {
+				// 	containerId: this.scrollEl.lastChild.id,
+				//   smooth: true,
+				// });
 			}
 		}, _this.renderMonth = function (_ref2) {
 			var index = _ref2.index;
