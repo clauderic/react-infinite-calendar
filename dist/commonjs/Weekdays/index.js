@@ -42,9 +42,21 @@ var Weekdays = function (_Component) {
 	_inherits(Weekdays, _Component);
 
 	function Weekdays() {
+		var _Object$getPrototypeO;
+
+		var _temp, _this, _ret;
+
 		_classCallCheck(this, Weekdays);
 
-		return _possibleConstructorReturn(this, Object.getPrototypeOf(Weekdays).apply(this, arguments));
+		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+			args[_key] = arguments[_key];
+		}
+
+		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Weekdays)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.scrollToToday = function () {
+			var scrollToDate = _this.props.scrollToDate;
+
+			scrollToDate((0, _moment2.default)(), -40);
+		}, _temp), _possibleConstructorReturn(_this, _ret);
 	}
 
 	_createClass(Weekdays, [{
@@ -55,6 +67,8 @@ var Weekdays = function (_Component) {
 	}, {
 		key: 'render',
 		value: function render() {
+			var _this2 = this;
+
 			var _props = this.props;
 			var theme = _props.theme;
 			var locale = _props.locale;
@@ -67,7 +81,7 @@ var Weekdays = function (_Component) {
 					if (index === 0) {
 						return _react2.default.createElement(
 							'li',
-							{ key: 'Weekday-today', className: style.today },
+							{ key: 'Weekday-today', className: style.today, onClick: _this2.scrollToToday },
 							locale.todayLabel.long
 						);
 					} else {
@@ -87,6 +101,7 @@ var Weekdays = function (_Component) {
 
 Weekdays.propTypes = {
 	locale: _react.PropTypes.object,
-	theme: _react.PropTypes.object
+	theme: _react.PropTypes.object,
+	scrollToDate: _react.PropTypes.func
 };
 exports.default = Weekdays;

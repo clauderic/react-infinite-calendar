@@ -40,6 +40,10 @@ var style = {
 	'root': 'Cal__List__root',
 	'scrolling': 'Cal__List__scrolling'
 };
+var Scroll = require('react-scroll');
+
+var Events = Scroll.Events;
+var scroll = Scroll.animateScroll;
 
 var List = function (_Component) {
 	_inherits(List, _Component);
@@ -87,9 +91,9 @@ var List = function (_Component) {
 			var min = _this$props2.min;
 			var rowHeight = _this$props2.rowHeight;
 
-			var weeks = date.clone().startOf('month').diff(min.date.clone().startOf('month'), 'weeks');
+			var weeks = date.clone().startOf('week').diff(min.date.clone().startOf('month'), 'weeks');
 
-			return weeks * rowHeight;
+			return weeks * rowHeight + rowHeight;
 		}, _this.getCurrentOffset = function () {
 			if (_this.scrollEl) {
 				return _this.scrollEl.scrollTop;
@@ -103,7 +107,13 @@ var List = function (_Component) {
 			var scrollTop = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
 
 			if (_this.scrollEl) {
-				_this.scrollEl.scrollTop = scrollTop;
+				//this.scrollEl.scrollTop = scrollTop;
+				console.log("trying to scroll \"" + _this.scrollEl.lastChild.id + "\"");
+
+				scroll.scrollTo(scrollTop, {
+					containerId: _this.scrollEl.lastChild.id,
+					smooth: true
+				});
 			}
 		}, _this.renderMonth = function (_ref2) {
 			var index = _ref2.index;
@@ -119,6 +129,7 @@ var List = function (_Component) {
 			var onWeekSelect = _this$props3.onWeekSelect;
 			var rowHeight = _this$props3.rowHeight;
 			var selectedDate = _this$props3.selectedDate;
+			var selectedWeek = _this$props3.selectedWeek;
 			var showOverlay = _this$props3.showOverlay;
 			var theme = _this$props3.theme;
 			var today = _this$props3.today;
@@ -134,13 +145,14 @@ var List = function (_Component) {
 			return _react2.default.createElement(_Month2.default, {
 				key: 'Month-' + index,
 				selectedDate: selectedDate,
+				selectedWeek: selectedWeek,
 				displayDate: date,
 				disabledDates: disabledDates,
 				disabledDays: disabledDays,
 				maxDate: maxDate,
 				minDate: minDate,
 				onDaySelect: onDaySelect,
-				handleWeekClick: onWeekSelect,
+				onWeekSelect: onWeekSelect,
 				rows: rows,
 				weeks: weeks,
 				rowHeight: rowHeight,
@@ -158,9 +170,26 @@ var List = function (_Component) {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
 			var vs = this.refs.VirtualScroll;
-			var grid = vs && vs.refs.Grid;
+			var grid = vs && vs._grid;
 
-			this.scrollEl = grid && grid.refs.scrollingContainer;
+			this.scrollEl = grid && grid._scrollingContainer;
+			this.scrollEl.lastChild.id = "test";
+			console.log(this.scrollEl.lastChild);
+
+			Events.scrollEvent.register('begin', function () {
+				console.log("begin", arguments);
+			});
+
+			Events.scrollEvent.register('end', function () {
+				console.log("end", arguments);
+				//grid._scrollingContainer.scrollTop = arguments[2];
+			});
+		}
+	}, {
+		key: 'componentWillUnmount',
+		value: function componentWillUnmount() {
+			Events.scrollEvent.remove('begin');
+			Events.scrollEvent.remove('end');
 		}
 	}, {
 		key: 'render',
@@ -206,6 +235,7 @@ List.propTypes = {
 	height: _react.PropTypes.number,
 	rowHeight: _react.PropTypes.number,
 	selectedDate: _react.PropTypes.object,
+	selectedWeek: _react.PropTypes.object,
 	disabledDates: _react.PropTypes.arrayOf(_react.PropTypes.string),
 	disabledDays: _react.PropTypes.arrayOf(_react.PropTypes.number),
 	months: _react.PropTypes.arrayOf(_react.PropTypes.object),

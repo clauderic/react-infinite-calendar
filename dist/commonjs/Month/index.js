@@ -22,6 +22,10 @@ var _Week = require('../Week');
 
 var _Week2 = _interopRequireDefault(_Week);
 
+var _moment = require('moment');
+
+var _moment2 = _interopRequireDefault(_moment);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -44,9 +48,21 @@ var Month = function (_Component) {
 	_inherits(Month, _Component);
 
 	function Month() {
+		var _Object$getPrototypeO;
+
+		var _temp, _this, _ret;
+
 		_classCallCheck(this, Month);
 
-		return _possibleConstructorReturn(this, Object.getPrototypeOf(Month).apply(this, arguments));
+		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+			args[_key] = arguments[_key];
+		}
+
+		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Month)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.scrollToToday = function () {
+			var scrollToDate = _this.props.scrollToDate;
+
+			scrollToDate((0, _moment2.default)(), -40);
+		}, _temp), _possibleConstructorReturn(_this, _ret);
 	}
 
 	_createClass(Month, [{
@@ -65,11 +81,12 @@ var Month = function (_Component) {
 			var maxDate = _props.maxDate;
 			var minDate = _props.minDate;
 			var onDaySelect = _props.onDaySelect;
-			var handleWeekClick = _props.handleWeekClick;
+			var onWeekSelect = _props.onWeekSelect;
 			var rowHeight = _props.rowHeight;
 			var rows = _props.rows;
 			var weeks = _props.weeks;
 			var selectedDate = _props.selectedDate;
+			var selectedWeek = _props.selectedWeek;
 			var today = _props.today;
 			var theme = _props.theme;
 			var showSelectionText = _props.showSelectionText;
@@ -91,7 +108,10 @@ var Month = function (_Component) {
 				row = rows[i];
 				days = [];
 
-				for (var k = 0, _len = row.length; k < _len; k++) {
+				date = row[0];
+				isWeekSelected = selectedWeek && date.date.format('YYYY-ww') === selectedWeek.date.format('YYYY-ww');
+
+				for (var k = 0, _len2 = row.length; k < _len2; k++) {
 					date = row[k];
 					day++;
 
@@ -105,8 +125,10 @@ var Month = function (_Component) {
 							currentYear: currentYear,
 							date: date,
 							day: day,
+							handleWeekClick: onWeekSelect,
 							isDisabled: isDisabled,
 							isSelected: isSelected,
+							isWeekSelected: isWeekSelected,
 							locale: locale,
 							monthShort: monthShort,
 							theme: theme,
@@ -133,13 +155,12 @@ var Month = function (_Component) {
 				monthRows[i] = _react2.default.createElement(
 					'ul',
 					{
-						className: (0, _classnames2.default)(style.row, _defineProperty({}, style.partial, row.length !== 7)),
+						className: (0, _classnames2.default)(style.row, _defineProperty({}, style.partial, row.length !== 7 && !isWeekSelected)),
 						style: { height: rowHeight },
 						key: 'Row-' + i,
 						role: 'row',
 						'aria-label': 'Week ' + days[0].props.date.date.format('ww'),
-						'data-week': '' + days[0].props.date.date.format('YYYY-MM-DD'),
-						onClick: handleWeekClick.bind(this)
+						'data-week': '' + days[0].props.date.date.format('YYYY-MM-DD')
 					},
 					days
 				);

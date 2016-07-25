@@ -34,10 +34,8 @@ var dayStyle = {
 };
 var weekStyle = {
 	'root': 'Cal__Week__root',
-	'weekContainer': 'Cal__Week__weekContainer',
 	'weekItem': 'Cal__Week__weekItem',
-	'weekNumber': 'Cal__Week__weekNumber',
-	'weekDistance': 'Cal__Week__weekDistance'
+	'weekSelected': 'Cal__Week__weekSelected'
 };
 var style = {
 	container: containerStyle,
@@ -72,9 +70,12 @@ var InfiniteCalendar = function (_Component) {
 				_this.setState({
 					selectedDate: selectedDate,
 					shouldHeaderAnimate: shouldHeaderAnimate,
-					highlightedDate: selectedDate.clone()
+					highlightedDate: selectedDate.clone(),
+					selectedWeek: null
 				}, function () {
 					_this.clearHighlight();
+					_this.scrollToDate(selectedDate, 0);
+
 					if (typeof afterSelect == 'function') {
 						afterSelect(selectedDate);
 					}
@@ -82,9 +83,13 @@ var InfiniteCalendar = function (_Component) {
 			}
 		};
 
-		_this.onWeekSelect = function (selectedDate) {
-			//console.log(selectedDate.view);
-			return selectedDate;
+		_this.onWeekSelect = function (selectedWeek) {
+			_this.setState({
+				selectedWeek: selectedWeek,
+				selectedDate: null
+			}, function () {
+				_this.clearHighlight();
+			});
 		};
 
 		_this.getCurrentOffset = function () {
@@ -283,6 +288,7 @@ var InfiniteCalendar = function (_Component) {
 		_this.updateLocale(props.locale);
 		_this.updateYears(props);
 		_this.state = {
+			selectedWeek: _this.parseSelectedWeek(props.selectedWeek),
 			selectedDate: _this.parseSelectedDate(props.selectedDate),
 			display: props.display,
 			shouldHeaderAnimate: props.shouldHeaderAnimate
@@ -314,6 +320,7 @@ var InfiniteCalendar = function (_Component) {
 			var maxDate = _props2.maxDate;
 			var locale = _props2.locale;
 			var selectedDate = _props2.selectedDate;
+			var selectedWeek = _props2.selectedWeek;
 			var showSelectionText = _props2.showSelectionText;
 			var display = this.state.display;
 
@@ -358,6 +365,22 @@ var InfiniteCalendar = function (_Component) {
 			}
 
 			return selectedDate;
+		}
+	}, {
+		key: 'parseSelectedWeek',
+		value: function parseSelectedWeek(selectedWeek) {
+			if (selectedWeek) {
+				selectedWeek = moment(selectedWeek);
+
+				// Selected Date should not be before min date or after max date
+				if (selectedWeek.isBefore(this._minDate)) {
+					return this._minDate;
+				} else if (selectedWeek.isAfter(this._maxDate)) {
+					return this._maxDate;
+				}
+			}
+
+			return selectedWeek;
 		}
 	}, {
 		key: 'updateYears',
@@ -439,6 +462,7 @@ var InfiniteCalendar = function (_Component) {
 			var display = _state.display;
 			var isScrolling = _state.isScrolling;
 			var selectedDate = _state.selectedDate;
+			var selectedWeek = _state.selectedWeek;
 			var showToday = _state.showToday;
 			var shouldHeaderAnimate = _state.shouldHeaderAnimate;
 
@@ -456,17 +480,19 @@ var InfiniteCalendar = function (_Component) {
 				React.createElement(
 					'div',
 					{ className: style.container.wrapper },
-					React.createElement(Weekdays, { theme: theme, locale: locale }),
+					React.createElement(Weekdays, { theme: theme, locale: locale, scrollToDate: this.scrollToDate }),
 					React.createElement(
 						'div',
-						{ className: style.container.listWrapper },
+						{ id: 'test', className: style.container.listWrapper },
 						showTodayHelper && React.createElement(Today, { scrollToDate: this.scrollToDate, show: showToday, today: today, theme: theme, locale: locale }),
 						React.createElement(List, babelHelpers.extends({
+							id: 'test',
 							ref: 'List'
 						}, other, {
 							width: width,
 							height: height,
 							selectedDate: parseDate(selectedDate),
+							selectedWeek: parseDate(selectedWeek),
 							disabledDates: disabledDates,
 							disabledDays: disabledDays,
 							months: this.months,
@@ -514,6 +540,7 @@ InfiniteCalendar.defaultProps = {
 	layout: 'portrait',
 	display: 'days',
 	selectedDate: new Date(),
+	selectedWeek: null,
 	min: { year: 1980, month: 0, day: 0 },
 	minDate: { year: 1980, month: 0, day: 0 },
 	max: { year: 2050, month: 11, day: 31 },
@@ -532,6 +559,7 @@ InfiniteCalendar.defaultProps = {
 };
 InfiniteCalendar.propTypes = {
 	selectedDate: validDate,
+	selectedWeek: validDate,
 	min: validDate,
 	max: validDate,
 	minDate: validDate,

@@ -2,18 +2,18 @@ import React from 'react';
 import moment from 'moment';
 var style = {
 	'root': 'Cal__Week__root',
-	'weekContainer': 'Cal__Week__weekContainer',
 	'weekItem': 'Cal__Week__weekItem',
-	'weekNumber': 'Cal__Week__weekNumber',
-	'weekDistance': 'Cal__Week__weekDistance'
+	'weekSelected': 'Cal__Week__weekSelected'
 };
 
 export default function Week(_ref) {
 	var currentYear = _ref.currentYear;
 	var date = _ref.date;
 	var day = _ref.day;
+	var handleWeekClick = _ref.handleWeekClick;
 	var isDisabled = _ref.isDisabled;
 	var isSelected = _ref.isSelected;
+	var isWeekSelected = _ref.isWeekSelected;
 	var monthShort = _ref.monthShort;
 	var locale = _ref.locale;
 	var theme = _ref.theme;
@@ -24,24 +24,23 @@ export default function Week(_ref) {
 	var weekNumber = date.date.format('ww');
 	var weekDistance = moment().format('ww') - weekNumber;
 	var weekDistanceLabel = weekDistance === 0 ? "0 v" : weekDistance < 0 ? "+" + Math.abs(weekDistance) + " v" : "-" + weekDistance + " v";
+	var weekItemHeight = rowHeight / 2;
 
 	return React.createElement(
 		'li',
-		{ className: '' + style.root + (isSelected ? ' ' + style.selected : '') },
+		{ className: '' + style.root + (isWeekSelected ? ' ' + style.weekSelected : ''),
+			onClick: handleWeekClick.bind(this, date.date),
+			style: ({ height: rowHeight }, isWeekSelected ? { 'backgroundColor': theme.selectedWeekBackground } : { 'backgroundColor': theme.weekBackground }) },
 		React.createElement(
-			'div',
-			{ className: '' + style.weekContainer, style: { height: rowHeight } },
-			React.createElement(
-				'span',
-				{ className: style.weekItem + ' ' + style.weekNumber },
-				'v.',
-				weekNumber
-			),
-			React.createElement(
-				'span',
-				{ className: style.weekItem + ' ' + style.weekDistance },
-				weekDistanceLabel
-			)
+			'span',
+			{ className: '' + style.weekItem, style: { height: weekItemHeight, bottom: '5px' } },
+			'v.',
+			weekNumber
+		),
+		React.createElement(
+			'span',
+			{ className: '' + style.weekItem, style: { height: weekItemHeight, bottom: '15px' } },
+			weekDistanceLabel
 		)
 	);
 }
