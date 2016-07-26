@@ -81,11 +81,12 @@ export default class List extends Component {
 		}
 	};
 	renderMonth = ({index, isScrolling}) => {
-		let {disabledDates, disabledDays, locale, months, maxDate, minDate, onDaySelect, rowHeight, selectedDate, showOverlay, theme, today} = this.props;
+		let {disabledDates, disabledDays, locale, months, maxDate, minDate, onDaySelect, rowHeight, selectedDate, showOverlay, theme, today, ...other} = this.props;
 		let {date, rows} = this.memoize(months[index]);
 
 		return (
 			<Month
+        {...other}
 				key={`Month-${index}`}
 				selectedDate={selectedDate}
 				displayDate={date}
@@ -100,10 +101,11 @@ export default class List extends Component {
 				showOverlay={showOverlay}
 				today={today}
 				theme={theme}
-				locale={locale}
+        locale={locale}
 			/>
 		);
 	};
+
 	render() {
 		let {height, isScrolling, onScroll, overscanMonthCount, months, rowHeight, selectedDate, today, width} = this.props;
 		if (!this._initScrollTop) this._initScrollTop = this.getDateOffset(selectedDate && selectedDate.date || today.date);

@@ -7,7 +7,6 @@ import sinon from 'sinon';
 import moment from 'moment';
 import {keyCodes} from '../src/utils';
 import InfiniteCalendar from '../src/';
-import Day from '../src/Day';
 
 const style = {
 	day: require('../src/Day/Day.scss'),
@@ -158,7 +157,7 @@ describe("<InfiniteCalendar/> Callback Events", function() {
 	it('should fire a callback beforeSelect', (done) => {
 		const beforeSelect = sinon.spy();
 		const wrapper = mount(<InfiniteCalendar beforeSelect={beforeSelect} />);
-		wrapper.find(Day).first().simulate('click');
+		wrapper.find('Day').first().simulate('click');
 
 		expect(beforeSelect.calledOnce).to.equal(true);
 		setTimeout(done);
@@ -166,7 +165,7 @@ describe("<InfiniteCalendar/> Callback Events", function() {
 	it('should fire a callback onSelect', (done) => {
 		const onSelect = sinon.spy();
 		const wrapper = mount(<InfiniteCalendar onSelect={onSelect} />);
-		wrapper.find(Day).first().simulate('click');
+		wrapper.find('Day').first().simulate('click');
 
 		expect(onSelect.calledOnce).to.equal(true);
 		setTimeout(done);
@@ -174,7 +173,7 @@ describe("<InfiniteCalendar/> Callback Events", function() {
 	it('should fire a callback afterSelect', (done) => {
 		const afterSelect = sinon.spy();
 		const wrapper = mount(<InfiniteCalendar afterSelect={afterSelect} />);
-		wrapper.find(Day).first().simulate('click');
+		wrapper.find('Day').first().simulate('click');
 
 		expect(afterSelect.calledOnce).to.equal(true);
 		setTimeout(done);
@@ -188,7 +187,7 @@ describe("<InfiniteCalendar/> Callback Events", function() {
 		const afterSelect = sinon.spy();
 		const wrapper = mount(<InfiniteCalendar selectedDate={expected} beforeSelect={beforeSelect} onSelect={onSelect} afterSelect={afterSelect} />);
 
-		wrapper.find(Day).first().simulate('click');
+		wrapper.find('Day').first().simulate('click');
 
 		expect(onSelect.called).to.equal(false);
 		expect(afterSelect.called).to.equal(false);

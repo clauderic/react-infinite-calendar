@@ -1,17 +1,24 @@
 import React from 'react';
 const style = require('./Day.scss');
 
-export default function Day({currentYear, date, day, handleDayClick, isDisabled, isToday, isSelected, monthShort, locale, theme}) {
-	var {date: mmt, yyyymmdd} = date;
+// todo add hover event
+export const withEvents = Component => ({date : {date: mmt, yyyymmdd}, isDisabled, handleDayClick, ...other}) => (
+    <li className={style.root}
+      onClick={(isDisabled || !handleDayClick) ? null : handleDayClick.bind(this, mmt)}
+      data-date={yyyymmdd} >
+      <Component
+        {...other}
+        mmt={mmt}
+        yyyymmdd={yyyymmdd}
+        isDisabled={isDisabled} />
+    </li>);
+
+export const DefaultDay = ({currentYear, mmt, yyyymmdd, day, isToday, isDisabled, isSelected, monthShort, locale, theme}) => {
+  const className = `${isToday ? style.today : ''} ${isSelected ? style.selected: ''} ${isDisabled ? style.disabled : style.enabled}`
 	var year = mmt.year();
 
 	return (
-		<li
-			style={(isToday) ? {color: theme.todayColor} : null}
-			className={`${style.root}${isToday ? ' ' + style.today : ''}${isSelected ? ' ' + style.selected : ''}${isDisabled ? ' ' + style.disabled : ' ' + style.enabled}`}
-			data-date={yyyymmdd}
-			onClick={(!isDisabled && handleDayClick) ? handleDayClick.bind(this, mmt) : null}
-		>
+    <div data-date={yyyymmdd} className={className} style={(isToday) ? {color: theme.todayColor} : null}>
 			{(day === 1) && <span className={style.month}>{monthShort}</span>}
 			<span>{day}</span>
 			{(day === 1 && currentYear !== year) && <span className={style.year}>{year}</span>}
@@ -21,6 +28,8 @@ export default function Day({currentYear, date, day, handleDayClick, isDisabled,
 					<span className={style.day}>{day}</span>
 				</div>
 			}
-		</li>
+    </div>
 	);
 }
+
+export default withEvents(DefaultDay)

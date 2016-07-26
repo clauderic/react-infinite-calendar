@@ -1,7 +1,7 @@
 import React from 'react';
 import chai, {expect} from 'chai';
 import chaiEnzyme from 'chai-enzyme';
-import { mount, shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import sinon from 'sinon';
 import moment from 'moment';
 import defaultTheme from '../src/theme';
@@ -50,7 +50,7 @@ describe("<Day/>", () => {
         const wrapper = mount(
 			<Day
 				currentYear={2016}
-				date={{date, yyyymmdd: date.format('YYYYMMDD')}}
+        date={{date, yyyymmdd: date.format('YYYYMMDD')}}
 				day={8}
 				isSelected={true}
 				locale={defaultLocale}
@@ -61,16 +61,18 @@ describe("<Day/>", () => {
 					}
 				}}
 			/>
-		);
-		expect(wrapper.find(`.${style.selection}`)).to.have.style('background-color', 'red');
-		expect(wrapper.find(`.${style.selection}`)).to.have.style('color', 'blue');
+        );
+
+    const element = wrapper.find(`.${style.root}`).find(`.${style.selection}`)
+		expect(element).to.have.style('background-color', 'red');
+		expect(element).to.have.style('color', 'blue');
 	})
 	it('supports dynamically setting the selection color with a function', () => {
 		const date = moment('20160308', 'YYYYMMDD');
         const wrapper = mount(
 			<Day
 				currentYear={2016}
-				date={{date, yyyymmdd: date.format('YYYYMMDD')}}
+        date={{date, yyyymmdd: date.format('YYYYMMDD')}}
 				day={8}
 				isSelected={true}
 				locale={defaultLocale}
@@ -82,6 +84,6 @@ describe("<Day/>", () => {
 				}}
 			/>
 		);
-		expect(wrapper.find(`.${style.selection}`)).to.have.style('background-color', 'orange');
+		expect(wrapper.find(`.${style.root}`).find(`.${style.selection}`)).to.have.style('background-color', 'orange');
 	})
 });

@@ -71,6 +71,7 @@ export function getMonth(monthDate) {
 export function getWeeksInMonth(date, locale) {
 	let first = moment(date).startOf('month');
 	let last = moment(date).endOf('month');
+
 	let firstWeek = first.locale(locale.name).week();
 	let lastWeek = last.locale(locale.name).week();
 
