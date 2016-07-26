@@ -149,10 +149,12 @@ export default class InfiniteCalendar extends Component {
 			}
 
 			if (nextSelectedDate !== selectedDate) {
+				var parsed = this.parseSelectedDate(nextSelectedDate);
 				this.setState({
-					selectedDate: this.parseSelectedDate(nextSelectedDate),
+					selectedDate: parsed,
 					selectedDateEnd: this.parseSelectedDate(nextSelectedDateEnd)					
 				});
+				if(parsed) this.scrollToDate(parsed,-this.props.rowHeight);
 			} else if (nextSelectedDateEnd !== selectedDateEnd) {
 				this.setState({
 					selectedDateEnd: this.parseSelectedDate(nextSelectedDateEnd)
