@@ -217,14 +217,14 @@ export default class InfiniteCalendar extends Component {
 		return Object.assign({}, defaultTheme, customTheme);
 	}
 	onDaySelect = (clickedDate, e) => {
-		let {afterSelect, beforeSelect, onSelect, shouldHeaderAnimate, rangeSelectWithDrag} = this.props;
+		let {afterSelect, beforeSelect, onSelect, allowRanges, shouldHeaderAnimate, rangeSelectWithDrag} = this.props;
 
 		var selectedDate = this.state.selectedDate;
 		var selectedDateEnd = this.state.selectedDateEnd;
 
 		var dragging = 0;
 
-		if(this.state.touchBehavior || !rangeSelectWithDrag) {
+		if(allowRanges && (this.state.touchBehavior || !rangeSelectWithDrag)) {
 			if(this.state.dragging==0) {
 				selectedDate = clickedDate;
 				selectedDateEnd = clickedDate;
