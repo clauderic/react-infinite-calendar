@@ -109,9 +109,11 @@ export default class InfiniteCalendar extends Component {
 			this.updateYears(next);
 		}
 		if (next.selectedDate !== selectedDate) {
+			var parsed = this.parseSelectedDate(next.selectedDate);
 			this.setState({
-				selectedDate: this.parseSelectedDate(next.selectedDate)
+				selectedDate: parsed
 			});
+			if(parsed) this.scrollToDate(parsed,-this.props.rowHeight*2);
 		} else if (next.minDate !== minDate || next.maxDate !== maxDate) {
 			// Need to make sure the currently selected date is not before the new minDate or after maxDate
 			let _selectedDate = this.parseSelectedDate(this.state.selectedDate);
