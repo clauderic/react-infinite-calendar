@@ -467,7 +467,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: 300;
-  outline: none; }
+  outline: none;
+  height: 100%;
+  overflow: hidden; }
   .Cal__Container__root.Cal__Container__landscape {
     display: -webkit-box;
     display: -ms-flexbox;

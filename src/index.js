@@ -426,7 +426,6 @@ export default class InfiniteCalendar extends Component {
 							<Today scrollToDate={this.scrollToDate} show={showToday} today={today} theme={theme} locale={locale} />
 						}
 						<List
-							id="test"
 							ref="List"
 							{...other}
 							width={width}

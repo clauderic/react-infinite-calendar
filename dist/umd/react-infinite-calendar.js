@@ -585,7 +585,6 @@ return /******/ (function(modules) { // webpackBootstrap
 							{ id: 'test', className: style.container.listWrapper },
 							showTodayHelper && _react2.default.createElement(_Today2.default, { scrollToDate: this.scrollToDate, show: showToday, today: today, theme: theme, locale: locale }),
 							_react2.default.createElement(_List2.default, _extends({
-								id: 'test',
 								ref: 'List'
 							}, other, {
 								width: width,

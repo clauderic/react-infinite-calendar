@@ -486,7 +486,6 @@ var InfiniteCalendar = function (_Component) {
 						{ id: 'test', className: style.container.listWrapper },
 						showTodayHelper && React.createElement(Today, { scrollToDate: this.scrollToDate, show: showToday, today: today, theme: theme, locale: locale }),
 						React.createElement(List, babelHelpers.extends({
-							id: 'test',
 							ref: 'List'
 						}, other, {
 							width: width,

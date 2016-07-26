@@ -10,6 +10,8 @@
     -moz-osx-font-smoothing: grayscale;
     font-weight: 300;
     outline: none;
+    height: 100%;
+    overflow: hidden;
 
     &.landscape {
         display: flex;
