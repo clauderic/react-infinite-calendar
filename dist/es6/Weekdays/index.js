@@ -52,7 +52,7 @@ var Weekdays = function (_Component) {
 					if (index === 0) {
 						return React.createElement(
 							'li',
-							{ key: 'Weekday-today', className: style.today, onClick: _this2.scrollToToday },
+							{ key: 'Weekday-today', className: style.today + " " + style.day, onClick: _this2.scrollToToday },
 							locale.todayLabel.long
 						);
 					} else {

@@ -93,6 +93,7 @@ var InfiniteCalendar = function (_Component) {
 				height: _this.props.collapsedHeight
 			}, function () {
 				_this.clearHighlight();
+				_this.scrollToDate(selectedWeek, 0);
 			});
 		};
 
@@ -104,23 +105,23 @@ var InfiniteCalendar = function (_Component) {
 			return _this.list && _this.list.getDateOffset(date);
 		};
 
-		_this.scrollTo = function (offset, expand) {
-			_this.list && _this.list.scrollTo(offset);
-
-			if (expand && _this.state.height !== _this.props.expandedHeight) {
-				_this.setState({
-					height: _this.props.collapsedHeight
-				});
-			}
-
-			return;
+		_this.scrollTo = function (offset) {
+			return _this.list && _this.list.scrollTo(offset);
 		};
 
 		_this.scrollToDate = function () {
 			var date = arguments.length <= 0 || arguments[0] === undefined ? moment() : arguments[0];
 			var offset = arguments[1];
 
-			return _this.list && _this.list.scrollToDate(date, offset);
+			_this.list && _this.list.scrollToDate(date, offset);
+
+			if (_this.state.height !== _this.props.collapsedHeight) {
+				_this.setState({
+					height: _this.props.collapsedHeight
+				});
+			}
+
+			return;
 		};
 
 		_this.getScrollSpeed = getScrollSpeed();
@@ -138,14 +139,14 @@ var InfiniteCalendar = function (_Component) {
 			var scrollSpeed = _this.scrollSpeed = Math.abs(_this.getScrollSpeed(scrollTop));
 			_this.scrollTop = scrollTop;
 
-			if (_this.state.height !== _this.props.expandedHeight) {
+			if (isScrolling && _this.state.height !== _this.props.expandedHeight) {
 				_this.setState({
 					height: _this.props.expandedHeight
 				});
 			}
 
 			// We only want to display the months overlay if the user is rapidly scrolling
-			if (showOverlay && scrollSpeed >= 50 && !isScrolling) {
+			if (showOverlay && scrollSpeed > 0 && !isScrolling) {
 				_this.setState({
 					isScrolling: true
 				});
