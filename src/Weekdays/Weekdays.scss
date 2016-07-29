@@ -13,7 +13,7 @@
 }
 
 .day {
-    padding: 15px 0;
+    padding: 2px 0;
     flex-basis: 1 / 8 * 100%;
     flex-grow: 1;
     font-weight: 500;
@@ -21,12 +21,6 @@
 }
 
 .today {
-    padding: 15px 0;
-    flex-basis: 1 / 8 * 100%;
-    flex-grow: 1;
-    font-weight: 500;
-    text-align: center;
-
     border-style: solid;
     border-width: 1px 1px 0px 1px;
     border-color: #ADADAD;

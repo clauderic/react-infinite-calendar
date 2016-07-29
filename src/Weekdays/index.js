@@ -30,7 +30,7 @@ export default class Weekdays extends Component {
 				{range(0,8).map((val, index) => {
 				  if (index === 0) {
             return (
-						  <li key={`Weekday-today`} className={style.today} onClick={this.scrollToToday}>{locale.todayLabel.long}</li>
+						  <li key={`Weekday-today`} className={style.today + " " + style.day} onClick={this.scrollToToday}>{locale.todayLabel.long}</li>
 					  );
 				  } else {
             return (

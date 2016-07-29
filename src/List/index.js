@@ -6,10 +6,6 @@ import {getMonth, getWeeksInMonth, validParsedDate} from '../utils';
 import Month from '../Month';
 
 const style   = require('./List.scss');
-// var Scroll  = require('react-scroll');
-
-// var Events     = Scroll.Events;
-// var scroll     = Scroll.animateScroll;
 
 export default class List extends Component {
 	static propTypes = {
@@ -40,23 +36,7 @@ export default class List extends Component {
 		let grid = vs && vs._grid;
 
 		this.scrollEl = grid && grid._scrollingContainer;
-		this.scrollEl.lastChild.id = "test";
-		//console.log(this.scrollEl.lastChild);
-
-		// Events.scrollEvent.register('begin', function() {
-		// 	console.log("begin", arguments);
-		// });
-
-	 //    Events.scrollEvent.register('end', function() {
-		//     console.log("end", arguments);
-		//     //grid._scrollingContainer.scrollTop = arguments[2];
-	 //    });
 	}
-
-	// componentWillUnmount() {
-	// 	Events.scrollEvent.remove('begin');
-	// 	Events.scrollEvent.remove('end');
-	// }
 
 	cache = {};
 	state = {};
@@ -102,13 +82,7 @@ export default class List extends Component {
 	};
 	scrollTo = (scrollTop = 0) => {
 		if (this.scrollEl) {
-			//this.scrollEl.scrollTop = scrollTop;
-			console.log("trying to scroll \"" + this.scrollEl.lastChild.id + "\"");
-
-			// scroll.scrollTo(scrollTop, {
-			// 	containerId: this.scrollEl.lastChild.id,
-			//   smooth: true,
-			// });
+			this.scrollEl.scrollTop = scrollTop;
 		}
 	};
 	renderMonth = ({index, isScrolling}) => {

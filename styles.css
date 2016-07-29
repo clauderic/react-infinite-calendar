@@ -467,9 +467,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: 300;
-  outline: none;
-  height: 100%;
-  overflow: hidden; }
+  outline: none; }
   .Cal__Container__root.Cal__Container__landscape {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -504,3 +502,11 @@
 
 .Grid__cell {
   position: absolute; }
+
+.Cal__Container__expanded {
+  height: 200px;
+  overflow: hidden; }
+
+.Cal__Container__collapsed {
+  height: 100px;
+  overflow: hidden; }

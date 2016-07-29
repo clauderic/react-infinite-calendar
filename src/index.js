@@ -29,6 +29,7 @@ export default class InfiniteCalendar extends Component {
 		this.updateLocale(props.locale);
 		this.updateYears(props);
 		this.state = {
+			height: props.collapsedHeight,
 			selectedWeek: this.parseSelectedWeek(props.selectedWeek),
 			selectedDate: this.parseSelectedDate(props.selectedDate),
 			display: props.display,
@@ -37,7 +38,8 @@ export default class InfiniteCalendar extends Component {
 	}
 	static defaultProps = {
 		width: 400,
-		height: 500,
+		expandedHeight: 400,
+		collapsedHeight: 200,
 		rowHeight: 40,
 		overscanMonthCount: 4,
 		todayHelperRowOffset: 4,
@@ -71,7 +73,8 @@ export default class InfiniteCalendar extends Component {
 		locale: PropTypes.object,
 		theme: PropTypes.object,
 		width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-		height: PropTypes.number,
+		expandedHeight: PropTypes.number,
+		collapsedHeight: PropTypes.number,
 		rowHeight: PropTypes.number,
 		className: PropTypes.string,
 		overscanMonthCount: PropTypes.number,
@@ -97,9 +100,13 @@ export default class InfiniteCalendar extends Component {
 		showSelectionText: PropTypes.bool,
 	};
 	componentDidMount() {
-		let {autoFocus, keyboardSupport} = this.props;
+		let {autoFocus, collapsedHeight, keyboardSupport} = this.props;
 		this.node = this.refs.node;
 		this.list = this.refs.List;
+
+		this.setState({
+			height: this.props.collapsedHeight
+		});
 
 		if (keyboardSupport && autoFocus) {
 			this.node.focus();
@@ -197,7 +204,8 @@ export default class InfiniteCalendar extends Component {
 				selectedDate,
 				shouldHeaderAnimate,
 				highlightedDate: selectedDate.clone(),
-				selectedWeek: null
+				selectedWeek: null,
+				height: this.props.collapsedHeight,
 			}, () => {
 				this.clearHighlight();
 				this.scrollToDate(selectedDate, 0);
@@ -211,9 +219,11 @@ export default class InfiniteCalendar extends Component {
 	onWeekSelect = (selectedWeek) => {
 		this.setState({
 			selectedWeek,
-			selectedDate: null
+			selectedDate: null,
+			height: this.props.collapsedHeight,
 		}, () => {
 			this.clearHighlight();
+			this.scrollToDate(selectedWeek, 0);
 		});
 	};
 	getCurrentOffset = () => {
@@ -226,19 +236,33 @@ export default class InfiniteCalendar extends Component {
 		return this.list && this.list.scrollTo(offset);
 	}
 	scrollToDate = (date = moment(), offset) => {
-		return this.list && this.list.scrollToDate(date, offset);
+		this.list && this.list.scrollToDate(date, offset);
+
+		if (this.state.height !== this.props.collapsedHeight) {
+			this.setState({
+				height: this.props.collapsedHeight,
+			});
+		}
+
+		return;
 	};
 	getScrollSpeed = getScrollSpeed();
 	onScroll = ({scrollTop}) => {
 		let {onScroll, showOverlay, showTodayHelper} = this.props;
-		let {isScrolling} = this.state;
+		let {isScrolling, height} = this.state;
 		let scrollSpeed = this.scrollSpeed = Math.abs(this.getScrollSpeed(scrollTop));
 		this.scrollTop = scrollTop;
 
-		// We only want to display the months overlay if the user is rapidly scrolling
-		if (showOverlay && scrollSpeed >= 50 && !isScrolling) {
+		if (isScrolling && this.state.height !== this.props.expandedHeight) {
 			this.setState({
-				isScrolling: true
+				height: this.props.expandedHeight,
+			});
+		}
+		
+		// We only want to display the months overlay if the user is rapidly scrolling
+		if (showOverlay && scrollSpeed > 0 && !isScrolling) {
+			this.setState({
+				isScrolling: true,
 			});
 		}
 
@@ -246,7 +270,7 @@ export default class InfiniteCalendar extends Component {
 			this.updateTodayHelperPosition(scrollSpeed);
 		}
 		if (typeof onScroll == 'function') {
-			onScroll(scrollTop);
+			onScroll(scrollTop, );
 		}
 		this.onScrollEnd();
 	};
@@ -387,7 +411,8 @@ export default class InfiniteCalendar extends Component {
 		let {
 			className,
 			disabledDays,
-			height,
+			expandedHeight,
+			collapsedHeight,
 			hideYearsOnSelect,
 			keyboardSupport,
 			layout,
@@ -406,7 +431,7 @@ export default class InfiniteCalendar extends Component {
 		let disabledDates = this.getDisabledDates(this.props.disabledDates);
 		let locale = this.getLocale();
 		let theme = this.getTheme();
-		let {display, isScrolling, selectedDate, selectedWeek, showToday, shouldHeaderAnimate} = this.state;
+		let {display, isScrolling, selectedDate, selectedWeek, height, showToday, shouldHeaderAnimate} = this.state;
 		let today = this.today = parseDate(moment());
 
 		// Selected date should not be disabled
@@ -421,7 +446,7 @@ export default class InfiniteCalendar extends Component {
 				}
 				<div className={style.container.wrapper}>
 					<Weekdays theme={theme} locale={locale} scrollToDate={this.scrollToDate} />
-					<div id="test" className={style.container.listWrapper}>
+					<div className={style.container.listWrapper}>
 						{showTodayHelper &&
 							<Today scrollToDate={this.scrollToDate} show={showToday} today={today} theme={theme} locale={locale} />
 						}
@@ -429,7 +454,7 @@ export default class InfiniteCalendar extends Component {
 							ref="List"
 							{...other}
 							width={width}
-							height={height}
+							height={this.state.height}
 							selectedDate={parseDate(selectedDate)}
 							selectedWeek={parseDate(selectedWeek)}
 							disabledDates={disabledDates}

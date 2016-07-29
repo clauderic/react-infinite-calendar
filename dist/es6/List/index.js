@@ -9,10 +9,6 @@ var style = {
 	'root': 'Cal__List__root',
 	'scrolling': 'Cal__List__scrolling'
 };
-// var Scroll  = require('react-scroll');
-
-// var Events     = Scroll.Events;
-// var scroll     = Scroll.animateScroll;
 
 var List = function (_Component) {
 	babelHelpers.inherits(List, _Component);
@@ -76,13 +72,7 @@ var List = function (_Component) {
 			var scrollTop = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
 
 			if (_this.scrollEl) {
-				//this.scrollEl.scrollTop = scrollTop;
-				console.log("trying to scroll \"" + _this.scrollEl.lastChild.id + "\"");
-
-				// scroll.scrollTo(scrollTop, {
-				// 	containerId: this.scrollEl.lastChild.id,
-				//   smooth: true,
-				// });
+				_this.scrollEl.scrollTop = scrollTop;
 			}
 		}, _this.renderMonth = function (_ref2) {
 			var index = _ref2.index;
@@ -142,24 +132,7 @@ var List = function (_Component) {
 			var grid = vs && vs._grid;
 
 			this.scrollEl = grid && grid._scrollingContainer;
-			this.scrollEl.lastChild.id = "test";
-			//console.log(this.scrollEl.lastChild);
-
-			// Events.scrollEvent.register('begin', function() {
-			// 	console.log("begin", arguments);
-			// });
-
-			//    Events.scrollEvent.register('end', function() {
-			//     console.log("end", arguments);
-			//     //grid._scrollingContainer.scrollTop = arguments[2];
-			//    });
 		}
-
-		// componentWillUnmount() {
-		// 	Events.scrollEvent.remove('begin');
-		// 	Events.scrollEvent.remove('end');
-		// }
-
 	}, {
 		key: 'render',
 		value: function render() {

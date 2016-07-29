@@ -10,8 +10,6 @@
     -moz-osx-font-smoothing: grayscale;
     font-weight: 300;
     outline: none;
-    height: 100%;
-    overflow: hidden;
 
     &.landscape {
         display: flex;
@@ -50,4 +48,14 @@
     .Grid__cell {
         position: absolute;
     }
+}
+
+.expanded {
+    height: 200px;
+    overflow: hidden;
+}
+
+.collapsed {
+    height: 100px;
+    overflow: hidden;
 }
