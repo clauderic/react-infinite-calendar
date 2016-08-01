@@ -8,7 +8,7 @@ export default class Month extends Component {
 		return (!nextProps.isScrolling && !this.props.isScrolling);
 	}
 	renderRows() {
-		let {disabledDates, disabledDays, displayDate, locale, maxDate, minDate, onDaySelect,onDayDown,onDayOver,onDayUp, onTouchStart,rowHeight, rows, selectedDate, selectedHovering,dragging, selectedDateEnd, today, theme} = this.props;
+		let {disabledDates, disabledDays, displayDate, locale, maxDate, minDate, onDaySelect,onDayDown,onDayOver,onDayUp, onTouchStart,rowHeight, rows, selectedDate, selectedHovering,dragging, rangeSelectionEndDate, today, theme} = this.props;
 		let currentYear = today.date.year();
 		let monthShort = displayDate.format('MMM');
 		let monthRows = [];
@@ -31,8 +31,8 @@ export default class Month extends Component {
 				day++;
 
 				isSelected = (selectedDate && date.yyyymmdd == selectedDate.yyyymmdd);
-				isSelectedBetween = (selectedDate && selectedDateEnd && date.yyyymmdd > selectedDate.yyyymmdd && date.yyyymmdd < selectedDateEnd.yyyymmdd);
-				isSelectedEnd = (selectedDateEnd && date.yyyymmdd == selectedDateEnd.yyyymmdd);
+				isSelectedBetween = (selectedDate && rangeSelectionEndDate && date.yyyymmdd > selectedDate.yyyymmdd && date.yyyymmdd < rangeSelectionEndDate.yyyymmdd);
+				isSelectedEnd = (rangeSelectionEndDate && date.yyyymmdd == rangeSelectionEndDate.yyyymmdd);
 				isHovered = (selectedHovering && date.yyyymmdd == selectedHovering.yyyymmdd);
 				isToday = (today && date.yyyymmdd == today.yyyymmdd);
 				isDisabled = (

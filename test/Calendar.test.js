@@ -32,23 +32,23 @@ describe("<InfiniteCalendar/> Selected Date", function() {
 	it('should allow for initial selected date range', () => {
 		const start = moment();
 		const end = moment().add(1, 'day');
-		const wrapper = mount(<InfiniteCalendar allowRanges={true} selectedDate={start} selectedDateEnd={end} />);
+		const wrapper = mount(<InfiniteCalendar allowRanges={true} selectedDate={start} rangeSelectionEndDate={end} />);
 
 		expect(wrapper.find(`.${style.day.selected}`)).to.have.length(2);
 	})
 	it('should allow for no initial selected range when start date is not set', () => {
 		const end = moment();
-		const wrapper = mount(<InfiniteCalendar selectedDate={false} selectedDateEnd={end} />);
+		const wrapper = mount(<InfiniteCalendar selectedDate={false} rangeSelectionEndDate={end} />);
 
 		expect(wrapper.find(`.${style.day.selected}`)).to.have.length(0);
 	})
 	it('should reverse date range when with start>end', () => {
 		const end = moment();
 		const start = moment().add(1, 'day');
-		const wrapper = mount(<InfiniteCalendar allowRanges={true} selectedDate={start} selectedDateEnd={end} />);
+		const wrapper = mount(<InfiniteCalendar allowRanges={true} selectedDate={start} rangeSelectionEndDate={end} />);
 
 		expect(wrapper.find(`.${style.day.selected}`)).to.have.length(2);
-		expect(wrapper.state().selectedDate.format('x')).to.be.below(wrapper.state().selectedDateEnd.format('x'));
+		expect(wrapper.state().selectedDate.format('x')).to.be.below(wrapper.state().rangeSelectionEndDate.format('x'));
 	})
 	it('should scroll to `today` when there is no initial selected date', () => {
 		const wrapper = mount(<InfiniteCalendar selectedDate={false} />);
@@ -99,14 +99,14 @@ describe("<InfiniteCalendar/> Lifecycle Methods", function() {
 		expect(wrapper.props().selectedDate).to.equal(updated);
 		expect(wrapper.state().selectedDate.format('x')).to.equal(updated.format('x'));
 	})
-	it('updates the selectedDateEnd state when props.selectedDateEnd changes', () => {
+	it('updates the rangeSelectionEndDate state when props.rangeSelectionEndDate changes', () => {
 		const start = moment();
 		const initial = moment();
 		const updated = moment().add(1, 'day');
-		const wrapper = mount(<InfiniteCalendar selectedDate={start} selectedDateEnd={initial}/>);
-		wrapper.setProps({selectedDateEnd: updated});
-		expect(wrapper.props().selectedDateEnd).to.equal(updated);
-		expect(wrapper.state().selectedDateEnd.format('x')).to.equal(updated.format('x'));
+		const wrapper = mount(<InfiniteCalendar selectedDate={start} rangeSelectionEndDate={initial}/>);
+		wrapper.setProps({rangeSelectionEndDate: updated});
+		expect(wrapper.props().rangeSelectionEndDate).to.equal(updated);
+		expect(wrapper.state().rangeSelectionEndDate.format('x')).to.equal(updated.format('x'));
 	})
 	it('updates when props.minDate changes', (done) => {
 		this.timeout(500);

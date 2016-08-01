@@ -14,7 +14,7 @@ export default class List extends Component {
 		selectedDate: PropTypes.object,
 		dragging: PropTypes.number,
 		selectedHovering: PropTypes.object,
-		selectedDateEnd: PropTypes.object,
+		rangeSelectionEndDate: PropTypes.object,
 		disabledDates: PropTypes.arrayOf(PropTypes.string),
 		disabledDays: PropTypes.arrayOf(PropTypes.number),
 		months: PropTypes.arrayOf(PropTypes.object),
@@ -87,7 +87,7 @@ export default class List extends Component {
 		}
 	};
 	renderMonth = ({index, isScrolling}) => {
-		let {disabledDates, disabledDays, locale, months, maxDate, minDate, onDaySelect, onDayDown, onDayOver, onDayUp, onTouchStart, rowHeight, selectedDate, selectedHovering, dragging, selectedDateEnd, showOverlay, theme, today} = this.props;
+		let {disabledDates, disabledDays, locale, months, maxDate, minDate, onDaySelect, onDayDown, onDayOver, onDayUp, onTouchStart, rowHeight, selectedDate, selectedHovering, dragging, rangeSelectionEndDate, showOverlay, theme, today} = this.props;
 		let {date, rows} = this.memoize(months[index]);
 
 		return (
@@ -96,7 +96,7 @@ export default class List extends Component {
 				selectedDate={selectedDate}
 				dragging={dragging}
 				selectedHovering={selectedHovering}
-				selectedDateEnd={selectedDateEnd}
+				rangeSelectionEndDate={rangeSelectionEndDate}
 				displayDate={date}
 				disabledDates={disabledDates}
 				disabledDays={disabledDays}

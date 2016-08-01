@@ -11,7 +11,7 @@ export default class Header extends Component {
 		locale: PropTypes.object,
 		onClick: PropTypes.func,
 		selectedDate: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-		selectedDateEnd: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+		rangeSelectionEndDate: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 		shouldHeaderAnimate: PropTypes.bool,
 		theme: PropTypes.object,
 		display: PropTypes.string
@@ -52,11 +52,11 @@ export default class Header extends Component {
 		];
 	}
 	render() {
-		let {layout, locale, selectedDate, selectedDateEnd, shouldHeaderAnimate, theme} = this.props;
+		let {layout, locale, selectedDate, rangeSelectionEndDate, shouldHeaderAnimate, theme} = this.props;
 		let startValues = selectedDate && this.getDateValues(selectedDate);
-		// let numDays = selectedDateEnd.diff(selectedDate,'days');
+		// let numDays = rangeSelectionEndDate.diff(selectedDate,'days');
 		let endLabel = "";
-		if(selectedDate && selectedDateEnd && !selectedDate.isSame(selectedDateEnd)) endLabel = locale.rangeLabel+" "+selectedDateEnd.format(locale.headerFormat);
+		if(selectedDate && rangeSelectionEndDate && !selectedDate.isSame(rangeSelectionEndDate)) endLabel = locale.rangeLabel+" "+rangeSelectionEndDate.format(locale.headerFormat);
 
 		return (
 			<div className={classNames(style.root, {[style.blank]: !selectedDate, [style.landscape]: layout == 'landscape'})} style={theme && {backgroundColor: theme.headerColor, color: theme.textColor.active}}>
