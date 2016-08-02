@@ -66,14 +66,11 @@ var List = function (_Component) {
 		}, _this.scrollToDate = function (date) {
 			var offset = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
 
-			console.log("sctollToDate in List");
-
 			var offsetTop = _this.getDateOffset(date);
 			_this.scrollTo(offsetTop + offset);
 		}, _this.scrollTo = function () {
 			var scrollTop = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
 
-			console.log("scrollTo in list " + _this.scrollEl);
 			if (_this.scrollEl) {
 				_this.scrollEl.scrollTop = scrollTop;
 			}
@@ -132,16 +129,8 @@ var List = function (_Component) {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
 			var vs = this.refs.VirtualScroll;
-
-			console.log(vs);
-
 			var grid = vs && vs.Grid || vs && vs._grid;
-
-			console.log(grid);
-
 			this.scrollEl = grid && grid._scrollingContainer;
-
-			console.log(this.scrollEl);
 		}
 	}, {
 		key: 'render',
