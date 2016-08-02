@@ -173,6 +173,9 @@ return /******/ (function(modules) { // webpackBootstrap
 						height: _this.props.collapsedHeight
 					}, function () {
 						_this.clearHighlight();
+
+						console.log("scrolling to date " + selectedDate);
+
 						_this.scrollToDate(selectedDate, 0);
 
 						if (typeof afterSelect == 'function') {
@@ -189,6 +192,9 @@ return /******/ (function(modules) { // webpackBootstrap
 					height: _this.props.collapsedHeight
 				}, function () {
 					_this.clearHighlight();
+
+					console.log("scrolling to date " + selectedWeek);
+
 					_this.scrollToDate(selectedWeek, 0);
 				});
 			};
@@ -209,15 +215,13 @@ return /******/ (function(modules) { // webpackBootstrap
 				var date = arguments.length <= 0 || arguments[0] === undefined ? (0, _moment2.default)() : arguments[0];
 				var offset = arguments[1];
 
-				_this.list && _this.list.scrollToDate(date, offset);
-
 				if (_this.state.height !== _this.props.collapsedHeight) {
 					_this.setState({
 						height: _this.props.collapsedHeight
 					});
 				}
 
-				return;
+				return _this.list && _this.list.scrollToDate(date, offset);
 			};
 
 			_this.getScrollSpeed = (0, _utils.getScrollSpeed)();
@@ -16757,11 +16761,14 @@ return /******/ (function(modules) { // webpackBootstrap
 			}, _this.scrollToDate = function (date) {
 				var offset = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
 
+				console.log("sctollToDate in List");
+
 				var offsetTop = _this.getDateOffset(date);
 				_this.scrollTo(offsetTop + offset);
 			}, _this.scrollTo = function () {
 				var scrollTop = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
 
+				console.log("scrollTo in list " + _this.scrollEl);
 				if (_this.scrollEl) {
 					_this.scrollEl.scrollTop = scrollTop;
 				}
@@ -16820,9 +16827,16 @@ return /******/ (function(modules) { // webpackBootstrap
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				var vs = this.refs.VirtualScroll;
-				var grid = vs && vs._grid;
+
+				console.log(vs);
+
+				var grid = vs && vs.Grid || vs && vs._grid;
+
+				console.log(grid);
 
 				this.scrollEl = grid && grid._scrollingContainer;
+
+				console.log(this.scrollEl);
 			}
 		}, {
 			key: 'render',

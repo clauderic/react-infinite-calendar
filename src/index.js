@@ -236,15 +236,13 @@ export default class InfiniteCalendar extends Component {
 		return this.list && this.list.scrollTo(offset);
 	}
 	scrollToDate = (date = moment(), offset) => {
-		this.list && this.list.scrollToDate(date, offset);
-
 		if (this.state.height !== this.props.collapsedHeight) {
 			this.setState({
 				height: this.props.collapsedHeight,
 			});
 		}
 
-		return;
+		return this.list && this.list.scrollToDate(date, offset);
 	};
 	getScrollSpeed = getScrollSpeed();
 	onScroll = ({scrollTop}) => {

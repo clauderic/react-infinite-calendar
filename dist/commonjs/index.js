@@ -134,6 +134,9 @@ var InfiniteCalendar = function (_Component) {
 					height: _this.props.collapsedHeight
 				}, function () {
 					_this.clearHighlight();
+
+					console.log("scrolling to date " + selectedDate);
+
 					_this.scrollToDate(selectedDate, 0);
 
 					if (typeof afterSelect == 'function') {
@@ -150,6 +153,9 @@ var InfiniteCalendar = function (_Component) {
 				height: _this.props.collapsedHeight
 			}, function () {
 				_this.clearHighlight();
+
+				console.log("scrolling to date " + selectedWeek);
+
 				_this.scrollToDate(selectedWeek, 0);
 			});
 		};
@@ -170,15 +176,13 @@ var InfiniteCalendar = function (_Component) {
 			var date = arguments.length <= 0 || arguments[0] === undefined ? (0, _moment2.default)() : arguments[0];
 			var offset = arguments[1];
 
-			_this.list && _this.list.scrollToDate(date, offset);
-
 			if (_this.state.height !== _this.props.collapsedHeight) {
 				_this.setState({
 					height: _this.props.collapsedHeight
 				});
 			}
 
-			return;
+			return _this.list && _this.list.scrollToDate(date, offset);
 		};
 
 		_this.getScrollSpeed = (0, _utils.getScrollSpeed)();
