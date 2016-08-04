@@ -1,16 +1,19 @@
 Changelog
 ------------
+### 1.1.18
+Fixes a bug with scrolling programatically to an arbitrary value introduced with newer versions of react-virtualized ([#40](https://github.com/clauderic/react-infinite-calendar/issues/40))
+
 ### 1.1.17
-Tweaking today helper behavior when scrolled above/below the fold (#25)
+Tweaking today helper behavior when scrolled above/below the fold ([#25](https://github.com/clauderic/react-infinite-calendar/issues/25))
 
 ### 1.1.16
 Fixes issues with UMD build and externals.
 
 ### 1.1.15
-- Fixes issues with weekdays not properly aligning with dates when scrollbars are visible (#21)
-- Updated to the latest version of `react-virtualized`, which addresses an edge-case bug where an initial scroll offset prop is specified before external CSS stylesheets have loaded (#23)
-- Fixes issues with the today helper offset calculation and added a new prop `todayHelperRowOffset` to customize the number of rows before the today helper becomes visible (#24)
-- Fixes issue with percentage `width` (#14)
+- Fixes issues with weekdays not properly aligning with dates when scrollbars are visible ([#21](https://github.com/clauderic/react-infinite-calendar/issues/21))
+- Updated to the latest version of `react-virtualized`, which addresses an edge-case bug where an initial scroll offset prop is specified before external CSS stylesheets have loaded ([#23](https://github.com/clauderic/react-infinite-calendar/issues/23))
+- Fixes issues with the today helper offset calculation and added a new prop `todayHelperRowOffset` to customize the number of rows before the today helper becomes visible ([#24](https://github.com/clauderic/react-infinite-calendar/issues/24))
+- Fixes issue with percentage `width` ([#14](https://github.com/clauderic/react-infinite-calendar/issues/14))
 
 ### 1.1.14
 Minor bug fixes
