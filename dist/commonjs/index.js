@@ -122,35 +122,47 @@ var InfiniteCalendar = function (_Component) {
 
 
 			if (!beforeSelect || typeof beforeSelect == 'function' && beforeSelect(selectedDate)) {
-				if (typeof onSelect == 'function') {
-					onSelect(selectedDate, e);
-				}
-
-				_this.setState({
-					selectedDate: selectedDate,
-					shouldHeaderAnimate: shouldHeaderAnimate,
-					highlightedDate: selectedDate.clone(),
-					selectedWeek: null,
-					height: _this.props.collapsedHeight
-				}, function () {
-					_this.clearHighlight();
-					_this.scrollToDate(selectedDate, 0);
-
-					if (typeof afterSelect == 'function') {
-						afterSelect(selectedDate);
+				(function () {
+					if (typeof onSelect == 'function') {
+						onSelect(selectedDate, e);
 					}
-				});
+
+					var prevHeight = _this.state.height;
+
+					_this.setState({
+						selectedDate: selectedDate,
+						shouldHeaderAnimate: shouldHeaderAnimate,
+						highlightedDate: selectedDate.clone(),
+						selectedWeek: null,
+						height: _this.props.collapsedHeight
+					}, function () {
+						_this.clearHighlight();
+
+						if (prevHeight != _this.props.collapsedHeight) {
+							_this.scrollToDate(selectedDate, 0);
+						}
+
+						if (typeof afterSelect == 'function') {
+							afterSelect(selectedDate);
+						}
+					});
+				})();
 			}
 		};
 
 		_this.onWeekSelect = function (selectedWeek) {
+			var prevHeight = _this.state.height;
+
 			_this.setState({
 				selectedWeek: selectedWeek,
 				selectedDate: null,
 				height: _this.props.collapsedHeight
 			}, function () {
 				_this.clearHighlight();
-				_this.scrollToDate(selectedWeek, 0);
+
+				if (prevHeight != _this.props.collapsedHeight) {
+					_this.scrollToDate(selectedWeek, 0);
+				}
 			});
 		};
 

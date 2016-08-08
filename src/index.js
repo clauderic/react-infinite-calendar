@@ -227,6 +227,8 @@ export default class InfiniteCalendar extends Component {
 				onSelect(selectedDate, e);
 			}
 
+			const prevHeight = this.state.height;
+
 			this.setState({
 				selectedDate,
 				shouldHeaderAnimate,
@@ -235,8 +237,11 @@ export default class InfiniteCalendar extends Component {
 				height: this.props.collapsedHeight,
 			}, () => {
 				this.clearHighlight();
-				this.scrollToDate(selectedDate, 0);
 
+				if (prevHeight != this.props.collapsedHeight) {
+					this.scrollToDate(selectedDate, 0);
+				}
+				
 				if (typeof afterSelect == 'function') {
 					afterSelect(selectedDate);
 				}
@@ -244,13 +249,18 @@ export default class InfiniteCalendar extends Component {
 		}
 	};
 	onWeekSelect = (selectedWeek) => {
+		const prevHeight = this.state.height;
+
 		this.setState({
 			selectedWeek,
 			selectedDate: null,
 			height: this.props.collapsedHeight,
 		}, () => {
 			this.clearHighlight();
-			this.scrollToDate(selectedWeek, 0);
+
+			if (prevHeight != this.props.collapsedHeight) {
+				this.scrollToDate(selectedWeek, 0);
+			}
 		});
 	};
 	getCurrentOffset = () => {
