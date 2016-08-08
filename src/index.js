@@ -99,6 +99,7 @@ export default class InfiniteCalendar extends Component {
 		showHeader: PropTypes.bool,
 		showSelectionText: PropTypes.bool,
 	};
+
 	componentDidMount() {
 		let {autoFocus, collapsedHeight, keyboardSupport} = this.props;
 		this.node = this.refs.node;
@@ -119,22 +120,48 @@ export default class InfiniteCalendar extends Component {
 		if (next.locale !== locale) {
 			this.updateLocale(next.locale);
 		}
+
 		if (next.min !== min || next.minDate !== minDate || next.max !== max || next.maxDate !== maxDate) {
-			this.updateYears(next);
+			this.upda
+			teYears(next);
 		}
-		if (next.selectedDate !== selectedDate) {
-			this.setState({
-				selectedDate: this.parseSelectedDate(next.selectedDate)
-			});
-		} else if (next.minDate !== minDate || next.maxDate !== maxDate) {
-			// Need to make sure the currently selected date is not before the new minDate or after maxDate
-			let _selectedDate = this.parseSelectedDate(this.state.selectedDate);
-			if (!_selectedDate.isSame(this.state.selectedDate, 'day')) {
+
+		if (next.selectedDate !== null) {
+			this.onDaySelect(this.parseSelectedDate(next.selectedDate));
+
+			if (next.selectedDate !== selectedDate) {
 				this.setState({
-					selectedDate: _selectedDate
+					selectedDate: this.parseSelectedDate(next.selectedDate)
 				});
+			} else if (next.minDate !== minDate || next.maxDate !== maxDate) {
+				// Need to make sure the currently selected date is not before the new minDate or after maxDate
+				let _selectedDate = this.parseSelectedDate(this.state.selectedDate);
+				if (!_selectedDate.isSame(this.state.selectedDate, 'day')) {
+					this.setState({
+						selectedDate: _selectedDate
+					});
+				}
 			}
 		}
+		
+		if (next.selectedWeek !== null) {
+			this.onWeekSelect(this.parseSelectedWeek(next.selectedWeek));
+
+			if (next.selectedWeek !== selectedWeek) {
+				this.setState({
+					selectedWeek: this.parseSelectedWeek(next.selectedWeek)
+				});
+			} else if (next.minDate !== minDate || next.maxDate !== maxDate) {
+				// Need to make sure the currently selected date is not before the new minDate or after maxDate
+				let _selectedWeek = this.parseSelectedDate(this.state.selectedWeek);
+				if (!_selectedWeek.isSame(this.state.selectedWeek, 'day')) {
+					this.setState({
+						selectedWeek: _selectedWeek
+					});
+				}
+			}
+		}
+
 		if (next.display !== display) {
 			this.setState({
 				display: next.display
