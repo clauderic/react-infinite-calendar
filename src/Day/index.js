@@ -2,7 +2,7 @@ import React from 'react';
 const style = require('./Day.scss');
 
 export default function Day({currentYear, date, day, handleDayClick, isDisabled, isToday, isSelected, isWeekSelected, monthShort, locale, theme, showSelectionText}) {
-	var {date: mmt, yyyymmdd} = date;
+	var {date: mmt} = date;
 	var year = mmt.year();
 
 	return (

@@ -84,7 +84,6 @@ var Month = function (_Component) {
 			var onWeekSelect = _props.onWeekSelect;
 			var rowHeight = _props.rowHeight;
 			var rows = _props.rows;
-			var weeks = _props.weeks;
 			var selectedDate = _props.selectedDate;
 			var selectedWeek = _props.selectedWeek;
 			var today = _props.today;
@@ -177,8 +176,6 @@ var Month = function (_Component) {
 			var rows = _props2.rows;
 			var showOverlay = _props2.showOverlay;
 			var theme = _props2.theme;
-			var week = _props2.week;
-			var showSelectionText = _props2.showSelectionText;
 
 
 			return _react2.default.createElement(

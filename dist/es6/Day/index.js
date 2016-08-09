@@ -28,7 +28,6 @@ export default function Day(_ref) {
 	var theme = _ref.theme;
 	var showSelectionText = _ref.showSelectionText;
 	var mmt = date.date;
-	var yyyymmdd = date.yyyymmdd;
 
 	var year = mmt.year();
 

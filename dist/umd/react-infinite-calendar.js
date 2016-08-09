@@ -43113,7 +43113,6 @@ return /******/ (function(modules) { // webpackBootstrap
 				var onWeekSelect = _props.onWeekSelect;
 				var rowHeight = _props.rowHeight;
 				var rows = _props.rows;
-				var weeks = _props.weeks;
 				var selectedDate = _props.selectedDate;
 				var selectedWeek = _props.selectedWeek;
 				var today = _props.today;
@@ -43206,8 +43205,6 @@ return /******/ (function(modules) { // webpackBootstrap
 				var rows = _props2.rows;
 				var showOverlay = _props2.showOverlay;
 				var theme = _props2.theme;
-				var week = _props2.week;
-				var showSelectionText = _props2.showSelectionText;
 
 
 				return _react2.default.createElement(
@@ -43269,7 +43266,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		var theme = _ref.theme;
 		var showSelectionText = _ref.showSelectionText;
 		var mmt = date.date;
-		var yyyymmdd = date.yyyymmdd;
 
 		var year = mmt.year();
 
