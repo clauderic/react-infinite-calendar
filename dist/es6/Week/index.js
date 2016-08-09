@@ -7,19 +7,11 @@ var style = {
 };
 
 export default function Week(_ref) {
-	var currentYear = _ref.currentYear;
 	var date = _ref.date;
-	var day = _ref.day;
 	var handleWeekClick = _ref.handleWeekClick;
-	var isDisabled = _ref.isDisabled;
-	var isSelected = _ref.isSelected;
 	var isWeekSelected = _ref.isWeekSelected;
-	var monthShort = _ref.monthShort;
-	var locale = _ref.locale;
 	var theme = _ref.theme;
 	var rowHeight = _ref.rowHeight;
-	var mmt = date.date;
-	var yyyymmdd = date.yyyymmdd;
 
 	var weekNumber = date.date.format('ww');
 	var weekDistance = moment().format('ww') - weekNumber;

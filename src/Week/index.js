@@ -2,8 +2,7 @@ import React from 'react';
 import moment from 'moment';
 const style = require('./Week.scss');
 
-export default function Week({currentYear, date, day, handleWeekClick, isDisabled, isSelected, isWeekSelected, monthShort, locale, theme, rowHeight}) {
-	var {date: mmt, yyyymmdd} = date;
+export default function Week({date, handleWeekClick, isWeekSelected, theme, rowHeight}) {
 	var weekNumber = date.date.format('ww');
 	var weekDistance = moment().format('ww') - weekNumber;
 	var weekDistanceLabel = weekDistance === 0 ? "0 v" : weekDistance < 0 ? "+" +
