@@ -55,7 +55,7 @@ var Weekdays = function (_Component) {
 		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Weekdays)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.scrollToToday = function () {
 			var scrollToDate = _this.props.scrollToDate;
 
-			scrollToDate((0, _moment2.default)(), -40);
+			scrollToDate((0, _moment2.default)(), 0);
 		}, _temp), _possibleConstructorReturn(_this, _ret);
 	}
 

@@ -19,7 +19,7 @@ export default class Weekdays extends Component {
 
 	scrollToToday = () => {
 		let {scrollToDate} = this.props;
-		scrollToDate(moment(), -40);
+		scrollToDate(moment(), 0);
 	};
 
 	render() {
