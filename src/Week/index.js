@@ -3,8 +3,9 @@ import moment from 'moment';
 const style = require('./Week.scss');
 
 export default function Week({date, handleWeekClick, isWeekSelected, theme, rowHeight}) {
+	console.log(date.date.format());
 	var weekNumber = date.date.format('ww');
-	var weekDistance = moment().format('ww') - weekNumber;
+	var weekDistance = moment().startOf('week').diff(date.date, "weeks");
 	var weekDistanceLabel = weekDistance === 0 ? "0 v" : weekDistance < 0 ? "+" +
 	 Math.abs(weekDistance) + " v" : "-" + weekDistance + " v";
   	var weekItemHeight = rowHeight/2;
