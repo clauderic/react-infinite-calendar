@@ -160,7 +160,8 @@
           user-select: none; }
   .Cal__Day__root.Cal__Day__enabled.Cal__Day__highlighted, .Cal__Day__root.Cal__Day__enabled:active, .Cal__Day__root.Cal__Day__enabled:hover {
     position: relative;
-    z-index: 1; }
+    z-index: 1;
+    color: #3d3d3d; }
     .Cal__Day__root.Cal__Day__enabled.Cal__Day__highlighted:before, .Cal__Day__root.Cal__Day__enabled:active:before, .Cal__Day__root.Cal__Day__enabled:hover:before {
       content: '';
       position: absolute;
@@ -171,7 +172,7 @@
       margin-top: -20.5px;
       margin-left: -20.5px;
       border-radius: 50%;
-      background-color: #F5387A;
+      background-color: #675FF5;
       background-color: #EFEFEF;
       z-index: -1; }
   .Cal__Day__root.Cal__Day__enabled:hover:before {
@@ -182,7 +183,8 @@
     position: relative; }
   .Cal__Day__root.Cal__Day__today {
     position: relative;
-    z-index: 2; }
+    z-index: 2;
+    color: white; }
     .Cal__Day__root.Cal__Day__today.Cal__Day__disabled > span {
       color: #AAA; }
     .Cal__Day__root.Cal__Day__today:before {
@@ -195,7 +197,7 @@
       margin-top: -20.5px;
       margin-left: -20.5px;
       border-radius: 50%;
-      background-color: #F5387A;
+      background-color: #675FF5;
       box-shadow: inset 0 0 0 1px;
       z-index: -1; }
     .Cal__Day__root.Cal__Day__today.Cal__Day__disabled:before {
@@ -216,7 +218,7 @@
       margin-top: -20.5px;
       margin-left: -20.5px;
       border-radius: 50%;
-      background-color: #F5387A;
+      background-color: #675FF5;
       line-height: 45px;
       z-index: 2; }
       .Cal__Day__root.Cal__Day__selected .Cal__Day__selection .Cal__Day__month {
@@ -368,7 +370,7 @@
   border-width: 1px 1px 0px 1px;
   border-color: #ADADAD;
   background-color: #DEDEDE;
-  color: #F5387A;
+  color: #675FF5;
   cursor: pointer; }
 .Cal__Years__root {
   position: absolute;

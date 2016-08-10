@@ -28,7 +28,6 @@ function Week(_ref) {
 	var theme = _ref.theme;
 	var rowHeight = _ref.rowHeight;
 
-	console.log(date.date.format());
 	var weekNumber = date.date.format('ww');
 	var weekDistance = (0, _moment2.default)().startOf('week').diff(date.date, "weeks");
 	var weekDistanceLabel = weekDistance === 0 ? "0 v" : weekDistance < 0 ? "+" + Math.abs(weekDistance) + " v" : "-" + weekDistance + " v";

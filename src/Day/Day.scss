@@ -30,6 +30,7 @@
         &.highlighted, &:active, &:hover {
             position: relative;
             z-index: 1;
+            color: $textColor;
 
             &:before {
                 @include circle();
@@ -54,6 +55,7 @@
     &.today {
         position: relative;
         z-index: 2;
+        color: white;
 
         &.disabled > span {
             color: #AAA;
