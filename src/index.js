@@ -12,6 +12,7 @@ import List from './List';
 import Weekdays from './Weekdays';
 import Years from './Years';
 
+const enhanceWithClickOutside = require('react-click-outside');
 const containerStyle = require('./Container.scss');
 const dayStyle = require('./Day/Day.scss');
 const weekStyle = require('./Week/Week.scss');
@@ -21,7 +22,9 @@ const style = {
 	week: weekStyle
 };
 
-export default class InfiniteCalendar extends Component {
+var onClickOutside = require('react-onclickoutside');
+
+class InfiniteCalendar extends Component {
 	constructor(props) {
 		super();
 
@@ -113,6 +116,7 @@ export default class InfiniteCalendar extends Component {
 			this.node.focus();
 		}
 	}
+
 	componentWillReceiveProps(next) {
 		let {min, minDate, max, maxDate, locale, selectedDate, selectedWeek, showSelectionText} = this.props;
 		let {display} = this.state;
@@ -168,6 +172,15 @@ export default class InfiniteCalendar extends Component {
 			});
 		}
 	}
+
+	handleClickOutside(evt) {
+    if (this.state.height != this.props.collapsedHeight) {
+    	this.setState({
+    		height: this.props.collapsedHeight
+    	});
+    }
+  }
+
 	parseSelectedDate(selectedDate) {
 		if (selectedDate) {
 			selectedDate = moment(selectedDate);
@@ -182,6 +195,7 @@ export default class InfiniteCalendar extends Component {
 
 		return selectedDate;
 	}
+
 	parseSelectedWeek(selectedWeek) {
 		if (selectedWeek) {
 			selectedWeek = moment(selectedWeek);
@@ -196,6 +210,7 @@ export default class InfiniteCalendar extends Component {
 
 		return selectedWeek;
 	}
+
 	updateYears(props = this.props) {
 		let min = this._min = moment(props.min);
 		let max = this._max = moment(props.max);
@@ -205,20 +220,25 @@ export default class InfiniteCalendar extends Component {
 		this.years = range(min.year(), max.year() + 1).map((year) => getMonthsForYear(year, min, max));
 		this.months = [].concat.apply([], this.years);
 	}
+
 	updateLocale(locale) {
 		locale = this.getLocale(locale);
 		moment.updateLocale(locale.name, locale);
 		moment.locale(locale.name);
 	}
+
 	getDisabledDates(disabledDates) {
 		return disabledDates && disabledDates.map((date) => moment(date).format('YYYYMMDD'));
 	}
+
 	getLocale(customLocale = this.props.locale) {
 		return Object.assign({}, defaultLocale, customLocale);
 	}
+
 	getTheme(customTheme = this.props.theme) {
 		return Object.assign({}, defaultTheme, customTheme);
 	}
+
 	onDaySelect = (selectedDate, e, shouldHeaderAnimate = this.props.shouldHeaderAnimate) => {
 		let {afterSelect, beforeSelect, onSelect} = this.props;
 
@@ -248,6 +268,7 @@ export default class InfiniteCalendar extends Component {
 			});
 		}
 	};
+
 	onWeekSelect = (selectedWeek) => {
 		const prevHeight = this.state.height;
 
@@ -263,15 +284,19 @@ export default class InfiniteCalendar extends Component {
 			}
 		});
 	};
+
 	getCurrentOffset = () => {
 		return this.scrollTop;
 	}
+
 	getDateOffset = (date) => {
 		return this.list && this.list.getDateOffset(date);
 	};
+
 	scrollTo = (offset) => {
 		return this.list && this.list.scrollTo(offset);
 	}
+
 	scrollToDate = (date = moment(), offset) => {
 		if (this.state.height !== this.props.collapsedHeight) {
 			this.setState({
@@ -433,6 +458,7 @@ export default class InfiniteCalendar extends Component {
 			this.refs.years.handleKeyDown(e);
 		}
 	};
+
 	clearHighlight() {
 		if (this.highlightedEl) {
 			this.highlightedEl.classList.remove(style.day.highlighted);
@@ -442,6 +468,7 @@ export default class InfiniteCalendar extends Component {
 	setDisplay = (display) => {
 		this.setState({display});
 	}
+
 	render() {
 		let {
 			className,
@@ -529,4 +556,6 @@ export default class InfiniteCalendar extends Component {
 			</div>
 		);
 	}
-}
+};
+
+export default InfiniteCalendar = onClickOutside(InfiniteCalendar);

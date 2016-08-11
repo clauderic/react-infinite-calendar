@@ -12,6 +12,7 @@ import List from './List';
 import Weekdays from './Weekdays';
 import Years from './Years';
 
+var enhanceWithClickOutside = require('react-click-outside');
 var containerStyle = {
 	'root': 'Cal__Container__root',
 	'landscape': 'Cal__Container__landscape',
@@ -44,6 +45,8 @@ var style = {
 	day: dayStyle,
 	week: weekStyle
 };
+
+var onClickOutside = require('react-onclickoutside');
 
 var InfiniteCalendar = function (_Component) {
 	babelHelpers.inherits(InfiniteCalendar, _Component);
@@ -414,6 +417,15 @@ var InfiniteCalendar = function (_Component) {
 			}
 		}
 	}, {
+		key: 'handleClickOutside',
+		value: function handleClickOutside(evt) {
+			if (this.state.height != this.props.collapsedHeight) {
+				this.setState({
+					height: this.props.collapsedHeight
+				});
+			}
+		}
+	}, {
 		key: 'parseSelectedDate',
 		value: function parseSelectedDate(selectedDate) {
 			if (selectedDate) {
@@ -658,4 +670,6 @@ InfiniteCalendar.propTypes = {
 	showHeader: PropTypes.bool,
 	showSelectionText: PropTypes.bool
 };
-export default InfiniteCalendar;
+;
+
+export default InfiniteCalendar = onClickOutside(InfiniteCalendar);

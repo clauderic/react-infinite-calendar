@@ -70,6 +70,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var enhanceWithClickOutside = require('react-click-outside');
 var containerStyle = {
 	'root': 'Cal__Container__root',
 	'landscape': 'Cal__Container__landscape',
@@ -102,6 +103,8 @@ var style = {
 	day: dayStyle,
 	week: weekStyle
 };
+
+var onClickOutside = require('react-onclickoutside');
 
 var InfiniteCalendar = function (_Component) {
 	_inherits(InfiniteCalendar, _Component);
@@ -471,6 +474,15 @@ var InfiniteCalendar = function (_Component) {
 			}
 		}
 	}, {
+		key: 'handleClickOutside',
+		value: function handleClickOutside(evt) {
+			if (this.state.height != this.props.collapsedHeight) {
+				this.setState({
+					height: this.props.collapsedHeight
+				});
+			}
+		}
+	}, {
 		key: 'parseSelectedDate',
 		value: function parseSelectedDate(selectedDate) {
 			if (selectedDate) {
@@ -717,4 +729,6 @@ InfiniteCalendar.propTypes = {
 	showHeader: _react.PropTypes.bool,
 	showSelectionText: _react.PropTypes.bool
 };
-exports.default = InfiniteCalendar;
+;
+
+exports.default = InfiniteCalendar = onClickOutside(InfiniteCalendar);
