@@ -1,15 +1,17 @@
 import React from 'react';
+import moment from 'moment';
 const style = require('./Day.scss');
 
 export default function Day({currentYear, hideYearsOnDate, date, day, handleDayClick, isDisabled, isToday, isSelected, isWeekSelected, monthShort, locale, theme, showSelectionText}) {
 	const {date: mmt} = date;
 	const year = mmt.year();
 	const isWeekend = date.date.day() === 6 || date.date.day() === 0;
+	const isPast = moment().startOf('day').diff(date.date) > 0;
 
 	return (
 		<li
 			style={(isToday) ? { 'color': theme.textColor.active } : null, (isWeekSelected) ? { 'backgroundColor': theme.selectedWeekBackground } : null }
-			className={`${style.root}${isToday ? ' ' + style.today : ''}${isSelected ? ' ' + style.selected : ''}${isDisabled ? ' ' + style.disabled : ' ' + style.enabled}${isWeekSelected ? ' ' + style.weekSelected : ''}${isWeekend ? ' ' + style.isWeekend : ''}`}
+			className={`${style.root}${isToday ? ' ' + style.today : ''}${isSelected ? ' ' + style.selected : ''}${isDisabled ? ' ' + style.disabled : ' ' + style.enabled}${isWeekSelected ? ' ' + style.weekSelected : ''}${isWeekend ? ' ' + style.weekend : ''}${isPast ? ' ' + style.past : ''}`}
 			data-date={date.date.format('YYYY-MM-DD')}
 			onClick={(!isDisabled && handleDayClick) ? handleDayClick.bind(this, mmt) : null}
 		>

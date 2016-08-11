@@ -236,8 +236,10 @@
     cursor: default;
     color: #AAA;
     cursor: not-allowed; }
-  .Cal__Day__root.Cal__Day__isWeekend {
+  .Cal__Day__root.Cal__Day__weekend {
     color: #919191; }
+  .Cal__Day__root.Cal__Day__past {
+    color: #AAA; }
 
 .Cal__Day__month, .Cal__Day__year {
   position: absolute;

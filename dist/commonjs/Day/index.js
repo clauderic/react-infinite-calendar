@@ -9,6 +9,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _moment = require('moment');
+
+var _moment2 = _interopRequireDefault(_moment);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var style = {
@@ -23,7 +27,8 @@ var style = {
 	'selection': 'Cal__Day__selection',
 	'day': 'Cal__Day__day',
 	'dayHiddenText': 'Cal__Day__dayHiddenText',
-	'isWeekend': 'Cal__Day__isWeekend',
+	'weekend': 'Cal__Day__weekend',
+	'past': 'Cal__Day__past',
 	'weekSelected': 'Cal__Day__weekSelected'
 };
 
@@ -45,12 +50,13 @@ function Day(_ref) {
 
 	var year = mmt.year();
 	var isWeekend = date.date.day() === 6 || date.date.day() === 0;
+	var isPast = (0, _moment2.default)().startOf('day').diff(date.date) > 0;
 
 	return _react2.default.createElement(
 		'li',
 		{
 			style: (isToday ? { 'color': theme.textColor.active } : null, isWeekSelected ? { 'backgroundColor': theme.selectedWeekBackground } : null),
-			className: '' + style.root + (isToday ? ' ' + style.today : '') + (isSelected ? ' ' + style.selected : '') + (isDisabled ? ' ' + style.disabled : ' ' + style.enabled) + (isWeekSelected ? ' ' + style.weekSelected : '') + (isWeekend ? ' ' + style.isWeekend : ''),
+			className: '' + style.root + (isToday ? ' ' + style.today : '') + (isSelected ? ' ' + style.selected : '') + (isDisabled ? ' ' + style.disabled : ' ' + style.enabled) + (isWeekSelected ? ' ' + style.weekSelected : '') + (isWeekend ? ' ' + style.weekend : '') + (isPast ? ' ' + style.past : ''),
 			'data-date': date.date.format('YYYY-MM-DD'),
 			onClick: !isDisabled && handleDayClick ? handleDayClick.bind(this, mmt) : null
 		},

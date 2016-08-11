@@ -110,8 +110,11 @@
         color: #AAA;
         cursor: not-allowed;
     }
-    &.isWeekend {
+    &.weekend {
         color: #919191;
+    }
+    &.past {
+        color: #AAA;
     }
 }
 

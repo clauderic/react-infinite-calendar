@@ -92,7 +92,8 @@ var dayStyle = {
 	'selection': 'Cal__Day__selection',
 	'day': 'Cal__Day__day',
 	'dayHiddenText': 'Cal__Day__dayHiddenText',
-	'isWeekend': 'Cal__Day__isWeekend',
+	'weekend': 'Cal__Day__weekend',
+	'past': 'Cal__Day__past',
 	'weekSelected': 'Cal__Day__weekSelected'
 };
 var weekStyle = {

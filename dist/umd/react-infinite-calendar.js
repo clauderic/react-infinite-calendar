@@ -43270,6 +43270,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _moment = __webpack_require__(4);
+
+	var _moment2 = _interopRequireDefault(_moment);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var style = __webpack_require__(353);
@@ -43292,12 +43296,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 		var year = mmt.year();
 		var isWeekend = date.date.day() === 6 || date.date.day() === 0;
+		var isPast = (0, _moment2.default)().startOf('day').diff(date.date) > 0;
 
 		return _react2.default.createElement(
 			'li',
 			{
 				style: (isToday ? { 'color': theme.textColor.active } : null, isWeekSelected ? { 'backgroundColor': theme.selectedWeekBackground } : null),
-				className: '' + style.root + (isToday ? ' ' + style.today : '') + (isSelected ? ' ' + style.selected : '') + (isDisabled ? ' ' + style.disabled : ' ' + style.enabled) + (isWeekSelected ? ' ' + style.weekSelected : '') + (isWeekend ? ' ' + style.isWeekend : ''),
+				className: '' + style.root + (isToday ? ' ' + style.today : '') + (isSelected ? ' ' + style.selected : '') + (isDisabled ? ' ' + style.disabled : ' ' + style.enabled) + (isWeekSelected ? ' ' + style.weekSelected : '') + (isWeekend ? ' ' + style.weekend : '') + (isPast ? ' ' + style.past : ''),
 				'data-date': date.date.format('YYYY-MM-DD'),
 				onClick: !isDisabled && handleDayClick ? handleDayClick.bind(this, mmt) : null
 			},
@@ -43338,7 +43343,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-	module.exports = {"root":"Cal__Day__root","enabled":"Cal__Day__enabled","highlighted":"Cal__Day__highlighted","today":"Cal__Day__today","disabled":"Cal__Day__disabled","selected":"Cal__Day__selected","month":"Cal__Day__month","year":"Cal__Day__year","selection":"Cal__Day__selection","day":"Cal__Day__day","dayHiddenText":"Cal__Day__dayHiddenText","isWeekend":"Cal__Day__isWeekend","weekSelected":"Cal__Day__weekSelected"};
+	module.exports = {"root":"Cal__Day__root","enabled":"Cal__Day__enabled","highlighted":"Cal__Day__highlighted","today":"Cal__Day__today","disabled":"Cal__Day__disabled","selected":"Cal__Day__selected","month":"Cal__Day__month","year":"Cal__Day__year","selection":"Cal__Day__selection","day":"Cal__Day__day","dayHiddenText":"Cal__Day__dayHiddenText","weekend":"Cal__Day__weekend","past":"Cal__Day__past","weekSelected":"Cal__Day__weekSelected"};
 
 /***/ },
 /* 354 */,
