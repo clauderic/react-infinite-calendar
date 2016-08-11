@@ -134,8 +134,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var onClickOutside = __webpack_require__(368);
-	var enhanceWithClickOutside = __webpack_require__(369);
-	var containerStyle = __webpack_require__(370);
+	var containerStyle = __webpack_require__(369);
 	var dayStyle = __webpack_require__(353);
 	var weekStyle = __webpack_require__(356);
 	var style = {
@@ -514,9 +513,19 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'handleClickOutside',
 			value: function handleClickOutside(evt) {
+				var _this2 = this;
+
 				if (this.state.height != this.props.collapsedHeight) {
 					this.setState({
 						height: this.props.collapsedHeight
+					}, function () {
+						_this2.clearHighlight();
+
+						if (_this2.state.selectedDate !== null) {
+							_this2.scrollToDate(_this2.state.selectedDate, 0);
+						} else {
+							_this2.scrollToDate(_this2.state.selectedWeek, 0);
+						}
 					});
 				}
 			}
@@ -602,6 +611,16 @@ return /******/ (function(modules) { // webpackBootstrap
 					this.highlightedEl.classList.remove(style.day.highlighted);
 					this.highlightedEl = null;
 				}
+			}
+		}, {
+			key: 'onTouchStart',
+			value: function onTouchStart() {
+				console.log("touch started");
+			}
+		}, {
+			key: 'onTouchEnd',
+			value: function onTouchEnd() {
+				console.log("touch ended");
 			}
 		}, {
 			key: 'render',
@@ -44018,45 +44037,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 369 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var React = __webpack_require__(2);
-	var ReactDOM = __webpack_require__(152);
-
-	module.exports = function enhanceWithClickOutside(WrappedComponent) {
-	  var componentName = WrappedComponent.displayName || WrappedComponent.name;
-
-	  return React.createClass({
-	    displayName: 'Wrapped' + componentName,
-
-	    componentDidMount: function componentDidMount() {
-	      this.__wrappedComponent = this.refs.wrappedComponent;
-	      document.addEventListener('click', this.handleClickOutside, true);
-	    },
-
-	    componentWillUnmount: function componentWillUnmount() {
-	      document.removeEventListener('click', this.handleClickOutside, true);
-	    },
-
-	    handleClickOutside: function handleClickOutside(e) {
-	      var domNode = ReactDOM.findDOMNode(this);
-	      if ((!domNode || !domNode.contains(e.target)) && typeof this.refs.wrappedComponent.handleClickOutside === 'function') {
-	        this.refs.wrappedComponent.handleClickOutside(e);
-	      }
-	    },
-
-	    render: function render() {
-	      return React.createElement(WrappedComponent, _extends({}, this.props, { ref: 'wrappedComponent' }));
-	    }
-	  });
-	};
-
-/***/ },
-/* 370 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin

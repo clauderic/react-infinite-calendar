@@ -13,7 +13,6 @@ import Weekdays from './Weekdays';
 import Years from './Years';
 
 var onClickOutside = require('react-onclickoutside');
-var enhanceWithClickOutside = require('react-click-outside');
 var containerStyle = {
 	'root': 'Cal__Container__root',
 	'landscape': 'Cal__Container__landscape',
@@ -422,9 +421,19 @@ var InfiniteCalendar = function (_Component) {
 	}, {
 		key: 'handleClickOutside',
 		value: function handleClickOutside(evt) {
+			var _this2 = this;
+
 			if (this.state.height != this.props.collapsedHeight) {
 				this.setState({
 					height: this.props.collapsedHeight
+				}, function () {
+					_this2.clearHighlight();
+
+					if (_this2.state.selectedDate !== null) {
+						_this2.scrollToDate(_this2.state.selectedDate, 0);
+					} else {
+						_this2.scrollToDate(_this2.state.selectedWeek, 0);
+					}
 				});
 			}
 		}
@@ -510,6 +519,16 @@ var InfiniteCalendar = function (_Component) {
 				this.highlightedEl.classList.remove(style.day.highlighted);
 				this.highlightedEl = null;
 			}
+		}
+	}, {
+		key: 'onTouchStart',
+		value: function onTouchStart() {
+			console.log("touch started");
+		}
+	}, {
+		key: 'onTouchEnd',
+		value: function onTouchEnd() {
+			console.log("touch ended");
 		}
 	}, {
 		key: 'render',

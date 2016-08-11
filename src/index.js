@@ -13,7 +13,6 @@ import Weekdays from './Weekdays';
 import Years from './Years';
 
 const onClickOutside = require('react-onclickoutside');
-const enhanceWithClickOutside = require('react-click-outside');
 const containerStyle = require('./Container.scss');
 const dayStyle = require('./Day/Day.scss');
 const weekStyle = require('./Week/Week.scss');
@@ -180,6 +179,14 @@ class InfiniteCalendar extends Component {
     if (this.state.height != this.props.collapsedHeight) {
     	this.setState({
     		height: this.props.collapsedHeight
+    	}, () => {
+			this.clearHighlight();
+
+			if (this.state.selectedDate !== null) {
+				this.scrollToDate(this.state.selectedDate, 0);
+			} else {
+				this.scrollToDate(this.state.selectedWeek, 0);
+			}
     	});
     }
   }
@@ -470,6 +477,14 @@ class InfiniteCalendar extends Component {
 	}
 	setDisplay = (display) => {
 		this.setState({display});
+	}
+
+	onTouchStart() {
+		console.log("touch started");
+	}
+
+	onTouchEnd() {
+		console.log("touch ended");
 	}
 
 	render() {
