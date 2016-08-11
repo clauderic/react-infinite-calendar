@@ -2,13 +2,14 @@ import React from 'react';
 const style = require('./Day.scss');
 
 export default function Day({currentYear, hideYearsOnDate, date, day, handleDayClick, isDisabled, isToday, isSelected, isWeekSelected, monthShort, locale, theme, showSelectionText}) {
-	var {date: mmt} = date;
-	var year = mmt.year();
+	const {date: mmt} = date;
+	const year = mmt.year();
+	const isWeekend = date.date.day() === 6 || date.date.day() === 0;
 
 	return (
 		<li
-			style={(isToday) ? {color: theme.textColor.active} : null, (isWeekSelected) ? { 'backgroundColor': theme.selectedWeekBackground } : null }
-			className={`${style.root}${isToday ? ' ' + style.today : ''}${isSelected ? ' ' + style.selected : ''}${isDisabled ? ' ' + style.disabled : ' ' + style.enabled}${isWeekSelected ? ' ' + style.weekSelected : ''}`}
+			style={(isToday) ? { 'color': theme.textColor.active } : null, (isWeekSelected) ? { 'backgroundColor': theme.selectedWeekBackground } : null }
+			className={`${style.root}${isToday ? ' ' + style.today : ''}${isSelected ? ' ' + style.selected : ''}${isDisabled ? ' ' + style.disabled : ' ' + style.enabled}${isWeekSelected ? ' ' + style.weekSelected : ''}${isWeekend ? ' ' + style.isWeekend : ''}`}
 			data-date={date.date.format('YYYY-MM-DD')}
 			onClick={(!isDisabled && handleDayClick) ? handleDayClick.bind(this, mmt) : null}
 		>

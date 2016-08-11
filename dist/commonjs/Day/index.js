@@ -23,6 +23,7 @@ var style = {
 	'selection': 'Cal__Day__selection',
 	'day': 'Cal__Day__day',
 	'dayHiddenText': 'Cal__Day__dayHiddenText',
+	'isWeekend': 'Cal__Day__isWeekend',
 	'weekSelected': 'Cal__Day__weekSelected'
 };
 
@@ -43,12 +44,13 @@ function Day(_ref) {
 	var mmt = date.date;
 
 	var year = mmt.year();
+	var isWeekend = date.date.day() === 6 || date.date.day() === 0;
 
 	return _react2.default.createElement(
 		'li',
 		{
-			style: (isToday ? { color: theme.textColor.active } : null, isWeekSelected ? { 'backgroundColor': theme.selectedWeekBackground } : null),
-			className: '' + style.root + (isToday ? ' ' + style.today : '') + (isSelected ? ' ' + style.selected : '') + (isDisabled ? ' ' + style.disabled : ' ' + style.enabled) + (isWeekSelected ? ' ' + style.weekSelected : ''),
+			style: (isToday ? { 'color': theme.textColor.active } : null, isWeekSelected ? { 'backgroundColor': theme.selectedWeekBackground } : null),
+			className: '' + style.root + (isToday ? ' ' + style.today : '') + (isSelected ? ' ' + style.selected : '') + (isDisabled ? ' ' + style.disabled : ' ' + style.enabled) + (isWeekSelected ? ' ' + style.weekSelected : '') + (isWeekend ? ' ' + style.isWeekend : ''),
 			'data-date': date.date.format('YYYY-MM-DD'),
 			onClick: !isDisabled && handleDayClick ? handleDayClick.bind(this, mmt) : null
 		},

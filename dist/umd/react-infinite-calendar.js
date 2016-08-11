@@ -16410,7 +16410,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        default: '#3E3F40',
 	        active: '#FFF'
 	    },
-	    weekBackground: '#DEDEDE',
+	    weekBackground: '#EDEDED',
 	    selectedWeekBackground: '#5C676B',
 	    selectionColor: '#3E3F40',
 	    todayColor: '#F5387A',
@@ -43291,12 +43291,13 @@ return /******/ (function(modules) { // webpackBootstrap
 		var mmt = date.date;
 
 		var year = mmt.year();
+		var isWeekend = date.date.day() === 6 || date.date.day() === 0;
 
 		return _react2.default.createElement(
 			'li',
 			{
-				style: (isToday ? { color: theme.textColor.active } : null, isWeekSelected ? { 'backgroundColor': theme.selectedWeekBackground } : null),
-				className: '' + style.root + (isToday ? ' ' + style.today : '') + (isSelected ? ' ' + style.selected : '') + (isDisabled ? ' ' + style.disabled : ' ' + style.enabled) + (isWeekSelected ? ' ' + style.weekSelected : ''),
+				style: (isToday ? { 'color': theme.textColor.active } : null, isWeekSelected ? { 'backgroundColor': theme.selectedWeekBackground } : null),
+				className: '' + style.root + (isToday ? ' ' + style.today : '') + (isSelected ? ' ' + style.selected : '') + (isDisabled ? ' ' + style.disabled : ' ' + style.enabled) + (isWeekSelected ? ' ' + style.weekSelected : '') + (isWeekend ? ' ' + style.isWeekend : ''),
 				'data-date': date.date.format('YYYY-MM-DD'),
 				onClick: !isDisabled && handleDayClick ? handleDayClick.bind(this, mmt) : null
 			},
@@ -43337,7 +43338,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-	module.exports = {"root":"Cal__Day__root","enabled":"Cal__Day__enabled","highlighted":"Cal__Day__highlighted","today":"Cal__Day__today","disabled":"Cal__Day__disabled","selected":"Cal__Day__selected","month":"Cal__Day__month","year":"Cal__Day__year","selection":"Cal__Day__selection","day":"Cal__Day__day","dayHiddenText":"Cal__Day__dayHiddenText","weekSelected":"Cal__Day__weekSelected"};
+	module.exports = {"root":"Cal__Day__root","enabled":"Cal__Day__enabled","highlighted":"Cal__Day__highlighted","today":"Cal__Day__today","disabled":"Cal__Day__disabled","selected":"Cal__Day__selected","month":"Cal__Day__month","year":"Cal__Day__year","selection":"Cal__Day__selection","day":"Cal__Day__day","dayHiddenText":"Cal__Day__dayHiddenText","isWeekend":"Cal__Day__isWeekend","weekSelected":"Cal__Day__weekSelected"};
 
 /***/ },
 /* 354 */,
@@ -43358,6 +43359,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _moment = __webpack_require__(4);
 
 	var _moment2 = _interopRequireDefault(_moment);
+
+	var _classnames = __webpack_require__(3);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -43382,13 +43387,13 @@ return /******/ (function(modules) { // webpackBootstrap
 				style: ({ height: rowHeight }, isWeekSelected ? { 'backgroundColor': theme.selectedWeekBackground } : { 'backgroundColor': theme.weekBackground }) },
 			_react2.default.createElement(
 				'span',
-				{ className: '' + style.weekItem, style: { height: weekItemHeight, bottom: '5px' } },
+				{ className: (0, _classnames2.default)(style.weekItem, style.weekNumber), style: { height: weekItemHeight } },
 				'v.',
 				weekNumber
 			),
 			_react2.default.createElement(
 				'span',
-				{ className: '' + style.weekItem, style: { height: weekItemHeight, bottom: '15px' } },
+				{ className: (0, _classnames2.default)(style.weekItem, style.weekDistance), style: { height: weekItemHeight } },
 				weekDistanceLabel
 			)
 		);
@@ -43399,7 +43404,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-	module.exports = {"root":"Cal__Week__root","weekItem":"Cal__Week__weekItem","weekSelected":"Cal__Week__weekSelected"};
+	module.exports = {"root":"Cal__Week__root","weekItem":"Cal__Week__weekItem","weekSelected":"Cal__Week__weekSelected","weekNumber":"Cal__Week__weekNumber","weekDistance":"Cal__Week__weekDistance"};
 
 /***/ },
 /* 357 */,

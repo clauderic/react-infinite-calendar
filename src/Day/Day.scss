@@ -30,7 +30,6 @@
         &.highlighted, &:active, &:hover {
             position: relative;
             z-index: 1;
-            color: $textColor;
 
             &:before {
                 @include circle();
@@ -111,6 +110,9 @@
         color: #AAA;
         cursor: not-allowed;
     }
+    &.isWeekend {
+        color: #919191;
+    }
 }
 
 .month, .year {
@@ -130,6 +132,5 @@
     bottom: 5px;
 }
 .weekSelected {
-    background-color: $selectedWeekBackground;
     color: white;
 }

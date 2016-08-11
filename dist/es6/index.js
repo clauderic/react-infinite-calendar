@@ -34,12 +34,15 @@ var dayStyle = {
 	'selection': 'Cal__Day__selection',
 	'day': 'Cal__Day__day',
 	'dayHiddenText': 'Cal__Day__dayHiddenText',
+	'isWeekend': 'Cal__Day__isWeekend',
 	'weekSelected': 'Cal__Day__weekSelected'
 };
 var weekStyle = {
 	'root': 'Cal__Week__root',
 	'weekItem': 'Cal__Week__weekItem',
-	'weekSelected': 'Cal__Week__weekSelected'
+	'weekSelected': 'Cal__Week__weekSelected',
+	'weekNumber': 'Cal__Week__weekNumber',
+	'weekDistance': 'Cal__Week__weekDistance'
 };
 var style = {
 	container: containerStyle,

@@ -1,9 +1,12 @@
 import React from 'react';
 import moment from 'moment';
+import classNames from 'classnames';
 var style = {
 	'root': 'Cal__Week__root',
 	'weekItem': 'Cal__Week__weekItem',
-	'weekSelected': 'Cal__Week__weekSelected'
+	'weekSelected': 'Cal__Week__weekSelected',
+	'weekNumber': 'Cal__Week__weekNumber',
+	'weekDistance': 'Cal__Week__weekDistance'
 };
 
 export default function Week(_ref) {
@@ -25,13 +28,13 @@ export default function Week(_ref) {
 			style: ({ height: rowHeight }, isWeekSelected ? { 'backgroundColor': theme.selectedWeekBackground } : { 'backgroundColor': theme.weekBackground }) },
 		React.createElement(
 			'span',
-			{ className: '' + style.weekItem, style: { height: weekItemHeight, bottom: '5px' } },
+			{ className: classNames(style.weekItem, style.weekNumber), style: { height: weekItemHeight } },
 			'v.',
 			weekNumber
 		),
 		React.createElement(
 			'span',
-			{ className: '' + style.weekItem, style: { height: weekItemHeight, bottom: '15px' } },
+			{ className: classNames(style.weekItem, style.weekDistance), style: { height: weekItemHeight } },
 			weekDistanceLabel
 		)
 	);

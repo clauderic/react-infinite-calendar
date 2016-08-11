@@ -13,12 +13,18 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var style = {
 	'root': 'Cal__Week__root',
 	'weekItem': 'Cal__Week__weekItem',
-	'weekSelected': 'Cal__Week__weekSelected'
+	'weekSelected': 'Cal__Week__weekSelected',
+	'weekNumber': 'Cal__Week__weekNumber',
+	'weekDistance': 'Cal__Week__weekDistance'
 };
 
 function Week(_ref) {
@@ -40,13 +46,13 @@ function Week(_ref) {
 			style: ({ height: rowHeight }, isWeekSelected ? { 'backgroundColor': theme.selectedWeekBackground } : { 'backgroundColor': theme.weekBackground }) },
 		_react2.default.createElement(
 			'span',
-			{ className: '' + style.weekItem, style: { height: weekItemHeight, bottom: '5px' } },
+			{ className: (0, _classnames2.default)(style.weekItem, style.weekNumber), style: { height: weekItemHeight } },
 			'v.',
 			weekNumber
 		),
 		_react2.default.createElement(
 			'span',
-			{ className: '' + style.weekItem, style: { height: weekItemHeight, bottom: '15px' } },
+			{ className: (0, _classnames2.default)(style.weekItem, style.weekDistance), style: { height: weekItemHeight } },
 			weekDistanceLabel
 		)
 	);
