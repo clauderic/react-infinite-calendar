@@ -222,7 +222,7 @@
       line-height: 45px;
       z-index: 2; }
       .Cal__Day__root.Cal__Day__selected .Cal__Day__selection .Cal__Day__month {
-        top: 9px; }
+        top: 5px; }
       .Cal__Day__root.Cal__Day__selected .Cal__Day__selection .Cal__Day__day {
         position: relative;
         top: 5px;
@@ -243,10 +243,11 @@
   left: 0;
   right: 0;
   font-size: 12px;
+  font-weight: bold;
   line-height: 12px; }
 
 .Cal__Day__month {
-  top: 5px; }
+  top: 2px; }
 
 .Cal__Day__year {
   bottom: 5px; }

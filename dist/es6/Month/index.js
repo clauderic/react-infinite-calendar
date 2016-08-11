@@ -56,6 +56,7 @@ var Month = function (_Component) {
 			var today = _props.today;
 			var theme = _props.theme;
 			var showSelectionText = _props.showSelectionText;
+			var hideYearsOnDate = _props.hideYearsOnDate;
 
 			var currentYear = today.date.year();
 			var monthShort = displayDate.format('MMM');
@@ -115,7 +116,8 @@ var Month = function (_Component) {
 						locale: locale,
 						monthShort: monthShort,
 						theme: theme,
-						showSelectionText: showSelectionText
+						showSelectionText: showSelectionText,
+						hideYearsOnDate: hideYearsOnDate
 					});
 				}
 				monthRows[i] = React.createElement(

@@ -124,6 +124,7 @@ var List = function (_Component) {
 			var theme = _this$props3.theme;
 			var today = _this$props3.today;
 			var showSelectionText = _this$props3.showSelectionText;
+			var hideYearsOnDate = _this$props3.hideYearsOnDate;
 
 			var _this$memoize = _this.memoize(months[index]);
 
@@ -151,7 +152,8 @@ var List = function (_Component) {
 				today: today,
 				theme: theme,
 				locale: locale,
-				showSelectionText: showSelectionText
+				showSelectionText: showSelectionText,
+				hideYearsOnDate: hideYearsOnDate
 			});
 		}, _temp), _possibleConstructorReturn(_this, _ret);
 	}
@@ -223,6 +225,7 @@ List.propTypes = {
 	showOverlay: _react.PropTypes.bool,
 	theme: _react.PropTypes.object,
 	locale: _react.PropTypes.object,
-	showSelectionText: _react.PropTypes.bool
+	showSelectionText: _react.PropTypes.bool,
+	hideYearsOnDate: _react.PropTypes.bool
 };
 exports.default = List;

@@ -133,8 +133,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var enhanceWithClickOutside = __webpack_require__(368);
-	var containerStyle = __webpack_require__(369);
+	var onClickOutside = __webpack_require__(368);
+	var enhanceWithClickOutside = __webpack_require__(369);
+	var containerStyle = __webpack_require__(370);
 	var dayStyle = __webpack_require__(353);
 	var weekStyle = __webpack_require__(356);
 	var style = {
@@ -142,8 +143,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		day: dayStyle,
 		week: weekStyle
 	};
-
-	var onClickOutside = __webpack_require__(371);
 
 	var InfiniteCalendar = function (_Component) {
 		_inherits(InfiniteCalendar, _Component);
@@ -613,6 +612,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				var expandedHeight = _props3.expandedHeight;
 				var collapsedHeight = _props3.collapsedHeight;
 				var hideYearsOnSelect = _props3.hideYearsOnSelect;
+				var hideYearsOnDate = _props3.hideYearsOnDate;
 				var keyboardSupport = _props3.keyboardSupport;
 				var layout = _props3.layout;
 				var overscanMonthCount = _props3.overscanMonthCount;
@@ -626,7 +626,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				var width = _props3.width;
 				var showSelectionText = _props3.showSelectionText;
 
-				var other = _objectWithoutProperties(_props3, ['className', 'disabledDays', 'expandedHeight', 'collapsedHeight', 'hideYearsOnSelect', 'keyboardSupport', 'layout', 'overscanMonthCount', 'min', 'minDate', 'max', 'maxDate', 'showTodayHelper', 'showHeader', 'tabIndex', 'width', 'showSelectionText']);
+				var other = _objectWithoutProperties(_props3, ['className', 'disabledDays', 'expandedHeight', 'collapsedHeight', 'hideYearsOnSelect', 'hideYearsOnDate', 'keyboardSupport', 'layout', 'overscanMonthCount', 'min', 'minDate', 'max', 'maxDate', 'showTodayHelper', 'showHeader', 'tabIndex', 'width', 'showSelectionText']);
 
 				var disabledDates = this.getDisabledDates(this.props.disabledDates);
 				var locale = this.getLocale();
@@ -680,7 +680,8 @@ return /******/ (function(modules) { // webpackBootstrap
 								theme: theme,
 								locale: locale,
 								overscanMonthCount: overscanMonthCount,
-								showSelectionText: showSelectionText
+								showSelectionText: showSelectionText,
+								hideYearsOnDate: hideYearsOnDate
 							}))
 						),
 						display == 'years' && _react2.default.createElement(_Years2.default, {
@@ -730,7 +731,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		locale: {},
 		theme: {},
 		hideYearsOnSelect: true,
-		showSelectionText: false
+		hideYearsOnDate: true,
+		showSelectionText: true
 	};
 	InfiniteCalendar.propTypes = {
 		selectedDate: _utils.validDate,
@@ -762,6 +764,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		layout: _utils.validLayout,
 		display: _utils.validDisplay,
 		hideYearsOnSelect: _react.PropTypes.bool,
+		hideYearsOnDate: _react.PropTypes.bool,
 		shouldHeaderAnimate: _react.PropTypes.bool,
 		showOverlay: _react.PropTypes.bool,
 		showTodayHelper: _react.PropTypes.bool,
@@ -16353,8 +16356,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    dow: 1,
 	    doy: 4
 	  },
-	  months: 'januari_februari_mars_april_maj_juni_juli_augusti_september_oktober_november_december'.split('_'),
-	  monthsShort: 'jan_feb_mar_apr_maj_jun_jul_aug_sep_okt_nov_dec'.split('_'),
+	  months: 'Januari_Februari_Mars_April_Maj_Juni_Juli_Augusti_September_Oktober_November_December'.split('_'),
+	  monthsShort: 'Jan_Feb_Mar_Apr_Maj_Jun_Jul_Aug_Sep_Okt_Nov_Dec'.split('_'),
 	  weekdays: 'söndag_måndag_tisdag_onsdag_torsdag_fredag_lördag'.split('_'),
 	  weekdaysShort: 'sön_mån_tis_ons_tor_fre_lör'.split('_'),
 	  weekdaysMin: 'Sö_Må_Ti_On_To_Fr_Lö'.split('_'),
@@ -16834,6 +16837,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				var theme = _this$props3.theme;
 				var today = _this$props3.today;
 				var showSelectionText = _this$props3.showSelectionText;
+				var hideYearsOnDate = _this$props3.hideYearsOnDate;
 
 				var _this$memoize = _this.memoize(months[index]);
 
@@ -16861,7 +16865,8 @@ return /******/ (function(modules) { // webpackBootstrap
 					today: today,
 					theme: theme,
 					locale: locale,
-					showSelectionText: showSelectionText
+					showSelectionText: showSelectionText,
+					hideYearsOnDate: hideYearsOnDate
 				});
 			}, _temp), _possibleConstructorReturn(_this, _ret);
 		}
@@ -16933,7 +16938,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		showOverlay: _react.PropTypes.bool,
 		theme: _react.PropTypes.object,
 		locale: _react.PropTypes.object,
-		showSelectionText: _react.PropTypes.bool
+		showSelectionText: _react.PropTypes.bool,
+		hideYearsOnDate: _react.PropTypes.bool
 	};
 	exports.default = List;
 
@@ -43132,6 +43138,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				var today = _props.today;
 				var theme = _props.theme;
 				var showSelectionText = _props.showSelectionText;
+				var hideYearsOnDate = _props.hideYearsOnDate;
 
 				var currentYear = today.date.year();
 				var monthShort = displayDate.format('MMM');
@@ -43191,7 +43198,8 @@ return /******/ (function(modules) { // webpackBootstrap
 							locale: locale,
 							monthShort: monthShort,
 							theme: theme,
-							showSelectionText: showSelectionText
+							showSelectionText: showSelectionText,
+							hideYearsOnDate: hideYearsOnDate
 						});
 					}
 					monthRows[i] = _react2.default.createElement(
@@ -43268,6 +43276,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function Day(_ref) {
 		var currentYear = _ref.currentYear;
+		var hideYearsOnDate = _ref.hideYearsOnDate;
 		var date = _ref.date;
 		var day = _ref.day;
 		var handleDayClick = _ref.handleDayClick;
@@ -43301,7 +43310,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				null,
 				day
 			),
-			showSelectionText && day === 1 && currentYear !== year && _react2.default.createElement(
+			showSelectionText && day === 1 && currentYear !== year && !hideYearsOnDate && _react2.default.createElement(
 				'span',
 				{ className: style.year },
 				year
@@ -43766,53 +43775,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 368 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var React = __webpack_require__(2);
-	var ReactDOM = __webpack_require__(152);
-
-	module.exports = function enhanceWithClickOutside(WrappedComponent) {
-	  var componentName = WrappedComponent.displayName || WrappedComponent.name;
-
-	  return React.createClass({
-	    displayName: 'Wrapped' + componentName,
-
-	    componentDidMount: function componentDidMount() {
-	      this.__wrappedComponent = this.refs.wrappedComponent;
-	      document.addEventListener('click', this.handleClickOutside, true);
-	    },
-
-	    componentWillUnmount: function componentWillUnmount() {
-	      document.removeEventListener('click', this.handleClickOutside, true);
-	    },
-
-	    handleClickOutside: function handleClickOutside(e) {
-	      var domNode = ReactDOM.findDOMNode(this);
-	      if ((!domNode || !domNode.contains(e.target)) && typeof this.refs.wrappedComponent.handleClickOutside === 'function') {
-	        this.refs.wrappedComponent.handleClickOutside(e);
-	      }
-	    },
-
-	    render: function render() {
-	      return React.createElement(WrappedComponent, _extends({}, this.props, { ref: 'wrappedComponent' }));
-	    }
-	  });
-	};
-
-/***/ },
-/* 369 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-	module.exports = {"root":"Cal__Container__root","landscape":"Cal__Container__landscape","wrapper":"Cal__Container__wrapper","listWrapper":"Cal__Container__listWrapper","expanded":"Cal__Container__expanded","collapsed":"Cal__Container__collapsed"};
-
-/***/ },
-/* 370 */,
-/* 371 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 	 * A higher-order-component for handling onClickOutside for React components.
 	 */
@@ -44043,6 +44005,52 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	}(this));
 
+
+/***/ },
+/* 369 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var React = __webpack_require__(2);
+	var ReactDOM = __webpack_require__(152);
+
+	module.exports = function enhanceWithClickOutside(WrappedComponent) {
+	  var componentName = WrappedComponent.displayName || WrappedComponent.name;
+
+	  return React.createClass({
+	    displayName: 'Wrapped' + componentName,
+
+	    componentDidMount: function componentDidMount() {
+	      this.__wrappedComponent = this.refs.wrappedComponent;
+	      document.addEventListener('click', this.handleClickOutside, true);
+	    },
+
+	    componentWillUnmount: function componentWillUnmount() {
+	      document.removeEventListener('click', this.handleClickOutside, true);
+	    },
+
+	    handleClickOutside: function handleClickOutside(e) {
+	      var domNode = ReactDOM.findDOMNode(this);
+	      if ((!domNode || !domNode.contains(e.target)) && typeof this.refs.wrappedComponent.handleClickOutside === 'function') {
+	        this.refs.wrappedComponent.handleClickOutside(e);
+	      }
+	    },
+
+	    render: function render() {
+	      return React.createElement(WrappedComponent, _extends({}, this.props, { ref: 'wrappedComponent' }));
+	    }
+	  });
+	};
+
+/***/ },
+/* 370 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+	module.exports = {"root":"Cal__Container__root","landscape":"Cal__Container__landscape","wrapper":"Cal__Container__wrapper","listWrapper":"Cal__Container__listWrapper","expanded":"Cal__Container__expanded","collapsed":"Cal__Container__collapsed"};
 
 /***/ }
 /******/ ])

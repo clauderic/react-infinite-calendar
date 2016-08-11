@@ -12,6 +12,7 @@ import List from './List';
 import Weekdays from './Weekdays';
 import Years from './Years';
 
+const onClickOutside = require('react-onclickoutside');
 const enhanceWithClickOutside = require('react-click-outside');
 const containerStyle = require('./Container.scss');
 const dayStyle = require('./Day/Day.scss');
@@ -21,8 +22,6 @@ const style = {
 	day: dayStyle,
 	week: weekStyle
 };
-
-var onClickOutside = require('react-onclickoutside');
 
 class InfiniteCalendar extends Component {
 	constructor(props) {
@@ -39,6 +38,7 @@ class InfiniteCalendar extends Component {
 			shouldHeaderAnimate: props.shouldHeaderAnimate
 		};
 	}
+
 	static defaultProps = {
 		width: 400,
 		expandedHeight: 400,
@@ -64,8 +64,10 @@ class InfiniteCalendar extends Component {
 		locale: {},
 		theme: {},
 		hideYearsOnSelect: true,
-		showSelectionText: false,
+		hideYearsOnDate: true,
+		showSelectionText: true,
 	};
+
 	static propTypes = {
 		selectedDate: validDate,
 		selectedWeek: validDate,
@@ -96,6 +98,7 @@ class InfiniteCalendar extends Component {
 		layout: validLayout,
 		display: validDisplay,
 		hideYearsOnSelect: PropTypes.bool,
+		hideYearsOnDate: PropTypes.bool,
 		shouldHeaderAnimate: PropTypes.bool,
 		showOverlay: PropTypes.bool,
 		showTodayHelper: PropTypes.bool,
@@ -476,6 +479,7 @@ class InfiniteCalendar extends Component {
 			expandedHeight,
 			collapsedHeight,
 			hideYearsOnSelect,
+			hideYearsOnDate,
 			keyboardSupport,
 			layout,
 			overscanMonthCount,
@@ -534,6 +538,7 @@ class InfiniteCalendar extends Component {
 							locale={locale}
 							overscanMonthCount={overscanMonthCount}
 							showSelectionText={showSelectionText}
+							hideYearsOnDate={hideYearsOnDate}
 						/>
 					</div>
 					{display == 'years' &&

@@ -16,6 +16,7 @@ var style = {
 
 export default function Day(_ref) {
 	var currentYear = _ref.currentYear;
+	var hideYearsOnDate = _ref.hideYearsOnDate;
 	var date = _ref.date;
 	var day = _ref.day;
 	var handleDayClick = _ref.handleDayClick;
@@ -49,7 +50,7 @@ export default function Day(_ref) {
 			null,
 			day
 		),
-		showSelectionText && day === 1 && currentYear !== year && React.createElement(
+		showSelectionText && day === 1 && currentYear !== year && !hideYearsOnDate && React.createElement(
 			'span',
 			{ className: style.year },
 			year

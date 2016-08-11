@@ -88,7 +88,7 @@
             z-index: 2;
 
             .month {
-                top: 9px;
+                top: 5px;
             }
             .day {
                 position: relative;
@@ -119,11 +119,12 @@
     right: 0;
 
     font-size: 12px;
+    font-weight: bold;
     line-height: 12px;
 }
 
 .month {
-    top: 5px;
+    top: 2px;
 }
 .year {
     bottom: 5px;

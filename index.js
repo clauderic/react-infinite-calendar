@@ -1,8 +1,8 @@
 import 'babel-polyfill'
 import React from 'react'
 import { render } from 'react-dom'
-import InfiniteCalendars from './src/index'
+import InfiniteCalendar from './src/index'
 
-render(<InfiniteCalendars />,
+render(<InfiniteCalendar />,
   document.getElementById('root')
 )

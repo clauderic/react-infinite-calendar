@@ -9,8 +9,8 @@ module.exports = {
         dow: 1,
         doy: 4
     },
-    months : 'januari_februari_mars_april_maj_juni_juli_augusti_september_oktober_november_december'.split('_'),
-  monthsShort : 'jan_feb_mar_apr_maj_jun_jul_aug_sep_okt_nov_dec'.split('_'),
+    months : 'Januari_Februari_Mars_April_Maj_Juni_Juli_Augusti_September_Oktober_November_December'.split('_'),
+  monthsShort : 'Jan_Feb_Mar_Apr_Maj_Jun_Jul_Aug_Sep_Okt_Nov_Dec'.split('_'),
   weekdays : 'söndag_måndag_tisdag_onsdag_torsdag_fredag_lördag'.split('_'),
   weekdaysShort : 'sön_mån_tis_ons_tor_fre_lör'.split('_'),
   weekdaysMin : 'Sö_Må_Ti_On_To_Fr_Lö'.split('_'),

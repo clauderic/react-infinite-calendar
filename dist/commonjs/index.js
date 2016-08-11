@@ -70,6 +70,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var onClickOutside = require('react-onclickoutside');
 var enhanceWithClickOutside = require('react-click-outside');
 var containerStyle = {
 	'root': 'Cal__Container__root',
@@ -103,8 +104,6 @@ var style = {
 	day: dayStyle,
 	week: weekStyle
 };
-
-var onClickOutside = require('react-onclickoutside');
 
 var InfiniteCalendar = function (_Component) {
 	_inherits(InfiniteCalendar, _Component);
@@ -574,6 +573,7 @@ var InfiniteCalendar = function (_Component) {
 			var expandedHeight = _props3.expandedHeight;
 			var collapsedHeight = _props3.collapsedHeight;
 			var hideYearsOnSelect = _props3.hideYearsOnSelect;
+			var hideYearsOnDate = _props3.hideYearsOnDate;
 			var keyboardSupport = _props3.keyboardSupport;
 			var layout = _props3.layout;
 			var overscanMonthCount = _props3.overscanMonthCount;
@@ -587,7 +587,7 @@ var InfiniteCalendar = function (_Component) {
 			var width = _props3.width;
 			var showSelectionText = _props3.showSelectionText;
 
-			var other = _objectWithoutProperties(_props3, ['className', 'disabledDays', 'expandedHeight', 'collapsedHeight', 'hideYearsOnSelect', 'keyboardSupport', 'layout', 'overscanMonthCount', 'min', 'minDate', 'max', 'maxDate', 'showTodayHelper', 'showHeader', 'tabIndex', 'width', 'showSelectionText']);
+			var other = _objectWithoutProperties(_props3, ['className', 'disabledDays', 'expandedHeight', 'collapsedHeight', 'hideYearsOnSelect', 'hideYearsOnDate', 'keyboardSupport', 'layout', 'overscanMonthCount', 'min', 'minDate', 'max', 'maxDate', 'showTodayHelper', 'showHeader', 'tabIndex', 'width', 'showSelectionText']);
 
 			var disabledDates = this.getDisabledDates(this.props.disabledDates);
 			var locale = this.getLocale();
@@ -641,7 +641,8 @@ var InfiniteCalendar = function (_Component) {
 							theme: theme,
 							locale: locale,
 							overscanMonthCount: overscanMonthCount,
-							showSelectionText: showSelectionText
+							showSelectionText: showSelectionText,
+							hideYearsOnDate: hideYearsOnDate
 						}))
 					),
 					display == 'years' && _react2.default.createElement(_Years2.default, {
@@ -691,7 +692,8 @@ InfiniteCalendar.defaultProps = {
 	locale: {},
 	theme: {},
 	hideYearsOnSelect: true,
-	showSelectionText: false
+	hideYearsOnDate: true,
+	showSelectionText: true
 };
 InfiniteCalendar.propTypes = {
 	selectedDate: _utils.validDate,
@@ -723,6 +725,7 @@ InfiniteCalendar.propTypes = {
 	layout: _utils.validLayout,
 	display: _utils.validDisplay,
 	hideYearsOnSelect: _react.PropTypes.bool,
+	hideYearsOnDate: _react.PropTypes.bool,
 	shouldHeaderAnimate: _react.PropTypes.bool,
 	showOverlay: _react.PropTypes.bool,
 	showTodayHelper: _react.PropTypes.bool,

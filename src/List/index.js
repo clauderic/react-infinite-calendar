@@ -30,6 +30,7 @@ export default class List extends Component {
 		theme: PropTypes.object,
 		locale: PropTypes.object,
 		showSelectionText: PropTypes.bool,
+		hideYearsOnDate: PropTypes.bool,
 	};
 	componentDidMount() {
 		let vs = this.refs.VirtualScroll;
@@ -85,7 +86,7 @@ export default class List extends Component {
 		}
 	};
 	renderMonth = ({index, isScrolling}) => {
-		let {disabledDates, disabledDays, locale, months, maxDate, minDate, onDaySelect, onWeekSelect, rowHeight, selectedDate, selectedWeek, showOverlay, theme, today, showSelectionText} = this.props;
+		let {disabledDates, disabledDays, locale, months, maxDate, minDate, onDaySelect, onWeekSelect, rowHeight, selectedDate, selectedWeek, showOverlay, theme, today, showSelectionText, hideYearsOnDate} = this.props;
 		let {date, rows, weeks} = this.memoize(months[index]);
 
 		return (
@@ -109,6 +110,7 @@ export default class List extends Component {
 				theme={theme}
 				locale={locale}
 				showSelectionText={showSelectionText}
+				hideYearsOnDate={hideYearsOnDate}
 			/>
 		);
 	};

@@ -12,6 +12,7 @@ import List from './List';
 import Weekdays from './Weekdays';
 import Years from './Years';
 
+var onClickOutside = require('react-onclickoutside');
 var enhanceWithClickOutside = require('react-click-outside');
 var containerStyle = {
 	'root': 'Cal__Container__root',
@@ -45,8 +46,6 @@ var style = {
 	day: dayStyle,
 	week: weekStyle
 };
-
-var onClickOutside = require('react-onclickoutside');
 
 var InfiniteCalendar = function (_Component) {
 	babelHelpers.inherits(InfiniteCalendar, _Component);
@@ -517,6 +516,7 @@ var InfiniteCalendar = function (_Component) {
 			var expandedHeight = _props3.expandedHeight;
 			var collapsedHeight = _props3.collapsedHeight;
 			var hideYearsOnSelect = _props3.hideYearsOnSelect;
+			var hideYearsOnDate = _props3.hideYearsOnDate;
 			var keyboardSupport = _props3.keyboardSupport;
 			var layout = _props3.layout;
 			var overscanMonthCount = _props3.overscanMonthCount;
@@ -529,7 +529,7 @@ var InfiniteCalendar = function (_Component) {
 			var tabIndex = _props3.tabIndex;
 			var width = _props3.width;
 			var showSelectionText = _props3.showSelectionText;
-			var other = babelHelpers.objectWithoutProperties(_props3, ['className', 'disabledDays', 'expandedHeight', 'collapsedHeight', 'hideYearsOnSelect', 'keyboardSupport', 'layout', 'overscanMonthCount', 'min', 'minDate', 'max', 'maxDate', 'showTodayHelper', 'showHeader', 'tabIndex', 'width', 'showSelectionText']);
+			var other = babelHelpers.objectWithoutProperties(_props3, ['className', 'disabledDays', 'expandedHeight', 'collapsedHeight', 'hideYearsOnSelect', 'hideYearsOnDate', 'keyboardSupport', 'layout', 'overscanMonthCount', 'min', 'minDate', 'max', 'maxDate', 'showTodayHelper', 'showHeader', 'tabIndex', 'width', 'showSelectionText']);
 
 			var disabledDates = this.getDisabledDates(this.props.disabledDates);
 			var locale = this.getLocale();
@@ -583,7 +583,8 @@ var InfiniteCalendar = function (_Component) {
 							theme: theme,
 							locale: locale,
 							overscanMonthCount: overscanMonthCount,
-							showSelectionText: showSelectionText
+							showSelectionText: showSelectionText,
+							hideYearsOnDate: hideYearsOnDate
 						}))
 					),
 					display == 'years' && React.createElement(Years, {
@@ -632,7 +633,8 @@ InfiniteCalendar.defaultProps = {
 	locale: {},
 	theme: {},
 	hideYearsOnSelect: true,
-	showSelectionText: false
+	hideYearsOnDate: true,
+	showSelectionText: true
 };
 InfiniteCalendar.propTypes = {
 	selectedDate: validDate,
@@ -664,6 +666,7 @@ InfiniteCalendar.propTypes = {
 	layout: validLayout,
 	display: validDisplay,
 	hideYearsOnSelect: PropTypes.bool,
+	hideYearsOnDate: PropTypes.bool,
 	shouldHeaderAnimate: PropTypes.bool,
 	showOverlay: PropTypes.bool,
 	showTodayHelper: PropTypes.bool,
