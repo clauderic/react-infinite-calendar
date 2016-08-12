@@ -183,7 +183,7 @@ var InfiniteCalendar = function (_Component) {
 			var isScrolling = _this.state.isScrolling;
 
 
-			if (isScrolling) _this.setState({ isScrolling: false });
+			if (isScrolling && !_this.state.isTouchStarted) _this.setState({ isScrolling: false });
 			if (showTodayHelper) _this.updateTodayHelperPosition(0);
 			if (typeof onScrollEnd == 'function') onScrollEnd(_this.scrollTop);
 		}, 150);
@@ -321,6 +321,19 @@ var InfiniteCalendar = function (_Component) {
 			_this.setState({ display: display });
 		};
 
+		_this.handleTouchStart = function () {
+			_this.setState({
+				isTouchStarted: true
+			});
+		};
+
+		_this.handleTouchEnd = function () {
+			_this.setState({
+				isTouchStarted: false,
+				isScrolling: false
+			});
+		};
+
 		_this.updateLocale(props.locale);
 		_this.updateYears(props);
 		_this.state = {
@@ -343,7 +356,6 @@ var InfiniteCalendar = function (_Component) {
 
 			this.node = this.refs.node;
 			this.list = this.refs.List;
-
 			this.setState({
 				height: this.props.collapsedHeight
 			});
@@ -521,16 +533,6 @@ var InfiniteCalendar = function (_Component) {
 			}
 		}
 	}, {
-		key: 'onTouchStart',
-		value: function onTouchStart() {
-			console.log("touch started");
-		}
-	}, {
-		key: 'onTouchEnd',
-		value: function onTouchEnd() {
-			console.log("touch ended");
-		}
-	}, {
 		key: 'render',
 		value: function render() {
 			var _props3 = this.props;
@@ -575,15 +577,33 @@ var InfiniteCalendar = function (_Component) {
 
 			return React.createElement(
 				'div',
-				{ tabIndex: tabIndex, onKeyDown: keyboardSupport && this.handleKeyDown, className: classNames(className, style.container.root, babelHelpers.defineProperty({}, style.container.landscape, layout == 'landscape')), style: { color: theme.textColor.default, width: width }, 'aria-label': 'Calendar', ref: 'node' },
-				showHeader && React.createElement(Header, { selectedDate: selectedDate, shouldHeaderAnimate: shouldHeaderAnimate, layout: layout, theme: theme, locale: locale, scrollToDate: this.scrollToDate, setDisplay: this.setDisplay, display: display }),
+				{
+					tabIndex: tabIndex,
+					onKeyDown: keyboardSupport && this.handleKeyDown,
+					className: classNames(className, style.container.root, babelHelpers.defineProperty({}, style.container.landscape, layout == 'landscape')),
+					style: { color: theme.textColor.default, width: width },
+					'aria-label': 'Calendar', ref: 'node' },
+				showHeader && React.createElement(Header, {
+					selectedDate: selectedDate,
+					shouldHeaderAnimate: shouldHeaderAnimate,
+					layout: layout,
+					theme: theme,
+					locale: locale,
+					scrollToDate: this.scrollToDate,
+					setDisplay: this.setDisplay,
+					display: display
+				}),
 				React.createElement(
 					'div',
 					{ className: style.container.wrapper },
 					React.createElement(Weekdays, { theme: theme, locale: locale, scrollToDate: this.scrollToDate }),
 					React.createElement(
 						'div',
-						{ className: style.container.listWrapper },
+						{
+							className: style.container.listWrapper,
+							onTouchStart: this.handleTouchStart,
+							onTouchEnd: this.handleTouchEnd
+						},
 						showTodayHelper && React.createElement(Today, { scrollToDate: this.scrollToDate, show: showToday, today: today, theme: theme, locale: locale }),
 						React.createElement(List, babelHelpers.extends({
 							ref: 'List'
@@ -657,7 +677,8 @@ InfiniteCalendar.defaultProps = {
 	theme: {},
 	hideYearsOnSelect: true,
 	hideYearsOnDate: true,
-	showSelectionText: true
+	showSelectionText: true,
+	isTouchStarted: false
 };
 InfiniteCalendar.propTypes = {
 	selectedDate: validDate,
@@ -694,7 +715,8 @@ InfiniteCalendar.propTypes = {
 	showOverlay: PropTypes.bool,
 	showTodayHelper: PropTypes.bool,
 	showHeader: PropTypes.bool,
-	showSelectionText: PropTypes.bool
+	showSelectionText: PropTypes.bool,
+	isTouchStarted: PropTypes.bool
 };
 ;
 

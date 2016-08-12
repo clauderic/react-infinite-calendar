@@ -65,6 +65,7 @@ class InfiniteCalendar extends Component {
 		hideYearsOnSelect: true,
 		hideYearsOnDate: true,
 		showSelectionText: true,
+		isTouchStarted: false,
 	};
 
 	static propTypes = {
@@ -103,13 +104,13 @@ class InfiniteCalendar extends Component {
 		showTodayHelper: PropTypes.bool,
 		showHeader: PropTypes.bool,
 		showSelectionText: PropTypes.bool,
+		isTouchStarted: PropTypes.bool,
 	};
 
 	componentDidMount() {
 		let {autoFocus, collapsedHeight, keyboardSupport} = this.props;
 		this.node = this.refs.node;
 		this.list = this.refs.List;
-
 		this.setState({
 			height: this.props.collapsedHeight
 		});
@@ -348,7 +349,7 @@ class InfiniteCalendar extends Component {
 		let {onScrollEnd, showTodayHelper} = this.props;
 		let {isScrolling} = this.state;
 
-		if (isScrolling) this.setState({isScrolling: false});
+		if (isScrolling && !this.state.isTouchStarted) this.setState({isScrolling: false});
 		if (showTodayHelper) this.updateTodayHelperPosition(0);
 		if (typeof onScrollEnd == 'function') onScrollEnd(this.scrollTop);
 	}, 150);
@@ -479,12 +480,17 @@ class InfiniteCalendar extends Component {
 		this.setState({display});
 	}
 
-	onTouchStart() {
-		console.log("touch started");
+	handleTouchStart = () => {
+		this.setState({
+			isTouchStarted: true
+		});
 	}
 
-	onTouchEnd() {
-		console.log("touch ended");
+	handleTouchEnd = () => {
+		this.setState({
+			isTouchStarted: false,
+			isScrolling: false
+		});
 	}
 
 	render() {
@@ -521,13 +527,31 @@ class InfiniteCalendar extends Component {
 		}
 
 		return (
-			<div tabIndex={tabIndex} onKeyDown={keyboardSupport && this.handleKeyDown} className={classNames(className, style.container.root, {[style.container.landscape]: layout == 'landscape'})} style={{color: theme.textColor.default, width}} aria-label="Calendar" ref="node">
+			<div 
+				tabIndex={tabIndex}
+				onKeyDown={keyboardSupport && this.handleKeyDown}
+				className={classNames(className, style.container.root, {[style.container.landscape]: layout == 'landscape'})}
+				style={{color: theme.textColor.default, width}}
+				aria-label="Calendar" ref="node">
 				{showHeader &&
-					<Header selectedDate={selectedDate} shouldHeaderAnimate={shouldHeaderAnimate} layout={layout} theme={theme} locale={locale} scrollToDate={this.scrollToDate} setDisplay={this.setDisplay} display={display} />
+					<Header
+						selectedDate={selectedDate}
+						shouldHeaderAnimate={shouldHeaderAnimate}
+						layout={layout}
+						theme={theme}
+						locale={locale}
+						scrollToDate={this.scrollToDate}
+						setDisplay={this.setDisplay}
+						display={display}
+					/>
 				}
-				<div className={style.container.wrapper}>
+				<div className={style.container.wrapper} >
 					<Weekdays theme={theme} locale={locale} scrollToDate={this.scrollToDate} />
-					<div className={style.container.listWrapper}>
+					<div 
+						className={style.container.listWrapper}
+						onTouchStart={this.handleTouchStart}
+						onTouchEnd={this.handleTouchEnd}
+					>
 						{showTodayHelper &&
 							<Today scrollToDate={this.scrollToDate} show={showToday} today={today} theme={theme} locale={locale} />
 						}

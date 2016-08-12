@@ -240,7 +240,7 @@ var InfiniteCalendar = function (_Component) {
 			var isScrolling = _this.state.isScrolling;
 
 
-			if (isScrolling) _this.setState({ isScrolling: false });
+			if (isScrolling && !_this.state.isTouchStarted) _this.setState({ isScrolling: false });
 			if (showTodayHelper) _this.updateTodayHelperPosition(0);
 			if (typeof onScrollEnd == 'function') onScrollEnd(_this.scrollTop);
 		}, 150);
@@ -378,6 +378,19 @@ var InfiniteCalendar = function (_Component) {
 			_this.setState({ display: display });
 		};
 
+		_this.handleTouchStart = function () {
+			_this.setState({
+				isTouchStarted: true
+			});
+		};
+
+		_this.handleTouchEnd = function () {
+			_this.setState({
+				isTouchStarted: false,
+				isScrolling: false
+			});
+		};
+
 		_this.updateLocale(props.locale);
 		_this.updateYears(props);
 		_this.state = {
@@ -400,7 +413,6 @@ var InfiniteCalendar = function (_Component) {
 
 			this.node = this.refs.node;
 			this.list = this.refs.List;
-
 			this.setState({
 				height: this.props.collapsedHeight
 			});
@@ -578,16 +590,6 @@ var InfiniteCalendar = function (_Component) {
 			}
 		}
 	}, {
-		key: 'onTouchStart',
-		value: function onTouchStart() {
-			console.log("touch started");
-		}
-	}, {
-		key: 'onTouchEnd',
-		value: function onTouchEnd() {
-			console.log("touch ended");
-		}
-	}, {
 		key: 'render',
 		value: function render() {
 			var _props3 = this.props;
@@ -633,15 +635,33 @@ var InfiniteCalendar = function (_Component) {
 
 			return _react2.default.createElement(
 				'div',
-				{ tabIndex: tabIndex, onKeyDown: keyboardSupport && this.handleKeyDown, className: (0, _classnames2.default)(className, style.container.root, _defineProperty({}, style.container.landscape, layout == 'landscape')), style: { color: theme.textColor.default, width: width }, 'aria-label': 'Calendar', ref: 'node' },
-				showHeader && _react2.default.createElement(_Header2.default, { selectedDate: selectedDate, shouldHeaderAnimate: shouldHeaderAnimate, layout: layout, theme: theme, locale: locale, scrollToDate: this.scrollToDate, setDisplay: this.setDisplay, display: display }),
+				{
+					tabIndex: tabIndex,
+					onKeyDown: keyboardSupport && this.handleKeyDown,
+					className: (0, _classnames2.default)(className, style.container.root, _defineProperty({}, style.container.landscape, layout == 'landscape')),
+					style: { color: theme.textColor.default, width: width },
+					'aria-label': 'Calendar', ref: 'node' },
+				showHeader && _react2.default.createElement(_Header2.default, {
+					selectedDate: selectedDate,
+					shouldHeaderAnimate: shouldHeaderAnimate,
+					layout: layout,
+					theme: theme,
+					locale: locale,
+					scrollToDate: this.scrollToDate,
+					setDisplay: this.setDisplay,
+					display: display
+				}),
 				_react2.default.createElement(
 					'div',
 					{ className: style.container.wrapper },
 					_react2.default.createElement(_Weekdays2.default, { theme: theme, locale: locale, scrollToDate: this.scrollToDate }),
 					_react2.default.createElement(
 						'div',
-						{ className: style.container.listWrapper },
+						{
+							className: style.container.listWrapper,
+							onTouchStart: this.handleTouchStart,
+							onTouchEnd: this.handleTouchEnd
+						},
 						showTodayHelper && _react2.default.createElement(_Today2.default, { scrollToDate: this.scrollToDate, show: showToday, today: today, theme: theme, locale: locale }),
 						_react2.default.createElement(_List2.default, _extends({
 							ref: 'List'
@@ -716,7 +736,8 @@ InfiniteCalendar.defaultProps = {
 	theme: {},
 	hideYearsOnSelect: true,
 	hideYearsOnDate: true,
-	showSelectionText: true
+	showSelectionText: true,
+	isTouchStarted: false
 };
 InfiniteCalendar.propTypes = {
 	selectedDate: _utils.validDate,
@@ -753,7 +774,8 @@ InfiniteCalendar.propTypes = {
 	showOverlay: _react.PropTypes.bool,
 	showTodayHelper: _react.PropTypes.bool,
 	showHeader: _react.PropTypes.bool,
-	showSelectionText: _react.PropTypes.bool
+	showSelectionText: _react.PropTypes.bool,
+	isTouchStarted: _react.PropTypes.bool
 };
 ;
 
