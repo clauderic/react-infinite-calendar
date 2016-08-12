@@ -69,6 +69,10 @@ var InfiniteCalendar = function (_Component) {
 			var onSelect = _this$props.onSelect;
 
 
+			_this.setState({
+				isClickOnDatepicker: true
+			});
+
 			if (!beforeSelect || typeof beforeSelect == 'function' && beforeSelect(selectedDate)) {
 				(function () {
 					if (typeof onSelect == 'function') {
@@ -104,7 +108,8 @@ var InfiniteCalendar = function (_Component) {
 			_this.setState({
 				selectedWeek: selectedWeek,
 				selectedDate: null,
-				height: _this.props.collapsedHeight
+				height: _this.props.collapsedHeight,
+				isClickOnDatepicker: true
 			}, function () {
 				_this.clearHighlight();
 
@@ -379,6 +384,26 @@ var InfiniteCalendar = function (_Component) {
 			var display = this.state.display;
 
 
+			var nextDate = this.parseSelectedDate(next.selectedDate);
+			var nextWeek = this.parseSelectedDate(next.selectedWeek);
+			var stateDate = this.parseSelectedDate(this.state.selectedDate);
+			var stateWeek = this.parseSelectedDate(this.state.selectedWeek);
+			var scrollCheck = false;
+
+			if (nextDate !== null) {
+				scrollCheck = moment(nextDate).format('YYYY') !== moment(stateDate).format('YYYY') || moment(nextDate).format('ww') !== moment(stateDate).format('ww');
+			} else {
+				scrollCheck = moment(nextDate).format('YYYY') !== moment(stateWeek).format('YYYY') || moment(nextWeek).format('ww') !== moment(stateWeek).format('ww');
+			}
+
+			if (!this.state.isClickOnDatepicker && scrollCheck) {
+				if (nextDate !== null) {
+					this.scrollToDate(nextDate, 0);
+				} else {
+					this.scrollToDate(nextWeek, 0);
+				}
+			}
+
 			if (next.locale !== locale) {
 				this.updateLocale(next.locale);
 			}
@@ -389,15 +414,15 @@ var InfiniteCalendar = function (_Component) {
 			}
 
 			if (next.selectedDate !== null) {
-				this.onDaySelect(this.parseSelectedDate(next.selectedDate));
+				this.onDaySelect(nextDate);
 
 				if (next.selectedDate !== selectedDate) {
 					this.setState({
-						selectedDate: this.parseSelectedDate(next.selectedDate)
+						selectedDate: nextDate
 					});
 				} else if (next.minDate !== minDate || next.maxDate !== maxDate) {
 					// Need to make sure the currently selected date is not before the new minDate or after maxDate
-					var _selectedDate = this.parseSelectedDate(this.state.selectedDate);
+					var _selectedDate = stateDate;
 					if (!_selectedDate.isSame(this.state.selectedDate, 'day')) {
 						this.setState({
 							selectedDate: _selectedDate
@@ -407,15 +432,15 @@ var InfiniteCalendar = function (_Component) {
 			}
 
 			if (next.selectedWeek !== null) {
-				this.onWeekSelect(this.parseSelectedWeek(next.selectedWeek));
+				this.onWeekSelect(nextWeek);
 
 				if (next.selectedWeek !== selectedWeek) {
 					this.setState({
-						selectedWeek: this.parseSelectedWeek(next.selectedWeek)
+						selectedWeek: nextWeek
 					});
 				} else if (next.minDate !== minDate || next.maxDate !== maxDate) {
 					// Need to make sure the currently selected date is not before the new minDate or after maxDate
-					var _selectedWeek = this.parseSelectedDate(this.state.selectedWeek);
+					var _selectedWeek = stateWeek;
 					if (!_selectedWeek.isSame(this.state.selectedWeek, 'day')) {
 						this.setState({
 							selectedWeek: _selectedWeek
@@ -423,6 +448,10 @@ var InfiniteCalendar = function (_Component) {
 					}
 				}
 			}
+
+			this.setState({
+				isClickOnDatepicker: false
+			});
 
 			if (next.display !== display) {
 				this.setState({
@@ -678,7 +707,8 @@ InfiniteCalendar.defaultProps = {
 	hideYearsOnSelect: true,
 	hideYearsOnDate: true,
 	showSelectionText: true,
-	isTouchStarted: false
+	isTouchStarted: false,
+	isClickOnDatepicker: false
 };
 InfiniteCalendar.propTypes = {
 	selectedDate: validDate,
@@ -716,7 +746,8 @@ InfiniteCalendar.propTypes = {
 	showTodayHelper: PropTypes.bool,
 	showHeader: PropTypes.bool,
 	showSelectionText: PropTypes.bool,
-	isTouchStarted: PropTypes.bool
+	isTouchStarted: PropTypes.bool,
+	isClickOnDatepicker: PropTypes.bool
 };
 ;
 
