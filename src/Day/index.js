@@ -19,7 +19,7 @@ export default function Day({currentYear, hideYearsOnDate, date, day, handleDayC
 			<span>{day}</span>
 			{(showSelectionText && day === 1 && currentYear !== year && !hideYearsOnDate) && <span className={style.year}>{year}</span>}
 			{isSelected &&
-				<div className={style.selection} style={{backgroundColor: (typeof theme.selectionColor == 'function') ? theme.selectionColor(mmt) : theme.selectionColor, color: theme.textColor.active}}>
+				<div className={`${style.selection}${isToday ? ' ' + style.today : ''}`} style={{backgroundColor: (typeof theme.selectionColor == 'function') ? theme.selectionColor(mmt) : theme.selectionColor, color: theme.textColor.active}}>
 					{showSelectionText && <span className={style.month}>{(isToday) ? (locale.todayLabel.short || locale.todayLabel.long) : monthShort}</span>}
 					<span className={!showSelectionText && style.dayHiddenText, showSelectionText && style.day}>{day}</span>
 				</div>

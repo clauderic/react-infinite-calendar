@@ -11,9 +11,9 @@ export default function Week({date, handleWeekClick, isWeekSelected, theme, rowH
   	var weekItemHeight = rowHeight/2;
 
 	return (
-		<li className={`${style.root}${isWeekSelected ? ' ' + style.weekSelected : ''}`}
+		<li className={classNames(style.root, (isWeekSelected) ? style.weekSelected : null)}
 			onClick={handleWeekClick.bind(this, date.date)}
-			style={{height: rowHeight}, (isWeekSelected) ? { 'backgroundColor': theme.selectedWeekBackground } : { 'backgroundColor': theme.weekBackground }} >
+			style={(isWeekSelected) ? { 'backgroundColor': theme.selectedWeekBackground } : { 'backgroundColor': theme.weekBackground }} >
 			<span className={classNames(style.weekItem, style.weekNumber)} style={{height: weekItemHeight}}>v.{weekNumber}</span>
 			<span className={classNames(style.weekItem, style.weekDistance)} style={{height: weekItemHeight}}>{weekDistanceLabel}</span>
 		</li>

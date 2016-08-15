@@ -23,9 +23,9 @@ export default function Week(_ref) {
 
 	return React.createElement(
 		'li',
-		{ className: '' + style.root + (isWeekSelected ? ' ' + style.weekSelected : ''),
+		{ className: classNames(style.root, isWeekSelected ? style.weekSelected : null),
 			onClick: handleWeekClick.bind(this, date.date),
-			style: ({ height: rowHeight }, isWeekSelected ? { 'backgroundColor': theme.selectedWeekBackground } : { 'backgroundColor': theme.weekBackground }) },
+			style: isWeekSelected ? { 'backgroundColor': theme.selectedWeekBackground } : { 'backgroundColor': theme.weekBackground } },
 		React.createElement(
 			'span',
 			{ className: classNames(style.weekItem, style.weekNumber), style: { height: weekItemHeight } },

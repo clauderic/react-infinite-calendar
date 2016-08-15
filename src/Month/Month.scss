@@ -14,16 +14,12 @@
 
         li {
             position: relative;
-            top: 1px;
             z-index: 1;
-            margin-top: -1px;
             background-color: #FFF;
-
-            box-shadow: 0 -1px 0 $borderColor;
         }
     }
     &:nth-child(2) {
-        box-shadow: 0 -1px 0 $borderColor;
+        /* nothing */
     }
     &.partial {
         &:first-child {
@@ -31,12 +27,12 @@
                 &:first-child {
                     border-left: 1px solid $borderColor;
                 }
+
             }
         }
         &:last-child {
             li {
                 position: relative;
-                z-index: 1;
             }
         }
     }

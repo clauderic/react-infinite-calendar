@@ -41,9 +41,9 @@ function Week(_ref) {
 
 	return _react2.default.createElement(
 		'li',
-		{ className: '' + style.root + (isWeekSelected ? ' ' + style.weekSelected : ''),
+		{ className: (0, _classnames2.default)(style.root, isWeekSelected ? style.weekSelected : null),
 			onClick: handleWeekClick.bind(this, date.date),
-			style: ({ height: rowHeight }, isWeekSelected ? { 'backgroundColor': theme.selectedWeekBackground } : { 'backgroundColor': theme.weekBackground }) },
+			style: isWeekSelected ? { 'backgroundColor': theme.selectedWeekBackground } : { 'backgroundColor': theme.weekBackground } },
 		_react2.default.createElement(
 			'span',
 			{ className: (0, _classnames2.default)(style.weekItem, style.weekNumber), style: { height: weekItemHeight } },

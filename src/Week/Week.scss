@@ -1,8 +1,8 @@
 @import "../variables";
 
 .root {
+    border-width: 0 1px 1px 1px;
     border-style: solid;
-    border-width: 1px;
     border-color: #ADADAD;
 
     display: inline-flex;
@@ -12,9 +12,17 @@
     
     cursor: pointer;
     user-select: none;
+    list-style: none;
 
     font-size: 12px;
     text-align: center;
+
+    z-index: 3;
+
+    position: relative;
+    top: -1px;
+    margin-top: -1px;
+    height: 40px;
 }
 
 .weekItem {

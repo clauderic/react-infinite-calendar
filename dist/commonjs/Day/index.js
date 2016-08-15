@@ -77,7 +77,7 @@ function Day(_ref) {
 		),
 		isSelected && _react2.default.createElement(
 			'div',
-			{ className: style.selection, style: { backgroundColor: typeof theme.selectionColor == 'function' ? theme.selectionColor(mmt) : theme.selectionColor, color: theme.textColor.active } },
+			{ className: '' + style.selection + (isToday ? ' ' + style.today : ''), style: { backgroundColor: typeof theme.selectionColor == 'function' ? theme.selectionColor(mmt) : theme.selectionColor, color: theme.textColor.active } },
 			showSelectionText && _react2.default.createElement(
 				'span',
 				{ className: style.month },

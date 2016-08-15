@@ -86,22 +86,27 @@
             line-height: $rowHeight;
             z-index: 2;
 
+            &.today {
+                box-shadow: inset 0 0 0 2px $todayColor;
+            }
+
             .month {
                 top: 5px;
+                font-size: 11px;
             }
             .day {
                 position: relative;
                 top: 5px;
 
                 font-weight: bold;
-                font-size: 18px;
+                font-size: 14px;
             }
             .dayHiddenText {
                 position: relative;
                 top: 0px;
 
                 font-weight: bold;
-                font-size: 18px;
+                font-size: 17px;
             }
         }
     }
