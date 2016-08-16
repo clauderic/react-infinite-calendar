@@ -253,8 +253,10 @@ var InfiniteCalendar = function (_Component) {
 			if (isScrolling && !_this.state.isTouching) _this.setState({ isScrolling: false });
 			if (showTodayHelper) _this.updateTodayHelperPosition(0);
 			if (typeof onScrollEnd == 'function') onScrollEnd(_this.scrollTop);
-		}, 150);
+		}, 50);
 		_this.handleTouchMove = (0, _debounce2.default)(function () {
+			console.log("touching");
+
 			if (!_this.state.isTouching) {
 				console.log("handleTouchMove true");
 

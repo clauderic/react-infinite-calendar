@@ -387,9 +387,11 @@ class InfiniteCalendar extends Component {
 		if (isScrolling && !this.state.isTouching) this.setState({isScrolling: false});
 		if (showTodayHelper) this.updateTodayHelperPosition(0);
 		if (typeof onScrollEnd == 'function') onScrollEnd(this.scrollTop);
-	}, 150);
+	}, 50);
 
 	handleTouchMove = debounce(() => {
+		console.log("touching");
+
 		if (!this.state.isTouching) {
 			console.log("handleTouchMove true");
 
