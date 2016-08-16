@@ -156,7 +156,7 @@ var Month = function (_Component) {
 				monthRows[i] = _react2.default.createElement(
 					'ul',
 					{
-						className: (0, _classnames2.default)(style.row, _defineProperty({}, style.partial, row.length !== 7 && !isWeekSelected)),
+						className: (0, _classnames2.default)(style.row, _defineProperty({}, style.partial, row.length !== 7)),
 						style: { height: rowHeight },
 						key: 'Row-' + i,
 						role: 'row',

@@ -27,12 +27,12 @@
                 &:first-child {
                     border-left: 1px solid $borderColor;
                 }
-
             }
         }
         &:last-child {
             li {
                 position: relative;
+                z-index: 1;
             }
         }
     }

@@ -251,12 +251,6 @@ return /******/ (function(modules) { // webpackBootstrap
 				var scrollSpeed = _this.scrollSpeed = Math.abs(_this.getScrollSpeed(scrollTop));
 				_this.scrollTop = scrollTop;
 
-				if (isScrolling && _this.state.height !== _this.props.expandedHeight) {
-					_this.setState({
-						height: _this.props.expandedHeight
-					});
-				}
-
 				// We only want to display the months overlay if the user is rapidly scrolling
 				if (showOverlay && scrollSpeed > 0 && !isScrolling) {
 					_this.setState({
@@ -264,12 +258,20 @@ return /******/ (function(modules) { // webpackBootstrap
 					});
 				}
 
+				if (_this.state.height !== _this.props.expandedHeight) {
+					_this.setState({
+						height: _this.props.expandedHeight
+					});
+				}
+
 				if (showTodayHelper) {
 					_this.updateTodayHelperPosition(scrollSpeed);
 				}
+
 				if (typeof onScroll == 'function') {
 					onScroll(scrollTop);
 				}
+
 				_this.onScrollEnd();
 			};
 
@@ -43277,7 +43279,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					monthRows[i] = _react2.default.createElement(
 						'ul',
 						{
-							className: (0, _classnames2.default)(style.row, _defineProperty({}, style.partial, row.length !== 7 && !isWeekSelected)),
+							className: (0, _classnames2.default)(style.row, _defineProperty({}, style.partial, row.length !== 7)),
 							style: { height: rowHeight },
 							key: 'Row-' + i,
 							role: 'row',
@@ -43373,7 +43375,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		return _react2.default.createElement(
 			'li',
 			{
-				style: (isToday ? { 'color': theme.textColor.active } : null, isWeekSelected ? { 'backgroundColor': theme.selectedWeekBackground } : null),
+				style: (isToday ? { 'color': theme.textColor.active } : null, isWeekSelected ? { 'backgroundColor': theme.selectedWeekBackground, border: 0 } : null),
 				className: '' + style.root + (isToday ? ' ' + style.today : '') + (isSelected ? ' ' + style.selected : '') + (isDisabled ? ' ' + style.disabled : ' ' + style.enabled) + (isWeekSelected ? ' ' + style.weekSelected : '') + (isWeekend ? ' ' + style.weekend : '') + (isPast ? ' ' + style.past : ''),
 				'data-date': date.date.format('YYYY-MM-DD'),
 				onClick: !isDisabled && handleDayClick ? handleDayClick.bind(this, mmt) : null

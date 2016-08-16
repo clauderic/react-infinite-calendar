@@ -348,19 +348,15 @@ class InfiniteCalendar extends Component {
 
 		return this.list && this.list.scrollToDate(date, offset);
 	};
+
 	getScrollSpeed = getScrollSpeed();
+
 	onScroll = ({scrollTop}) => {
 		let {onScroll, showOverlay, showTodayHelper} = this.props;
 		let {isScrolling, height} = this.state;
 		let scrollSpeed = this.scrollSpeed = Math.abs(this.getScrollSpeed(scrollTop));
 		this.scrollTop = scrollTop;
 
-		if (isScrolling && this.state.height !== this.props.expandedHeight) {
-			this.setState({
-				height: this.props.expandedHeight,
-			});
-		}
-		
 		// We only want to display the months overlay if the user is rapidly scrolling
 		if (showOverlay && scrollSpeed > 0 && !isScrolling) {
 			this.setState({
@@ -368,14 +364,23 @@ class InfiniteCalendar extends Component {
 			});
 		}
 
+		if (this.state.height !== this.props.expandedHeight) {
+			this.setState({
+				height: this.props.expandedHeight,
+			});
+		}
+
 		if (showTodayHelper) {
 			this.updateTodayHelperPosition(scrollSpeed);
 		}
+
 		if (typeof onScroll == 'function') {
 			onScroll(scrollTop, );
 		}
+		
 		this.onScrollEnd();
 	};
+
 	onScrollEnd = debounce(() => {
 		let {onScrollEnd, showTodayHelper} = this.props;
 		let {isScrolling} = this.state;
@@ -384,6 +389,7 @@ class InfiniteCalendar extends Component {
 		if (showTodayHelper) this.updateTodayHelperPosition(0);
 		if (typeof onScrollEnd == 'function') onScrollEnd(this.scrollTop);
 	}, 150);
+
 	updateTodayHelperPosition = (scrollSpeed) => {
 		let date = this.today.date;
 		if (!this.todayOffset) this.todayOffset = this.getDateOffset(date); //scrollTop offset of the month "today" is in
@@ -410,6 +416,7 @@ class InfiniteCalendar extends Component {
 			this.setState({showToday: newState});
 		}
 	};
+
 	handleKeyDown = (e) => {
 		let {maxDate, minDate, onKeyDown} = this.props;
 		let {display, selectedDate, highlightedDate, showToday} = this.state;
@@ -507,6 +514,7 @@ class InfiniteCalendar extends Component {
 			this.highlightedEl = null;
 		}
 	}
+
 	setDisplay = (display) => {
 		this.setState({display});
 	}

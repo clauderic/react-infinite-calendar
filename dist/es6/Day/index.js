@@ -40,7 +40,7 @@ export default function Day(_ref) {
 	return React.createElement(
 		'li',
 		{
-			style: (isToday ? { 'color': theme.textColor.active } : null, isWeekSelected ? { 'backgroundColor': theme.selectedWeekBackground } : null),
+			style: (isToday ? { 'color': theme.textColor.active } : null, isWeekSelected ? { 'backgroundColor': theme.selectedWeekBackground, border: 0 } : null),
 			className: '' + style.root + (isToday ? ' ' + style.today : '') + (isSelected ? ' ' + style.selected : '') + (isDisabled ? ' ' + style.disabled : ' ' + style.enabled) + (isWeekSelected ? ' ' + style.weekSelected : '') + (isWeekend ? ' ' + style.weekend : '') + (isPast ? ' ' + style.past : ''),
 			'data-date': date.date.format('YYYY-MM-DD'),
 			onClick: !isDisabled && handleDayClick ? handleDayClick.bind(this, mmt) : null

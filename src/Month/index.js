@@ -80,7 +80,7 @@ export default class Month extends Component {
 			}
 			monthRows[i] = (
 				<ul 
-					className={classNames(style.row, {[style.partial]: row.length !== 7 && !isWeekSelected})}
+					className={classNames(style.row, {[style.partial]: row.length !== 7})}
 					style={{height: rowHeight}}
 					key={`Row-${i}`}
 					role="row"

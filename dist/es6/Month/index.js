@@ -123,7 +123,7 @@ var Month = function (_Component) {
 				monthRows[i] = React.createElement(
 					'ul',
 					{
-						className: classNames(style.row, babelHelpers.defineProperty({}, style.partial, row.length !== 7 && !isWeekSelected)),
+						className: classNames(style.row, babelHelpers.defineProperty({}, style.partial, row.length !== 7)),
 						style: { height: rowHeight },
 						key: 'Row-' + i,
 						role: 'row',
