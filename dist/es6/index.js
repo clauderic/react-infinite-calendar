@@ -153,16 +153,17 @@ var InfiniteCalendar = function (_Component) {
 			var showTodayHelper = _this$props2.showTodayHelper;
 			var _this$state = _this.state;
 			var isScrolling = _this$state.isScrolling;
+			var isWheeling = _this$state.isWheeling;
+			var isTouching = _this$state.isTouching;
 			var height = _this$state.height;
 
 			var scrollSpeed = _this.scrollSpeed = Math.abs(_this.getScrollSpeed(scrollTop));
 			_this.scrollTop = scrollTop;
 
-			console.log(scrollSpeed, _this.state.isScrolling, isScrolling);
-			// We only want to display the months overlay if the user is rapidly scrolling
-			if (showOverlay && !_this.state.isScrolling) {
-				console.log("isScrolling true + expansion: ", showOverlay, scrollSpeed, _this.state.isScrolling);
+			console.log(isScrolling, isWheeling, isTouching);
 
+			// We only want to display the months overlay if the user is rapidly scrolling
+			if (showOverlay && !isScrolling && (isWheeling || isTouching)) {
 				_this.setState({
 					isScrolling: true,
 					height: _this.props.expandedHeight
@@ -178,27 +179,39 @@ var InfiniteCalendar = function (_Component) {
 			}
 
 			_this.onScrollEnd();
-		}, 50);
+		}, 20);
 		_this.onScrollEnd = debounce(function () {
 			var _this$props3 = _this.props;
 			var onScrollEnd = _this$props3.onScrollEnd;
 			var showTodayHelper = _this$props3.showTodayHelper;
-			var isScrolling = _this.state.isScrolling;
+			var _this$state2 = _this.state;
+			var isScrolling = _this$state2.isScrolling;
+			var isWheeling = _this$state2.isWheeling;
 
 
+			if (isScrolling && isWheeling) _this.setState({ isWheeling: false });
 			if (isScrolling && !_this.state.isTouching) _this.setState({ isScrolling: false });
 			if (showTodayHelper) _this.updateTodayHelperPosition(0);
 			if (typeof onScrollEnd == 'function') onScrollEnd(_this.scrollTop);
 		}, 150);
 		_this.handleTouchMove = debounce(function () {
-			console.log("handleTouchMove");
-
 			if (!_this.state.isTouching) {
+				console.log("handleTouchMove true");
+
 				_this.setState({
 					isTouching: true
 				});
 			}
-		}, 150);
+		}, 50);
+		_this.handleWheel = debounce(function () {
+			if (!_this.state.isWheeling) {
+				console.log("handleWheel true");
+
+				_this.setState({
+					isWheeling: true
+				});
+			}
+		}, 50);
 
 		_this.handleTouchEnd = function () {
 			console.log("handleTouchEnd");
@@ -245,11 +258,11 @@ var InfiniteCalendar = function (_Component) {
 			var maxDate = _this$props5.maxDate;
 			var minDate = _this$props5.minDate;
 			var onKeyDown = _this$props5.onKeyDown;
-			var _this$state2 = _this.state;
-			var display = _this$state2.display;
-			var selectedDate = _this$state2.selectedDate;
-			var highlightedDate = _this$state2.highlightedDate;
-			var showToday = _this$state2.showToday;
+			var _this$state3 = _this.state;
+			var display = _this$state3.display;
+			var selectedDate = _this$state3.selectedDate;
+			var highlightedDate = _this$state3.highlightedDate;
+			var showToday = _this$state3.showToday;
 
 			var delta = 0;
 
@@ -636,7 +649,8 @@ var InfiniteCalendar = function (_Component) {
 						{
 							className: style.container.listWrapper,
 							onTouchMove: this.handleTouchMove,
-							onTouchEnd: this.handleTouchEnd
+							onTouchEnd: this.handleTouchEnd,
+							onWheel: this.handleWheel
 						},
 						showTodayHelper && React.createElement(Today, { scrollToDate: this.scrollToDate, show: showToday, today: today, theme: theme, locale: locale }),
 						React.createElement(List, babelHelpers.extends({
