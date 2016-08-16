@@ -217,10 +217,12 @@ var InfiniteCalendar = function (_Component) {
 			var scrollSpeed = _this.scrollSpeed = Math.abs(_this.getScrollSpeed(scrollTop));
 			_this.scrollTop = scrollTop;
 
-			console.log(isScrolling, isWheeling, isTouching);
+			console.log(scrollSpeed, isScrolling, isWheeling, isTouching);
 
 			// We only want to display the months overlay if the user is rapidly scrolling
 			if (showOverlay && !isScrolling && (isWheeling || isTouching)) {
+				console.log(showOverlay && !isScrolling && (isWheeling || isTouching));
+
 				_this.setState({
 					isScrolling: true,
 					height: _this.props.expandedHeight
@@ -236,7 +238,7 @@ var InfiniteCalendar = function (_Component) {
 			}
 
 			_this.onScrollEnd();
-		}, 20);
+		}, 10);
 		_this.onScrollEnd = (0, _debounce2.default)(function () {
 			var _this$props3 = _this.props;
 			var onScrollEnd = _this$props3.onScrollEnd;
