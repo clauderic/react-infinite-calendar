@@ -250,6 +250,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				var scrollSpeed = _this.scrollSpeed = Math.abs(_this.getScrollSpeed(scrollTop));
 				_this.scrollTop = scrollTop;
 
+				console.log(scrollSpeed, _this.state.isScrolling, isScrolling);
 				// We only want to display the months overlay if the user is rapidly scrolling
 				if (showOverlay && scrollSpeed > 0 && !_this.state.isScrolling) {
 					console.log("isScrolling true + expansion: ", showOverlay, scrollSpeed, _this.state.isScrolling);
