@@ -288,7 +288,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (typeof onScrollEnd == 'function') onScrollEnd(_this.scrollTop);
 			}, 150);
 
-			_this.handleTouchStart = function () {
+			_this.handleTouchMove = function () {
 				_this.setState({
 					isTouching: true
 				});
@@ -476,7 +476,11 @@ return /******/ (function(modules) { // webpackBootstrap
 				var selectedDate = _props2.selectedDate;
 				var selectedWeek = _props2.selectedWeek;
 				var showSelectionText = _props2.showSelectionText;
-				var display = this.state.display;
+				var _state = this.state;
+				var display = _state.display;
+				var height = _state.height;
+				var isTouching = _state.isTouching;
+				var isClickOnDatepicker = _state.isClickOnDatepicker;
 
 
 				var nextDate = this.parseSelectedDate(next.selectedDate);
@@ -491,7 +495,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					scrollCheck = (0, _moment2.default)(nextDate).format('YYYY') !== (0, _moment2.default)(stateWeek).format('YYYY') || (0, _moment2.default)(nextWeek).format('ww') !== (0, _moment2.default)(stateWeek).format('ww');
 				}
 
-				if (!this.state.isClickOnDatepicker && scrollCheck) {
+				if (!this.state.isClickOnDatepicker && scrollCheck && !isTouching) {
 					if (nextDate !== null) {
 						this.scrollToDate(nextDate, 0);
 					} else {
@@ -684,14 +688,14 @@ return /******/ (function(modules) { // webpackBootstrap
 				var disabledDates = this.getDisabledDates(this.props.disabledDates);
 				var locale = this.getLocale();
 				var theme = this.getTheme();
-				var _state = this.state;
-				var display = _state.display;
-				var isScrolling = _state.isScrolling;
-				var selectedDate = _state.selectedDate;
-				var selectedWeek = _state.selectedWeek;
-				var height = _state.height;
-				var showToday = _state.showToday;
-				var shouldHeaderAnimate = _state.shouldHeaderAnimate;
+				var _state2 = this.state;
+				var display = _state2.display;
+				var isScrolling = _state2.isScrolling;
+				var selectedDate = _state2.selectedDate;
+				var selectedWeek = _state2.selectedWeek;
+				var height = _state2.height;
+				var showToday = _state2.showToday;
+				var shouldHeaderAnimate = _state2.shouldHeaderAnimate;
 
 				var today = this.today = (0, _utils.parseDate)((0, _moment2.default)());
 
@@ -726,7 +730,7 @@ return /******/ (function(modules) { // webpackBootstrap
 							'div',
 							{
 								className: style.container.listWrapper,
-								onTouchStart: this.handleTouchStart,
+								onTouchMove: this.handleTouchMove,
 								onTouchEnd: this.handleTouchEnd
 							},
 							showTodayHelper && _react2.default.createElement(_Today2.default, { scrollToDate: this.scrollToDate, show: showToday, today: today, theme: theme, locale: locale }),

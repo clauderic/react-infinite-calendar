@@ -124,7 +124,7 @@ class InfiniteCalendar extends Component {
 
 	componentWillReceiveProps(next) {
 		let {min, minDate, max, maxDate, locale, selectedDate, selectedWeek, showSelectionText} = this.props;
-		let {display} = this.state;
+		let {display, height, isTouching, isClickOnDatepicker} = this.state;
 
 		const nextDate = this.parseSelectedDate(next.selectedDate);
 		const nextWeek = this.parseSelectedDate(next.selectedWeek);
@@ -138,7 +138,7 @@ class InfiniteCalendar extends Component {
 			scrollCheck = (moment(nextDate).format('YYYY') !== moment(stateWeek).format('YYYY')) || (moment(nextWeek).format('ww') !== moment(stateWeek).format('ww'));
 		}
 
-		if (!this.state.isClickOnDatepicker && scrollCheck) {
+		if (!this.state.isClickOnDatepicker && scrollCheck && !isTouching) {
 			if (nextDate !== null) {
 				this.scrollToDate(nextDate, 0);
 			} else {
@@ -391,8 +391,7 @@ class InfiniteCalendar extends Component {
 		if (typeof onScrollEnd == 'function') onScrollEnd(this.scrollTop);
 	}, 150);
 
-
-	handleTouchStart = () => {
+	handleTouchMove = () => {
 		this.setState({
 			isTouching: true
 		});
@@ -590,7 +589,7 @@ class InfiniteCalendar extends Component {
 					<Weekdays theme={theme} locale={locale} scrollToDate={this.scrollToDate} />
 					<div 
 						className={style.container.listWrapper}
-						onTouchStart={this.handleTouchStart}
+						onTouchMove={this.handleTouchMove}
 						onTouchEnd={this.handleTouchEnd}
 					>
 						{showTodayHelper &&
