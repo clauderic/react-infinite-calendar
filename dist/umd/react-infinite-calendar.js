@@ -249,11 +249,12 @@ return /******/ (function(modules) { // webpackBootstrap
 				var isWheeling = _this$state.isWheeling;
 				var isTouching = _this$state.isTouching;
 				var height = _this$state.height;
+				var isTouchStarted = _this$state.isTouchStarted;
 
 				var scrollSpeed = _this.scrollSpeed = Math.abs(_this.getScrollSpeed(scrollTop));
 				_this.scrollTop = scrollTop;
 
-				console.log(scrollSpeed, isScrolling, isWheeling, isTouching);
+				console.log(scrollSpeed, isScrolling, isWheeling, isTouching, isTouchStarted);
 
 				// We only want to display the months overlay if the user is rapidly scrolling
 				if (showOverlay && !isScrolling && (isWheeling || isTouching)) {
@@ -289,10 +290,17 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (showTodayHelper) _this.updateTodayHelperPosition(0);
 				if (typeof onScrollEnd == 'function') onScrollEnd(_this.scrollTop);
 			}, 50);
+			_this.handleTouchStart = (0, _debounce2.default)(function () {
+				console.log("handleTouchStart");
+				if (!_this.state.isTouchStarted) {
+					console.log("isTouchStarted true");
+					_this.setState({
+						isTouchStarted: true
+					});
+				}
+			}, 50);
 			_this.handleTouchMove = (0, _debounce2.default)(function () {
-				console.log("touching");
-
-				if (!_this.state.isTouching) {
+				if (!_this.state.isTouching && _this.state.isTouchStarted) {
 					console.log("handleTouchMove true");
 
 					_this.setState({
@@ -317,7 +325,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				_this.setState({
 					isTouching: false,
-					isScrolling: false
+					isScrolling: false,
+					isTouchStarted: false
 				});
 			};
 
@@ -748,6 +757,7 @@ return /******/ (function(modules) { // webpackBootstrap
 							'div',
 							{
 								className: style.container.listWrapper,
+								onTouchStart: this.handleTouchStart,
 								onTouchMove: this.handleTouchMove,
 								onTouchEnd: this.handleTouchEnd,
 								onWheel: this.handleWheel

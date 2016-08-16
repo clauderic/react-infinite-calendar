@@ -353,11 +353,11 @@ class InfiniteCalendar extends Component {
 
 	onScroll = ({scrollTop}) => {
 		let {onScroll, showOverlay, showTodayHelper} = this.props;
-		let {isScrolling, isWheeling, isTouching, height} = this.state;
+		let {isScrolling, isWheeling, isTouching, height, isTouchStarted} = this.state;
 		let scrollSpeed = this.scrollSpeed = Math.abs(this.getScrollSpeed(scrollTop));
 		this.scrollTop = scrollTop;
 
-		console.log(scrollSpeed, isScrolling, isWheeling, isTouching);
+		console.log(scrollSpeed, isScrolling, isWheeling, isTouching, isTouchStarted);
 
 		// We only want to display the months overlay if the user is rapidly scrolling
 		if (showOverlay && !isScrolling && (isWheeling || isTouching)) {
@@ -389,10 +389,18 @@ class InfiniteCalendar extends Component {
 		if (typeof onScrollEnd == 'function') onScrollEnd(this.scrollTop);
 	}, 50);
 
-	handleTouchMove = debounce(() => {
-		console.log("touching");
+	handleTouchStart = debounce(() => {
+		console.log("handleTouchStart");
+		if (!this.state.isTouchStarted) {
+			console.log("isTouchStarted true")
+			this.setState({
+				isTouchStarted: true,
+			});
+		}
+	}, 50);
 
-		if (!this.state.isTouching) {
+	handleTouchMove = debounce(() => {
+		if (!this.state.isTouching && this.state.isTouchStarted) {
 			console.log("handleTouchMove true");
 
 			this.setState({
@@ -419,6 +427,7 @@ class InfiniteCalendar extends Component {
 		this.setState({
 			isTouching: false,
 			isScrolling: false,
+			isTouchStarted: false,
 		});
 	};
 
@@ -607,6 +616,7 @@ class InfiniteCalendar extends Component {
 					<Weekdays theme={theme} locale={locale} scrollToDate={this.scrollToDate} />
 					<div 
 						className={style.container.listWrapper}
+						onTouchStart={this.handleTouchStart}
 						onTouchMove={this.handleTouchMove}
 						onTouchEnd={this.handleTouchEnd}
 						onWheel={this.handleWheel}
