@@ -237,8 +237,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			};
 
 			_this.getScrollSpeed = (0, _utils.getScrollSpeed)();
-
-			_this.onScroll = function (_ref) {
+			_this.onScroll = (0, _debounce2.default)(function (_ref) {
 				var scrollTop = _ref.scrollTop;
 				var _this$props2 = _this.props;
 				var onScroll = _this$props2.onScroll;
@@ -250,20 +249,20 @@ return /******/ (function(modules) { // webpackBootstrap
 				var isTouching = _this$state.isTouching;
 				var height = _this$state.height;
 				var isTouchStarted = _this$state.isTouchStarted;
+				//let scrollSpeed = this.scrollSpeed = Math.abs(this.getScrollSpeed(scrollTop));
 
-				var scrollSpeed = _this.scrollSpeed = Math.abs(_this.getScrollSpeed(scrollTop));
 				_this.scrollTop = scrollTop;
 
-				console.log(scrollSpeed, isScrolling, isWheeling, isTouching, isTouchStarted);
+				console.log(isScrolling, isWheeling, isTouching, isTouchStarted);
 
 				// We only want to display the months overlay if the user is rapidly scrolling
-				if (showOverlay && !isScrolling && (isWheeling || isTouching)) {
-					console.log(showOverlay && !isScrolling && (isWheeling || isTouching));
+				// if (showOverlay && !isScrolling && (isWheeling || isTouching)) {
+				// 	console.log(showOverlay && !isScrolling && (isWheeling || isTouching));
 
-					_this.setState({
-						isScrolling: true
-					});
-				}
+				// 	this.setState({
+				// 		isScrolling: true,
+				// 	});
+				// }
 
 				if (showTodayHelper) {
 					_this.updateTodayHelperPosition(scrollSpeed);
@@ -273,10 +272,10 @@ return /******/ (function(modules) { // webpackBootstrap
 					onScroll(scrollTop);
 				}
 
-				_this.onScrollEnd();
-			};
-
+				//this.onScrollEnd();
+			}, 20);
 			_this.onScrollEnd = (0, _debounce2.default)(function () {
+				console.log("on scroll end");
 				var _this$props3 = _this.props;
 				var onScrollEnd = _this$props3.onScrollEnd;
 				var showTodayHelper = _this$props3.showTodayHelper;
@@ -310,14 +309,14 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 			}, 50);
 			_this.handleWheel = (0, _debounce2.default)(function () {
-				if (!_this.state.isWheeling) {
-					console.log("handleWheel true");
+				//if (!this.state.isWheeling) {
+				console.log("handleWheel true");
 
-					_this.setState({
-						isWheeling: true,
-						height: _this.props.expandedHeight
-					});
-				}
+				_this.setState({
+					isWheeling: true,
+					height: _this.props.expandedHeight
+				});
+				//}
 			}, 50);
 
 			_this.handleTouchEnd = function () {
@@ -825,7 +824,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		minDate: { year: 1980, month: 0, day: 0 },
 		max: { year: 2050, month: 11, day: 31 },
 		maxDate: { year: 2050, month: 11, day: 31 },
-		keyboardSupport: true,
+		keyboardSupport: false,
 		autoFocus: true,
 		shouldHeaderAnimate: true,
 		showOverlay: true,

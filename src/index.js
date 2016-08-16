@@ -53,7 +53,7 @@ class InfiniteCalendar extends Component {
 		minDate: {year: 1980, month: 0, day: 0},
 		max: {year: 2050, month: 11, day: 31},
 		maxDate: {year: 2050, month: 11, day: 31},
-		keyboardSupport: true,
+		keyboardSupport: false,
 		autoFocus: true,
 		shouldHeaderAnimate: true,
 		showOverlay: true,
@@ -351,22 +351,22 @@ class InfiniteCalendar extends Component {
 
 	getScrollSpeed = getScrollSpeed();
 
-	onScroll = ({scrollTop}) => {
+	onScroll = debounce(({scrollTop}) => {
 		let {onScroll, showOverlay, showTodayHelper} = this.props;
 		let {isScrolling, isWheeling, isTouching, height, isTouchStarted} = this.state;
-		let scrollSpeed = this.scrollSpeed = Math.abs(this.getScrollSpeed(scrollTop));
+		//let scrollSpeed = this.scrollSpeed = Math.abs(this.getScrollSpeed(scrollTop));
 		this.scrollTop = scrollTop;
 
-		console.log(scrollSpeed, isScrolling, isWheeling, isTouching, isTouchStarted);
+		console.log(isScrolling, isWheeling, isTouching, isTouchStarted);
 
 		// We only want to display the months overlay if the user is rapidly scrolling
-		if (showOverlay && !isScrolling && (isWheeling || isTouching)) {
-			console.log(showOverlay && !isScrolling && (isWheeling || isTouching));
+		// if (showOverlay && !isScrolling && (isWheeling || isTouching)) {
+		// 	console.log(showOverlay && !isScrolling && (isWheeling || isTouching));
 
-			this.setState({
-				isScrolling: true,
-			});
-		}
+		// 	this.setState({
+		// 		isScrolling: true,
+		// 	});
+		// }
 
 		if (showTodayHelper) {
 			this.updateTodayHelperPosition(scrollSpeed);
@@ -376,10 +376,11 @@ class InfiniteCalendar extends Component {
 			onScroll(scrollTop, );
 		}
 
-		this.onScrollEnd();
-	};
+		//this.onScrollEnd();
+	}, 20);
 
 	onScrollEnd = debounce(() => {
+		console.log("on scroll end");
 		let {onScrollEnd, showTodayHelper} = this.props;
 		let {isScrolling, isWheeling} = this.state;
 
@@ -411,14 +412,14 @@ class InfiniteCalendar extends Component {
 	}, 50);
 
 	handleWheel = debounce(() => {
-		if (!this.state.isWheeling) {
+		//if (!this.state.isWheeling) {
 			console.log("handleWheel true");
 
 			this.setState({
 				isWheeling: true,
 				height: this.props.expandedHeight,
 			});
-		}
+		//}
 	}, 50);
 
 	handleTouchEnd = () => {
