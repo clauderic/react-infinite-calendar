@@ -160,7 +160,7 @@ var InfiniteCalendar = function (_Component) {
 
 			console.log(scrollSpeed, _this.state.isScrolling, isScrolling);
 			// We only want to display the months overlay if the user is rapidly scrolling
-			if (showOverlay && scrollSpeed > 0 && !_this.state.isScrolling) {
+			if (showOverlay && !_this.state.isScrolling) {
 				console.log("isScrolling true + expansion: ", showOverlay, scrollSpeed, _this.state.isScrolling);
 
 				_this.setState({
