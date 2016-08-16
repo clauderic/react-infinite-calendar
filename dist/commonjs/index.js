@@ -202,8 +202,7 @@ var InfiniteCalendar = function (_Component) {
 		};
 
 		_this.getScrollSpeed = (0, _utils.getScrollSpeed)();
-
-		_this.onScroll = function (_ref) {
+		_this.onScroll = (0, _debounce2.default)(function (_ref) {
 			var scrollTop = _ref.scrollTop;
 			var _this$props2 = _this.props;
 			var onScroll = _this$props2.onScroll;
@@ -222,12 +221,6 @@ var InfiniteCalendar = function (_Component) {
 					isScrolling: true,
 					height: _this.props.expandedHeight
 				});
-
-				// if (this.state.height !== this.props.expandedHeight) {
-				// 	this.setState({
-				// 		height: this.props.expandedHeight,
-				// 	});
-				// }
 			}
 
 			if (showTodayHelper) {
@@ -239,8 +232,7 @@ var InfiniteCalendar = function (_Component) {
 			}
 
 			_this.onScrollEnd();
-		};
-
+		}, 50);
 		_this.onScrollEnd = (0, _debounce2.default)(function () {
 			var _this$props3 = _this.props;
 			var onScrollEnd = _this$props3.onScrollEnd;
@@ -254,12 +246,16 @@ var InfiniteCalendar = function (_Component) {
 		}, 150);
 
 		_this.handleTouchMove = function () {
+			console.log("handleTouchMove");
+
 			_this.setState({
 				isTouching: true
 			});
 		};
 
 		_this.handleTouchEnd = function () {
+			console.log("handleTouchEnd");
+
 			_this.setState({
 				isTouching: false,
 				isScrolling: false
@@ -443,8 +439,6 @@ var InfiniteCalendar = function (_Component) {
 			var showSelectionText = _props2.showSelectionText;
 			var _state = this.state;
 			var display = _state.display;
-			var height = _state.height;
-			var isTouching = _state.isTouching;
 			var isClickOnDatepicker = _state.isClickOnDatepicker;
 
 
@@ -460,7 +454,7 @@ var InfiniteCalendar = function (_Component) {
 				scrollCheck = (0, _moment2.default)(nextDate).format('YYYY') !== (0, _moment2.default)(stateWeek).format('YYYY') || (0, _moment2.default)(nextWeek).format('ww') !== (0, _moment2.default)(stateWeek).format('ww');
 			}
 
-			if (!this.state.isClickOnDatepicker && scrollCheck && !isTouching) {
+			if (!this.state.isClickOnDatepicker && scrollCheck) {
 				if (nextDate !== null) {
 					this.scrollToDate(nextDate, 0);
 				} else {

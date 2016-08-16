@@ -124,7 +124,7 @@ class InfiniteCalendar extends Component {
 
 	componentWillReceiveProps(next) {
 		let {min, minDate, max, maxDate, locale, selectedDate, selectedWeek, showSelectionText} = this.props;
-		let {display, height, isTouching, isClickOnDatepicker} = this.state;
+		let {display, isClickOnDatepicker} = this.state;
 
 		const nextDate = this.parseSelectedDate(next.selectedDate);
 		const nextWeek = this.parseSelectedDate(next.selectedWeek);
@@ -138,7 +138,7 @@ class InfiniteCalendar extends Component {
 			scrollCheck = (moment(nextDate).format('YYYY') !== moment(stateWeek).format('YYYY')) || (moment(nextWeek).format('ww') !== moment(stateWeek).format('ww'));
 		}
 
-		if (!this.state.isClickOnDatepicker && scrollCheck && !isTouching) {
+		if (!this.state.isClickOnDatepicker && scrollCheck) {
 			if (nextDate !== null) {
 				this.scrollToDate(nextDate, 0);
 			} else {
@@ -351,7 +351,7 @@ class InfiniteCalendar extends Component {
 
 	getScrollSpeed = getScrollSpeed();
 
-	onScroll = ({scrollTop}) => {
+	onScroll = debounce(({scrollTop}) => {
 		let {onScroll, showOverlay, showTodayHelper} = this.props;
 		let {isScrolling, height} = this.state;
 		let scrollSpeed = this.scrollSpeed = Math.abs(this.getScrollSpeed(scrollTop));
@@ -363,12 +363,6 @@ class InfiniteCalendar extends Component {
 				isScrolling: true,
 				height: this.props.expandedHeight,
 			});
-
-			// if (this.state.height !== this.props.expandedHeight) {
-			// 	this.setState({
-			// 		height: this.props.expandedHeight,
-			// 	});
-			// }
 		}
 
 		if (showTodayHelper) {
@@ -380,7 +374,7 @@ class InfiniteCalendar extends Component {
 		}
 
 		this.onScrollEnd();
-	};
+	}, 50);
 
 	onScrollEnd = debounce(() => {
 		let {onScrollEnd, showTodayHelper} = this.props;
@@ -392,12 +386,16 @@ class InfiniteCalendar extends Component {
 	}, 150);
 
 	handleTouchMove = () => {
+		console.log("handleTouchMove");
+
 		this.setState({
 			isTouching: true
 		});
 	};
 
 	handleTouchEnd = () => {
+		console.log("handleTouchEnd");
+		
 		this.setState({
 			isTouching: false,
 			isScrolling: false
