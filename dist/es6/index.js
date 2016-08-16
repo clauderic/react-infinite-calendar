@@ -164,12 +164,12 @@ var InfiniteCalendar = function (_Component) {
 				_this.setState({
 					isScrolling: true
 				});
-			}
 
-			if (_this.state.height !== _this.props.expandedHeight) {
-				_this.setState({
-					height: _this.props.expandedHeight
-				});
+				if (_this.state.height !== _this.props.expandedHeight) {
+					_this.setState({
+						height: _this.props.expandedHeight
+					});
+				}
 			}
 
 			if (showTodayHelper) {
@@ -190,10 +190,23 @@ var InfiniteCalendar = function (_Component) {
 			var isScrolling = _this.state.isScrolling;
 
 
-			if (isScrolling && !_this.state.isTouchStarted) _this.setState({ isScrolling: false });
+			if (isScrolling && !_this.state.isTouching) _this.setState({ isScrolling: false });
 			if (showTodayHelper) _this.updateTodayHelperPosition(0);
 			if (typeof onScrollEnd == 'function') onScrollEnd(_this.scrollTop);
 		}, 150);
+
+		_this.handleTouchStart = function () {
+			_this.setState({
+				isTouching: true
+			});
+		};
+
+		_this.handleTouchEnd = function () {
+			_this.setState({
+				isTouching: false,
+				isScrolling: false
+			});
+		};
 
 		_this.updateTodayHelperPosition = function (scrollSpeed) {
 			var date = _this.today.date;
@@ -326,19 +339,6 @@ var InfiniteCalendar = function (_Component) {
 
 		_this.setDisplay = function (display) {
 			_this.setState({ display: display });
-		};
-
-		_this.handleTouchStart = function () {
-			_this.setState({
-				isTouchStarted: true
-			});
-		};
-
-		_this.handleTouchEnd = function () {
-			_this.setState({
-				isTouchStarted: false,
-				isScrolling: false
-			});
 		};
 
 		_this.updateLocale(props.locale);
@@ -709,7 +709,7 @@ InfiniteCalendar.defaultProps = {
 	hideYearsOnSelect: true,
 	hideYearsOnDate: true,
 	showSelectionText: true,
-	isTouchStarted: false,
+	isTouching: false,
 	isClickOnDatepicker: false
 };
 InfiniteCalendar.propTypes = {
@@ -748,7 +748,7 @@ InfiniteCalendar.propTypes = {
 	showTodayHelper: PropTypes.bool,
 	showHeader: PropTypes.bool,
 	showSelectionText: PropTypes.bool,
-	isTouchStarted: PropTypes.bool,
+	isTouching: PropTypes.bool,
 	isClickOnDatepicker: PropTypes.bool
 };
 ;

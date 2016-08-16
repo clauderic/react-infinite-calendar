@@ -65,7 +65,7 @@ class InfiniteCalendar extends Component {
 		hideYearsOnSelect: true,
 		hideYearsOnDate: true,
 		showSelectionText: true,
-		isTouchStarted: false,
+		isTouching: false,
 		isClickOnDatepicker: false,
 	};
 
@@ -105,7 +105,7 @@ class InfiniteCalendar extends Component {
 		showTodayHelper: PropTypes.bool,
 		showHeader: PropTypes.bool,
 		showSelectionText: PropTypes.bool,
-		isTouchStarted: PropTypes.bool,
+		isTouching: PropTypes.bool,
 		isClickOnDatepicker: PropTypes.bool,
 	};
 
@@ -329,7 +329,7 @@ class InfiniteCalendar extends Component {
 
 	getCurrentOffset = () => {
 		return this.scrollTop;
-	}
+	};
 
 	getDateOffset = (date) => {
 		return this.list && this.list.getDateOffset(date);
@@ -337,7 +337,7 @@ class InfiniteCalendar extends Component {
 
 	scrollTo = (offset) => {
 		return this.list && this.list.scrollTo(offset);
-	}
+	};
 
 	scrollToDate = (date = moment(), offset) => {
 		if (this.state.height !== this.props.collapsedHeight) {
@@ -362,12 +362,12 @@ class InfiniteCalendar extends Component {
 			this.setState({
 				isScrolling: true,
 			});
-		}
 
-		if (this.state.height !== this.props.expandedHeight) {
-			this.setState({
-				height: this.props.expandedHeight,
-			});
+			if (this.state.height !== this.props.expandedHeight) {
+				this.setState({
+					height: this.props.expandedHeight,
+				});
+			}
 		}
 
 		if (showTodayHelper) {
@@ -377,7 +377,7 @@ class InfiniteCalendar extends Component {
 		if (typeof onScroll == 'function') {
 			onScroll(scrollTop, );
 		}
-		
+
 		this.onScrollEnd();
 	};
 
@@ -385,10 +385,24 @@ class InfiniteCalendar extends Component {
 		let {onScrollEnd, showTodayHelper} = this.props;
 		let {isScrolling} = this.state;
 
-		if (isScrolling && !this.state.isTouchStarted) this.setState({isScrolling: false});
+		if (isScrolling && !this.state.isTouching) this.setState({isScrolling: false});
 		if (showTodayHelper) this.updateTodayHelperPosition(0);
 		if (typeof onScrollEnd == 'function') onScrollEnd(this.scrollTop);
 	}, 150);
+
+
+	handleTouchStart = () => {
+		this.setState({
+			isTouching: true
+		});
+	};
+
+	handleTouchEnd = () => {
+		this.setState({
+			isTouching: false,
+			isScrolling: false
+		});
+	};
 
 	updateTodayHelperPosition = (scrollSpeed) => {
 		let date = this.today.date;
@@ -517,20 +531,7 @@ class InfiniteCalendar extends Component {
 
 	setDisplay = (display) => {
 		this.setState({display});
-	}
-
-	handleTouchStart = () => {
-		this.setState({
-			isTouchStarted: true
-		});
-	}
-
-	handleTouchEnd = () => {
-		this.setState({
-			isTouchStarted: false,
-			isScrolling: false
-		});
-	}
+	};
 
 	render() {
 		let {

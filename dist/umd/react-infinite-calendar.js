@@ -256,12 +256,12 @@ return /******/ (function(modules) { // webpackBootstrap
 					_this.setState({
 						isScrolling: true
 					});
-				}
 
-				if (_this.state.height !== _this.props.expandedHeight) {
-					_this.setState({
-						height: _this.props.expandedHeight
-					});
+					if (_this.state.height !== _this.props.expandedHeight) {
+						_this.setState({
+							height: _this.props.expandedHeight
+						});
+					}
 				}
 
 				if (showTodayHelper) {
@@ -282,10 +282,23 @@ return /******/ (function(modules) { // webpackBootstrap
 				var isScrolling = _this.state.isScrolling;
 
 
-				if (isScrolling && !_this.state.isTouchStarted) _this.setState({ isScrolling: false });
+				if (isScrolling && !_this.state.isTouching) _this.setState({ isScrolling: false });
 				if (showTodayHelper) _this.updateTodayHelperPosition(0);
 				if (typeof onScrollEnd == 'function') onScrollEnd(_this.scrollTop);
 			}, 150);
+
+			_this.handleTouchStart = function () {
+				_this.setState({
+					isTouching: true
+				});
+			};
+
+			_this.handleTouchEnd = function () {
+				_this.setState({
+					isTouching: false,
+					isScrolling: false
+				});
+			};
 
 			_this.updateTodayHelperPosition = function (scrollSpeed) {
 				var date = _this.today.date;
@@ -418,19 +431,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 			_this.setDisplay = function (display) {
 				_this.setState({ display: display });
-			};
-
-			_this.handleTouchStart = function () {
-				_this.setState({
-					isTouchStarted: true
-				});
-			};
-
-			_this.handleTouchEnd = function () {
-				_this.setState({
-					isTouchStarted: false,
-					isScrolling: false
-				});
 			};
 
 			_this.updateLocale(props.locale);
@@ -803,7 +803,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		hideYearsOnSelect: true,
 		hideYearsOnDate: true,
 		showSelectionText: true,
-		isTouchStarted: false,
+		isTouching: false,
 		isClickOnDatepicker: false
 	};
 	InfiniteCalendar.propTypes = {
@@ -842,7 +842,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		showTodayHelper: _react.PropTypes.bool,
 		showHeader: _react.PropTypes.bool,
 		showSelectionText: _react.PropTypes.bool,
-		isTouchStarted: _react.PropTypes.bool,
+		isTouching: _react.PropTypes.bool,
 		isClickOnDatepicker: _react.PropTypes.bool
 	};
 	;
@@ -43184,7 +43184,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Month)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.scrollToToday = function () {
 				var scrollToDate = _this.props.scrollToDate;
 
-				scrollToDate((0, _moment2.default)(), -40);
+				scrollToDate((0, _moment2.default)(), 0);
 			}, _temp), _possibleConstructorReturn(_this, _ret);
 		}
 

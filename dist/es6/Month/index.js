@@ -28,7 +28,7 @@ var Month = function (_Component) {
 		return _ret = (_temp = (_this = babelHelpers.possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Month)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.scrollToToday = function () {
 			var scrollToDate = _this.props.scrollToDate;
 
-			scrollToDate(moment(), -40);
+			scrollToDate(moment(), 0);
 		}, _temp), babelHelpers.possibleConstructorReturn(_this, _ret);
 	}
 

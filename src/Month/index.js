@@ -97,7 +97,7 @@ export default class Month extends Component {
 
 	scrollToToday = () => {
 		let {scrollToDate} = this.props;
-		scrollToDate(moment(), -40);
+		scrollToDate(moment(), 0);
 	};
 	
 	render() {
