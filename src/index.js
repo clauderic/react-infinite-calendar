@@ -361,13 +361,14 @@ class InfiniteCalendar extends Component {
 		if (showOverlay && scrollSpeed > 0 && !isScrolling) {
 			this.setState({
 				isScrolling: true,
+				height: this.props.expandedHeight,
 			});
 
-			if (this.state.height !== this.props.expandedHeight) {
-				this.setState({
-					height: this.props.expandedHeight,
-				});
-			}
+			// if (this.state.height !== this.props.expandedHeight) {
+			// 	this.setState({
+			// 		height: this.props.expandedHeight,
+			// 	});
+			// }
 		}
 
 		if (showTodayHelper) {

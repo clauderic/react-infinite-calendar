@@ -254,14 +254,15 @@ return /******/ (function(modules) { // webpackBootstrap
 				// We only want to display the months overlay if the user is rapidly scrolling
 				if (showOverlay && scrollSpeed > 0 && !isScrolling) {
 					_this.setState({
-						isScrolling: true
+						isScrolling: true,
+						height: _this.props.expandedHeight
 					});
 
-					if (_this.state.height !== _this.props.expandedHeight) {
-						_this.setState({
-							height: _this.props.expandedHeight
-						});
-					}
+					// if (this.state.height !== this.props.expandedHeight) {
+					// 	this.setState({
+					// 		height: this.props.expandedHeight,
+					// 	});
+					// }
 				}
 
 				if (showTodayHelper) {
