@@ -237,7 +237,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			};
 
 			_this.getScrollSpeed = (0, _utils.getScrollSpeed)();
-			_this.onScroll = (0, _debounce2.default)(function (_ref) {
+
+			_this.onScroll = function (_ref) {
 				var scrollTop = _ref.scrollTop;
 				var _this$props2 = _this.props;
 				var onScroll = _this$props2.onScroll;
@@ -259,8 +260,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					console.log(showOverlay && !isScrolling && (isWheeling || isTouching));
 
 					_this.setState({
-						isScrolling: true,
-						height: _this.props.expandedHeight
+						isScrolling: true
 					});
 				}
 
@@ -273,7 +273,8 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 
 				_this.onScrollEnd();
-			}, 10);
+			};
+
 			_this.onScrollEnd = (0, _debounce2.default)(function () {
 				var _this$props3 = _this.props;
 				var onScrollEnd = _this$props3.onScrollEnd;
@@ -293,7 +294,8 @@ return /******/ (function(modules) { // webpackBootstrap
 					console.log("handleTouchMove true");
 
 					_this.setState({
-						isTouching: true
+						isTouching: true,
+						height: _this.props.expandedHeight
 					});
 				}
 			}, 50);
@@ -302,7 +304,8 @@ return /******/ (function(modules) { // webpackBootstrap
 					console.log("handleWheel true");
 
 					_this.setState({
-						isWheeling: true
+						isWheeling: true,
+						height: _this.props.expandedHeight
 					});
 				}
 			}, 50);

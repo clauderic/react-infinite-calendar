@@ -202,7 +202,8 @@ var InfiniteCalendar = function (_Component) {
 		};
 
 		_this.getScrollSpeed = (0, _utils.getScrollSpeed)();
-		_this.onScroll = (0, _debounce2.default)(function (_ref) {
+
+		_this.onScroll = function (_ref) {
 			var scrollTop = _ref.scrollTop;
 			var _this$props2 = _this.props;
 			var onScroll = _this$props2.onScroll;
@@ -224,8 +225,7 @@ var InfiniteCalendar = function (_Component) {
 				console.log(showOverlay && !isScrolling && (isWheeling || isTouching));
 
 				_this.setState({
-					isScrolling: true,
-					height: _this.props.expandedHeight
+					isScrolling: true
 				});
 			}
 
@@ -238,7 +238,8 @@ var InfiniteCalendar = function (_Component) {
 			}
 
 			_this.onScrollEnd();
-		}, 10);
+		};
+
 		_this.onScrollEnd = (0, _debounce2.default)(function () {
 			var _this$props3 = _this.props;
 			var onScrollEnd = _this$props3.onScrollEnd;
@@ -258,7 +259,8 @@ var InfiniteCalendar = function (_Component) {
 				console.log("handleTouchMove true");
 
 				_this.setState({
-					isTouching: true
+					isTouching: true,
+					height: _this.props.expandedHeight
 				});
 			}
 		}, 50);
@@ -267,7 +269,8 @@ var InfiniteCalendar = function (_Component) {
 				console.log("handleWheel true");
 
 				_this.setState({
-					isWheeling: true
+					isWheeling: true,
+					height: _this.props.expandedHeight
 				});
 			}
 		}, 50);
