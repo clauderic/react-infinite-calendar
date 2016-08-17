@@ -154,7 +154,6 @@ var InfiniteCalendar = function (_Component) {
 			var showTodayHelper = _this$props2.showTodayHelper;
 			var _this$state = _this.state;
 			var isScrolling = _this$state.isScrolling;
-			var isWheeling = _this$state.isWheeling;
 			var isTouching = _this$state.isTouching;
 			var height = _this$state.height;
 			var isTouchStarted = _this$state.isTouchStarted;
@@ -163,7 +162,7 @@ var InfiniteCalendar = function (_Component) {
 			_this.scrollTop = scrollTop;
 
 			_this.setState({
-				isScrolling: isTouchStarted || scrollSpeed > 1 && !isTouchStarted
+				isScrolling: isTouchStarted || scrollSpeed > 5
 			});
 
 			if (_this.state.height == _this.props.collapsedHeight && scrollSpeed > 2) {
@@ -184,8 +183,7 @@ var InfiniteCalendar = function (_Component) {
 		_this.handleTouchStart = debounce(function () {
 			if (!_this.state.isTouchStarted) {
 				_this.setState({
-					isTouchStarted: true,
-					isWheeling: false
+					isTouchStarted: true
 				});
 			}
 		}, 50);
@@ -199,8 +197,7 @@ var InfiniteCalendar = function (_Component) {
 		_this.handleWheel = debounce(function () {
 			if (_this.state.isScrolling) {
 				_this.setState({
-					isScrolling: false,
-					isWheeling: false
+					isScrolling: false
 				});
 			}
 		}, 50);
