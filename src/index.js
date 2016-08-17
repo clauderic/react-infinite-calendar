@@ -356,9 +356,9 @@ class InfiniteCalendar extends Component {
 		let {isScrolling, isTouching, height, isTouchStarted} = this.state;
 		let scrollSpeed = this.scrollSpeed = Math.abs(this.getScrollSpeed(scrollTop));
 		this.scrollTop = scrollTop;
-
+		
 		this.setState({
-			isScrolling: isTouchStarted || scrollSpeed > 5,
+			isScrolling: isTouchStarted || scrollSpeed > 0,
 		});
 
 		if (this.state.height == this.props.collapsedHeight && scrollSpeed > 2) {
