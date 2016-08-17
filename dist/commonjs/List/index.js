@@ -184,20 +184,29 @@ var List = function (_Component) {
 				width = window.innerWidth * parseInt(width.replace('%', ''), 10) / 100; // See https://github.com/bvaughn/react-virtualized/issues/229
 			}
 
-			return _react2.default.createElement(_reactVirtualized.VirtualScroll, {
-				ref: 'VirtualScroll',
-				width: width,
-				height: height,
-				rowCount: months.length,
-				rowHeight: this.getMonthHeight,
-				estimatedRowSize: rowHeight * 5,
-				rowRenderer: this.renderMonth,
-				onScroll: onScroll,
-				scrollTop: this._initScrollTop,
-				className: (0, _classnames2.default)(style.root, _defineProperty({}, style.scrolling, isScrolling)),
-				style: { lineHeight: rowHeight + 'px' },
-				overscanRowCount: overscanMonthCount
-			});
+			//console.log(width, height);
+
+			return(
+				//<AutoSizer>
+				//{({ width, height }) => (
+				_react2.default.createElement(_reactVirtualized.VirtualScroll, {
+					ref: 'VirtualScroll',
+					width: width,
+					height: height,
+					rowCount: months.length,
+					rowHeight: this.getMonthHeight,
+					estimatedRowSize: rowHeight * 5,
+					rowRenderer: this.renderMonth,
+					onScroll: onScroll,
+					scrollTop: this._initScrollTop,
+					className: (0, _classnames2.default)(style.root, _defineProperty({}, style.scrolling, isScrolling)),
+					style: { lineHeight: rowHeight + 'px' },
+					overscanRowCount: overscanMonthCount
+				})
+				//)}
+				//</AutoSizer>
+
+			);
 		}
 	}]);
 

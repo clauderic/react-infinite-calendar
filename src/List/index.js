@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {VirtualScroll} from 'react-virtualized';
+import {VirtualScroll, AutoSizer} from 'react-virtualized';
 import classNames from 'classnames';
 import moment from 'moment';
 import {getMonth, getWeeksInMonth, validParsedDate} from '../utils';
@@ -121,21 +121,27 @@ export default class List extends Component {
 			width = window.innerWidth * parseInt(width.replace('%', ''), 10) / 100; // See https://github.com/bvaughn/react-virtualized/issues/229
 		}
 
+		//console.log(width, height);
+
 		return (
-			<VirtualScroll
-				ref="VirtualScroll"
-				width={width}
-				height={height}
-				rowCount={months.length}
-				rowHeight={this.getMonthHeight}
-				estimatedRowSize={rowHeight * 5}
-				rowRenderer={this.renderMonth}
-				onScroll={onScroll}
-				scrollTop={this._initScrollTop}
-				className={classNames(style.root, {[style.scrolling]: isScrolling})}
-				style={{lineHeight: `${rowHeight}px`}}
-				overscanRowCount={overscanMonthCount}
-			/>
+			//<AutoSizer>
+	            //{({ width, height }) => (
+					<VirtualScroll
+						ref="VirtualScroll"
+						width={width}
+						height={height}
+						rowCount={months.length}
+						rowHeight={this.getMonthHeight}
+						estimatedRowSize={rowHeight * 5}
+						rowRenderer={this.renderMonth}
+						onScroll={onScroll}
+						scrollTop={this._initScrollTop}
+						className={classNames(style.root, {[style.scrolling]: isScrolling})}
+						style={{lineHeight: `${rowHeight}px`}}
+						overscanRowCount={overscanMonthCount}
+					/>
+				//)}
+          	//</AutoSizer>
 		);
 	}
 }

@@ -237,7 +237,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			};
 
 			_this.getScrollSpeed = (0, _utils.getScrollSpeed)();
-			_this.onScroll = (0, _debounce2.default)(function (_ref) {
+
+			_this.onScroll = function (_ref) {
 				var scrollTop = _ref.scrollTop;
 				var _this$props2 = _this.props;
 				var onScroll = _this$props2.onScroll;
@@ -249,20 +250,19 @@ return /******/ (function(modules) { // webpackBootstrap
 				var isTouching = _this$state.isTouching;
 				var height = _this$state.height;
 				var isTouchStarted = _this$state.isTouchStarted;
-				//let scrollSpeed = this.scrollSpeed = Math.abs(this.getScrollSpeed(scrollTop));
 
+				var scrollSpeed = _this.scrollSpeed = Math.abs(_this.getScrollSpeed(scrollTop));
 				_this.scrollTop = scrollTop;
 
-				console.log(isScrolling, isWheeling, isTouching, isTouchStarted);
+				_this.setState({
+					isScrolling: isTouchStarted || scrollSpeed > 1 && !isTouchStarted
+				});
 
-				// We only want to display the months overlay if the user is rapidly scrolling
-				// if (showOverlay && !isScrolling && (isWheeling || isTouching)) {
-				// 	console.log(showOverlay && !isScrolling && (isWheeling || isTouching));
-
-				// 	this.setState({
-				// 		isScrolling: true,
-				// 	});
-				// }
+				if (_this.state.height == _this.props.collapsedHeight && scrollSpeed > 2) {
+					_this.setState({
+						height: _this.props.expandedHeight
+					});
+				}
 
 				if (showTodayHelper) {
 					_this.updateTodayHelperPosition(scrollSpeed);
@@ -271,57 +271,33 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (typeof onScroll == 'function') {
 					onScroll(scrollTop);
 				}
+			};
 
-				//this.onScrollEnd();
-			}, 20);
-			_this.onScrollEnd = (0, _debounce2.default)(function () {
-				console.log("on scroll end");
-				var _this$props3 = _this.props;
-				var onScrollEnd = _this$props3.onScrollEnd;
-				var showTodayHelper = _this$props3.showTodayHelper;
-				var _this$state2 = _this.state;
-				var isScrolling = _this$state2.isScrolling;
-				var isWheeling = _this$state2.isWheeling;
-
-
-				if (isScrolling && isWheeling) _this.setState({ isWheeling: false });
-				if (isScrolling && !_this.state.isTouching) _this.setState({ isScrolling: false });
-				if (showTodayHelper) _this.updateTodayHelperPosition(0);
-				if (typeof onScrollEnd == 'function') onScrollEnd(_this.scrollTop);
-			}, 50);
 			_this.handleTouchStart = (0, _debounce2.default)(function () {
-				console.log("handleTouchStart");
 				if (!_this.state.isTouchStarted) {
-					console.log("isTouchStarted true");
 					_this.setState({
-						isTouchStarted: true
+						isTouchStarted: true,
+						isWheeling: false
 					});
 				}
 			}, 50);
 			_this.handleTouchMove = (0, _debounce2.default)(function () {
 				if (!_this.state.isTouching && _this.state.isTouchStarted) {
-					console.log("handleTouchMove true");
-
 					_this.setState({
-						isTouching: true,
-						height: _this.props.expandedHeight
+						isTouching: true
 					});
 				}
 			}, 50);
 			_this.handleWheel = (0, _debounce2.default)(function () {
-				//if (!this.state.isWheeling) {
-				console.log("handleWheel true");
-
-				_this.setState({
-					isWheeling: true,
-					height: _this.props.expandedHeight
-				});
-				//}
+				if (_this.state.isScrolling) {
+					_this.setState({
+						isScrolling: false,
+						isWheeling: false
+					});
+				}
 			}, 50);
 
 			_this.handleTouchEnd = function () {
-				console.log("handleTouchEnd");
-
 				_this.setState({
 					isTouching: false,
 					isScrolling: false,
@@ -335,10 +311,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				var scrollTop = _this.scrollTop;
 				var showToday = _this.state.showToday;
-				var _this$props4 = _this.props;
-				var height = _this$props4.height;
-				var rowHeight = _this$props4.rowHeight;
-				var todayHelperRowOffset = _this$props4.todayHelperRowOffset;
+				var _this$props3 = _this.props;
+				var height = _this$props3.height;
+				var rowHeight = _this$props3.rowHeight;
+				var todayHelperRowOffset = _this$props3.todayHelperRowOffset;
 
 				var newState = void 0;
 				var dayOffset = Math.ceil((date.date() - 7 + (0, _moment2.default)(date).startOf("month").day()) / 7) * rowHeight; //offset of "today" within its month
@@ -361,15 +337,15 @@ return /******/ (function(modules) { // webpackBootstrap
 			};
 
 			_this.handleKeyDown = function (e) {
-				var _this$props5 = _this.props;
-				var maxDate = _this$props5.maxDate;
-				var minDate = _this$props5.minDate;
-				var onKeyDown = _this$props5.onKeyDown;
-				var _this$state3 = _this.state;
-				var display = _this$state3.display;
-				var selectedDate = _this$state3.selectedDate;
-				var highlightedDate = _this$state3.highlightedDate;
-				var showToday = _this$state3.showToday;
+				var _this$props4 = _this.props;
+				var maxDate = _this$props4.maxDate;
+				var minDate = _this$props4.minDate;
+				var onKeyDown = _this$props4.onKeyDown;
+				var _this$state2 = _this.state;
+				var display = _this$state2.display;
+				var selectedDate = _this$state2.selectedDate;
+				var highlightedDate = _this$state2.highlightedDate;
+				var showToday = _this$state2.showToday;
 
 				var delta = 0;
 
@@ -17004,20 +16980,29 @@ return /******/ (function(modules) { // webpackBootstrap
 					width = window.innerWidth * parseInt(width.replace('%', ''), 10) / 100; // See https://github.com/bvaughn/react-virtualized/issues/229
 				}
 
-				return _react2.default.createElement(_reactVirtualized.VirtualScroll, {
-					ref: 'VirtualScroll',
-					width: width,
-					height: height,
-					rowCount: months.length,
-					rowHeight: this.getMonthHeight,
-					estimatedRowSize: rowHeight * 5,
-					rowRenderer: this.renderMonth,
-					onScroll: onScroll,
-					scrollTop: this._initScrollTop,
-					className: (0, _classnames2.default)(style.root, _defineProperty({}, style.scrolling, isScrolling)),
-					style: { lineHeight: rowHeight + 'px' },
-					overscanRowCount: overscanMonthCount
-				});
+				//console.log(width, height);
+
+				return(
+					//<AutoSizer>
+					//{({ width, height }) => (
+					_react2.default.createElement(_reactVirtualized.VirtualScroll, {
+						ref: 'VirtualScroll',
+						width: width,
+						height: height,
+						rowCount: months.length,
+						rowHeight: this.getMonthHeight,
+						estimatedRowSize: rowHeight * 5,
+						rowRenderer: this.renderMonth,
+						onScroll: onScroll,
+						scrollTop: this._initScrollTop,
+						className: (0, _classnames2.default)(style.root, _defineProperty({}, style.scrolling, isScrolling)),
+						style: { lineHeight: rowHeight + 'px' },
+						overscanRowCount: overscanMonthCount
+					})
+					//)}
+					//</AutoSizer>
+
+				);
 			}
 		}]);
 
