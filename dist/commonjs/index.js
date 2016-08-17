@@ -194,7 +194,8 @@ var InfiniteCalendar = function (_Component) {
 
 			if (_this.state.height !== _this.props.collapsedHeight) {
 				_this.setState({
-					height: _this.props.collapsedHeight
+					height: _this.props.collapsedHeight,
+					isScrolling: false
 				});
 			}
 
@@ -211,16 +212,17 @@ var InfiniteCalendar = function (_Component) {
 			var showTodayHelper = _this$props2.showTodayHelper;
 			var _this$state = _this.state;
 			var isScrolling = _this$state.isScrolling;
-			var isTouching = _this$state.isTouching;
 			var height = _this$state.height;
 			var isTouchStarted = _this$state.isTouchStarted;
 
 			var scrollSpeed = _this.scrollSpeed = Math.abs(_this.getScrollSpeed(scrollTop));
 			_this.scrollTop = scrollTop;
 
-			_this.setState({
-				isScrolling: isTouchStarted || scrollSpeed > 0
-			});
+			if (!isScrolling && scrollSpeed > 10) {
+				_this.setState({
+					isScrolling: true
+				});
+			}
 
 			if (_this.state.height == _this.props.collapsedHeight && scrollSpeed > 2) {
 				_this.setState({
@@ -235,34 +237,34 @@ var InfiniteCalendar = function (_Component) {
 			if (typeof onScroll == 'function') {
 				onScroll(scrollTop);
 			}
+
+			_this.onScrollEnd();
 		};
 
-		_this.handleTouchStart = (0, _debounce2.default)(function () {
+		_this.onScrollEnd = (0, _debounce2.default)(function () {
+			var _this$props3 = _this.props;
+			var onScrollEnd = _this$props3.onScrollEnd;
+			var showTodayHelper = _this$props3.showTodayHelper;
+			var _this$state2 = _this.state;
+			var isScrolling = _this$state2.isScrolling;
+			var isTouchStarted = _this$state2.isTouchStarted;
+
+
+			if (isScrolling && !isTouchStarted) _this.setState({ isScrolling: false });
+			if (showTodayHelper) _this.updateTodayHelperPosition(0);
+			if (typeof onScrollEnd == 'function') onScrollEnd(_this.scrollTop);
+		}, 150);
+
+		_this.handleTouchStart = function () {
 			if (!_this.state.isTouchStarted) {
 				_this.setState({
 					isTouchStarted: true
 				});
 			}
-		}, 50);
-		_this.handleTouchMove = (0, _debounce2.default)(function () {
-			if (!_this.state.isTouching && _this.state.isTouchStarted) {
-				_this.setState({
-					isTouching: true
-				});
-			}
-		}, 50);
-		_this.handleWheel = (0, _debounce2.default)(function () {
-			if (_this.state.isScrolling) {
-				_this.setState({
-					isScrolling: false
-				});
-			}
-		}, 50);
+		};
 
 		_this.handleTouchEnd = function () {
 			_this.setState({
-				isTouching: false,
-				isScrolling: false,
 				isTouchStarted: false
 			});
 		};
@@ -273,10 +275,10 @@ var InfiniteCalendar = function (_Component) {
 
 			var scrollTop = _this.scrollTop;
 			var showToday = _this.state.showToday;
-			var _this$props3 = _this.props;
-			var height = _this$props3.height;
-			var rowHeight = _this$props3.rowHeight;
-			var todayHelperRowOffset = _this$props3.todayHelperRowOffset;
+			var _this$props4 = _this.props;
+			var height = _this$props4.height;
+			var rowHeight = _this$props4.rowHeight;
+			var todayHelperRowOffset = _this$props4.todayHelperRowOffset;
 
 			var newState = void 0;
 			var dayOffset = Math.ceil((date.date() - 7 + (0, _moment2.default)(date).startOf("month").day()) / 7) * rowHeight; //offset of "today" within its month
@@ -299,15 +301,15 @@ var InfiniteCalendar = function (_Component) {
 		};
 
 		_this.handleKeyDown = function (e) {
-			var _this$props4 = _this.props;
-			var maxDate = _this$props4.maxDate;
-			var minDate = _this$props4.minDate;
-			var onKeyDown = _this$props4.onKeyDown;
-			var _this$state2 = _this.state;
-			var display = _this$state2.display;
-			var selectedDate = _this$state2.selectedDate;
-			var highlightedDate = _this$state2.highlightedDate;
-			var showToday = _this$state2.showToday;
+			var _this$props5 = _this.props;
+			var maxDate = _this$props5.maxDate;
+			var minDate = _this$props5.minDate;
+			var onKeyDown = _this$props5.onKeyDown;
+			var _this$state3 = _this.state;
+			var display = _this$state3.display;
+			var selectedDate = _this$state3.selectedDate;
+			var highlightedDate = _this$state3.highlightedDate;
+			var showToday = _this$state3.showToday;
 
 			var delta = 0;
 
@@ -695,9 +697,7 @@ var InfiniteCalendar = function (_Component) {
 						{
 							className: style.container.listWrapper,
 							onTouchStart: this.handleTouchStart,
-							onTouchMove: this.handleTouchMove,
-							onTouchEnd: this.handleTouchEnd,
-							onWheel: this.handleWheel
+							onTouchEnd: this.handleTouchEnd
 						},
 						showTodayHelper && _react2.default.createElement(_Today2.default, { scrollToDate: this.scrollToDate, show: showToday, today: today, theme: theme, locale: locale }),
 						_react2.default.createElement(_List2.default, _extends({
@@ -774,7 +774,6 @@ InfiniteCalendar.defaultProps = {
 	hideYearsOnSelect: true,
 	hideYearsOnDate: true,
 	showSelectionText: true,
-	isTouching: false,
 	isClickOnDatepicker: false
 };
 InfiniteCalendar.propTypes = {
@@ -813,7 +812,6 @@ InfiniteCalendar.propTypes = {
 	showTodayHelper: _react.PropTypes.bool,
 	showHeader: _react.PropTypes.bool,
 	showSelectionText: _react.PropTypes.bool,
-	isTouching: _react.PropTypes.bool,
 	isClickOnDatepicker: _react.PropTypes.bool
 };
 ;
