@@ -1,0 +1,17 @@
+@import "./variables";
+
+.root {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+
+	text-align: center;
+	
+	height: $rowHeight;
+	width: 1 / 8 * 100%;
+
+	color: white;
+	background-color: black;
+
+	z-index: 10;
+}

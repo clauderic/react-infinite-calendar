@@ -75,9 +75,10 @@ var containerStyle = {
 	'root': 'Cal__Container__root',
 	'landscape': 'Cal__Container__landscape',
 	'wrapper': 'Cal__Container__wrapper',
-	'listWrapper': 'Cal__Container__listWrapper',
-	'expanded': 'Cal__Container__expanded',
-	'collapsed': 'Cal__Container__collapsed'
+	'listWrapper': 'Cal__Container__listWrapper'
+};
+var expansionButtonStyle = {
+	'root': 'Cal__ExpansionButton__root'
 };
 var dayStyle = {
 	'root': 'Cal__Day__root',
@@ -105,7 +106,8 @@ var weekStyle = {
 var style = {
 	container: containerStyle,
 	day: dayStyle,
-	week: weekStyle
+	week: weekStyle,
+	expansionButton: expansionButtonStyle
 };
 
 var InfiniteCalendar = function (_Component) {
@@ -136,18 +138,18 @@ var InfiniteCalendar = function (_Component) {
 						onSelect(selectedDate, e);
 					}
 
-					var prevHeight = _this.state.height;
+					var prevCollapsed = _this.state.isCollapsed;
 
 					_this.setState({
 						selectedDate: selectedDate,
 						shouldHeaderAnimate: shouldHeaderAnimate,
 						highlightedDate: selectedDate.clone(),
 						selectedWeek: null,
-						height: _this.props.collapsedHeight
+						isCollapsed: true
 					}, function () {
 						_this.clearHighlight();
 
-						if (prevHeight != _this.props.collapsedHeight) {
+						if (!prevCollapsed) {
 							_this.scrollToDate(selectedDate, 0);
 						}
 
@@ -160,17 +162,17 @@ var InfiniteCalendar = function (_Component) {
 		};
 
 		_this.onWeekSelect = function (selectedWeek) {
-			var prevHeight = _this.state.height;
+			var prevCollapsed = _this.state.isCollapsed;
 
 			_this.setState({
 				selectedWeek: selectedWeek,
 				selectedDate: null,
-				height: _this.props.collapsedHeight,
+				isCollapsed: true,
 				isClickOnDatepicker: true
 			}, function () {
 				_this.clearHighlight();
 
-				if (prevHeight != _this.props.collapsedHeight) {
+				if (prevCollapsed) {
 					_this.scrollToDate(selectedWeek, 0);
 				}
 			});
@@ -192,14 +194,20 @@ var InfiniteCalendar = function (_Component) {
 			var date = arguments.length <= 0 || arguments[0] === undefined ? (0, _moment2.default)() : arguments[0];
 			var offset = arguments[1];
 
-			if (_this.state.height !== _this.props.collapsedHeight) {
+			if (!_this.state.isCollapsed) {
 				_this.setState({
-					height: _this.props.collapsedHeight,
+					isCollapsed: true,
 					isScrolling: false
 				});
 			}
 
 			return _this.list && _this.list.scrollToDate(date, offset);
+		};
+
+		_this.handleExpansionClick = function () {
+			_this.setState({
+				isCollapsed: false
+			});
 		};
 
 		_this.getScrollSpeed = (0, _utils.getScrollSpeed)();
@@ -212,7 +220,6 @@ var InfiniteCalendar = function (_Component) {
 			var showTodayHelper = _this$props2.showTodayHelper;
 			var _this$state = _this.state;
 			var isScrolling = _this$state.isScrolling;
-			var height = _this$state.height;
 			var isTouchStarted = _this$state.isTouchStarted;
 
 			var scrollSpeed = _this.scrollSpeed = Math.abs(_this.getScrollSpeed(scrollTop));
@@ -224,11 +231,11 @@ var InfiniteCalendar = function (_Component) {
 				});
 			}
 
-			if (_this.state.height == _this.props.collapsedHeight && scrollSpeed > 2) {
-				_this.setState({
-					height: _this.props.expandedHeight
-				});
-			}
+			// if (this.state.isCollapsed && scrollSpeed > 2) {
+			// 	this.setState({
+			// 		isCollapsed: false,
+			// 	});
+			// }
 
 			if (showTodayHelper) {
 				_this.updateTodayHelperPosition(scrollSpeed);
@@ -406,10 +413,13 @@ var InfiniteCalendar = function (_Component) {
 		_this.updateYears(props);
 		_this.state = {
 			height: props.collapsedHeight,
+			expandedHeight: props.expandedHeight,
+			collapsedHeight: props.collapsedHeight,
 			selectedWeek: _this.parseSelectedWeek(props.selectedWeek),
 			selectedDate: _this.parseSelectedDate(props.selectedDate),
 			display: props.display,
-			shouldHeaderAnimate: props.shouldHeaderAnimate
+			shouldHeaderAnimate: props.shouldHeaderAnimate,
+			isCollapsed: props.isCollapsed
 		};
 		return _this;
 	}
@@ -419,14 +429,10 @@ var InfiniteCalendar = function (_Component) {
 		value: function componentDidMount() {
 			var _props = this.props;
 			var autoFocus = _props.autoFocus;
-			var collapsedHeight = _props.collapsedHeight;
 			var keyboardSupport = _props.keyboardSupport;
 
 			this.node = this.refs.node;
 			this.list = this.refs.List;
-			this.setState({
-				height: this.props.collapsedHeight
-			});
 
 			if (keyboardSupport && autoFocus) {
 				this.node.focus();
@@ -454,6 +460,11 @@ var InfiniteCalendar = function (_Component) {
 			var stateDate = this.parseSelectedDate(this.state.selectedDate);
 			var stateWeek = this.parseSelectedDate(this.state.selectedWeek);
 			var scrollCheck = false;
+
+			this.setState({
+				collapsedHeight: next.collapsedHeight,
+				expandedHeight: next.expandedHeight
+			});
 
 			if (nextDate !== null) {
 				scrollCheck = (0, _moment2.default)(nextDate).format('YYYY') !== (0, _moment2.default)(stateDate).format('YYYY') || (0, _moment2.default)(nextDate).format('ww') !== (0, _moment2.default)(stateDate).format('ww');
@@ -529,9 +540,9 @@ var InfiniteCalendar = function (_Component) {
 		value: function handleClickOutside(evt) {
 			var _this2 = this;
 
-			if (this.state.height != this.props.collapsedHeight) {
+			if (!this.state.isCollapsed) {
 				this.setState({
-					height: this.props.collapsedHeight
+					isCollapsed: true
 				}, function () {
 					_this2.clearHighlight();
 
@@ -632,8 +643,6 @@ var InfiniteCalendar = function (_Component) {
 			var _props3 = this.props;
 			var className = _props3.className;
 			var disabledDays = _props3.disabledDays;
-			var expandedHeight = _props3.expandedHeight;
-			var collapsedHeight = _props3.collapsedHeight;
 			var hideYearsOnSelect = _props3.hideYearsOnSelect;
 			var hideYearsOnDate = _props3.hideYearsOnDate;
 			var keyboardSupport = _props3.keyboardSupport;
@@ -649,7 +658,7 @@ var InfiniteCalendar = function (_Component) {
 			var width = _props3.width;
 			var showSelectionText = _props3.showSelectionText;
 
-			var other = _objectWithoutProperties(_props3, ['className', 'disabledDays', 'expandedHeight', 'collapsedHeight', 'hideYearsOnSelect', 'hideYearsOnDate', 'keyboardSupport', 'layout', 'overscanMonthCount', 'min', 'minDate', 'max', 'maxDate', 'showTodayHelper', 'showHeader', 'tabIndex', 'width', 'showSelectionText']);
+			var other = _objectWithoutProperties(_props3, ['className', 'disabledDays', 'hideYearsOnSelect', 'hideYearsOnDate', 'keyboardSupport', 'layout', 'overscanMonthCount', 'min', 'minDate', 'max', 'maxDate', 'showTodayHelper', 'showHeader', 'tabIndex', 'width', 'showSelectionText']);
 
 			var disabledDates = this.getDisabledDates(this.props.disabledDates);
 			var locale = this.getLocale();
@@ -657,6 +666,9 @@ var InfiniteCalendar = function (_Component) {
 			var _state2 = this.state;
 			var display = _state2.display;
 			var isScrolling = _state2.isScrolling;
+			var isCollapsed = _state2.isCollapsed;
+			var collapsedHeight = _state2.collapsedHeight;
+			var expandedHeight = _state2.expandedHeight;
 			var selectedDate = _state2.selectedDate;
 			var selectedWeek = _state2.selectedWeek;
 			var height = _state2.height;
@@ -676,8 +688,17 @@ var InfiniteCalendar = function (_Component) {
 					tabIndex: tabIndex,
 					onKeyDown: keyboardSupport && this.handleKeyDown,
 					className: (0, _classnames2.default)(className, style.container.root, _defineProperty({}, style.container.landscape, layout == 'landscape')),
-					style: { color: theme.textColor.default, width: width },
+					style: { color: theme.textColor.default, width: width, overflow: isCollapsed ? 'hidden' : 'visible', height: collapsedHeight + "px" },
 					'aria-label': 'Calendar', ref: 'node' },
+				_react2.default.createElement(
+					'div',
+					{
+						className: style.expansionButton.root,
+						style: { display: isCollapsed ? 'initial' : 'none' },
+						onClick: this.handleExpansionClick
+					},
+					'V'
+				),
 				showHeader && _react2.default.createElement(_Header2.default, {
 					selectedDate: selectedDate,
 					shouldHeaderAnimate: shouldHeaderAnimate,
@@ -704,7 +725,7 @@ var InfiniteCalendar = function (_Component) {
 							ref: 'List'
 						}, other, {
 							width: width,
-							height: this.state.height,
+							height: expandedHeight,
 							selectedDate: (0, _utils.parseDate)(selectedDate),
 							selectedWeek: (0, _utils.parseDate)(selectedWeek),
 							disabledDates: disabledDates,
@@ -751,6 +772,7 @@ InfiniteCalendar.defaultProps = {
 	width: 400,
 	expandedHeight: 400,
 	collapsedHeight: 200,
+	isCollapsed: true,
 	rowHeight: 40,
 	overscanMonthCount: 4,
 	todayHelperRowOffset: 4,
@@ -758,10 +780,10 @@ InfiniteCalendar.defaultProps = {
 	display: 'days',
 	selectedDate: new Date(),
 	selectedWeek: null,
-	min: { year: 1980, month: 0, day: 0 },
-	minDate: { year: 1980, month: 0, day: 0 },
-	max: { year: 2050, month: 11, day: 31 },
-	maxDate: { year: 2050, month: 11, day: 31 },
+	min: { year: 2000, month: 0, day: 0 },
+	minDate: { year: 2000, month: 0, day: 0 },
+	max: { year: 2020, month: 11, day: 31 },
+	maxDate: { year: 2020, month: 11, day: 31 },
 	keyboardSupport: false,
 	autoFocus: true,
 	shouldHeaderAnimate: true,
@@ -788,6 +810,7 @@ InfiniteCalendar.propTypes = {
 	width: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.string]),
 	expandedHeight: _react.PropTypes.number,
 	collapsedHeight: _react.PropTypes.number,
+	isCollapsed: _react.PropTypes.bool,
 	rowHeight: _react.PropTypes.number,
 	className: _react.PropTypes.string,
 	overscanMonthCount: _react.PropTypes.number,

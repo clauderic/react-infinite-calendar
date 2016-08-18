@@ -14,12 +14,14 @@ import Years from './Years';
 
 const onClickOutside = require('react-onclickoutside');
 const containerStyle = require('./Container.scss');
+const expansionButtonStyle = require('./ExpansionButton.scss');
 const dayStyle = require('./Day/Day.scss');
 const weekStyle = require('./Week/Week.scss');
 const style = {
 	container: containerStyle,
 	day: dayStyle,
-	week: weekStyle
+	week: weekStyle,
+	expansionButton: expansionButtonStyle
 };
 
 class InfiniteCalendar extends Component {
@@ -31,17 +33,21 @@ class InfiniteCalendar extends Component {
 		this.updateYears(props);
 		this.state = {
 			height: props.collapsedHeight,
+			expandedHeight: props.expandedHeight,
+			collapsedHeight: props.collapsedHeight,
 			selectedWeek: this.parseSelectedWeek(props.selectedWeek),
 			selectedDate: this.parseSelectedDate(props.selectedDate),
 			display: props.display,
-			shouldHeaderAnimate: props.shouldHeaderAnimate
+			shouldHeaderAnimate: props.shouldHeaderAnimate,
+			isCollapsed: props.isCollapsed
 		};
 	}
 
 	static defaultProps = {
 		width: 400,
 		expandedHeight: 400,
-		collapsedHeight: 400,
+		collapsedHeight: 200,
+		isCollapsed: true,
 		rowHeight: 40,
 		overscanMonthCount: 4,
 		todayHelperRowOffset: 4,
@@ -80,6 +86,7 @@ class InfiniteCalendar extends Component {
 		width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 		expandedHeight: PropTypes.number,
 		collapsedHeight: PropTypes.number,
+		isCollapsed: PropTypes.bool,
 		rowHeight: PropTypes.number,
 		className: PropTypes.string,
 		overscanMonthCount: PropTypes.number,
@@ -108,12 +115,9 @@ class InfiniteCalendar extends Component {
 	};
 
 	componentDidMount() {
-		let {autoFocus, collapsedHeight, keyboardSupport} = this.props;
+		let {autoFocus, keyboardSupport} = this.props;
 		this.node = this.refs.node;
 		this.list = this.refs.List;
-		this.setState({
-			height: this.props.collapsedHeight
-		});
 
 		if (keyboardSupport && autoFocus) {
 			this.node.focus();
@@ -129,6 +133,11 @@ class InfiniteCalendar extends Component {
 		const stateDate = this.parseSelectedDate(this.state.selectedDate);
 		const stateWeek = this.parseSelectedDate(this.state.selectedWeek);
 		let scrollCheck = false;
+
+		this.setState({
+			collapsedHeight: next.collapsedHeight,
+			expandedHeight: next.expandedHeight,
+		});
 
 		if (nextDate !== null) {
 			scrollCheck = (moment(nextDate).format('YYYY') !== moment(stateDate).format('YYYY')) || (moment(nextDate).format('ww') !== moment(stateDate).format('ww'));
@@ -201,18 +210,18 @@ class InfiniteCalendar extends Component {
 	}
 
 	handleClickOutside(evt) {
-    if (this.state.height != this.props.collapsedHeight) {
-    	this.setState({
-    		height: this.props.collapsedHeight
-    	}, () => {
-			this.clearHighlight();
+    if (!this.state.isCollapsed) {
+   		this.setState({
+   			isCollapsed: true,
+   		}, () => {
+   			this.clearHighlight();
 
 			if (this.state.selectedDate !== null) {
 				this.scrollToDate(this.state.selectedDate, 0);
 			} else {
 				this.scrollToDate(this.state.selectedWeek, 0);
 			}
-    	});
+   		});
     }
   }
 
@@ -286,18 +295,18 @@ class InfiniteCalendar extends Component {
 				onSelect(selectedDate, e);
 			}
 
-			const prevHeight = this.state.height;
+			const prevCollapsed = this.state.isCollapsed;
 
 			this.setState({
 				selectedDate,
 				shouldHeaderAnimate,
 				highlightedDate: selectedDate.clone(),
 				selectedWeek: null,
-				height: this.props.collapsedHeight,
+				isCollapsed: true,
 			}, () => {
 				this.clearHighlight();
 
-				if (prevHeight != this.props.collapsedHeight) {
+				if (!prevCollapsed) {
 					this.scrollToDate(selectedDate, 0);
 				}
 				
@@ -309,17 +318,17 @@ class InfiniteCalendar extends Component {
 	};
 
 	onWeekSelect = (selectedWeek) => {
-		const prevHeight = this.state.height;
+		const prevCollapsed = this.state.isCollapsed;
 
 		this.setState({
 			selectedWeek,
 			selectedDate: null,
-			height: this.props.collapsedHeight,
+			isCollapsed: true,
 			isClickOnDatepicker: true,
 		}, () => {
 			this.clearHighlight();
 
-			if (prevHeight != this.props.collapsedHeight) {
+			if (prevCollapsed) {
 				this.scrollToDate(selectedWeek, 0);
 			}
 		});
@@ -338,9 +347,9 @@ class InfiniteCalendar extends Component {
 	};
 
 	scrollToDate = (date = moment(), offset) => {
-		if (this.state.height !== this.props.collapsedHeight) {
+		if (!this.state.isCollapsed) {
 			this.setState({
-				height: this.props.collapsedHeight,
+				isCollapsed: true,
 				isScrolling: false,
 			});
 		}
@@ -348,11 +357,17 @@ class InfiniteCalendar extends Component {
 		return this.list && this.list.scrollToDate(date, offset);
 	};
 
+	handleExpansionClick = () => {
+		this.setState({
+			isCollapsed: false,
+		});
+	};
+
 	getScrollSpeed = getScrollSpeed();
 
 	onScroll = ({scrollTop}) => {
 		let {onScroll, showOverlay, showTodayHelper} = this.props;
-		let {isScrolling, height, isTouchStarted} = this.state;
+		let {isScrolling, isTouchStarted} = this.state;
 		let scrollSpeed = this.scrollSpeed = Math.abs(this.getScrollSpeed(scrollTop));
 		this.scrollTop = scrollTop;
 
@@ -362,11 +377,11 @@ class InfiniteCalendar extends Component {
 			});
 		}
 		
-		if (this.state.height == this.props.collapsedHeight && scrollSpeed > 2) {
-			this.setState({
-				height: this.props.expandedHeight,
-			});
-		}
+		// if (this.state.isCollapsed && scrollSpeed > 2) {
+		// 	this.setState({
+		// 		isCollapsed: false,
+		// 	});
+		// }
 
 		if (showTodayHelper) {
 			this.updateTodayHelperPosition(scrollSpeed);
@@ -535,8 +550,6 @@ class InfiniteCalendar extends Component {
 		let {
 			className,
 			disabledDays,
-			expandedHeight,
-			collapsedHeight,
 			hideYearsOnSelect,
 			hideYearsOnDate,
 			keyboardSupport,
@@ -556,7 +569,7 @@ class InfiniteCalendar extends Component {
 		let disabledDates = this.getDisabledDates(this.props.disabledDates);
 		let locale = this.getLocale();
 		let theme = this.getTheme();
-		let {display, isScrolling, selectedDate, selectedWeek, height, showToday, shouldHeaderAnimate} = this.state;
+		let {display, isScrolling, isCollapsed, collapsedHeight, expandedHeight, selectedDate, selectedWeek, height, showToday, shouldHeaderAnimate} = this.state;
 		let today = this.today = parseDate(moment());
 
 		// Selected date should not be disabled
@@ -569,8 +582,13 @@ class InfiniteCalendar extends Component {
 				tabIndex={tabIndex}
 				onKeyDown={keyboardSupport && this.handleKeyDown}
 				className={classNames(className, style.container.root, {[style.container.landscape]: layout == 'landscape'})}
-				style={{color: theme.textColor.default, width}}
+				style={{color: theme.textColor.default, width, overflow: (isCollapsed) ? 'hidden' : 'visible', height: collapsedHeight+"px" }}
 				aria-label="Calendar" ref="node">
+				<div
+						className={style.expansionButton.root}
+						style={{ display: (isCollapsed) ? 'initial' : 'none'}}
+						onClick={this.handleExpansionClick}
+					>V</div>
 				{showHeader &&
 					<Header
 						selectedDate={selectedDate}
@@ -597,7 +615,7 @@ class InfiniteCalendar extends Component {
 							ref="List"
 							{...other}
 							width={width}
-							height={this.state.height}
+							height={expandedHeight}
 							selectedDate={parseDate(selectedDate)}
 							selectedWeek={parseDate(selectedWeek)}
 							disabledDates={disabledDates}
