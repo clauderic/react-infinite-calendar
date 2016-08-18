@@ -41,7 +41,7 @@ class InfiniteCalendar extends Component {
 	static defaultProps = {
 		width: 400,
 		expandedHeight: 400,
-		collapsedHeight: 200,
+		collapsedHeight: 400,
 		rowHeight: 40,
 		overscanMonthCount: 4,
 		todayHelperRowOffset: 4,
@@ -49,10 +49,10 @@ class InfiniteCalendar extends Component {
 		display: 'days',
 		selectedDate: new Date(),
 		selectedWeek: null,
-		min: {year: 1980, month: 0, day: 0},
-		minDate: {year: 1980, month: 0, day: 0},
-		max: {year: 2050, month: 11, day: 31},
-		maxDate: {year: 2050, month: 11, day: 31},
+		min: {year: 2000, month: 0, day: 0},
+		minDate: {year: 2000, month: 0, day: 0},
+		max: {year: 2020, month: 11, day: 31},
+		maxDate: {year: 2020, month: 11, day: 31},
 		keyboardSupport: false,
 		autoFocus: true,
 		shouldHeaderAnimate: true,
@@ -382,7 +382,7 @@ class InfiniteCalendar extends Component {
 	onScrollEnd = debounce(() => {
 		let {onScrollEnd, showTodayHelper} = this.props;
 		let {isScrolling, isTouchStarted} = this.state;
-		
+
 		if (isScrolling && !isTouchStarted) this.setState({isScrolling: false});
 		if (showTodayHelper) this.updateTodayHelperPosition(0);
 		if (typeof onScrollEnd == 'function') onScrollEnd(this.scrollTop);
