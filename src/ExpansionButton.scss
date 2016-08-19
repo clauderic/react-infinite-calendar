@@ -1,17 +1,34 @@
 @import "./variables";
 
+.root:active, .root:focus {
+	 color: grey;
+    background: white;
+
+    border: 1px solid grey; 
+}
+
 .root {
 	position: absolute;
-	bottom: 0;
-	right: 0;
+	bottom: 5px;
+	right: 5px;
 
 	text-align: center;
 	
 	height: $rowHeight;
-	width: 1 / 8 * 100%;
+	width: $rowHeight;
 
 	color: white;
-	background-color: black;
+    background: grey;
+    border: 1px solid grey;
 
+   
+    padding: 0px;
+    border-radius: 26px;  
+    display: block;
+    line-height: $rowHeight;
+    text-align: center;
 	z-index: 10;
+
+    transition: background 0.3s, color 0.3s;
+    transition-timing-function: ease-in-out;
 }

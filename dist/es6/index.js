@@ -115,7 +115,7 @@ var InfiniteCalendar = function (_Component) {
 			}, function () {
 				_this.clearHighlight();
 
-				if (prevCollapsed) {
+				if (!prevCollapsed) {
 					_this.scrollToDate(selectedWeek, 0);
 				}
 			});
@@ -173,12 +173,6 @@ var InfiniteCalendar = function (_Component) {
 					isScrolling: true
 				});
 			}
-
-			// if (this.state.isCollapsed && scrollSpeed > 2) {
-			// 	this.setState({
-			// 		isCollapsed: false,
-			// 	});
-			// }
 
 			if (showTodayHelper) {
 				_this.updateTodayHelperPosition(scrollSpeed);
@@ -630,17 +624,13 @@ var InfiniteCalendar = function (_Component) {
 					tabIndex: tabIndex,
 					onKeyDown: keyboardSupport && this.handleKeyDown,
 					className: classNames(className, style.container.root, babelHelpers.defineProperty({}, style.container.landscape, layout == 'landscape')),
-					style: { color: theme.textColor.default, width: width, overflow: isCollapsed ? 'hidden' : 'visible', height: collapsedHeight + "px" },
+					style: { color: theme.textColor.default, width: '100%', overflow: isCollapsed ? 'hidden' : 'visible', height: collapsedHeight + "px" },
 					'aria-label': 'Calendar', ref: 'node' },
-				React.createElement(
-					'div',
-					{
-						className: style.expansionButton.root,
-						style: { display: isCollapsed ? 'initial' : 'none' },
-						onClick: this.handleExpansionClick
-					},
-					'V'
-				),
+				React.createElement('div', {
+					className: classNames(style.expansionButton.root, 'ion-chevron-down'),
+					style: { display: isCollapsed ? 'initial' : 'none' },
+					onClick: this.handleExpansionClick
+				}),
 				showHeader && React.createElement(Header, {
 					selectedDate: selectedDate,
 					shouldHeaderAnimate: shouldHeaderAnimate,

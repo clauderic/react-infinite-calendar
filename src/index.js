@@ -328,7 +328,7 @@ class InfiniteCalendar extends Component {
 		}, () => {
 			this.clearHighlight();
 
-			if (prevCollapsed) {
+			if (!prevCollapsed) {
 				this.scrollToDate(selectedWeek, 0);
 			}
 		});
@@ -376,12 +376,6 @@ class InfiniteCalendar extends Component {
 				isScrolling: true,
 			});
 		}
-		
-		// if (this.state.isCollapsed && scrollSpeed > 2) {
-		// 	this.setState({
-		// 		isCollapsed: false,
-		// 	});
-		// }
 
 		if (showTodayHelper) {
 			this.updateTodayHelperPosition(scrollSpeed);
@@ -582,13 +576,13 @@ class InfiniteCalendar extends Component {
 				tabIndex={tabIndex}
 				onKeyDown={keyboardSupport && this.handleKeyDown}
 				className={classNames(className, style.container.root, {[style.container.landscape]: layout == 'landscape'})}
-				style={{color: theme.textColor.default, width, overflow: (isCollapsed) ? 'hidden' : 'visible', height: collapsedHeight+"px" }}
+				style={{color: theme.textColor.default, width: '100%', overflow: (isCollapsed) ? 'hidden' : 'visible', height: collapsedHeight+"px" }}
 				aria-label="Calendar" ref="node">
 				<div
-						className={style.expansionButton.root}
+						className={classNames(style.expansionButton.root, 'ion-chevron-down')}
 						style={{ display: (isCollapsed) ? 'initial' : 'none'}}
 						onClick={this.handleExpansionClick}
-					>V</div>
+					></div>
 				{showHeader &&
 					<Header
 						selectedDate={selectedDate}
