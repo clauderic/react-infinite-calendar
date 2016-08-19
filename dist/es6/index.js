@@ -164,6 +164,7 @@ var InfiniteCalendar = function (_Component) {
 			var _this$state = _this.state;
 			var isScrolling = _this$state.isScrolling;
 			var isTouchStarted = _this$state.isTouchStarted;
+			var isScrollEnded = _this$state.isScrollEnded;
 
 			var scrollSpeed = _this.scrollSpeed = Math.abs(_this.getScrollSpeed(scrollTop));
 			_this.scrollTop = scrollTop;
@@ -171,6 +172,12 @@ var InfiniteCalendar = function (_Component) {
 			if (!isScrolling && scrollSpeed > 10) {
 				_this.setState({
 					isScrolling: true
+				});
+			}
+
+			if (isScrollEnded) {
+				_this.setState({
+					isScrollEnded: false
 				});
 			}
 
@@ -194,6 +201,10 @@ var InfiniteCalendar = function (_Component) {
 			var isTouchStarted = _this$state2.isTouchStarted;
 
 
+			_this.setState({
+				isScrollEnded: true
+			});
+
 			if (isScrolling && !isTouchStarted) _this.setState({ isScrolling: false });
 			if (showTodayHelper) _this.updateTodayHelperPosition(0);
 			if (typeof onScrollEnd == 'function') onScrollEnd(_this.scrollTop);
@@ -211,6 +222,12 @@ var InfiniteCalendar = function (_Component) {
 			_this.setState({
 				isTouchStarted: false
 			});
+
+			if (_this.state.isScrollEnded) {
+				_this.setState({
+					isScrolling: false
+				});
+			}
 		};
 
 		_this.updateTodayHelperPosition = function (scrollSpeed) {

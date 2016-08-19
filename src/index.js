@@ -367,13 +367,19 @@ class InfiniteCalendar extends Component {
 
 	onScroll = ({scrollTop}) => {
 		let {onScroll, showOverlay, showTodayHelper} = this.props;
-		let {isScrolling, isTouchStarted} = this.state;
+		let {isScrolling, isTouchStarted, isScrollEnded} = this.state;
 		let scrollSpeed = this.scrollSpeed = Math.abs(this.getScrollSpeed(scrollTop));
 		this.scrollTop = scrollTop;
 
 		if (!isScrolling && scrollSpeed > 10) {
 			this.setState({
 				isScrolling: true,
+			});
+		}
+
+		if (isScrollEnded) {
+			this.setState({
+				isScrollEnded: false,
 			});
 		}
 
@@ -392,6 +398,10 @@ class InfiniteCalendar extends Component {
 		let {onScrollEnd, showTodayHelper} = this.props;
 		let {isScrolling, isTouchStarted} = this.state;
 
+		this.setState({
+			isScrollEnded: true
+		});
+
 		if (isScrolling && !isTouchStarted) this.setState({isScrolling: false});
 		if (showTodayHelper) this.updateTodayHelperPosition(0);
 		if (typeof onScrollEnd == 'function') onScrollEnd(this.scrollTop);
@@ -409,6 +419,12 @@ class InfiniteCalendar extends Component {
 		this.setState({
 			isTouchStarted: false,
 		});
+
+		if (this.state.isScrollEnded) {
+			this.setState({
+				isScrolling: false,
+			});
+		}
 	};
 
 	updateTodayHelperPosition = (scrollSpeed) => {

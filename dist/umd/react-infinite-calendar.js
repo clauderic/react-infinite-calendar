@@ -256,6 +256,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				var _this$state = _this.state;
 				var isScrolling = _this$state.isScrolling;
 				var isTouchStarted = _this$state.isTouchStarted;
+				var isScrollEnded = _this$state.isScrollEnded;
 
 				var scrollSpeed = _this.scrollSpeed = Math.abs(_this.getScrollSpeed(scrollTop));
 				_this.scrollTop = scrollTop;
@@ -263,6 +264,12 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (!isScrolling && scrollSpeed > 10) {
 					_this.setState({
 						isScrolling: true
+					});
+				}
+
+				if (isScrollEnded) {
+					_this.setState({
+						isScrollEnded: false
 					});
 				}
 
@@ -286,6 +293,10 @@ return /******/ (function(modules) { // webpackBootstrap
 				var isTouchStarted = _this$state2.isTouchStarted;
 
 
+				_this.setState({
+					isScrollEnded: true
+				});
+
 				if (isScrolling && !isTouchStarted) _this.setState({ isScrolling: false });
 				if (showTodayHelper) _this.updateTodayHelperPosition(0);
 				if (typeof onScrollEnd == 'function') onScrollEnd(_this.scrollTop);
@@ -303,6 +314,12 @@ return /******/ (function(modules) { // webpackBootstrap
 				_this.setState({
 					isTouchStarted: false
 				});
+
+				if (_this.state.isScrollEnded) {
+					_this.setState({
+						isScrolling: false
+					});
+				}
 			};
 
 			_this.updateTodayHelperPosition = function (scrollSpeed) {
