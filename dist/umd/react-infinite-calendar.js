@@ -175,6 +175,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 						var prevCollapsed = _this.state.isCollapsed;
 
+						if (!prevCollapsed) {
+							_this.setState({
+								expandOnScroll: false
+							});
+						}
+
 						_this.setState({
 							selectedDate: selectedDate,
 							shouldHeaderAnimate: shouldHeaderAnimate,
@@ -198,6 +204,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 			_this.onWeekSelect = function (selectedWeek) {
 				var prevCollapsed = _this.state.isCollapsed;
+
+				if (!prevCollapsed) {
+					_this.setState({
+						expandOnScroll: false
+					});
+				}
 
 				_this.setState({
 					selectedWeek: selectedWeek,
@@ -253,17 +265,26 @@ return /******/ (function(modules) { // webpackBootstrap
 				var onScroll = _this$props2.onScroll;
 				var showOverlay = _this$props2.showOverlay;
 				var showTodayHelper = _this$props2.showTodayHelper;
+				var device = _this$props2.device;
 				var _this$state = _this.state;
 				var isScrolling = _this$state.isScrolling;
 				var isTouchStarted = _this$state.isTouchStarted;
 				var isScrollEnded = _this$state.isScrollEnded;
+				var isCollapsed = _this$state.isCollapsed;
+				var expandOnScroll = _this$state.expandOnScroll;
 
 				var scrollSpeed = _this.scrollSpeed = Math.abs(_this.getScrollSpeed(scrollTop));
 				_this.scrollTop = scrollTop;
 
-				if (!isScrolling && scrollSpeed > 10) {
+				if (!isScrolling && scrollSpeed > 10 && (device || !isCollapsed)) {
 					_this.setState({
 						isScrolling: true
+					});
+				}
+
+				if (isCollapsed && !device && expandOnScroll) {
+					_this.setState({
+						isCollapsed: false
 					});
 				}
 
@@ -294,7 +315,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 				_this.setState({
-					isScrollEnded: true
+					isScrollEnded: true,
+					expandOnScroll: true
 				});
 
 				if (isScrolling && !isTouchStarted) _this.setState({ isScrolling: false });
@@ -465,7 +487,8 @@ return /******/ (function(modules) { // webpackBootstrap
 				selectedDate: _this.parseSelectedDate(props.selectedDate),
 				display: props.display,
 				shouldHeaderAnimate: props.shouldHeaderAnimate,
-				isCollapsed: props.isCollapsed
+				isCollapsed: props.isCollapsed,
+				expandOnScroll: true
 			};
 			return _this;
 		}
@@ -588,7 +611,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				if (!this.state.isCollapsed) {
 					this.setState({
-						isCollapsed: true
+						isCollapsed: true,
+						expandOnScroll: false
 					}, function () {
 						_this2.clearHighlight();
 
@@ -703,8 +727,9 @@ return /******/ (function(modules) { // webpackBootstrap
 				var tabIndex = _props3.tabIndex;
 				var width = _props3.width;
 				var showSelectionText = _props3.showSelectionText;
+				var device = _props3.device;
 
-				var other = _objectWithoutProperties(_props3, ['className', 'disabledDays', 'hideYearsOnSelect', 'hideYearsOnDate', 'keyboardSupport', 'layout', 'overscanMonthCount', 'min', 'minDate', 'max', 'maxDate', 'showTodayHelper', 'showHeader', 'tabIndex', 'width', 'showSelectionText']);
+				var other = _objectWithoutProperties(_props3, ['className', 'disabledDays', 'hideYearsOnSelect', 'hideYearsOnDate', 'keyboardSupport', 'layout', 'overscanMonthCount', 'min', 'minDate', 'max', 'maxDate', 'showTodayHelper', 'showHeader', 'tabIndex', 'width', 'showSelectionText', 'device']);
 
 				var disabledDates = this.getDisabledDates(this.props.disabledDates);
 				var locale = this.getLocale();
@@ -736,7 +761,7 @@ return /******/ (function(modules) { // webpackBootstrap
 						className: (0, _classnames2.default)(className, style.container.root, _defineProperty({}, style.container.landscape, layout == 'landscape')),
 						style: { color: theme.textColor.default, width: '100%', overflow: isCollapsed ? 'hidden' : 'visible', height: collapsedHeight + "px" },
 						'aria-label': 'Calendar', ref: 'node' },
-					_react2.default.createElement('div', {
+					device && _react2.default.createElement('div', {
 						className: (0, _classnames2.default)(style.expansionButton.root, 'ion-chevron-down'),
 						style: { display: isCollapsed ? 'initial' : 'none' },
 						onClick: this.handleExpansionClick
@@ -838,7 +863,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		hideYearsOnSelect: true,
 		hideYearsOnDate: true,
 		showSelectionText: true,
-		isClickOnDatepicker: false
+		isClickOnDatepicker: false,
+		device: true
 	};
 	InfiniteCalendar.propTypes = {
 		selectedDate: _utils.validDate,
@@ -877,7 +903,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		showTodayHelper: _react.PropTypes.bool,
 		showHeader: _react.PropTypes.bool,
 		showSelectionText: _react.PropTypes.bool,
-		isClickOnDatepicker: _react.PropTypes.bool
+		isClickOnDatepicker: _react.PropTypes.bool,
+		device: _react.PropTypes.bool
 	};
 	;
 

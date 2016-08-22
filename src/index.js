@@ -39,7 +39,8 @@ class InfiniteCalendar extends Component {
 			selectedDate: this.parseSelectedDate(props.selectedDate),
 			display: props.display,
 			shouldHeaderAnimate: props.shouldHeaderAnimate,
-			isCollapsed: props.isCollapsed
+			isCollapsed: props.isCollapsed,
+			expandOnScroll: true,
 		};
 	}
 
@@ -72,6 +73,7 @@ class InfiniteCalendar extends Component {
 		hideYearsOnDate: true,
 		showSelectionText: true,
 		isClickOnDatepicker: false,
+		device: true,
 	};
 
 	static propTypes = {
@@ -112,6 +114,7 @@ class InfiniteCalendar extends Component {
 		showHeader: PropTypes.bool,
 		showSelectionText: PropTypes.bool,
 		isClickOnDatepicker: PropTypes.bool,
+		device: PropTypes.bool,
 	};
 
 	componentDidMount() {
@@ -213,6 +216,7 @@ class InfiniteCalendar extends Component {
     if (!this.state.isCollapsed) {
    		this.setState({
    			isCollapsed: true,
+   			expandOnScroll: false,
    		}, () => {
    			this.clearHighlight();
 
@@ -297,6 +301,12 @@ class InfiniteCalendar extends Component {
 
 			const prevCollapsed = this.state.isCollapsed;
 
+			if (!prevCollapsed) {
+				this.setState({
+					expandOnScroll: false,
+				});
+			}
+
 			this.setState({
 				selectedDate,
 				shouldHeaderAnimate,
@@ -319,6 +329,12 @@ class InfiniteCalendar extends Component {
 
 	onWeekSelect = (selectedWeek) => {
 		const prevCollapsed = this.state.isCollapsed;
+
+		if (!prevCollapsed) {
+			this.setState({
+				expandOnScroll: false,
+			});
+		}
 
 		this.setState({
 			selectedWeek,
@@ -366,14 +382,20 @@ class InfiniteCalendar extends Component {
 	getScrollSpeed = getScrollSpeed();
 
 	onScroll = ({scrollTop}) => {
-		let {onScroll, showOverlay, showTodayHelper} = this.props;
-		let {isScrolling, isTouchStarted, isScrollEnded} = this.state;
+		let {onScroll, showOverlay, showTodayHelper, device} = this.props;
+		let {isScrolling, isTouchStarted, isScrollEnded, isCollapsed, expandOnScroll} = this.state;
 		let scrollSpeed = this.scrollSpeed = Math.abs(this.getScrollSpeed(scrollTop));
 		this.scrollTop = scrollTop;
-
-		if (!isScrolling && scrollSpeed > 10) {
+		
+		if (!isScrolling && scrollSpeed > 10 && (device || !isCollapsed)) {
 			this.setState({
 				isScrolling: true,
+			});
+		}
+
+		if (isCollapsed && !device && expandOnScroll) {
+			this.setState({
+				isCollapsed: false,
 			});
 		}
 
@@ -399,7 +421,8 @@ class InfiniteCalendar extends Component {
 		let {isScrolling, isTouchStarted} = this.state;
 
 		this.setState({
-			isScrollEnded: true
+			isScrollEnded: true,
+			expandOnScroll: true,
 		});
 
 		if (isScrolling && !isTouchStarted) this.setState({isScrolling: false});
@@ -574,6 +597,7 @@ class InfiniteCalendar extends Component {
 			tabIndex,
 			width,
 			showSelectionText,
+			device,
 			...other
 		} = this.props;
 		let disabledDates = this.getDisabledDates(this.props.disabledDates);
@@ -594,11 +618,13 @@ class InfiniteCalendar extends Component {
 				className={classNames(className, style.container.root, {[style.container.landscape]: layout == 'landscape'})}
 				style={{color: theme.textColor.default, width: '100%', overflow: (isCollapsed) ? 'hidden' : 'visible', height: collapsedHeight+"px" }}
 				aria-label="Calendar" ref="node">
-				<div
-						className={classNames(style.expansionButton.root, 'ion-chevron-down')}
-						style={{ display: (isCollapsed) ? 'initial' : 'none'}}
-						onClick={this.handleExpansionClick}
-					></div>
+				{device && 
+					<div
+							className={classNames(style.expansionButton.root, 'ion-chevron-down')}
+							style={{ display: (isCollapsed) ? 'initial' : 'none'}}
+							onClick={this.handleExpansionClick}
+						></div>
+				}
 				{showHeader &&
 					<Header
 						selectedDate={selectedDate}
