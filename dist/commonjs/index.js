@@ -140,12 +140,6 @@ var InfiniteCalendar = function (_Component) {
 
 					var prevCollapsed = _this.state.isCollapsed;
 
-					if (!prevCollapsed) {
-						_this.setState({
-							expandOnScroll: false
-						});
-					}
-
 					_this.setState({
 						selectedDate: selectedDate,
 						shouldHeaderAnimate: shouldHeaderAnimate,
@@ -169,12 +163,6 @@ var InfiniteCalendar = function (_Component) {
 
 		_this.onWeekSelect = function (selectedWeek) {
 			var prevCollapsed = _this.state.isCollapsed;
-
-			if (!prevCollapsed) {
-				_this.setState({
-					expandOnScroll: false
-				});
-			}
 
 			_this.setState({
 				selectedWeek: selectedWeek,
@@ -206,14 +194,19 @@ var InfiniteCalendar = function (_Component) {
 			var date = arguments.length <= 0 || arguments[0] === undefined ? (0, _moment2.default)() : arguments[0];
 			var offset = arguments[1];
 
-			if (!_this.state.isCollapsed) {
-				_this.setState({
-					isCollapsed: true,
-					isScrolling: false
-				});
-			}
+			_this.setState({
+				isScrolling: false,
+				expandOnScroll: false
+			}, function () {
+				_this.list.scrollToDate(date, offset);
 
-			return _this.list && _this.list.scrollToDate(date, offset);
+				if (!_this.state.isCollapsed) {
+					_this.setState({
+						isCollapsed: true,
+						expandOnScroll: true
+					});
+				}
+			});
 		};
 
 		_this.handleExpansionClick = function () {
@@ -241,7 +234,9 @@ var InfiniteCalendar = function (_Component) {
 			var scrollSpeed = _this.scrollSpeed = Math.abs(_this.getScrollSpeed(scrollTop));
 			_this.scrollTop = scrollTop;
 
-			if (!isScrolling && scrollSpeed > 10 && (device || !isCollapsed)) {
+			console.log("expandOnScroll", expandOnScroll);
+
+			if (!isScrolling && scrollSpeed > 10) {
 				_this.setState({
 					isScrolling: true
 				});
@@ -576,8 +571,7 @@ var InfiniteCalendar = function (_Component) {
 
 			if (!this.state.isCollapsed) {
 				this.setState({
-					isCollapsed: true,
-					expandOnScroll: false
+					isCollapsed: true
 				}, function () {
 					_this2.clearHighlight();
 

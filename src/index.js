@@ -216,15 +216,14 @@ class InfiniteCalendar extends Component {
     if (!this.state.isCollapsed) {
    		this.setState({
    			isCollapsed: true,
-   			expandOnScroll: false,
    		}, () => {
    			this.clearHighlight();
 
-			if (this.state.selectedDate !== null) {
-				this.scrollToDate(this.state.selectedDate, 0);
-			} else {
-				this.scrollToDate(this.state.selectedWeek, 0);
-			}
+				if (this.state.selectedDate !== null) {
+					this.scrollToDate(this.state.selectedDate, 0);
+				} else {
+					this.scrollToDate(this.state.selectedWeek, 0);
+				}
    		});
     }
   }
@@ -301,12 +300,6 @@ class InfiniteCalendar extends Component {
 
 			const prevCollapsed = this.state.isCollapsed;
 
-			if (!prevCollapsed) {
-				this.setState({
-					expandOnScroll: false,
-				});
-			}
-
 			this.setState({
 				selectedDate,
 				shouldHeaderAnimate,
@@ -329,12 +322,6 @@ class InfiniteCalendar extends Component {
 
 	onWeekSelect = (selectedWeek) => {
 		const prevCollapsed = this.state.isCollapsed;
-
-		if (!prevCollapsed) {
-			this.setState({
-				expandOnScroll: false,
-			});
-		}
 
 		this.setState({
 			selectedWeek,
@@ -363,14 +350,19 @@ class InfiniteCalendar extends Component {
 	};
 
 	scrollToDate = (date = moment(), offset) => {
-		if (!this.state.isCollapsed) {
-			this.setState({
-				isCollapsed: true,
-				isScrolling: false,
-			});
-		}
+		this.setState({
+			isScrolling: false,
+			expandOnScroll: false,
+		}, () => {
+			this.list.scrollToDate(date, offset);
 
-		return this.list && this.list.scrollToDate(date, offset);
+			if (!this.state.isCollapsed) {
+				this.setState({
+					isCollapsed: true,
+					expandOnScroll: true,
+				});
+			}
+		});
 	};
 
 	handleExpansionClick = () => {
@@ -386,8 +378,10 @@ class InfiniteCalendar extends Component {
 		let {isScrolling, isTouchStarted, isScrollEnded, isCollapsed, expandOnScroll} = this.state;
 		let scrollSpeed = this.scrollSpeed = Math.abs(this.getScrollSpeed(scrollTop));
 		this.scrollTop = scrollTop;
-		
-		if (!isScrolling && scrollSpeed > 10 && (device || !isCollapsed)) {
+
+		console.log("expandOnScroll", expandOnScroll);
+
+		if (!isScrolling && scrollSpeed > 10) {
 			this.setState({
 				isScrolling: true,
 			});

@@ -285,7 +285,8 @@
   position: relative;
   top: -1px;
   margin-top: -1px;
-  height: 40px; }
+  height: 40px;
+  overflow: hidden; }
 
 .Cal__Week__weekItem {
   z-index: 3;
