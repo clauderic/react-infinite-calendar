@@ -65,60 +65,85 @@ var InfiniteCalendar = function (_Component) {
 
 		_this.onDaySelect = function (selectedDate, e) {
 			var shouldHeaderAnimate = arguments.length <= 2 || arguments[2] === undefined ? _this.props.shouldHeaderAnimate : arguments[2];
-			var _this$props = _this.props;
-			var afterSelect = _this$props.afterSelect;
-			var beforeSelect = _this$props.beforeSelect;
-			var onSelect = _this$props.onSelect;
 
-
-			_this.setState({
-				isClickOnDatepicker: true
-			});
-
-			if (!beforeSelect || typeof beforeSelect == 'function' && beforeSelect(selectedDate)) {
+			if (selectedDate !== _this.state.selectedDate) {
 				(function () {
-					if (typeof onSelect == 'function') {
-						onSelect(selectedDate, e);
-					}
+					var _this$props = _this.props;
+					var afterSelect = _this$props.afterSelect;
+					var beforeSelect = _this$props.beforeSelect;
+					var onSelect = _this$props.onSelect;
 
-					var prevCollapsed = _this.state.isCollapsed;
 
 					_this.setState({
-						selectedDate: selectedDate,
-						shouldHeaderAnimate: shouldHeaderAnimate,
-						highlightedDate: selectedDate.clone(),
-						selectedWeek: null,
-						isCollapsed: true
-					}, function () {
-						_this.clearHighlight();
-
-						if (!prevCollapsed) {
-							_this.scrollToDate(selectedDate, 0);
-						}
-
-						if (typeof afterSelect == 'function') {
-							afterSelect(selectedDate);
-						}
+						isClickOnDatepicker: true
 					});
+
+					if (!beforeSelect || typeof beforeSelect == 'function' && beforeSelect(selectedDate)) {
+						(function () {
+							if (typeof onSelect == 'function') {
+								onSelect(selectedDate, e);
+							}
+
+							var prevCollapsed = _this.state.isCollapsed;
+
+							_this.setState({
+								selectedDate: selectedDate,
+								selectedWeek: null,
+								isCollapsed: true
+							}, function () {
+								_this.clearHighlight();
+
+								if (!prevCollapsed) {
+									_this.scrollToDate(selectedDate, 0);
+								}
+
+								if (typeof afterSelect == 'function') {
+									afterSelect(selectedDate);
+								}
+							});
+						})();
+					}
 				})();
 			}
 		};
 
 		_this.onWeekSelect = function (selectedWeek) {
-			var prevCollapsed = _this.state.isCollapsed;
+			if (selectedWeek !== _this.state.selectedWeek) {
+				(function () {
+					var _this$props2 = _this.props;
+					var afterSelect = _this$props2.afterSelect;
+					var beforeSelect = _this$props2.beforeSelect;
+					var onSelect = _this$props2.onSelect;
 
-			_this.setState({
-				selectedWeek: selectedWeek,
-				selectedDate: null,
-				isCollapsed: true,
-				isClickOnDatepicker: true
-			}, function () {
-				_this.clearHighlight();
 
-				if (!prevCollapsed) {
-					_this.scrollToDate(selectedWeek, 0);
-				}
-			});
+					if (!beforeSelect || typeof beforeSelect == 'function' && beforeSelect(selectedDate)) {
+						(function () {
+							if (typeof onSelect == 'function') {
+								onSelect(selectedDate, e);
+							}
+
+							var prevCollapsed = _this.state.isCollapsed;
+
+							_this.setState({
+								selectedWeek: selectedWeek,
+								selectedDate: null,
+								isCollapsed: true,
+								isClickOnDatepicker: true
+							}, function () {
+								_this.clearHighlight();
+
+								if (!prevCollapsed) {
+									_this.scrollToDate(selectedWeek, 0);
+								}
+
+								if (typeof afterSelect == 'function') {
+									afterSelect(selectedDate);
+								}
+							});
+						})();
+					}
+				})();
+			}
 		};
 
 		_this.getCurrentOffset = function () {
@@ -162,11 +187,11 @@ var InfiniteCalendar = function (_Component) {
 
 		_this.onScroll = function (_ref) {
 			var scrollTop = _ref.scrollTop;
-			var _this$props2 = _this.props;
-			var onScroll = _this$props2.onScroll;
-			var showOverlay = _this$props2.showOverlay;
-			var showTodayHelper = _this$props2.showTodayHelper;
-			var device = _this$props2.device;
+			var _this$props3 = _this.props;
+			var onScroll = _this$props3.onScroll;
+			var showOverlay = _this$props3.showOverlay;
+			var showTodayHelper = _this$props3.showTodayHelper;
+			var device = _this$props3.device;
 			var _this$state = _this.state;
 			var isScrolling = _this$state.isScrolling;
 			var isTouchStarted = _this$state.isTouchStarted;
@@ -176,8 +201,6 @@ var InfiniteCalendar = function (_Component) {
 
 			var scrollSpeed = _this.scrollSpeed = Math.abs(_this.getScrollSpeed(scrollTop));
 			_this.scrollTop = scrollTop;
-
-			console.log("expandOnScroll", expandOnScroll);
 
 			if (!isScrolling && scrollSpeed > 10) {
 				_this.setState({
@@ -209,9 +232,9 @@ var InfiniteCalendar = function (_Component) {
 		};
 
 		_this.onScrollEnd = debounce(function () {
-			var _this$props3 = _this.props;
-			var onScrollEnd = _this$props3.onScrollEnd;
-			var showTodayHelper = _this$props3.showTodayHelper;
+			var _this$props4 = _this.props;
+			var onScrollEnd = _this$props4.onScrollEnd;
+			var showTodayHelper = _this$props4.showTodayHelper;
 			var _this$state2 = _this.state;
 			var isScrolling = _this$state2.isScrolling;
 			var isTouchStarted = _this$state2.isTouchStarted;
@@ -253,10 +276,10 @@ var InfiniteCalendar = function (_Component) {
 
 			var scrollTop = _this.scrollTop;
 			var showToday = _this.state.showToday;
-			var _this$props4 = _this.props;
-			var height = _this$props4.height;
-			var rowHeight = _this$props4.rowHeight;
-			var todayHelperRowOffset = _this$props4.todayHelperRowOffset;
+			var _this$props5 = _this.props;
+			var height = _this$props5.height;
+			var rowHeight = _this$props5.rowHeight;
+			var todayHelperRowOffset = _this$props5.todayHelperRowOffset;
 
 			var newState = void 0;
 			var dayOffset = Math.ceil((date.date() - 7 + moment(date).startOf("month").day()) / 7) * rowHeight; //offset of "today" within its month
@@ -279,10 +302,10 @@ var InfiniteCalendar = function (_Component) {
 		};
 
 		_this.handleKeyDown = function (e) {
-			var _this$props5 = _this.props;
-			var maxDate = _this$props5.maxDate;
-			var minDate = _this$props5.minDate;
-			var onKeyDown = _this$props5.onKeyDown;
+			var _this$props6 = _this.props;
+			var maxDate = _this$props6.maxDate;
+			var minDate = _this$props6.minDate;
+			var onKeyDown = _this$props6.onKeyDown;
 			var _this$state3 = _this.state;
 			var display = _this$state3.display;
 			var selectedDate = _this$state3.selectedDate;
@@ -413,87 +436,77 @@ var InfiniteCalendar = function (_Component) {
 	}, {
 		key: 'componentWillReceiveProps',
 		value: function componentWillReceiveProps(next) {
+			var _this2 = this;
+
 			var _props2 = this.props;
 			var min = _props2.min;
 			var minDate = _props2.minDate;
 			var max = _props2.max;
 			var maxDate = _props2.maxDate;
 			var locale = _props2.locale;
-			var selectedDate = _props2.selectedDate;
-			var selectedWeek = _props2.selectedWeek;
-			var showSelectionText = _props2.showSelectionText;
 			var _state = this.state;
 			var display = _state.display;
 			var isClickOnDatepicker = _state.isClickOnDatepicker;
+			var selectedWeek = _state.selectedWeek;
+			var selectedDate = _state.selectedDate;
 
 
 			var nextDate = this.parseSelectedDate(next.selectedDate);
 			var nextWeek = this.parseSelectedDate(next.selectedWeek);
-			var stateDate = this.parseSelectedDate(this.state.selectedDate);
-			var stateWeek = this.parseSelectedDate(this.state.selectedWeek);
-			var scrollCheck = false;
+			var stateDate = this.parseSelectedDate(selectedDate);
+			var stateWeek = this.parseSelectedDate(selectedWeek);
+			//let scrollCheck = false;
 
 			this.setState({
 				collapsedHeight: next.collapsedHeight,
 				expandedHeight: next.expandedHeight
 			});
 
-			if (nextDate !== null) {
-				scrollCheck = moment(nextDate).format('YYYY') !== moment(stateDate).format('YYYY') || moment(nextDate).format('ww') !== moment(stateDate).format('ww');
-			} else {
-				scrollCheck = moment(nextDate).format('YYYY') !== moment(stateWeek).format('YYYY') || moment(nextWeek).format('ww') !== moment(stateWeek).format('ww');
-			}
+			// if (nextDate !== null) {
+			// 	scrollCheck = (moment(nextDate).format('YYYY') !== moment(stateDate).format('YYYY')) || (moment(nextDate).format('ww') !== moment(stateDate).format('ww'));
+			// } else {
+			// 	scrollCheck = (moment(nextWeek).format('YYYY') !== moment(stateWeek).format('YYYY')) || (moment(nextWeek).format('ww') !== moment(stateWeek).format('ww'));
+			// }
 
-			if (!this.state.isClickOnDatepicker && scrollCheck) {
-				if (nextDate !== null) {
-					this.scrollToDate(nextDate, 0);
-				} else {
-					this.scrollToDate(nextWeek, 0);
-				}
-			}
+			// if (!isClickOnDatepicker && scrollCheck) {
+			// 	if (nextDate !== null) {
+			// 		this.scrollToDate(nextDate, 0);
+			// 	} else {
+			// 		this.scrollToDate(nextWeek, 0);
+			// 	}
+			// }
 
 			if (next.locale !== locale) {
 				this.updateLocale(next.locale);
 			}
 
 			if (next.min !== min || next.minDate !== minDate || next.max !== max || next.maxDate !== maxDate) {
-				this.upda;
-				teYears(next);
+				this.updateYears(next);
 			}
 
-			if (next.selectedDate !== null) {
-				this.onDaySelect(nextDate);
-
-				if (next.selectedDate !== selectedDate) {
+			if (next.selectedDate !== null && moment(nextDate).valueOf() !== stateDate) {
+				if (moment(next.selectedDate).valueOf() > moment(minDate.year).month(0).date(1).valueOf() && moment(next.selectedDate).valueOf() < moment(maxDate.year).month(11).date(31).valueOf()) {
 					this.setState({
-						selectedDate: nextDate
+						selectedWeek: null,
+						selectedDate: nextDate,
+						isCollapsed: true
+					}, function () {
+						_this2.clearHighlight();
+						_this2.scrollToDate(selectedDate, 0);
 					});
-				} else if (next.minDate !== minDate || next.maxDate !== maxDate) {
-					// Need to make sure the currently selected date is not before the new minDate or after maxDate
-					var _selectedDate = stateDate;
-					if (!_selectedDate.isSame(this.state.selectedDate, 'day')) {
-						this.setState({
-							selectedDate: _selectedDate
-						});
-					}
 				}
 			}
 
-			if (next.selectedWeek !== null) {
-				this.onWeekSelect(nextWeek);
-
-				if (next.selectedWeek !== selectedWeek) {
+			if (next.selectedWeek !== null && nextWeek !== stateWeek) {
+				if (moment(nextWeek).valueOf() > moment(minDate.year).month(0).date(1).valueOf() && moment(nextWeek).valueOf() < moment(maxDate.year).month(11).date(31).valueOf()) {
 					this.setState({
-						selectedWeek: nextWeek
+						selectedWeek: nextWeek,
+						selectedDate: null,
+						isCollapsed: true
+					}, function () {
+						_this2.clearHighlight();
+						_this2.scrollToDate(selectedWeek, 0);
 					});
-				} else if (next.minDate !== minDate || next.maxDate !== maxDate) {
-					// Need to make sure the currently selected date is not before the new minDate or after maxDate
-					var _selectedWeek = stateWeek;
-					if (!_selectedWeek.isSame(this.state.selectedWeek, 'day')) {
-						this.setState({
-							selectedWeek: _selectedWeek
-						});
-					}
 				}
 			}
 
@@ -510,18 +523,18 @@ var InfiniteCalendar = function (_Component) {
 	}, {
 		key: 'handleClickOutside',
 		value: function handleClickOutside(evt) {
-			var _this2 = this;
+			var _this3 = this;
 
 			if (!this.state.isCollapsed) {
 				this.setState({
 					isCollapsed: true
 				}, function () {
-					_this2.clearHighlight();
+					_this3.clearHighlight();
 
-					if (_this2.state.selectedDate !== null) {
-						_this2.scrollToDate(_this2.state.selectedDate, 0);
+					if (_this3.state.selectedDate !== null) {
+						_this3.scrollToDate(_this3.state.selectedDate, 0);
 					} else {
-						_this2.scrollToDate(_this2.state.selectedWeek, 0);
+						_this3.scrollToDate(_this3.state.selectedWeek, 0);
 					}
 				});
 			}
@@ -747,10 +760,10 @@ InfiniteCalendar.defaultProps = {
 	display: 'days',
 	selectedDate: new Date(),
 	selectedWeek: null,
-	min: { year: 2000, month: 0, day: 0 },
-	minDate: { year: 2000, month: 0, day: 0 },
-	max: { year: 2020, month: 11, day: 31 },
-	maxDate: { year: 2020, month: 11, day: 31 },
+	min: { year: moment().subtract(2, 'years').year(), month: 0, day: 0 },
+	minDate: { year: moment().subtract(2, 'years').year(), month: 0, day: 0 },
+	max: { year: moment().add(2, 'years').year(), month: 11, day: 31 },
+	maxDate: { year: moment().add(2, 'years').year(), month: 11, day: 31 },
 	keyboardSupport: false,
 	autoFocus: true,
 	shouldHeaderAnimate: true,

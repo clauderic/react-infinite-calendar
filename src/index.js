@@ -56,10 +56,10 @@ class InfiniteCalendar extends Component {
 		display: 'days',
 		selectedDate: new Date(),
 		selectedWeek: null,
-		min: {year: 2000, month: 0, day: 0},
-		minDate: {year: 2000, month: 0, day: 0},
-		max: {year: 2020, month: 11, day: 31},
-		maxDate: {year: 2020, month: 11, day: 31},
+		min: {year: moment().subtract(2, 'years').year(), month: 0, day: 0},
+		minDate: {year: moment().subtract(2, 'years').year(), month: 0, day: 0},
+		max: {year: moment().add(2, 'years').year(), month: 11, day: 31},
+		maxDate: {year: moment().add(2, 'years').year(), month: 11, day: 31},
 		keyboardSupport: false,
 		autoFocus: true,
 		shouldHeaderAnimate: true,
@@ -128,76 +128,67 @@ class InfiniteCalendar extends Component {
 	}
 
 	componentWillReceiveProps(next) {
-		let {min, minDate, max, maxDate, locale, selectedDate, selectedWeek, showSelectionText} = this.props;
-		let {display, isClickOnDatepicker} = this.state;
+		let {min, minDate, max, maxDate, locale} = this.props;
+		let {display, isClickOnDatepicker, selectedWeek, selectedDate} = this.state;
 
 		const nextDate = this.parseSelectedDate(next.selectedDate);
 		const nextWeek = this.parseSelectedDate(next.selectedWeek);
-		const stateDate = this.parseSelectedDate(this.state.selectedDate);
-		const stateWeek = this.parseSelectedDate(this.state.selectedWeek);
-		let scrollCheck = false;
+		const stateDate = this.parseSelectedDate(selectedDate);
+		const stateWeek = this.parseSelectedDate(selectedWeek);
+		//let scrollCheck = false;
 
 		this.setState({
 			collapsedHeight: next.collapsedHeight,
 			expandedHeight: next.expandedHeight,
 		});
 
-		if (nextDate !== null) {
-			scrollCheck = (moment(nextDate).format('YYYY') !== moment(stateDate).format('YYYY')) || (moment(nextDate).format('ww') !== moment(stateDate).format('ww'));
-		} else {
-			scrollCheck = (moment(nextDate).format('YYYY') !== moment(stateWeek).format('YYYY')) || (moment(nextWeek).format('ww') !== moment(stateWeek).format('ww'));
-		}
+		// if (nextDate !== null) {
+		// 	scrollCheck = (moment(nextDate).format('YYYY') !== moment(stateDate).format('YYYY')) || (moment(nextDate).format('ww') !== moment(stateDate).format('ww'));
+		// } else {
+		// 	scrollCheck = (moment(nextWeek).format('YYYY') !== moment(stateWeek).format('YYYY')) || (moment(nextWeek).format('ww') !== moment(stateWeek).format('ww'));
+		// }
 
-		if (!this.state.isClickOnDatepicker && scrollCheck) {
-			if (nextDate !== null) {
-				this.scrollToDate(nextDate, 0);
-			} else {
-				this.scrollToDate(nextWeek, 0);
-			}
-		}
+		// if (!isClickOnDatepicker && scrollCheck) {
+		// 	if (nextDate !== null) {
+		// 		this.scrollToDate(nextDate, 0);
+		// 	} else {
+		// 		this.scrollToDate(nextWeek, 0);
+		// 	}
+		// }
 
 		if (next.locale !== locale) {
 			this.updateLocale(next.locale);
 		}
 
 		if (next.min !== min || next.minDate !== minDate || next.max !== max || next.maxDate !== maxDate) {
-			this.upda
-			teYears(next);
+			this.updateYears(next);
 		}
 
-		if (next.selectedDate !== null) {
-			this.onDaySelect(nextDate);
-
-			if (next.selectedDate !== selectedDate) {
+		if (next.selectedDate !== null && moment(nextDate).valueOf() !== stateDate) {
+			if (moment(next.selectedDate).valueOf() > moment(minDate.year).month(0).date(1).valueOf() &&
+					moment(next.selectedDate).valueOf() < moment(maxDate.year).month(11).date(31).valueOf()) {
 				this.setState({
-					selectedDate: nextDate
+					selectedWeek: null,
+					selectedDate: nextDate,
+					isCollapsed: true,
+				}, () => {
+					this.clearHighlight();
+					this.scrollToDate(selectedDate, 0);
 				});
-			} else if (next.minDate !== minDate || next.maxDate !== maxDate) {
-				// Need to make sure the currently selected date is not before the new minDate or after maxDate
-				let _selectedDate = stateDate;
-				if (!_selectedDate.isSame(this.state.selectedDate, 'day')) {
-					this.setState({
-						selectedDate: _selectedDate
-					});
-				}
 			}
 		}
 		
-		if (next.selectedWeek !== null) {
-			this.onWeekSelect(nextWeek);
-
-			if (next.selectedWeek !== selectedWeek) {
+		if (next.selectedWeek !== null && nextWeek !== stateWeek) {
+			if (moment(nextWeek).valueOf() > moment(minDate.year).month(0).date(1).valueOf() &&
+					moment(nextWeek).valueOf() < moment(maxDate.year).month(11).date(31).valueOf()) {
 				this.setState({
-					selectedWeek: nextWeek
+					selectedWeek: nextWeek,
+					selectedDate: null,
+					isCollapsed: true,
+				}, () => {
+					this.clearHighlight();
+					this.scrollToDate(selectedWeek, 0);
 				});
-			} else if (next.minDate !== minDate || next.maxDate !== maxDate) {
-				// Need to make sure the currently selected date is not before the new minDate or after maxDate
-				let _selectedWeek = stateWeek;
-				if (!_selectedWeek.isSame(this.state.selectedWeek, 'day')) {
-					this.setState({
-						selectedWeek: _selectedWeek
-					});
-				}
 			}
 		}
 
@@ -287,54 +278,70 @@ class InfiniteCalendar extends Component {
 	}
 
 	onDaySelect = (selectedDate, e, shouldHeaderAnimate = this.props.shouldHeaderAnimate) => {
-		let {afterSelect, beforeSelect, onSelect} = this.props;
-
-		this.setState({
-			isClickOnDatepicker: true
-		});
-
-		if (!beforeSelect || typeof beforeSelect == 'function' && beforeSelect(selectedDate)) {
-			if (typeof onSelect == 'function') {
-				onSelect(selectedDate, e);
-			}
-
-			const prevCollapsed = this.state.isCollapsed;
+		if (selectedDate !== this.state.selectedDate) {
+			let {afterSelect, beforeSelect, onSelect} = this.props;
 
 			this.setState({
-				selectedDate,
-				shouldHeaderAnimate,
-				highlightedDate: selectedDate.clone(),
-				selectedWeek: null,
-				isCollapsed: true,
-			}, () => {
-				this.clearHighlight();
-
-				if (!prevCollapsed) {
-					this.scrollToDate(selectedDate, 0);
-				}
-				
-				if (typeof afterSelect == 'function') {
-					afterSelect(selectedDate);
-				}
+				isClickOnDatepicker: true
 			});
+
+			if (!beforeSelect || typeof beforeSelect == 'function' && beforeSelect(selectedDate)) {
+				if (typeof onSelect == 'function') {
+					onSelect(selectedDate, e);
+				}
+
+				const prevCollapsed = this.state.isCollapsed;
+
+				this.setState({
+					selectedDate: selectedDate,
+					selectedWeek: null,
+					isCollapsed: true,
+				}, () => {
+					this.clearHighlight();
+
+					if (!prevCollapsed) {
+						this.scrollToDate(selectedDate, 0);
+					}
+					
+					if (typeof afterSelect == 'function') {
+						afterSelect(selectedDate);
+					}
+				});
+			}
 		}
 	};
 
 	onWeekSelect = (selectedWeek) => {
-		const prevCollapsed = this.state.isCollapsed;
+		if (selectedWeek !== this.state.selectedWeek) {
+			let {afterSelect, beforeSelect, onSelect} = this.props;
 
-		this.setState({
-			selectedWeek,
-			selectedDate: null,
-			isCollapsed: true,
-			isClickOnDatepicker: true,
-		}, () => {
-			this.clearHighlight();
+			
 
-			if (!prevCollapsed) {
-				this.scrollToDate(selectedWeek, 0);
+			if (!beforeSelect || typeof beforeSelect == 'function' && beforeSelect(selectedDate)) {
+				if (typeof onSelect == 'function') {
+					onSelect(selectedDate, e);
+				}
+
+				const prevCollapsed = this.state.isCollapsed;
+
+				this.setState({
+					selectedWeek: selectedWeek,
+					selectedDate: null,
+					isCollapsed: true,
+					isClickOnDatepicker: true,
+				}, () => {
+					this.clearHighlight();
+
+					if (!prevCollapsed) {
+						this.scrollToDate(selectedWeek, 0);
+					}
+
+					if (typeof afterSelect == 'function') {
+						afterSelect(selectedDate);
+					}
+				});
 			}
-		});
+		}
 	};
 
 	getCurrentOffset = () => {
@@ -378,8 +385,6 @@ class InfiniteCalendar extends Component {
 		let {isScrolling, isTouchStarted, isScrollEnded, isCollapsed, expandOnScroll} = this.state;
 		let scrollSpeed = this.scrollSpeed = Math.abs(this.getScrollSpeed(scrollTop));
 		this.scrollTop = scrollTop;
-
-		console.log("expandOnScroll", expandOnScroll);
 
 		if (!isScrolling && scrollSpeed > 10) {
 			this.setState({

@@ -33,6 +33,7 @@ function Week(_ref) {
 	var isWeekSelected = _ref.isWeekSelected;
 	var theme = _ref.theme;
 	var rowHeight = _ref.rowHeight;
+	var isDisabled = _ref.isDisabled;
 
 	var weekNumber = date.date.format('ww');
 	var weekDistance = (0, _moment2.default)().startOf('week').diff(date.date, "weeks");
@@ -42,7 +43,7 @@ function Week(_ref) {
 	return _react2.default.createElement(
 		'li',
 		{ className: (0, _classnames2.default)(style.root, isWeekSelected ? style.weekSelected : null),
-			onClick: handleWeekClick.bind(this, date.date),
+			onClick: !isDisabled && handleWeekClick ? handleWeekClick.bind(this, date.date) : null,
 			style: isWeekSelected ? { 'backgroundColor': theme.selectedWeekBackground } : { 'backgroundColor': theme.weekBackground } },
 		_react2.default.createElement(
 			'span',
