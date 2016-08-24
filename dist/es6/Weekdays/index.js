@@ -23,10 +23,11 @@ var Weekdays = function (_Component) {
 			args[_key] = arguments[_key];
 		}
 
-		return _ret = (_temp = (_this = babelHelpers.possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Weekdays)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.scrollToToday = function () {
-			var scrollToDate = _this.props.scrollToDate;
+		return _ret = (_temp = (_this = babelHelpers.possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Weekdays)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.handleTodayClick = function () {
+			var handleTodayClick = _this.props.handleTodayClick;
 
-			scrollToDate(moment(), 0);
+
+			handleTodayClick(moment());
 		}, _temp), babelHelpers.possibleConstructorReturn(_this, _ret);
 	}
 
@@ -52,7 +53,7 @@ var Weekdays = function (_Component) {
 					if (index === 0) {
 						return React.createElement(
 							'li',
-							{ key: 'Weekday-today', className: style.today + " " + style.day, onClick: _this2.scrollToToday },
+							{ key: 'Weekday-today', className: style.today + " " + style.day, onClick: _this2.handleTodayClick },
 							locale.todayLabel.long
 						);
 					} else {
@@ -72,6 +73,6 @@ var Weekdays = function (_Component) {
 Weekdays.propTypes = {
 	locale: PropTypes.object,
 	theme: PropTypes.object,
-	scrollToDate: PropTypes.func
+	handleTodayClick: PropTypes.func
 };
 export default Weekdays;

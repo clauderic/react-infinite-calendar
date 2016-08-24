@@ -93,7 +93,7 @@ var InfiniteCalendar = function (_Component) {
 							}, function () {
 								_this.clearHighlight();
 
-								if (!prevCollapsed) {
+								if (!prevCollapsed || moment(selectedDate).format('YYYYMMDD') === moment().format('YYYYMMDD')) {
 									_this.scrollToDate(selectedDate, 0);
 								}
 
@@ -116,10 +116,10 @@ var InfiniteCalendar = function (_Component) {
 					var onSelect = _this$props2.onSelect;
 
 
-					if (!beforeSelect || typeof beforeSelect == 'function' && beforeSelect(selectedDate)) {
+					if (!beforeSelect || typeof beforeSelect == 'function' && beforeSelect(selectedWeek)) {
 						(function () {
 							if (typeof onSelect == 'function') {
-								onSelect(selectedDate, e);
+								onSelect(selectedWeek, e);
 							}
 
 							var prevCollapsed = _this.state.isCollapsed;
@@ -132,12 +132,12 @@ var InfiniteCalendar = function (_Component) {
 							}, function () {
 								_this.clearHighlight();
 
-								if (!prevCollapsed) {
+								if (!prevCollapsed || moment(selectedWeek).format('ww') === moment().format('ww') && moment(selectedWeek).format('YYYY') === moment().format('YYYY')) {
 									_this.scrollToDate(selectedWeek, 0);
 								}
 
 								if (typeof afterSelect == 'function') {
-									afterSelect(selectedDate);
+									afterSelect(selectedWeek);
 								}
 							});
 						})();
@@ -455,26 +455,13 @@ var InfiniteCalendar = function (_Component) {
 			var nextWeek = this.parseSelectedDate(next.selectedWeek);
 			var stateDate = this.parseSelectedDate(selectedDate);
 			var stateWeek = this.parseSelectedDate(selectedWeek);
-			//let scrollCheck = false;
+
+			console.log("componentWillReceiveProps");
 
 			this.setState({
 				collapsedHeight: next.collapsedHeight,
 				expandedHeight: next.expandedHeight
 			});
-
-			// if (nextDate !== null) {
-			// 	scrollCheck = (moment(nextDate).format('YYYY') !== moment(stateDate).format('YYYY')) || (moment(nextDate).format('ww') !== moment(stateDate).format('ww'));
-			// } else {
-			// 	scrollCheck = (moment(nextWeek).format('YYYY') !== moment(stateWeek).format('YYYY')) || (moment(nextWeek).format('ww') !== moment(stateWeek).format('ww'));
-			// }
-
-			// if (!isClickOnDatepicker && scrollCheck) {
-			// 	if (nextDate !== null) {
-			// 		this.scrollToDate(nextDate, 0);
-			// 	} else {
-			// 		this.scrollToDate(nextWeek, 0);
-			// 	}
-			// }
 
 			if (next.locale !== locale) {
 				this.updateLocale(next.locale);
@@ -693,7 +680,7 @@ var InfiniteCalendar = function (_Component) {
 				React.createElement(
 					'div',
 					{ className: style.container.wrapper },
-					React.createElement(Weekdays, { theme: theme, locale: locale, scrollToDate: this.scrollToDate }),
+					React.createElement(Weekdays, { theme: theme, locale: locale, handleTodayClick: selectedDate !== null ? this.onDaySelect : this.onWeekSelect }),
 					React.createElement(
 						'div',
 						{

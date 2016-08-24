@@ -185,7 +185,7 @@ return /******/ (function(modules) { // webpackBootstrap
 								}, function () {
 									_this.clearHighlight();
 
-									if (!prevCollapsed) {
+									if (!prevCollapsed || (0, _moment2.default)(selectedDate).format('YYYYMMDD') === (0, _moment2.default)().format('YYYYMMDD')) {
 										_this.scrollToDate(selectedDate, 0);
 									}
 
@@ -208,10 +208,10 @@ return /******/ (function(modules) { // webpackBootstrap
 						var onSelect = _this$props2.onSelect;
 
 
-						if (!beforeSelect || typeof beforeSelect == 'function' && beforeSelect(selectedDate)) {
+						if (!beforeSelect || typeof beforeSelect == 'function' && beforeSelect(selectedWeek)) {
 							(function () {
 								if (typeof onSelect == 'function') {
-									onSelect(selectedDate, e);
+									onSelect(selectedWeek, e);
 								}
 
 								var prevCollapsed = _this.state.isCollapsed;
@@ -224,12 +224,12 @@ return /******/ (function(modules) { // webpackBootstrap
 								}, function () {
 									_this.clearHighlight();
 
-									if (!prevCollapsed) {
+									if (!prevCollapsed || (0, _moment2.default)(selectedWeek).format('ww') === (0, _moment2.default)().format('ww') && (0, _moment2.default)(selectedWeek).format('YYYY') === (0, _moment2.default)().format('YYYY')) {
 										_this.scrollToDate(selectedWeek, 0);
 									}
 
 									if (typeof afterSelect == 'function') {
-										afterSelect(selectedDate);
+										afterSelect(selectedWeek);
 									}
 								});
 							})();
@@ -547,26 +547,13 @@ return /******/ (function(modules) { // webpackBootstrap
 				var nextWeek = this.parseSelectedDate(next.selectedWeek);
 				var stateDate = this.parseSelectedDate(selectedDate);
 				var stateWeek = this.parseSelectedDate(selectedWeek);
-				//let scrollCheck = false;
+
+				console.log("componentWillReceiveProps");
 
 				this.setState({
 					collapsedHeight: next.collapsedHeight,
 					expandedHeight: next.expandedHeight
 				});
-
-				// if (nextDate !== null) {
-				// 	scrollCheck = (moment(nextDate).format('YYYY') !== moment(stateDate).format('YYYY')) || (moment(nextDate).format('ww') !== moment(stateDate).format('ww'));
-				// } else {
-				// 	scrollCheck = (moment(nextWeek).format('YYYY') !== moment(stateWeek).format('YYYY')) || (moment(nextWeek).format('ww') !== moment(stateWeek).format('ww'));
-				// }
-
-				// if (!isClickOnDatepicker && scrollCheck) {
-				// 	if (nextDate !== null) {
-				// 		this.scrollToDate(nextDate, 0);
-				// 	} else {
-				// 		this.scrollToDate(nextWeek, 0);
-				// 	}
-				// }
 
 				if (next.locale !== locale) {
 					this.updateLocale(next.locale);
@@ -786,7 +773,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					_react2.default.createElement(
 						'div',
 						{ className: style.container.wrapper },
-						_react2.default.createElement(_Weekdays2.default, { theme: theme, locale: locale, scrollToDate: this.scrollToDate }),
+						_react2.default.createElement(_Weekdays2.default, { theme: theme, locale: locale, handleTodayClick: selectedDate !== null ? this.onDaySelect : this.onWeekSelect }),
 						_react2.default.createElement(
 							'div',
 							{
@@ -43625,10 +43612,11 @@ return /******/ (function(modules) { // webpackBootstrap
 				args[_key] = arguments[_key];
 			}
 
-			return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Weekdays)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.scrollToToday = function () {
-				var scrollToDate = _this.props.scrollToDate;
+			return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Weekdays)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.handleTodayClick = function () {
+				var handleTodayClick = _this.props.handleTodayClick;
 
-				scrollToDate((0, _moment2.default)(), 0);
+
+				handleTodayClick((0, _moment2.default)());
 			}, _temp), _possibleConstructorReturn(_this, _ret);
 		}
 
@@ -43654,7 +43642,7 @@ return /******/ (function(modules) { // webpackBootstrap
 						if (index === 0) {
 							return _react2.default.createElement(
 								'li',
-								{ key: 'Weekday-today', className: style.today + " " + style.day, onClick: _this2.scrollToToday },
+								{ key: 'Weekday-today', className: style.today + " " + style.day, onClick: _this2.handleTodayClick },
 								locale.todayLabel.long
 							);
 						} else {
@@ -43675,7 +43663,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Weekdays.propTypes = {
 		locale: _react.PropTypes.object,
 		theme: _react.PropTypes.object,
-		scrollToDate: _react.PropTypes.func
+		handleTodayClick: _react.PropTypes.func
 	};
 	exports.default = Weekdays;
 

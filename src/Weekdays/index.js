@@ -10,16 +10,17 @@ export default class Weekdays extends Component {
 	static propTypes = {
 		locale: PropTypes.object,
 		theme: PropTypes.object,
-		scrollToDate: PropTypes.func,
+		handleTodayClick: PropTypes.func,
 	};
 
 	shouldComponentUpdate(nextProps) {
 		return shallowCompare(this, nextProps);
 	}
 
-	scrollToToday = () => {
-		let {scrollToDate} = this.props;
-		scrollToDate(moment(), 0);
+	handleTodayClick = () => {
+		let {handleTodayClick} = this.props;
+
+		handleTodayClick(moment());
 	};
 
 	render() {
@@ -30,7 +31,7 @@ export default class Weekdays extends Component {
 				{range(0,8).map((val, index) => {
 				  if (index === 0) {
             return (
-						  <li key={`Weekday-today`} className={style.today + " " + style.day} onClick={this.scrollToToday}>{locale.todayLabel.long}</li>
+						  <li key={`Weekday-today`} className={style.today + " " + style.day} onClick={this.handleTodayClick}>{locale.todayLabel.long}</li>
 					  );
 				  } else {
             return (
