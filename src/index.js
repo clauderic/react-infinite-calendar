@@ -40,7 +40,7 @@ class InfiniteCalendar extends Component {
 			display: props.display,
 			shouldHeaderAnimate: props.shouldHeaderAnimate,
 			isCollapsed: props.isCollapsed,
-			expandOnScroll: true,
+			expandOnScroll: false,
 		};
 	}
 
@@ -136,8 +136,6 @@ class InfiniteCalendar extends Component {
 		const stateDate = this.parseSelectedDate(selectedDate);
 		const stateWeek = this.parseSelectedDate(selectedWeek);
 
-		console.log("componentWillReceiveProps");
-
 		this.setState({
 			collapsedHeight: next.collapsedHeight,
 			expandedHeight: next.expandedHeight,
@@ -152,30 +150,31 @@ class InfiniteCalendar extends Component {
 		}
 
 		if (next.selectedDate !== null && moment(nextDate).valueOf() !== stateDate) {
-			if (moment(next.selectedDate).valueOf() > moment(minDate.year).month(0).date(1).valueOf() &&
-					moment(next.selectedDate).valueOf() < moment(maxDate.year).month(11).date(31).valueOf()) {
+
+			if (new Date(nextDate).getTime() > new Date(minDate.year + "-01-01").getTime() &&
+					new Date(nextDate).getTime() < new Date(maxDate.year + "-12-31").getTime()) {
 				this.setState({
 					selectedWeek: null,
 					selectedDate: nextDate,
 					isCollapsed: true,
-				}, () => {
-					this.clearHighlight();
-					this.scrollToDate(selectedDate, 0);
 				});
+
+				this.clearHighlight();
+				this.scrollToDate(nextDate, 0);
 			}
 		}
 		
 		if (next.selectedWeek !== null && nextWeek !== stateWeek) {
-			if (moment(nextWeek).valueOf() > moment(minDate.year).month(0).date(1).valueOf() &&
-					moment(nextWeek).valueOf() < moment(maxDate.year).month(11).date(31).valueOf()) {
+			if (new Date(nextWeek).getTime() > new Date(minDate.year + "-01-01").getTime() &&
+					new Date(nextWeek).getTime() < new Date(maxDate.year + "-12-31").getTime()) {
 				this.setState({
 					selectedWeek: nextWeek,
 					selectedDate: null,
 					isCollapsed: true,
-				}, () => {
-					this.clearHighlight();
-					this.scrollToDate(selectedWeek, 0);
 				});
+
+				this.clearHighlight();
+				this.scrollToDate(nextWeek, 0);
 			}
 		}
 
@@ -188,6 +187,18 @@ class InfiniteCalendar extends Component {
 				display: next.display
 			});
 		}
+	}
+
+	shouldComponentUpdate(nextProps, nextState) {
+		/*
+			isTouchStarted: true,
+			isScrollEnded: false,
+		*/
+		const shouldUpdate = nextState.isTouchStarted === this.state.isTouchStarted && nextState.isScrollEnded === this.state.isScrollEnded;
+  	// console.log("should update", shouldUpdate);
+  	// console.log(nextState.isTouchStarted + "===" + this.state.isTouchStarted);
+  	// console.log(nextState.isScrollEnded + "===" + this.state.isScrollEnded);
+  	return shouldUpdate;
 	}
 
 	handleClickOutside(evt) {
@@ -383,12 +394,6 @@ class InfiniteCalendar extends Component {
 			});
 		}
 
-		if (isScrollEnded) {
-			this.setState({
-				isScrollEnded: false,
-			});
-		}
-
 		if (showTodayHelper) {
 			this.updateTodayHelperPosition(scrollSpeed);
 		}
@@ -396,7 +401,7 @@ class InfiniteCalendar extends Component {
 		if (typeof onScroll == 'function') {
 			onScroll(scrollTop);
 		}
-		
+
 		this.onScrollEnd();
 	};
 
@@ -418,6 +423,7 @@ class InfiniteCalendar extends Component {
 		if (!this.state.isTouchStarted) {
 			this.setState({
 				isTouchStarted: true,
+				isScrollEnded: false,
 			});
 		}
 	};

@@ -214,12 +214,6 @@ var InfiniteCalendar = function (_Component) {
 				});
 			}
 
-			if (isScrollEnded) {
-				_this.setState({
-					isScrollEnded: false
-				});
-			}
-
 			if (showTodayHelper) {
 				_this.updateTodayHelperPosition(scrollSpeed);
 			}
@@ -253,7 +247,8 @@ var InfiniteCalendar = function (_Component) {
 		_this.handleTouchStart = function () {
 			if (!_this.state.isTouchStarted) {
 				_this.setState({
-					isTouchStarted: true
+					isTouchStarted: true,
+					isScrollEnded: false
 				});
 			}
 		};
@@ -414,7 +409,7 @@ var InfiniteCalendar = function (_Component) {
 			display: props.display,
 			shouldHeaderAnimate: props.shouldHeaderAnimate,
 			isCollapsed: props.isCollapsed,
-			expandOnScroll: true
+			expandOnScroll: false
 		};
 		return _this;
 	}
@@ -436,8 +431,6 @@ var InfiniteCalendar = function (_Component) {
 	}, {
 		key: 'componentWillReceiveProps',
 		value: function componentWillReceiveProps(next) {
-			var _this2 = this;
-
 			var _props2 = this.props;
 			var min = _props2.min;
 			var minDate = _props2.minDate;
@@ -456,8 +449,6 @@ var InfiniteCalendar = function (_Component) {
 			var stateDate = this.parseSelectedDate(selectedDate);
 			var stateWeek = this.parseSelectedDate(selectedWeek);
 
-			console.log("componentWillReceiveProps");
-
 			this.setState({
 				collapsedHeight: next.collapsedHeight,
 				expandedHeight: next.expandedHeight
@@ -472,28 +463,29 @@ var InfiniteCalendar = function (_Component) {
 			}
 
 			if (next.selectedDate !== null && moment(nextDate).valueOf() !== stateDate) {
-				if (moment(next.selectedDate).valueOf() > moment(minDate.year).month(0).date(1).valueOf() && moment(next.selectedDate).valueOf() < moment(maxDate.year).month(11).date(31).valueOf()) {
+
+				if (new Date(nextDate).getTime() > new Date(minDate.year + "-01-01").getTime() && new Date(nextDate).getTime() < new Date(maxDate.year + "-12-31").getTime()) {
 					this.setState({
 						selectedWeek: null,
 						selectedDate: nextDate,
 						isCollapsed: true
-					}, function () {
-						_this2.clearHighlight();
-						_this2.scrollToDate(selectedDate, 0);
 					});
+
+					this.clearHighlight();
+					this.scrollToDate(nextDate, 0);
 				}
 			}
 
 			if (next.selectedWeek !== null && nextWeek !== stateWeek) {
-				if (moment(nextWeek).valueOf() > moment(minDate.year).month(0).date(1).valueOf() && moment(nextWeek).valueOf() < moment(maxDate.year).month(11).date(31).valueOf()) {
+				if (new Date(nextWeek).getTime() > new Date(minDate.year + "-01-01").getTime() && new Date(nextWeek).getTime() < new Date(maxDate.year + "-12-31").getTime()) {
 					this.setState({
 						selectedWeek: nextWeek,
 						selectedDate: null,
 						isCollapsed: true
-					}, function () {
-						_this2.clearHighlight();
-						_this2.scrollToDate(selectedWeek, 0);
 					});
+
+					this.clearHighlight();
+					this.scrollToDate(nextWeek, 0);
 				}
 			}
 
@@ -508,20 +500,33 @@ var InfiniteCalendar = function (_Component) {
 			}
 		}
 	}, {
+		key: 'shouldComponentUpdate',
+		value: function shouldComponentUpdate(nextProps, nextState) {
+			/*
+   	isTouchStarted: true,
+   	isScrollEnded: false,
+   */
+			var shouldUpdate = nextState.isTouchStarted === this.state.isTouchStarted && nextState.isScrollEnded === this.state.isScrollEnded;
+			// console.log("should update", shouldUpdate);
+			// console.log(nextState.isTouchStarted + "===" + this.state.isTouchStarted);
+			// console.log(nextState.isScrollEnded + "===" + this.state.isScrollEnded);
+			return shouldUpdate;
+		}
+	}, {
 		key: 'handleClickOutside',
 		value: function handleClickOutside(evt) {
-			var _this3 = this;
+			var _this2 = this;
 
 			if (!this.state.isCollapsed) {
 				this.setState({
 					isCollapsed: true
 				}, function () {
-					_this3.clearHighlight();
+					_this2.clearHighlight();
 
-					if (_this3.state.selectedDate !== null) {
-						_this3.scrollToDate(_this3.state.selectedDate, 0);
+					if (_this2.state.selectedDate !== null) {
+						_this2.scrollToDate(_this2.state.selectedDate, 0);
 					} else {
-						_this3.scrollToDate(_this3.state.selectedWeek, 0);
+						_this2.scrollToDate(_this2.state.selectedWeek, 0);
 					}
 				});
 			}

@@ -306,12 +306,6 @@ return /******/ (function(modules) { // webpackBootstrap
 					});
 				}
 
-				if (isScrollEnded) {
-					_this.setState({
-						isScrollEnded: false
-					});
-				}
-
 				if (showTodayHelper) {
 					_this.updateTodayHelperPosition(scrollSpeed);
 				}
@@ -345,7 +339,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			_this.handleTouchStart = function () {
 				if (!_this.state.isTouchStarted) {
 					_this.setState({
-						isTouchStarted: true
+						isTouchStarted: true,
+						isScrollEnded: false
 					});
 				}
 			};
@@ -506,7 +501,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				display: props.display,
 				shouldHeaderAnimate: props.shouldHeaderAnimate,
 				isCollapsed: props.isCollapsed,
-				expandOnScroll: true
+				expandOnScroll: false
 			};
 			return _this;
 		}
@@ -528,8 +523,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'componentWillReceiveProps',
 			value: function componentWillReceiveProps(next) {
-				var _this2 = this;
-
 				var _props2 = this.props;
 				var min = _props2.min;
 				var minDate = _props2.minDate;
@@ -548,8 +541,6 @@ return /******/ (function(modules) { // webpackBootstrap
 				var stateDate = this.parseSelectedDate(selectedDate);
 				var stateWeek = this.parseSelectedDate(selectedWeek);
 
-				console.log("componentWillReceiveProps");
-
 				this.setState({
 					collapsedHeight: next.collapsedHeight,
 					expandedHeight: next.expandedHeight
@@ -564,28 +555,29 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 
 				if (next.selectedDate !== null && (0, _moment2.default)(nextDate).valueOf() !== stateDate) {
-					if ((0, _moment2.default)(next.selectedDate).valueOf() > (0, _moment2.default)(minDate.year).month(0).date(1).valueOf() && (0, _moment2.default)(next.selectedDate).valueOf() < (0, _moment2.default)(maxDate.year).month(11).date(31).valueOf()) {
+
+					if (new Date(nextDate).getTime() > new Date(minDate.year + "-01-01").getTime() && new Date(nextDate).getTime() < new Date(maxDate.year + "-12-31").getTime()) {
 						this.setState({
 							selectedWeek: null,
 							selectedDate: nextDate,
 							isCollapsed: true
-						}, function () {
-							_this2.clearHighlight();
-							_this2.scrollToDate(selectedDate, 0);
 						});
+
+						this.clearHighlight();
+						this.scrollToDate(nextDate, 0);
 					}
 				}
 
 				if (next.selectedWeek !== null && nextWeek !== stateWeek) {
-					if ((0, _moment2.default)(nextWeek).valueOf() > (0, _moment2.default)(minDate.year).month(0).date(1).valueOf() && (0, _moment2.default)(nextWeek).valueOf() < (0, _moment2.default)(maxDate.year).month(11).date(31).valueOf()) {
+					if (new Date(nextWeek).getTime() > new Date(minDate.year + "-01-01").getTime() && new Date(nextWeek).getTime() < new Date(maxDate.year + "-12-31").getTime()) {
 						this.setState({
 							selectedWeek: nextWeek,
 							selectedDate: null,
 							isCollapsed: true
-						}, function () {
-							_this2.clearHighlight();
-							_this2.scrollToDate(selectedWeek, 0);
 						});
+
+						this.clearHighlight();
+						this.scrollToDate(nextWeek, 0);
 					}
 				}
 
@@ -600,20 +592,33 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 			}
 		}, {
+			key: 'shouldComponentUpdate',
+			value: function shouldComponentUpdate(nextProps, nextState) {
+				/*
+	   	isTouchStarted: true,
+	   	isScrollEnded: false,
+	   */
+				var shouldUpdate = nextState.isTouchStarted === this.state.isTouchStarted && nextState.isScrollEnded === this.state.isScrollEnded;
+				// console.log("should update", shouldUpdate);
+				// console.log(nextState.isTouchStarted + "===" + this.state.isTouchStarted);
+				// console.log(nextState.isScrollEnded + "===" + this.state.isScrollEnded);
+				return shouldUpdate;
+			}
+		}, {
 			key: 'handleClickOutside',
 			value: function handleClickOutside(evt) {
-				var _this3 = this;
+				var _this2 = this;
 
 				if (!this.state.isCollapsed) {
 					this.setState({
 						isCollapsed: true
 					}, function () {
-						_this3.clearHighlight();
+						_this2.clearHighlight();
 
-						if (_this3.state.selectedDate !== null) {
-							_this3.scrollToDate(_this3.state.selectedDate, 0);
+						if (_this2.state.selectedDate !== null) {
+							_this2.scrollToDate(_this2.state.selectedDate, 0);
 						} else {
-							_this3.scrollToDate(_this3.state.selectedWeek, 0);
+							_this2.scrollToDate(_this2.state.selectedWeek, 0);
 						}
 					});
 				}
