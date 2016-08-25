@@ -408,7 +408,7 @@ class InfiniteCalendar extends Component {
 			isScrollEnded: true,
 			expandOnScroll: true,
 		});
-
+		
 		if (isScrolling && !isTouchStarted) this.setState({isScrolling: false});
 		if (showTodayHelper) this.updateTodayHelperPosition(0);
 		if (typeof onScrollEnd == 'function') onScrollEnd(this.scrollTop);
@@ -432,6 +432,8 @@ class InfiniteCalendar extends Component {
 			this.setState({
 				isScrolling: false,
 			});
+
+			this.forceUpdate();
 		}
 	};
 
