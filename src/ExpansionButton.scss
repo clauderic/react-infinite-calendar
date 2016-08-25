@@ -1,10 +1,13 @@
 @import "./variables";
 
-.root:active, .root:focus {
-	 color: grey;
+.root:focus, .root:hover {
+	color: grey;
     background: white;
-
+    cursor:pointer;
     border: 1px solid grey; 
+}
+.root:active {
+
 }
 
 .root {

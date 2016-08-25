@@ -1,27 +1,42 @@
 @import "../variables";
-
 .root {
     position: relative;
     z-index: 5;
 
     padding: 0;
-    margin: 0;
+    margin: 10px;
 
+    text-align: center;
     list-style: none;
-    height: $rowHeight;
+    height: 55px;
 
-    display: flex;
+/*     display: flex; */
 }
 
 .shortcut {
     
-    flex-basis: 1 / 7 * 100%;
-    flex-grow: 1;
-
-    border-radius: 26px;
+    /* flex-basis: 1 / 7 * 100%;
+    flex-grow: 1; */
+    background:#fff;
+    border-radius: 25px;
+    border:1px solid #fff;
     cursor: pointer;
-
     text-align: center;
-    color: $todayColor;
+    line-height:$rowHeight;
+    color: #ff0062;
     font-weight: 500;
+    display:inline-block;
+    height:40px;
+    width: 40px;
+
+}
+.shortcut:focus,.shortcut:hover {
+    background: #fcfcfc;
+
+} 
+.shortcut:active {
+    background: #f4f4f4;
+}
+.today {
+    width:60px;
 }
