@@ -380,13 +380,37 @@
   font-weight: 500;
   text-align: center; }
 
-.Cal__Weekdays__today {
-  border-style: solid;
-  border-width: 1px 1px 0px 1px;
-  border-color: #ADADAD;
-  background-color: #DEDEDE;
+.Cal__Weekdays__weekColumn {
+  padding: 2px 0;
+  -ms-flex-preferred-size: 12.5%;
+      flex-basis: 12.5%;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  font-weight: 500;
+  text-align: center; }
+.Cal__Shortcuts__root {
+  position: relative;
+  z-index: 5;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
+
+.Cal__Shortcuts__shortcut {
+  -ms-flex-preferred-size: 14.28571%;
+      flex-basis: 14.28571%;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  border-radius: 26px;
+  cursor: pointer;
+  text-align: center;
   color: #675FF5;
-  cursor: pointer; }
+  font-weight: 500; }
 .Cal__Years__root {
   position: absolute;
   left: 0;

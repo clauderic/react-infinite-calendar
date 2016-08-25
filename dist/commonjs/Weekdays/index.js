@@ -35,29 +35,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var style = {
 	'root': 'Cal__Weekdays__root',
 	'day': 'Cal__Weekdays__day',
-	'today': 'Cal__Weekdays__today'
+	'weekColumn': 'Cal__Weekdays__weekColumn'
 };
 
 var Weekdays = function (_Component) {
 	_inherits(Weekdays, _Component);
 
 	function Weekdays() {
-		var _Object$getPrototypeO;
-
-		var _temp, _this, _ret;
-
 		_classCallCheck(this, Weekdays);
 
-		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-			args[_key] = arguments[_key];
-		}
-
-		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Weekdays)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.handleTodayClick = function () {
-			var handleTodayClick = _this.props.handleTodayClick;
-
-
-			handleTodayClick((0, _moment2.default)());
-		}, _temp), _possibleConstructorReturn(_this, _ret);
+		return _possibleConstructorReturn(this, Object.getPrototypeOf(Weekdays).apply(this, arguments));
 	}
 
 	_createClass(Weekdays, [{
@@ -68,8 +55,6 @@ var Weekdays = function (_Component) {
 	}, {
 		key: 'render',
 		value: function render() {
-			var _this2 = this;
-
 			var _props = this.props;
 			var theme = _props.theme;
 			var locale = _props.locale;
@@ -77,13 +62,13 @@ var Weekdays = function (_Component) {
 
 			return _react2.default.createElement(
 				'ul',
-				{ className: style.root, style: { backgroundColor: theme.weekdayColor, color: theme.textColor.default, paddingRight: _utils.scrollbarSize }, 'aria-hidden': true },
+				{ className: style.root, style: { backgroundColor: theme.weekdayColor, color: theme.textColor.default } },
 				(0, _range2.default)(0, 8).map(function (val, index) {
 					if (index === 0) {
 						return _react2.default.createElement(
 							'li',
-							{ key: 'Weekday-today', className: style.today + " " + style.day, onClick: _this2.handleTodayClick },
-							locale.todayLabel.long
+							{ key: 'Week-column', className: style.weekColumn },
+							'V.'
 						);
 					} else {
 						return _react2.default.createElement(
@@ -102,7 +87,6 @@ var Weekdays = function (_Component) {
 
 Weekdays.propTypes = {
 	locale: _react.PropTypes.object,
-	theme: _react.PropTypes.object,
-	handleTodayClick: _react.PropTypes.func
+	theme: _react.PropTypes.object
 };
 exports.default = Weekdays;

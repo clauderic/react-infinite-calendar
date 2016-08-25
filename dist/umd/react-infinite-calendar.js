@@ -117,7 +117,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _Weekdays2 = _interopRequireDefault(_Weekdays);
 
-	var _Years = __webpack_require__(365);
+	var _Shortcuts = __webpack_require__(365);
+
+	var _Shortcuts2 = _interopRequireDefault(_Shortcuts);
+
+	var _Years = __webpack_require__(368);
 
 	var _Years2 = _interopRequireDefault(_Years);
 
@@ -133,9 +137,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var onClickOutside = __webpack_require__(368);
-	var containerStyle = __webpack_require__(369);
-	var expansionButtonStyle = __webpack_require__(371);
+	var onClickOutside = __webpack_require__(371);
+	var containerStyle = __webpack_require__(372);
+	var expansionButtonStyle = __webpack_require__(374);
 	var dayStyle = __webpack_require__(353);
 	var weekStyle = __webpack_require__(356);
 	var style = {
@@ -594,14 +598,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'shouldComponentUpdate',
 			value: function shouldComponentUpdate(nextProps, nextState) {
-				/*
-	   	isTouchStarted: true,
-	   	isScrollEnded: false,
-	   */
+				// do not re-render on isTouchStarted and isScrollEnded state changes for a better scrolling experience
 				var shouldUpdate = nextState.isTouchStarted === this.state.isTouchStarted && nextState.isScrollEnded === this.state.isScrollEnded;
-				// console.log("should update", shouldUpdate);
-				// console.log(nextState.isTouchStarted + "===" + this.state.isTouchStarted);
-				// console.log(nextState.isScrollEnded + "===" + this.state.isScrollEnded);
 				return shouldUpdate;
 			}
 		}, {
@@ -759,8 +757,9 @@ return /******/ (function(modules) { // webpackBootstrap
 						onKeyDown: keyboardSupport && this.handleKeyDown,
 						className: (0, _classnames2.default)(className, style.container.root, _defineProperty({}, style.container.landscape, layout == 'landscape')),
 						style: { color: theme.textColor.default, width: '100%', overflow: isCollapsed ? 'hidden' : 'visible', height: collapsedHeight + "px" },
-						'aria-label': 'Calendar', ref: 'node' },
-					device && _react2.default.createElement('div', {
+						'aria-label': 'Calendar', ref: 'node'
+					},
+					_react2.default.createElement('div', {
 						className: (0, _classnames2.default)(style.expansionButton.root, 'ion-chevron-down'),
 						style: { display: isCollapsed ? 'initial' : 'none' },
 						onClick: this.handleExpansionClick
@@ -778,7 +777,8 @@ return /******/ (function(modules) { // webpackBootstrap
 					_react2.default.createElement(
 						'div',
 						{ className: style.container.wrapper },
-						_react2.default.createElement(_Weekdays2.default, { theme: theme, locale: locale, handleTodayClick: selectedDate !== null ? this.onDaySelect : this.onWeekSelect }),
+						_react2.default.createElement(_Shortcuts2.default, { theme: theme, locale: locale, scrollToDate: this.scrollToDate, handleTodayClick: selectedDate !== null ? this.onDaySelect : this.onWeekSelect }),
+						_react2.default.createElement(_Weekdays2.default, { theme: theme, locale: locale }),
 						_react2.default.createElement(
 							'div',
 							{
@@ -786,7 +786,6 @@ return /******/ (function(modules) { // webpackBootstrap
 								onTouchStart: this.handleTouchStart,
 								onTouchEnd: this.handleTouchEnd
 							},
-							showTodayHelper && _react2.default.createElement(_Today2.default, { scrollToDate: this.scrollToDate, show: showToday, today: today, theme: theme, locale: locale }),
 							_react2.default.createElement(_List2.default, _extends({
 								ref: 'List'
 							}, other, {
@@ -43607,22 +43606,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		_inherits(Weekdays, _Component);
 
 		function Weekdays() {
-			var _Object$getPrototypeO;
-
-			var _temp, _this, _ret;
-
 			_classCallCheck(this, Weekdays);
 
-			for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-				args[_key] = arguments[_key];
-			}
-
-			return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Weekdays)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.handleTodayClick = function () {
-				var handleTodayClick = _this.props.handleTodayClick;
-
-
-				handleTodayClick((0, _moment2.default)());
-			}, _temp), _possibleConstructorReturn(_this, _ret);
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(Weekdays).apply(this, arguments));
 		}
 
 		_createClass(Weekdays, [{
@@ -43633,8 +43619,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'render',
 			value: function render() {
-				var _this2 = this;
-
 				var _props = this.props;
 				var theme = _props.theme;
 				var locale = _props.locale;
@@ -43642,13 +43626,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				return _react2.default.createElement(
 					'ul',
-					{ className: style.root, style: { backgroundColor: theme.weekdayColor, color: theme.textColor.default, paddingRight: _utils.scrollbarSize }, 'aria-hidden': true },
+					{ className: style.root, style: { backgroundColor: theme.weekdayColor, color: theme.textColor.default } },
 					(0, _range2.default)(0, 8).map(function (val, index) {
 						if (index === 0) {
 							return _react2.default.createElement(
 								'li',
-								{ key: 'Weekday-today', className: style.today + " " + style.day, onClick: _this2.handleTodayClick },
-								locale.todayLabel.long
+								{ key: 'Week-column', className: style.weekColumn },
+								'V.'
 							);
 						} else {
 							return _react2.default.createElement(
@@ -43667,8 +43651,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	Weekdays.propTypes = {
 		locale: _react.PropTypes.object,
-		theme: _react.PropTypes.object,
-		handleTodayClick: _react.PropTypes.func
+		theme: _react.PropTypes.object
 	};
 	exports.default = Weekdays;
 
@@ -43677,11 +43660,173 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-	module.exports = {"root":"Cal__Weekdays__root","day":"Cal__Weekdays__day","today":"Cal__Weekdays__today"};
+	module.exports = {"root":"Cal__Weekdays__root","day":"Cal__Weekdays__day","weekColumn":"Cal__Weekdays__weekColumn"};
 
 /***/ },
 /* 364 */,
 /* 365 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactAddonsShallowCompare = __webpack_require__(137);
+
+	var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
+
+	var _moment = __webpack_require__(4);
+
+	var _moment2 = _interopRequireDefault(_moment);
+
+	var _range = __webpack_require__(115);
+
+	var _range2 = _interopRequireDefault(_range);
+
+	var _utils = __webpack_require__(125);
+
+	var _classnames = __webpack_require__(3);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var style = __webpack_require__(366);
+
+	var Shortcuts = function (_Component) {
+		_inherits(Shortcuts, _Component);
+
+		function Shortcuts() {
+			var _Object$getPrototypeO;
+
+			var _temp, _this, _ret;
+
+			_classCallCheck(this, Shortcuts);
+
+			for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+				args[_key] = arguments[_key];
+			}
+
+			return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Shortcuts)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.handleTodayClick = function () {
+				var handleTodayClick = _this.props.handleTodayClick;
+
+
+				handleTodayClick((0, _moment2.default)());
+			}, _this.handleJumpClick = function (distance) {
+				var _this$props = _this.props;
+				var scrollToDate = _this$props.scrollToDate;
+				var handleTodayClick = _this$props.handleTodayClick;
+
+
+				handleTodayClick((0, _moment2.default)().add(distance, 'weeks'));
+				scrollToDate((0, _moment2.default)().add(distance, 'weeks'), 0);
+			}, _temp), _possibleConstructorReturn(_this, _ret);
+		}
+
+		_createClass(Shortcuts, [{
+			key: 'shouldComponentUpdate',
+			value: function shouldComponentUpdate(nextProps) {
+				return (0, _reactAddonsShallowCompare2.default)(this, nextProps);
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var _this2 = this;
+
+				var _props = this.props;
+				var theme = _props.theme;
+				var locale = _props.locale;
+
+
+				return _react2.default.createElement(
+					'ul',
+					{ className: style.root, style: { backgroundColor: theme.weekdayColor } },
+					_react2.default.createElement(
+						'li',
+						{ key: 'Shortcut-0', className: (0, _classnames2.default)(style.root, style.shortcut), onClick: this.handleTodayClick },
+						locale.todayLabel.long
+					),
+					_react2.default.createElement(
+						'li',
+						{ key: 'Shortcut-1', className: (0, _classnames2.default)(style.root, style.shortcut), onClick: function onClick() {
+								return _this2.handleJumpClick(4);
+							} },
+						'+4'
+					),
+					_react2.default.createElement(
+						'li',
+						{ key: 'Shortcut-2', className: (0, _classnames2.default)(style.root, style.shortcut), onClick: function onClick() {
+								return _this2.handleJumpClick(5);
+							} },
+						'+5'
+					),
+					_react2.default.createElement(
+						'li',
+						{ key: 'Shortcut-3', className: (0, _classnames2.default)(style.root, style.shortcut), onClick: function onClick() {
+								return _this2.handleJumpClick(6);
+							} },
+						'+6'
+					),
+					_react2.default.createElement(
+						'li',
+						{ key: 'Shortcut-4', className: (0, _classnames2.default)(style.root, style.shortcut), onClick: function onClick() {
+								return _this2.handleJumpClick(7);
+							} },
+						'+7'
+					),
+					_react2.default.createElement(
+						'li',
+						{ key: 'Shortcut-5', className: (0, _classnames2.default)(style.root, style.shortcut), onClick: function onClick() {
+								return _this2.handleJumpClick(8);
+							} },
+						'+8'
+					),
+					_react2.default.createElement(
+						'li',
+						{ key: 'Shortcut-6', className: (0, _classnames2.default)(style.root, style.shortcut), onClick: function onClick() {
+								return _this2.handleJumpClick(9);
+							} },
+						'+9'
+					)
+				);
+			}
+		}]);
+
+		return Shortcuts;
+	}(_react.Component);
+
+	Shortcuts.propTypes = {
+		locale: _react.PropTypes.object,
+		theme: _react.PropTypes.object,
+		handleTodayClick: _react.PropTypes.func,
+		scrollToDate: _react.PropTypes.func
+	};
+	exports.default = Shortcuts;
+
+/***/ },
+/* 366 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+	module.exports = {"root":"Cal__Shortcuts__root","shortcut":"Cal__Shortcuts__shortcut"};
+
+/***/ },
+/* 367 */,
+/* 368 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43718,7 +43863,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var style = __webpack_require__(366);
+	var style = __webpack_require__(369);
 
 	var Years = function (_Component) {
 	    _inherits(Years, _Component);
@@ -43910,15 +44055,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = Years;
 
 /***/ },
-/* 366 */
+/* 369 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"root":"Cal__Years__root","list":"Cal__Years__list","center":"Cal__Years__center","year":"Cal__Years__year","active":"Cal__Years__active","currentYear":"Cal__Years__currentYear"};
 
 /***/ },
-/* 367 */,
-/* 368 */
+/* 370 */,
+/* 371 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -44153,15 +44298,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 369 */
+/* 372 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"root":"Cal__Container__root","landscape":"Cal__Container__landscape","wrapper":"Cal__Container__wrapper","listWrapper":"Cal__Container__listWrapper"};
 
 /***/ },
-/* 370 */,
-/* 371 */
+/* 373 */,
+/* 374 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin

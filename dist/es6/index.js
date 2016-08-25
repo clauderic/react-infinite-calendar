@@ -10,6 +10,7 @@ import Today from './Today';
 import Header from './Header';
 import List from './List';
 import Weekdays from './Weekdays';
+import Shortcuts from './Shortcuts';
 import Years from './Years';
 
 var onClickOutside = require('react-onclickoutside');
@@ -502,14 +503,8 @@ var InfiniteCalendar = function (_Component) {
 	}, {
 		key: 'shouldComponentUpdate',
 		value: function shouldComponentUpdate(nextProps, nextState) {
-			/*
-   	isTouchStarted: true,
-   	isScrollEnded: false,
-   */
+			// do not re-render on isTouchStarted and isScrollEnded state changes for a better scrolling experience
 			var shouldUpdate = nextState.isTouchStarted === this.state.isTouchStarted && nextState.isScrollEnded === this.state.isScrollEnded;
-			// console.log("should update", shouldUpdate);
-			// console.log(nextState.isTouchStarted + "===" + this.state.isTouchStarted);
-			// console.log(nextState.isScrollEnded + "===" + this.state.isScrollEnded);
 			return shouldUpdate;
 		}
 	}, {
@@ -666,8 +661,9 @@ var InfiniteCalendar = function (_Component) {
 					onKeyDown: keyboardSupport && this.handleKeyDown,
 					className: classNames(className, style.container.root, babelHelpers.defineProperty({}, style.container.landscape, layout == 'landscape')),
 					style: { color: theme.textColor.default, width: '100%', overflow: isCollapsed ? 'hidden' : 'visible', height: collapsedHeight + "px" },
-					'aria-label': 'Calendar', ref: 'node' },
-				device && React.createElement('div', {
+					'aria-label': 'Calendar', ref: 'node'
+				},
+				React.createElement('div', {
 					className: classNames(style.expansionButton.root, 'ion-chevron-down'),
 					style: { display: isCollapsed ? 'initial' : 'none' },
 					onClick: this.handleExpansionClick
@@ -685,7 +681,8 @@ var InfiniteCalendar = function (_Component) {
 				React.createElement(
 					'div',
 					{ className: style.container.wrapper },
-					React.createElement(Weekdays, { theme: theme, locale: locale, handleTodayClick: selectedDate !== null ? this.onDaySelect : this.onWeekSelect }),
+					React.createElement(Shortcuts, { theme: theme, locale: locale, scrollToDate: this.scrollToDate, handleTodayClick: selectedDate !== null ? this.onDaySelect : this.onWeekSelect }),
+					React.createElement(Weekdays, { theme: theme, locale: locale }),
 					React.createElement(
 						'div',
 						{
@@ -693,7 +690,6 @@ var InfiniteCalendar = function (_Component) {
 							onTouchStart: this.handleTouchStart,
 							onTouchEnd: this.handleTouchEnd
 						},
-						showTodayHelper && React.createElement(Today, { scrollToDate: this.scrollToDate, show: showToday, today: today, theme: theme, locale: locale }),
 						React.createElement(List, babelHelpers.extends({
 							ref: 'List'
 						}, other, {

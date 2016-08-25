@@ -1,0 +1,27 @@
+@import "../variables";
+
+.root {
+    position: relative;
+    z-index: 5;
+
+    padding: 0;
+    margin: 0;
+
+    list-style: none;
+    height: $rowHeight;
+
+    display: flex;
+}
+
+.shortcut {
+    
+    flex-basis: 1 / 7 * 100%;
+    flex-grow: 1;
+
+    border-radius: 26px;
+    cursor: pointer;
+
+    text-align: center;
+    color: $todayColor;
+    font-weight: 500;
+}
