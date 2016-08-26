@@ -35,9 +35,9 @@ export default class List extends Component {
 	};
 	componentDidMount() {
 		let vs = this.refs.VirtualScroll;
-		let grid = vs && vs.refs.Grid;
+		let grid = vs && vs.Grid;
 
-		this.scrollEl = grid && grid.refs.scrollingContainer;
+		this.scrollEl = grid && grid._scrollingContainer;
 	}
 	cache = {};
 	state = {};
