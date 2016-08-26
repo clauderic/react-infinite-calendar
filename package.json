@@ -56,7 +56,8 @@
     "moment": "^2.13.0",
     "moment-range": "^2.2.0",
     "react-virtualized": "^7.3.2",
-    "react-onclickoutside": "^5.3.3"
+    "react-onclickoutside": "^5.3.3",
+    "dist": "^0.1.2"
   },
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0",

@@ -393,24 +393,35 @@
   position: relative;
   z-index: 5;
   padding: 0;
-  margin: 0;
+  margin: 10px;
+  text-align: center;
   list-style: none;
-  height: 40px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex; }
+  height: 55px;
+  /*     display: flex; */ }
 
 .Cal__Shortcuts__shortcut {
-  -ms-flex-preferred-size: 14.28571%;
-      flex-basis: 14.28571%;
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  border-radius: 26px;
+  /* flex-basis: 1 / 7 * 100%;
+    flex-grow: 1; */
+  background: #fff;
+  border-radius: 25px;
+  border: 1px solid #fff;
   cursor: pointer;
   text-align: center;
-  color: #675FF5;
-  font-weight: 500; }
+  line-height: 40px;
+  color: #ff0062;
+  font-weight: 500;
+  display: inline-block;
+  height: 40px;
+  width: 40px; }
+
+.Cal__Shortcuts__shortcut:focus, .Cal__Shortcuts__shortcut:hover {
+  background: #fcfcfc; }
+
+.Cal__Shortcuts__shortcut:active {
+  background: #f4f4f4; }
+
+.Cal__Shortcuts__today {
+  width: 60px; }
 .Cal__Years__root {
   position: absolute;
   left: 0;
@@ -535,9 +546,10 @@
 
 .Grid__cell {
   position: absolute; }
-.Cal__ExpansionButton__root:active, .Cal__ExpansionButton__root:focus {
+.Cal__ExpansionButton__root:focus, .Cal__ExpansionButton__root:hover {
   color: grey;
   background: white;
+  cursor: pointer;
   border: 1px solid grey; }
 
 .Cal__ExpansionButton__root {
