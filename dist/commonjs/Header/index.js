@@ -56,7 +56,7 @@ var Header = function (_Component) {
 	function Header() {
 		_classCallCheck(this, Header);
 
-		return _possibleConstructorReturn(this, Object.getPrototypeOf(Header).apply(this, arguments));
+		return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
 	}
 
 	_createClass(Header, [{

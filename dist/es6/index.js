@@ -59,10 +59,8 @@ var InfiniteCalendar = function (_Component) {
 	function InfiniteCalendar(props) {
 		babelHelpers.classCallCheck(this, InfiniteCalendar);
 
-
 		// Initialize
-
-		var _this = babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(InfiniteCalendar).call(this));
+		var _this = babelHelpers.possibleConstructorReturn(this, (InfiniteCalendar.__proto__ || Object.getPrototypeOf(InfiniteCalendar)).call(this));
 
 		_this.onDaySelect = function (selectedDate, e) {
 			var shouldHeaderAnimate = arguments.length <= 2 || arguments[2] === undefined ? _this.props.shouldHeaderAnimate : arguments[2];

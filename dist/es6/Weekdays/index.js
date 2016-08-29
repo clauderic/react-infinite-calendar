@@ -14,7 +14,7 @@ var Weekdays = function (_Component) {
 
 	function Weekdays() {
 		babelHelpers.classCallCheck(this, Weekdays);
-		return babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(Weekdays).apply(this, arguments));
+		return babelHelpers.possibleConstructorReturn(this, (Weekdays.__proto__ || Object.getPrototypeOf(Weekdays)).apply(this, arguments));
 	}
 
 	babelHelpers.createClass(Weekdays, [{

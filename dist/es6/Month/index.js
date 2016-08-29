@@ -15,7 +15,7 @@ var Month = function (_Component) {
 	babelHelpers.inherits(Month, _Component);
 
 	function Month() {
-		var _Object$getPrototypeO;
+		var _ref;
 
 		var _temp, _this, _ret;
 
@@ -25,7 +25,7 @@ var Month = function (_Component) {
 			args[_key] = arguments[_key];
 		}
 
-		return _ret = (_temp = (_this = babelHelpers.possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Month)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.scrollToToday = function () {
+		return _ret = (_temp = (_this = babelHelpers.possibleConstructorReturn(this, (_ref = Month.__proto__ || Object.getPrototypeOf(Month)).call.apply(_ref, [this].concat(args))), _this), _this.scrollToToday = function () {
 			var scrollToDate = _this.props.scrollToDate;
 
 			scrollToDate(moment(), 0);

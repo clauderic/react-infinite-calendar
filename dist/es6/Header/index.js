@@ -25,7 +25,7 @@ var Header = function (_Component) {
 
 	function Header() {
 		babelHelpers.classCallCheck(this, Header);
-		return babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(Header).apply(this, arguments));
+		return babelHelpers.possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
 	}
 
 	babelHelpers.createClass(Header, [{

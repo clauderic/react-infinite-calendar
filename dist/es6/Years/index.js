@@ -18,7 +18,7 @@ var Years = function (_Component) {
     function Years(props) {
         babelHelpers.classCallCheck(this, Years);
 
-        var _this = babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(Years).call(this, props));
+        var _this = babelHelpers.possibleConstructorReturn(this, (Years.__proto__ || Object.getPrototypeOf(Years)).call(this, props));
 
         _this.state = {
             selectedYear: props.selectedDate ? props.selectedDate.year() : moment().year()

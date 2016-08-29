@@ -46,7 +46,7 @@ var Shortcuts = function (_Component) {
 	_inherits(Shortcuts, _Component);
 
 	function Shortcuts() {
-		var _Object$getPrototypeO;
+		var _ref;
 
 		var _temp, _this, _ret;
 
@@ -56,7 +56,7 @@ var Shortcuts = function (_Component) {
 			args[_key] = arguments[_key];
 		}
 
-		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Shortcuts)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.handleTodayClick = function () {
+		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Shortcuts.__proto__ || Object.getPrototypeOf(Shortcuts)).call.apply(_ref, [this].concat(args))), _this), _this.handleTodayClick = function () {
 			var handleTodayClick = _this.props.handleTodayClick;
 
 
@@ -92,50 +92,78 @@ var Shortcuts = function (_Component) {
 				{ className: style.root, style: { backgroundColor: '#ececec' } },
 				_react2.default.createElement(
 					'li',
-					{ key: 'Shortcut-0', className: (0, _classnames2.default)(style.root, style.shortcut, style.today), onClick: this.handleTodayClick },
-					locale.todayLabel.long
+					{ key: 'Shortcut-0', className: (0, _classnames2.default)(style.root, style.shortcut, style.today) },
+					_react2.default.createElement(
+						'span',
+						{ onClick: this.handleTodayClick },
+						locale.todayLabel.long
+					)
 				),
 				_react2.default.createElement(
 					'li',
-					{ key: 'Shortcut-1', className: (0, _classnames2.default)(style.root, style.shortcut), onClick: function onClick() {
-							return _this2.handleJumpClick(4);
-						} },
-					'+4'
+					{ key: 'Shortcut-1', className: (0, _classnames2.default)(style.root, style.shortcut) },
+					_react2.default.createElement(
+						'span',
+						{ onClick: function onClick() {
+								return _this2.handleJumpClick(4);
+							} },
+						'+4'
+					)
 				),
 				_react2.default.createElement(
 					'li',
-					{ key: 'Shortcut-2', className: (0, _classnames2.default)(style.root, style.shortcut), onClick: function onClick() {
-							return _this2.handleJumpClick(5);
-						} },
-					'+5'
+					{ key: 'Shortcut-2', className: (0, _classnames2.default)(style.root, style.shortcut) },
+					_react2.default.createElement(
+						'span',
+						{ onClick: function onClick() {
+								return _this2.handleJumpClick(5);
+							} },
+						'+5'
+					)
 				),
 				_react2.default.createElement(
 					'li',
-					{ key: 'Shortcut-3', className: (0, _classnames2.default)(style.root, style.shortcut), onClick: function onClick() {
-							return _this2.handleJumpClick(6);
-						} },
-					'+6'
+					{ key: 'Shortcut-3', className: (0, _classnames2.default)(style.root, style.shortcut) },
+					_react2.default.createElement(
+						'span',
+						{ onClick: function onClick() {
+								return _this2.handleJumpClick(6);
+							} },
+						'+6'
+					)
 				),
 				_react2.default.createElement(
 					'li',
-					{ key: 'Shortcut-4', className: (0, _classnames2.default)(style.root, style.shortcut), onClick: function onClick() {
-							return _this2.handleJumpClick(7);
-						} },
-					'+7'
+					{ key: 'Shortcut-4', className: (0, _classnames2.default)(style.root, style.shortcut) },
+					_react2.default.createElement(
+						'span',
+						{ onClick: function onClick() {
+								return _this2.handleJumpClick(7);
+							} },
+						'+7'
+					)
 				),
 				_react2.default.createElement(
 					'li',
-					{ key: 'Shortcut-5', className: (0, _classnames2.default)(style.root, style.shortcut), onClick: function onClick() {
-							return _this2.handleJumpClick(8);
-						} },
-					'+8'
+					{ key: 'Shortcut-5', className: (0, _classnames2.default)(style.root, style.shortcut) },
+					_react2.default.createElement(
+						'span',
+						{ onClick: function onClick() {
+								return _this2.handleJumpClick(8);
+							} },
+						'+8'
+					)
 				),
 				_react2.default.createElement(
 					'li',
-					{ key: 'Shortcut-6', className: (0, _classnames2.default)(style.root, style.shortcut), onClick: function onClick() {
-							return _this2.handleJumpClick(9);
-						} },
-					'+9'
+					{ key: 'Shortcut-6', className: (0, _classnames2.default)(style.root, style.shortcut) },
+					_react2.default.createElement(
+						'span',
+						{ onClick: function onClick() {
+								return _this2.handleJumpClick(9);
+							} },
+						'+9'
+					)
 				)
 			);
 		}

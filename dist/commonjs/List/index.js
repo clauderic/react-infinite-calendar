@@ -45,7 +45,7 @@ var List = function (_Component) {
 	_inherits(List, _Component);
 
 	function List() {
-		var _Object$getPrototypeO;
+		var _ref;
 
 		var _temp, _this, _ret;
 
@@ -55,14 +55,14 @@ var List = function (_Component) {
 			args[_key] = arguments[_key];
 		}
 
-		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(List)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.cache = {}, _this.state = {}, _this.memoize = function (param) {
+		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = List.__proto__ || Object.getPrototypeOf(List)).call.apply(_ref, [this].concat(args))), _this), _this.cache = {}, _this.state = {}, _this.memoize = function (param) {
 			if (!this.cache[param]) {
 				var result = (0, _utils.getMonth)(param); //custom function
 				this.cache[param] = result;
 			}
 			return this.cache[param];
-		}, _this.monthHeights = [], _this.getMonthHeight = function (_ref) {
-			var index = _ref.index;
+		}, _this.monthHeights = [], _this.getMonthHeight = function (_ref2) {
+			var index = _ref2.index;
 
 			if (!_this.monthHeights[index]) {
 				var _this$props = _this.props;
@@ -105,9 +105,9 @@ var List = function (_Component) {
 			if (_this.scrollEl) {
 				_this.scrollEl.scrollTop = scrollTop;
 			}
-		}, _this.renderMonth = function (_ref2) {
-			var index = _ref2.index;
-			var isScrolling = _ref2.isScrolling;
+		}, _this.renderMonth = function (_ref3) {
+			var index = _ref3.index;
+			var isScrolling = _ref3.isScrolling;
 			var _this$props3 = _this.props;
 			var disabledDates = _this$props3.disabledDates;
 			var disabledDays = _this$props3.disabledDays;

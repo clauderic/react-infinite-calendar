@@ -121,8 +121,7 @@ var InfiniteCalendar = function (_Component) {
 		_classCallCheck(this, InfiniteCalendar);
 
 		// Initialize
-
-		var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(InfiniteCalendar).call(this));
+		var _this = _possibleConstructorReturn(this, (InfiniteCalendar.__proto__ || Object.getPrototypeOf(InfiniteCalendar)).call(this));
 
 		_this.onDaySelect = function (selectedDate, e) {
 			var shouldHeaderAnimate = arguments.length <= 2 || arguments[2] === undefined ? _this.props.shouldHeaderAnimate : arguments[2];

@@ -397,11 +397,19 @@
   text-align: center;
   list-style: none;
   height: 55px;
-  /*     display: flex; */ }
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
 
 .Cal__Shortcuts__shortcut {
-  /* flex-basis: 1 / 7 * 100%;
-    flex-grow: 1; */
+  height: 40px;
+  width: 40px;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1; }
+
+.Cal__Shortcuts__shortcut span {
+  display: inline-block;
   background: #fff;
   border-radius: 25px;
   border: 1px solid #fff;
@@ -410,17 +418,16 @@
   line-height: 40px;
   color: #ff0062;
   font-weight: 500;
-  display: inline-block;
   height: 40px;
   width: 40px; }
 
-.Cal__Shortcuts__shortcut:focus, .Cal__Shortcuts__shortcut:hover {
+.Cal__Shortcuts__shortcut span:focus, .Cal__Shortcuts__shortcut span:hover {
   background: #fcfcfc; }
 
-.Cal__Shortcuts__shortcut:active {
+.Cal__Shortcuts__shortcut span:active {
   background: #f4f4f4; }
 
-.Cal__Shortcuts__today {
+.Cal__Shortcuts__today span {
   width: 60px; }
 .Cal__Years__root {
   position: absolute;

@@ -44,7 +44,7 @@ var Weekdays = function (_Component) {
 	function Weekdays() {
 		_classCallCheck(this, Weekdays);
 
-		return _possibleConstructorReturn(this, Object.getPrototypeOf(Weekdays).apply(this, arguments));
+		return _possibleConstructorReturn(this, (Weekdays.__proto__ || Object.getPrototypeOf(Weekdays)).apply(this, arguments));
 	}
 
 	_createClass(Weekdays, [{

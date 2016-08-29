@@ -47,7 +47,7 @@ var Years = function (_Component) {
     function Years(props) {
         _classCallCheck(this, Years);
 
-        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Years).call(this, props));
+        var _this = _possibleConstructorReturn(this, (Years.__proto__ || Object.getPrototypeOf(Years)).call(this, props));
 
         _this.state = {
             selectedYear: props.selectedDate ? props.selectedDate.year() : (0, _moment2.default)().year()
