@@ -150,9 +150,10 @@ export default class InfiniteCalendar extends Component {
 
 			if (nextSelectedDate !== selectedDate) {
 				var parsed = this.parseSelectedDate(nextSelectedDate);
+				var parsedEnd = this.parseSelectedDate(nextSelectedDateEnd);
 				this.setState({
 					selectedDate: parsed,
-					rangeSelectionEndDate: this.parseSelectedDate(nextSelectedDateEnd)					
+					rangeSelectionEndDate: parsedEnd					
 				});
 				if(parsed) this.scrollToDate(parsed,-this.props.rowHeight);
 			} else if (nextSelectedDateEnd !== rangeSelectionEndDate) {
@@ -220,13 +221,13 @@ export default class InfiniteCalendar extends Component {
 	}
 	onDaySelect = (clickedDate, e) => {
 		let {afterSelect, beforeSelect, onSelect, rangeSelection, shouldHeaderAnimate, rangeSelectionBehavior} = this.props;
-
 		var selectedDate = this.state.selectedDate;
 		var rangeSelectionEndDate = this.state.rangeSelectionEndDate;
 
 		var dragging = 0;
 
 		if(rangeSelection && (this.state.touchBehavior || rangeSelectionBehavior=="hover")) {
+			//If we are doing a range selection in the default "hover" mode (click+click instead of drag)
 			if(this.state.dragging==0) {
 				selectedDate = clickedDate;
 				rangeSelectionEndDate = clickedDate;
@@ -264,8 +265,8 @@ export default class InfiniteCalendar extends Component {
 	};
 	onDayDown = (selectedDate, e) => {
 		let {afterSelect, beforeSelect, onSelect, rangeSelection, rangeSelectionBehavior} = this.props;
-
 		if(this.state.touchBehavior || !rangeSelection || rangeSelectionBehavior=="hover") return false;
+		//only continue if we are doing range selection in "drag" mode
 
 		if (!beforeSelect || typeof beforeSelect == 'function' && beforeSelect(selectedDate,null)) {
 			var dragging = 1;
@@ -283,16 +284,17 @@ export default class InfiniteCalendar extends Component {
 	};
 	onDayOver = (selectedHovering, e) => {
 		if(this.state.dragging!==0 && !this.state.touchBehavior && this.props.rangeSelection) {
+			//enter here if we are in "drag" mode for range selection
 			var selectedDate = this.state.selectedDate;
 			var rangeSelectionEndDate = this.state.rangeSelectionEndDate;
 			var dragging = this.state.dragging;
 
-			if(dragging==1) {
+			if(dragging==1) { //dragging forwards
 				rangeSelectionEndDate = selectedHovering;
-			} else if(dragging==-1) {
+			} else if(dragging==-1) { //dragging backwards
 				selectedDate = selectedHovering;
 			}
-			if(selectedDate>rangeSelectionEndDate) {
+			if(selectedDate>rangeSelectionEndDate) { //flip directions of dragging start to end (1) or end to start (-1)
 				dragging = -dragging;
 				var tmp = selectedDate;
 				selectedDate = rangeSelectionEndDate;
@@ -311,18 +313,18 @@ export default class InfiniteCalendar extends Component {
 	onDayUp = (overDate, e) => {
 		let {afterSelect, beforeSelect, onSelect, rangeSelection, rangeSelectionBehavior} = this.props;
 		if(this.state.dragging!==0 && !this.state.touchBehavior && rangeSelectionBehavior=="drag" && rangeSelection) {
-
+			//enter here if we are doing the "drag" mode of range selection
 			var selectedDate = this.state.selectedDate;
 			var rangeSelectionEndDate = this.state.rangeSelectionEndDate;
 			var dragging = 0;
 			var selectedHovering = null;
 
-			if(this.state.dragging==1) {
+			if(this.state.dragging==1) { //dragging forwards (start to end)
 				rangeSelectionEndDate = overDate;
-			} else if(this.state.dragging==-1) {
+			} else if(this.state.dragging==-1) { //dragging backwards (end to start)
 				selectedDate = overDate;
 			}
-			if(selectedDate>rangeSelectionEndDate) {
+			if(selectedDate>rangeSelectionEndDate) { //this should already be taken care of, but I leave in for defensive programming
 				var tmp = selectedDate;
 				selectedDate = rangeSelectionEndDate;
 				rangeSelectionEndDate = tmp;
@@ -348,6 +350,7 @@ export default class InfiniteCalendar extends Component {
 					}
 				});
 			} else {
+				//released the mouse on an invalid date, so clear the whole range
 				selectedDate = null;
 				rangeSelectionEndDate = null;
 				this.setState({
