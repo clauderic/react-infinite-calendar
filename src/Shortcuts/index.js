@@ -37,13 +37,13 @@ export default class Shortcuts extends Component {
 
 		return (
 			<ul className={style.root} style={{backgroundColor: '#ececec'}}>
-  				<li key={`Shortcut-0`} className={classNames(style.root, style.shortcut, style.today)} onClick={this.handleTodayClick}>{locale.todayLabel.long}</li>
-  				<li key={`Shortcut-1`} className={classNames(style.root, style.shortcut)} onClick={() => this.handleJumpClick(4)}>+4</li>
-  				<li key={`Shortcut-2`} className={classNames(style.root, style.shortcut)} onClick={() => this.handleJumpClick(5)}>+5</li>
-  				<li key={`Shortcut-3`} className={classNames(style.root, style.shortcut)} onClick={() => this.handleJumpClick(6)}>+6</li>
-  				<li key={`Shortcut-4`} className={classNames(style.root, style.shortcut)} onClick={() => this.handleJumpClick(7)}>+7</li>
-  				<li key={`Shortcut-5`} className={classNames(style.root, style.shortcut)} onClick={() => this.handleJumpClick(8)}>+8</li>
-  				<li key={`Shortcut-6`} className={classNames(style.root, style.shortcut)} onClick={() => this.handleJumpClick(9)}>+9</li>
+  				<li key={`Shortcut-0`} className={classNames(style.root, style.shortcut, style.today)}><span onClick={this.handleTodayClick}>{locale.todayLabel.long}</span></li>
+  				<li key={`Shortcut-1`} className={classNames(style.root, style.shortcut)}><span onClick={() => this.handleJumpClick(4)}>+4</span></li>
+  				<li key={`Shortcut-2`} className={classNames(style.root, style.shortcut)}><span onClick={() => this.handleJumpClick(5)}>+5</span></li>
+  				<li key={`Shortcut-3`} className={classNames(style.root, style.shortcut)}><span onClick={() => this.handleJumpClick(6)}>+6</span></li>
+  				<li key={`Shortcut-4`} className={classNames(style.root, style.shortcut)}><span onClick={() => this.handleJumpClick(7)}>+7</span></li>
+  				<li key={`Shortcut-5`} className={classNames(style.root, style.shortcut)}><span onClick={() => this.handleJumpClick(8)}>+8</span></li>
+  				<li key={`Shortcut-6`} className={classNames(style.root, style.shortcut)}><span onClick={() => this.handleJumpClick(9)}>+9</span></li>
 			</ul>
 		);
 	}

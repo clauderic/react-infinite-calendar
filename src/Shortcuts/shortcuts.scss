@@ -9,14 +9,17 @@
     text-align: center;
     list-style: none;
     height: 55px;
-
-/*     display: flex; */
+    display: flex;
 }
 
 .shortcut {
-    
-    /* flex-basis: 1 / 7 * 100%;
-    flex-grow: 1; */
+    height:40px;
+    width: 40px;
+    flex-grow: 1;    
+
+}
+.shortcut span {
+    display:inline-block;
     background:#fff;
     border-radius: 25px;
     border:1px solid #fff;
@@ -25,18 +28,16 @@
     line-height:$rowHeight;
     color: #ff0062;
     font-weight: 500;
-    display:inline-block;
     height:40px;
     width: 40px;
-
 }
-.shortcut:focus,.shortcut:hover {
+.shortcut span:focus,.shortcut span:hover {
     background: #fcfcfc;
 
 } 
-.shortcut:active {
+.shortcut span:active {
     background: #f4f4f4;
 }
-.today {
+.today span {
     width:60px;
 }
