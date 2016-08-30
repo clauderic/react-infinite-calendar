@@ -8,13 +8,16 @@ export default class Month extends Component {
 		return (!nextProps.isScrolling && !this.props.isScrolling);
 	}
 	renderRows() {
-		let {disabledDates, disabledDays, displayDate, locale, maxDate, minDate, onDaySelect, rowHeight, rows, selectedDate, today, theme} = this.props;
+		let {disabledDates, disabledDays, displayDate, locale, maxDate, minDate, onDaySelect,onDayDown,onDayOver,onDayUp, onTouchStart,rowHeight, rows, selectedDate, selectedHovering,dragging, rangeSelectionEndDate, today, theme} = this.props;
 		let currentYear = today.date.year();
 		let monthShort = displayDate.format('MMM');
 		let monthRows = [];
 		let day = 0;
 		let isDisabled = false;
 		let isSelected = false;
+		let isHovered = false;
+		let isSelectedBetween = false;
+		let isSelectedEnd = false;
 		let isToday = false;
 		let row, date, days;
 
@@ -28,6 +31,9 @@ export default class Month extends Component {
 				day++;
 
 				isSelected = (selectedDate && date.yyyymmdd == selectedDate.yyyymmdd);
+				isSelectedBetween = (selectedDate && rangeSelectionEndDate && date.yyyymmdd > selectedDate.yyyymmdd && date.yyyymmdd < rangeSelectionEndDate.yyyymmdd);
+				isSelectedEnd = (rangeSelectionEndDate && date.yyyymmdd == rangeSelectionEndDate.yyyymmdd);
+				isHovered = (selectedHovering && date.yyyymmdd == selectedHovering.yyyymmdd);
 				isToday = (today && date.yyyymmdd == today.yyyymmdd);
 				isDisabled = (
 					minDate && date.yyyymmdd < minDate.yyyymmdd ||
@@ -43,9 +49,17 @@ export default class Month extends Component {
 						date={date}
 						day={day}
 						handleDayClick={onDaySelect}
+						handleDayDown={onDayDown}
+						handleDayOver={onDayOver}
+						handleDayUp={onDayUp}
+						handleTouchStart={onTouchStart}
 						isDisabled={isDisabled}
 						isToday={isToday}
 						isSelected={isSelected}
+						dragging={dragging}
+						isHovered={isHovered}
+						isSelectedBetween={isSelectedBetween}
+						isSelectedEnd={isSelectedEnd}
 						locale={locale}
 						monthShort={monthShort}
 						theme={theme}

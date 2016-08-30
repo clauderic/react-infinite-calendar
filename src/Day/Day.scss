@@ -9,7 +9,17 @@
     height: $rowHeight - 4px;
     margin-top: -0.5 * ($rowHeight - 4px);
     margin-left: -0.5 * ($rowHeight - 4px);
-    border-radius: 50%;
+    border-radius: 50% 50% 50% 50%;
+}
+
+@mixin semicircleL() {
+    border-radius: 50% 0% 0% 50%;
+}
+@mixin semicircleR() {
+    border-radius: 0% 50% 50% 0%;
+}
+@mixin square() {
+    border-radius: 0%;
 }
 
 .root {
@@ -98,6 +108,15 @@
                 font-weight: bold;
                 font-size: 18px;
             }
+        }
+        .selectionStart {
+            @include semicircleL();
+        }
+        .selectionEnd {
+            @include semicircleR();
+        }
+        .selectionBetween {
+            @include square();
         }
     }
     &.disabled {
