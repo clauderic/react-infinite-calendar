@@ -108,6 +108,23 @@ describe("<InfiniteCalendar/> Lifecycle Methods", function() {
 		expect(wrapper.props().rangeSelectionEndDate).to.equal(updated);
 		expect(wrapper.state().rangeSelectionEndDate.format('x')).to.equal(updated.format('x'));
 	})
+	it('clears the rangeSelectionEndDate state when props.selectedDate is cleared', () => {
+		const start = moment();
+		const end = moment();
+		const wrapper = mount(<InfiniteCalendar selectedDate={start} rangeSelectionEndDate={end}/>);
+		wrapper.setProps({selectedDate: false});
+		expect(wrapper.state().selectedDate).to.equal(false);
+		expect(wrapper.state().rangeSelectionEndDate).to.equal(false);
+	})
+	it('updates the rangeSelection and reverse is when with start>end via props change', () => {
+		const start = moment();
+		const middle = moment().add(1, 'day');
+		const end = moment().add(2, 'day');
+		const wrapper = mount(<InfiniteCalendar selectedDate={middle} rangeSelectionEndDate={end}/>);
+		wrapper.setProps({rangeSelectionEndDate: start});
+		expect(wrapper.state().rangeSelectionEndDate.format('x')).to.equal(middle.format('x'));
+		expect(wrapper.state().selectedDate.format('x')).to.equal(start.format('x'));
+	})
 	it('updates when props.minDate changes', (done) => {
 		this.timeout(500);
 		const minDate = moment().add(10, 'day');
@@ -231,26 +248,93 @@ describe("<InfiniteCalendar/> Range Selection", function() {
 	this.timeout(3000);
 
 	it('should select a range when clicking two days', (done) => {
-		const wrapper = mount(<InfiniteCalendar allowRanges={true} />);
-		wrapper.find(Day).first().simulate('mousedown');
-		wrapper.find(Day).first().simulate('mouseup');
-		wrapper.find(Day).first().simulate('click');
+		const start = moment().format("YYYYMMDD");
+		const end = moment().add(1, 'day').format("YYYYMMDD");
 
-		// wrapper.find(Day).second().simulate('mousedown');
-		// wrapper.find(Day).second().simulate('mouseup');
-		// wrapper.find(Day).second().simulate('click');
+		const wrapper = mount(<InfiniteCalendar rangeSelection={true} rangeSelectionBehavior="hover" />);
+		
+		wrapper.find('[data-date="'+start+'"]').first().simulate('mousedown');
+		wrapper.find('[data-date="'+start+'"]').first().simulate('mouseup');
+		wrapper.find('[data-date="'+start+'"]').first().simulate('click');
+		
+		wrapper.find('[data-date="'+end+'"]').first().simulate('mousedown');
+		wrapper.find('[data-date="'+end+'"]').first().simulate('mouseup');
+		wrapper.find('[data-date="'+end+'"]').first().simulate('click');
 
-		//TODO: how do I assert that the proper days were selected
+		expect(wrapper.state().selectedDate.format('YYYYMMDD')).to.equal(start);
+		expect(wrapper.state().rangeSelectionEndDate.format('YYYYMMDD')).to.equal(end);
+
+		setTimeout(done);
+	})
+	it('should select a range when clicking two days backwards', (done) => {
+		const start = moment().format("YYYYMMDD");
+		const end = moment().add(1, 'day').format("YYYYMMDD");
+
+		const wrapper = mount(<InfiniteCalendar rangeSelection={true} rangeSelectionBehavior="hover" />);
+		
+		wrapper.find('[data-date="'+end+'"]').first().simulate('mousedown');
+		wrapper.find('[data-date="'+end+'"]').first().simulate('mouseup');
+		wrapper.find('[data-date="'+end+'"]').first().simulate('click');
+		
+		wrapper.find('[data-date="'+start+'"]').first().simulate('mousedown');
+		wrapper.find('[data-date="'+start+'"]').first().simulate('mouseup');
+		wrapper.find('[data-date="'+start+'"]').first().simulate('click');
+
+		expect(wrapper.state().selectedDate.format('YYYYMMDD')).to.equal(start);
+		expect(wrapper.state().rangeSelectionEndDate.format('YYYYMMDD')).to.equal(end);
 
 		setTimeout(done);
 	})
 	it('should select a range when clicking and dragging', (done) => {
-		const wrapper = mount(<InfiniteCalendar allowRanges={true} rangeSelectWithDrag={true} />);
-		wrapper.find(Day).first().simulate('mousedown');
-		// wrapper.find(Day).second().simulate('mouseover');
-		// wrapper.find(Day).third().simulate('mouseup');
+		const start = moment().format("YYYYMMDD");
+		const end = moment().add(1, 'day').format("YYYYMMDD");
 
-		//TODO: how do I assert that the proper days were selected
+		const wrapper = mount(<InfiniteCalendar rangeSelection={true} rangeSelectionBehavior="drag" />);
+		
+		wrapper.find('[data-date="'+start+'"]').first().simulate('mousedown');
+
+		wrapper.find('[data-date="'+end+'"]').first().simulate('mouseover');
+		wrapper.find('[data-date="'+end+'"]').first().simulate('mouseup');
+
+		expect(wrapper.state().selectedDate.format('YYYYMMDD')).to.equal(start);
+		expect(wrapper.state().rangeSelectionEndDate.format('YYYYMMDD')).to.equal(end);
+
+		setTimeout(done);
+	})
+	it('should select a range when clicking and dragging backwards', (done) => {
+		const start = moment().format("YYYYMMDD");
+		const middle = moment().add(1, 'day').format("YYYYMMDD");
+		const end = moment().add(2, 'day').format("YYYYMMDD");
+
+		const wrapper = mount(<InfiniteCalendar rangeSelection={true} rangeSelectionBehavior="drag" />);
+		
+		wrapper.find('[data-date="'+end+'"]').first().simulate('mousedown');
+		wrapper.find('[data-date="'+middle+'"]').first().simulate('mouseover');
+		wrapper.find('[data-date="'+start+'"]').first().simulate('mouseover');
+		wrapper.find('[data-date="'+start+'"]').first().simulate('mouseup');
+
+		expect(wrapper.state().selectedDate.format('YYYYMMDD')).to.equal(start);
+		expect(wrapper.state().rangeSelectionEndDate.format('YYYYMMDD')).to.equal(end);
+
+		setTimeout(done);
+	})
+	it('should detect touch devices and switch to hover mode', (done) => {
+		const start = moment().format("YYYYMMDD");
+		const end = moment().add(1, 'day').format("YYYYMMDD");
+
+		const wrapper = mount(<InfiniteCalendar rangeSelection={true} rangeSelectionBehavior="drag" />);
+		
+		wrapper.find('[data-date="'+start+'"]').first().simulate('touchstart');
+		wrapper.find('[data-date="'+start+'"]').first().simulate('mousedown');
+		wrapper.find('[data-date="'+start+'"]').first().simulate('mouseup');
+		wrapper.find('[data-date="'+start+'"]').first().simulate('click');
+
+		wrapper.find('[data-date="'+end+'"]').first().simulate('mousedown');
+		wrapper.find('[data-date="'+end+'"]').first().simulate('mouseup');
+		wrapper.find('[data-date="'+end+'"]').first().simulate('click');
+
+		expect(wrapper.state().selectedDate.format('YYYYMMDD')).to.equal(start);
+		expect(wrapper.state().rangeSelectionEndDate.format('YYYYMMDD')).to.equal(end);
 
 		setTimeout(done);
 	})
