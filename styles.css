@@ -434,8 +434,8 @@
       justify-content: space-around;
   margin: 0;
   padding: 0;
-  padding-top: 2px;
-  padding-bottom: 4px; }
+  padding-top: 2px !important;
+  padding-bottom: 4px !important; }
 
 .Cal__Shortcuts__shortcut {
   height: 32px;
@@ -569,7 +569,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: 300;
-  outline: none; }
+  outline: none;
+  /*  transition: height 0.48s;
+    transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1); */ }
   .Cal__Container__root.Cal__Container__landscape {
     display: -webkit-box;
     display: -ms-flexbox;

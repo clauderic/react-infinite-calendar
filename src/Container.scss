@@ -11,6 +11,8 @@
     -moz-osx-font-smoothing: grayscale;
     font-weight: 300;
     outline: none;
+   /*  transition: height 0.48s;
+    transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1); */
 //    max-width:320px;
 
     &.landscape {
