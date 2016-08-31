@@ -10,7 +10,7 @@ export default function Day({currentYear, hideYearsOnDate, date, day, handleDayC
 
 	return (
 		<li
-			style={(isToday) ? { 'color': theme.textColor.active } : null, (isWeekSelected) ? { 'backgroundColor': theme.selectedWeekBackground, border: 0 } : null }
+			style={(isToday) ? { 'color': theme.textColor.active } : null, (isWeekSelected) ? { 'backgroundColor': theme.selectedWeekBackground} : null }
 			className={`${style.root}${isToday ? ' ' + style.today : ''}${isSelected ? ' ' + style.selected : ''}${isDisabled ? ' ' + style.disabled : ' ' + style.enabled}${isWeekSelected ? ' ' + style.weekSelected : ''}${isWeekend ? ' ' + style.weekend : ''}${isPast ? ' ' + style.past : ''}`}
 			data-date={date.date.format('YYYY-MM-DD')}
 			onClick={(!isDisabled && handleDayClick) ? handleDayClick.bind(this, mmt) : null}

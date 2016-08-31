@@ -1,29 +1,37 @@
 @import "../variables";
+// @Variables
 
 .root {
     position: relative;
     z-index: 5;
-
-    display: flex;
+    line-height:13px;
     padding: 0;
+    padding-top:2px;
+    display: flex;
     margin: 0;
     list-style: none;
-
-    box-shadow: 0px 1px  5px grey;
+    background: #FFFFFF;
+    box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.40);
 }
 
 .day {
     padding: 2px 0;
     flex-basis: 1 / 8 * 100%;
     flex-grow: 1;
-    font-weight: 500;
+    font-weight: 400;
     text-align: center;
+    font-family:"Hind-Regular";
+    font-size: 13px;
+    color:#646464;
+
 }
 
 .weekColumn {
     padding: 2px 0;
     flex-basis: 1 / 8 * 100%;
     flex-grow: 1;
-    font-weight: 500;
     text-align: center;
+    font-family:"Hind-Regular";
+    font-size: 13px;
+    color:#646464;
 }

@@ -1,19 +1,22 @@
 @import "../variables";
 .root {
+    background: #EDEDED;
     position: relative;
     z-index: 5;
-    padding: 0;
-    margin: 10px;
     text-align: center;
     list-style: none;
-    height: 55px;
     display: flex;
+    justify-content:space-around;
+    margin:0;
+    padding:0;
+    padding-top:2px;
+    padding-bottom:3px;
 }
 
 .shortcut {
-    height:40px;
-    width: 40px;
-    flex-grow: 1;    
+    height:32px;
+    width: 32px;
+/*     flex-grow: 1; */    
 
 }
 .shortcut span {
@@ -21,13 +24,16 @@
     background:#fff;
     border-radius: 25px;
     border:1px solid #fff;
+    font-family:"Hind-Medium";
     cursor: pointer;
     text-align: center;
-    line-height:$rowHeight;
-    color: #ff0062;
-    font-weight: 500;
-    height:40px;
-    width: 40px;
+    line-height:33px;//$rowHeight;
+    color: #FF466E;
+    font-size:15px;
+    font-weight: 400;
+    height:32px;
+    width: 32px;
+
 }
 .shortcut span:focus,.shortcut span:hover {
     background: #fcfcfc;
@@ -35,6 +41,9 @@
 } 
 .shortcut span:active {
     background: #f4f4f4;
+}
+.today {
+    width:60px;
 }
 .today span {
     width:60px;

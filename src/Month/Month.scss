@@ -2,7 +2,7 @@
 
 .root {
     position: relative;
-    background: linear-gradient(to bottom, rgba(255,255,255,0) 50%,rgba(0,0,0,0.05) 100%);
+    /* background: linear-gradient(to bottom, rgba(255,255,255,0) 50%,rgba(0,0,0,0.05) 100%); */
 }
 
 .row {
@@ -25,7 +25,7 @@
         &:first-child {
             li {
                 &:first-child {
-                    border-left: 1px solid $borderColor;
+                    /* border-left: 1px solid $borderColor; */
                 }
             }
         }

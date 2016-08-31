@@ -23,7 +23,7 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin()
     ],
     resolve: {
-		extensions: ['', '.js', '.jsx', '.scss']
+		extensions: ['', '.js', '.jsx', '.scss', '.ttf']
     },
     module: {
         loaders: [
@@ -36,6 +36,10 @@ module.exports = {
             {
                 test: /(\.scss|\.css)$/,
                 loaders: ['style', 'css?sourceMap&modules&importLoaders=1&localIdentName=Cal__[name]__[local]!postcss!sass?sourceMap']
+            },
+            {
+                test: /\.(eot|svg|ttf|woff|woff2)$/,
+                loader: 'file?name=fonts/[name].[ext]'
             }
         ]
     },
