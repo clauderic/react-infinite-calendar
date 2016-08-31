@@ -65,16 +65,12 @@ var Weekdays = function (_Component) {
 				{ className: style.root, style: { backgroundColor: theme.weekdayColor, color: theme.textColor.default } },
 				(0, _range2.default)(0, 8).map(function (val, index) {
 					if (index === 0) {
-						return _react2.default.createElement(
-							'li',
-							{ key: 'Week-column', className: style.weekColumn },
-							'V.'
-						);
+						return _react2.default.createElement('li', { key: 'Week-column', className: style.weekColumn });
 					} else {
 						return _react2.default.createElement(
 							'li',
 							{ key: 'Weekday-' + index, className: style.day },
-							(0, _moment2.default)().weekday(index - 1).format('dd')
+							(0, _moment2.default)().weekday(index - 1).format('dd').substring(1, 0)
 						);
 					}
 				})

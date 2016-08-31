@@ -5,8 +5,8 @@ var style = {
 	'root': 'Cal__Week__root',
 	'weekItem': 'Cal__Week__weekItem',
 	'weekSelected': 'Cal__Week__weekSelected',
-	'weekNumber': 'Cal__Week__weekNumber',
-	'weekDistance': 'Cal__Week__weekDistance'
+	'weekDistance': 'Cal__Week__weekDistance',
+	'weekNumber': 'Cal__Week__weekNumber'
 };
 
 export default function Week(_ref) {

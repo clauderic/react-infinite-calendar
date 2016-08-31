@@ -112,17 +112,6 @@ var Shortcuts = function (_Component) {
 				),
 				_react2.default.createElement(
 					'li',
-					{ key: 'Shortcut-2', className: (0, _classnames2.default)(style.root, style.shortcut) },
-					_react2.default.createElement(
-						'span',
-						{ onClick: function onClick() {
-								return _this2.handleJumpClick(5);
-							} },
-						'+5'
-					)
-				),
-				_react2.default.createElement(
-					'li',
 					{ key: 'Shortcut-3', className: (0, _classnames2.default)(style.root, style.shortcut) },
 					_react2.default.createElement(
 						'span',

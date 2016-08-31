@@ -1,7 +1,7 @@
 @import "../variables";
 
 .root {
-    /* border-width: 0 1px 1px 1px;
+/*     border-width: 0 1px 1px 1px;
     border-style: solid;
     border-color: #ADADAD; */
     /* Rectangle 17 Copy 18: */
@@ -17,7 +17,7 @@
     user-select: none;
     list-style: none;
 
-    font-size: 12px;
+/*     font-size: 12px; */
     text-align: center;
 
     z-index: 3;
@@ -26,13 +26,16 @@
 /*     top: -1px;
     margin-top: -1px; */
     height: 40px;
-    top:1px;
     overflow: hidden;
+    line-height: 40px;
+    float:left;
+    height:40px;
 }
 
 .weekItem {
     font-family:"Hind-Regular";
     font-size:15px;
+    line-height:15px;
     z-index: 3;
     position: relative;
 }
@@ -46,12 +49,14 @@
 }
 
 .weekNumber {
-    bottom: 5px;
+    bottom: -3px;
 }
 
 .weekDistance {
-    bottom: 10px;
+    bottom: -1px;
     font-family: "Hind-Regular";
     font-size:15px;
+
+    line-height:15px;
     color: #FF466E;
 }

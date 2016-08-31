@@ -80,17 +80,6 @@ var Shortcuts = function (_Component) {
 				),
 				React.createElement(
 					'li',
-					{ key: 'Shortcut-2', className: classNames(style.root, style.shortcut) },
-					React.createElement(
-						'span',
-						{ onClick: function onClick() {
-								return _this2.handleJumpClick(5);
-							} },
-						'+5'
-					)
-				),
-				React.createElement(
-					'li',
 					{ key: 'Shortcut-3', className: classNames(style.root, style.shortcut) },
 					React.createElement(
 						'span',

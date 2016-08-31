@@ -8,6 +8,8 @@
 .row {
     padding: 0;
     margin: 0;
+    display:block;
+    overflow:hidden;
 
     &:first-child {
         text-align: right;

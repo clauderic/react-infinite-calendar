@@ -86,16 +86,13 @@ var expansionButtonStyle = {
 };
 var dayStyle = {
 	'root': 'Cal__Day__root',
-	'enabled': 'Cal__Day__enabled',
-	'highlighted': 'Cal__Day__highlighted',
-	'today': 'Cal__Day__today',
-	'disabled': 'Cal__Day__disabled',
 	'selected': 'Cal__Day__selected',
 	'month': 'Cal__Day__month',
 	'year': 'Cal__Day__year',
 	'selection': 'Cal__Day__selection',
 	'day': 'Cal__Day__day',
 	'dayHiddenText': 'Cal__Day__dayHiddenText',
+	'disabled': 'Cal__Day__disabled',
 	'weekend': 'Cal__Day__weekend',
 	'past': 'Cal__Day__past',
 	'weekSelected': 'Cal__Day__weekSelected'
@@ -104,8 +101,8 @@ var weekStyle = {
 	'root': 'Cal__Week__root',
 	'weekItem': 'Cal__Week__weekItem',
 	'weekSelected': 'Cal__Week__weekSelected',
-	'weekNumber': 'Cal__Week__weekNumber',
-	'weekDistance': 'Cal__Week__weekDistance'
+	'weekDistance': 'Cal__Week__weekDistance',
+	'weekNumber': 'Cal__Week__weekNumber'
 };
 var style = {
 	container: containerStyle,

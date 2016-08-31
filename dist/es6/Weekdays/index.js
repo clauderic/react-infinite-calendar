@@ -35,16 +35,12 @@ var Weekdays = function (_Component) {
 				{ className: style.root, style: { backgroundColor: theme.weekdayColor, color: theme.textColor.default } },
 				range(0, 8).map(function (val, index) {
 					if (index === 0) {
-						return React.createElement(
-							'li',
-							{ key: 'Week-column', className: style.weekColumn },
-							'V.'
-						);
+						return React.createElement('li', { key: 'Week-column', className: style.weekColumn });
 					} else {
 						return React.createElement(
 							'li',
 							{ key: 'Weekday-' + index, className: style.day },
-							moment().weekday(index - 1).format('dd')
+							moment().weekday(index - 1).format('dd').substring(1, 0)
 						);
 					}
 				})

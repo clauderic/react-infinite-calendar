@@ -17,16 +17,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var style = {
 	'root': 'Cal__Day__root',
-	'enabled': 'Cal__Day__enabled',
-	'highlighted': 'Cal__Day__highlighted',
-	'today': 'Cal__Day__today',
-	'disabled': 'Cal__Day__disabled',
 	'selected': 'Cal__Day__selected',
 	'month': 'Cal__Day__month',
 	'year': 'Cal__Day__year',
 	'selection': 'Cal__Day__selection',
 	'day': 'Cal__Day__day',
 	'dayHiddenText': 'Cal__Day__dayHiddenText',
+	'disabled': 'Cal__Day__disabled',
 	'weekend': 'Cal__Day__weekend',
 	'past': 'Cal__Day__past',
 	'weekSelected': 'Cal__Day__weekSelected'
@@ -55,7 +52,7 @@ function Day(_ref) {
 	return _react2.default.createElement(
 		'li',
 		{
-			style: (isToday ? { 'color': theme.textColor.active } : null, isWeekSelected ? { 'backgroundColor': theme.selectedWeekBackground, border: 0 } : null),
+			style: (isToday ? { 'color': theme.textColor.active } : null, isWeekSelected ? { 'backgroundColor': theme.selectedWeekBackground } : null),
 			className: '' + style.root + (isToday ? ' ' + style.today : '') + (isSelected ? ' ' + style.selected : '') + (isDisabled ? ' ' + style.disabled : ' ' + style.enabled) + (isWeekSelected ? ' ' + style.weekSelected : '') + (isWeekend ? ' ' + style.weekend : '') + (isPast ? ' ' + style.past : ''),
 			'data-date': date.date.format('YYYY-MM-DD'),
 			onClick: !isDisabled && handleDayClick ? handleDayClick.bind(this, mmt) : null
