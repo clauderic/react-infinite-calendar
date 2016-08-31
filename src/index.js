@@ -22,7 +22,7 @@ const style = {
 	container: containerStyle,
 	day: dayStyle,
 	week: weekStyle,
-	expansionButton: expansionButtonStyle
+	expansionButton: expansionButtonStyle,
 };
 
 class InfiniteCalendar extends Component {
@@ -42,6 +42,7 @@ class InfiniteCalendar extends Component {
 			shouldHeaderAnimate: props.shouldHeaderAnimate,
 			isCollapsed: props.isCollapsed,
 			expandOnScroll: false,
+			desktop: props.desktop,
 		};
 	}
 
@@ -75,6 +76,7 @@ class InfiniteCalendar extends Component {
 		showSelectionText: true,
 		isClickOnDatepicker: false,
 		device: true,
+		desktop: true,
 	};
 
 	static propTypes = {
@@ -116,6 +118,7 @@ class InfiniteCalendar extends Component {
 		showSelectionText: PropTypes.bool,
 		isClickOnDatepicker: PropTypes.bool,
 		device: PropTypes.bool,
+		desktop: PropTypes.bool,
 	};
 
 	componentDidMount() {
@@ -125,6 +128,12 @@ class InfiniteCalendar extends Component {
 
 		if (keyboardSupport && autoFocus) {
 			this.node.focus();
+		}
+
+		if (!this.state.desktop) {
+			console.log("handheld version");
+		} else {
+			console.log("desktop version");
 		}
 	}
 
