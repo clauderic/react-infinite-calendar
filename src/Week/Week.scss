@@ -5,7 +5,7 @@
     border-style: solid;
     border-color: #ADADAD; */
     /* Rectangle 17 Copy 18: */
-    background: #FAFAFA;
+    background: #DDDDDD;
     border: 1px solid #DDDDDD;
     border-left: none;
     border-bottom:none;
@@ -44,6 +44,10 @@
 .weekSelected {
     color: #fff;
 
+    .weekNumber {
+        color:#fff;
+    }
+
     >.weekDistance {
         color: #fff;
     }
@@ -51,6 +55,7 @@
 
 .weekNumber {
     bottom: -3px;
+    color:#747474;
 }
 
 .weekDistance {

@@ -122,7 +122,7 @@
         cursor: not-allowed;
     }
     &.weekend {
-        color: #919191;
+        color: #D7D7D7;
     }
     &.past {
         color: #AAA;
@@ -150,4 +150,10 @@
 }
 .weekSelected {
     color: white;
+
+    /* .weekSelected {
+        color:#fff;
+        font-family: "Hind-Regular";
+        opacity: 0.5;
+    } */
 }

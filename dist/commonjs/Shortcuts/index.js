@@ -89,7 +89,7 @@ var Shortcuts = function (_Component) {
 
 			return _react2.default.createElement(
 				'ul',
-				{ className: style.root, style: { backgroundColor: '#ececec' } },
+				{ className: style.root, style: { backgroundColor: '#F5F5F5' } },
 				_react2.default.createElement(
 					'li',
 					{ key: 'Shortcut-0', className: (0, _classnames2.default)(style.root, style.shortcut, style.today) },

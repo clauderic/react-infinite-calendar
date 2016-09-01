@@ -246,7 +246,7 @@
     color: #AAA;
     cursor: not-allowed; }
   .Cal__Day__root.Cal__Day__weekend {
-    color: #919191; }
+    color: #D7D7D7; }
   .Cal__Day__root.Cal__Day__past {
     color: #AAA; }
   .Cal__Day__root.Cal__Day__weekSelected {
@@ -267,13 +267,18 @@
   bottom: 5px; }
 
 .Cal__Day__weekSelected {
-  color: white; }
+  color: white;
+  /* .weekSelected {
+        color:#fff;
+        font-family: "Hind-Regular";
+        opacity: 0.5;
+    } */ }
 .Cal__Week__root {
   /*     border-width: 0 1px 1px 1px;
     border-style: solid;
     border-color: #ADADAD; */
   /* Rectangle 17 Copy 18: */
-  background: #FAFAFA;
+  background: #DDDDDD;
   border: 1px solid #DDDDDD;
   border-left: none;
   border-bottom: none;
@@ -313,11 +318,14 @@
 
 .Cal__Week__weekSelected {
   color: #fff; }
+  .Cal__Week__weekSelected .Cal__Week__weekNumber {
+    color: #fff; }
   .Cal__Week__weekSelected > .Cal__Week__weekDistance {
     color: #fff; }
 
 .Cal__Week__weekNumber {
-  bottom: -3px; }
+  bottom: -3px;
+  color: #747474; }
 
 .Cal__Week__weekDistance {
   bottom: -1px;
@@ -423,7 +431,7 @@
   font-size: 10px;
   color: #646464; }
 .Cal__Shortcuts__root {
-  background: #EDEDED;
+  background: #F5F5F5;
   position: relative;
   z-index: 5;
   text-align: center;
@@ -446,8 +454,8 @@
 .Cal__Shortcuts__shortcut span {
   display: inline-block;
   background: #fff;
-  border-radius: 25px;
-  border: 1px solid #fff;
+  border-radius: 100px;
+  border: 1px solid #EBEBEB;
   font-family: "Hind-Medium";
   cursor: pointer;
   text-align: center;
