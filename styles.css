@@ -275,6 +275,7 @@
   /* Rectangle 17 Copy 18: */
   background: #FAFAFA;
   border: 1px solid #DDDDDD;
+  border-left: none;
   border-bottom: none;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
