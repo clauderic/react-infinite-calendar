@@ -139,7 +139,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var onClickOutside = __webpack_require__(213);
 	var containerStyle = __webpack_require__(214);
-	var expansionButtonStyle = __webpack_require__(219);
+	var expansionButtonStyle = __webpack_require__(216);
 	var dayStyle = __webpack_require__(195);
 	var weekStyle = __webpack_require__(198);
 	var style = {
@@ -25104,10 +25104,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 215 */,
-/* 216 */,
-/* 217 */,
-/* 218 */,
-/* 219 */
+/* 216 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
