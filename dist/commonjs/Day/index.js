@@ -18,6 +18,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var style = {
 	'root': 'Cal__Day__root',
 	'today': 'Cal__Day__today',
+	'weekSelected': 'Cal__Day__weekSelected',
 	'selected': 'Cal__Day__selected',
 	'month': 'Cal__Day__month',
 	'year': 'Cal__Day__year',
@@ -26,8 +27,7 @@ var style = {
 	'dayHiddenText': 'Cal__Day__dayHiddenText',
 	'disabled': 'Cal__Day__disabled',
 	'weekend': 'Cal__Day__weekend',
-	'past': 'Cal__Day__past',
-	'weekSelected': 'Cal__Day__weekSelected'
+	'past': 'Cal__Day__past'
 };
 
 function Day(_ref) {

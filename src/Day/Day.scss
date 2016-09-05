@@ -1,17 +1,25 @@
 @import "../variables";
 
-@mixin circle() {
+@mixin circle($border: "") {
     content: '';
     position: absolute;
     top: 50%;
     left: 50%;
-    width: $rowHeight - 4px;
-    height: $rowHeight - 4px;
+    $calculatedHeight:$rowHeight;
+    @if $border == "2px solid #fff" {
+        $calculatedHeight: $rowHeight - 10;
+    }
+    @if $border == "" {
+        $calculatedHeight: $rowHeight - 4;
+    }
 
-    margin-top: -0.5 * ($rowHeight - 4px);
-    margin-left: -0.5 * ($rowHeight - 4px);
+    width: $calculatedHeight;
+    height: $calculatedHeight;
+    margin-top: -0.5 * $calculatedHeight;
+    margin-left: -0.5 * $calculatedHeight;
     border-radius: 50%;
     background-color: $todayColor;
+    border: unquote($border);
 }
 
 .root {
@@ -61,11 +69,21 @@
         z-index: 2;
         color: white;
 
-        &:before {
+        &:not(.weekSelected):before {
             @include circle();
             z-index: -1;
         }
     } 
+
+    &.weekSelected.today :before {
+        @include circle("2px solid #fff");
+        z-index:-1;
+        top:45%;
+        left:45%;
+    }
+    &.weekSelected.today span {
+        color:#fff;
+    }
     &.selected {
         position: relative;
 
@@ -105,6 +123,11 @@
                 font-weight: bold;
                 font-size: 17px;
             }
+        }
+        .today {
+            border: 2px solid #675FF5;
+            height: $rowHeight - 7px;
+            width: $rowHeight - 7px;
         }
     }
     &.disabled {

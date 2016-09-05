@@ -190,7 +190,7 @@
     position: relative;
     z-index: 2;
     color: white; }
-    .Cal__Day__root.Cal__Day__today:before {
+    .Cal__Day__root.Cal__Day__today:not(.Cal__Day__weekSelected):before {
       content: '';
       position: absolute;
       top: 50%;
@@ -202,6 +202,23 @@
       border-radius: 50%;
       background-color: #675FF5;
       z-index: -1; }
+  .Cal__Day__root.Cal__Day__weekSelected.Cal__Day__today :before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    margin-top: -15px;
+    margin-left: -15px;
+    border-radius: 50%;
+    background-color: #675FF5;
+    border: 2px solid #fff;
+    z-index: -1;
+    top: 45%;
+    left: 45%; }
+  .Cal__Day__root.Cal__Day__weekSelected.Cal__Day__today span {
+    color: #fff; }
   .Cal__Day__root.Cal__Day__selected {
     position: relative; }
     .Cal__Day__root.Cal__Day__selected > .Cal__Day__month, .Cal__Day__root.Cal__Day__selected > .Cal__Day__year {
@@ -238,6 +255,10 @@
         top: 0px;
         font-weight: bold;
         font-size: 17px; }
+    .Cal__Day__root.Cal__Day__selected .Cal__Day__today {
+      border: 2px solid #675FF5;
+      height: 33px;
+      width: 33px; }
   .Cal__Day__root.Cal__Day__disabled {
     cursor: default;
     color: #AAA;
