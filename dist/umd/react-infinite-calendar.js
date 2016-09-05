@@ -16579,9 +16579,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        active: '#FFF'
 	    },
 	    weekBackground: '#EDEDED',
-	    selectedWeekBackground: '#FF466E',
-	    selectionColor: '#FF466E',
-	    todayColor: '#F5387A',
+	    selectedWeekBackground: '#535353',
+	    selectionColor: '#535353',
+	    todayColor: '#675ff5',
 	    weekdayColor: '#FFFFFF',
 	    headerColor: '#448AFF',
 	    floatingNav: {
@@ -24261,7 +24261,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-	module.exports = {"root":"Cal__Day__root","selected":"Cal__Day__selected","month":"Cal__Day__month","year":"Cal__Day__year","selection":"Cal__Day__selection","day":"Cal__Day__day","dayHiddenText":"Cal__Day__dayHiddenText","disabled":"Cal__Day__disabled","weekend":"Cal__Day__weekend","past":"Cal__Day__past","weekSelected":"Cal__Day__weekSelected"};
+	module.exports = {"root":"Cal__Day__root","today":"Cal__Day__today","disabled":"Cal__Day__disabled","selected":"Cal__Day__selected","month":"Cal__Day__month","year":"Cal__Day__year","selection":"Cal__Day__selection","day":"Cal__Day__day","dayHiddenText":"Cal__Day__dayHiddenText","weekend":"Cal__Day__weekend","past":"Cal__Day__past","weekSelected":"Cal__Day__weekSelected"};
 
 /***/ },
 /* 196 */,

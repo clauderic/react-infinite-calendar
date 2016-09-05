@@ -56,7 +56,7 @@
         position: relative;
     }
 
-    /* &.today {
+     &.today {
         position: relative;
         z-index: 2;
         color: white;
@@ -74,7 +74,7 @@
         &.disabled:before {
             box-shadow: inset 0 0 0 1px #BBB;
         }
-    } */
+    } 
     &.selected {
         position: relative;
 

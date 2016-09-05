@@ -183,28 +183,30 @@
         &.highlighted:before, &:active:before {
             opacity: 1;
         }
-    } */
-  /* &.today {
-        position: relative;
-        z-index: 2;
-        color: white;
-
-        &.disabled > span {
-            color: #AAA;
-        }
-
-        &:before {
-            @include circle();
-            box-shadow: inset 0 0 0 1px;
-            z-index: -1;
-        }
-
-        &.disabled:before {
-            box-shadow: inset 0 0 0 1px #BBB;
-        }
     } */ }
   .Cal__Day__root:first-child {
     position: relative; }
+  .Cal__Day__root.Cal__Day__today {
+    position: relative;
+    z-index: 2;
+    color: white; }
+    .Cal__Day__root.Cal__Day__today.Cal__Day__disabled > span {
+      color: #AAA; }
+    .Cal__Day__root.Cal__Day__today:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 36px;
+      height: 36px;
+      margin-top: -18px;
+      margin-left: -18px;
+      border-radius: 50%;
+      background-color: #675FF5;
+      box-shadow: inset 0 0 0 1px;
+      z-index: -1; }
+    .Cal__Day__root.Cal__Day__today.Cal__Day__disabled:before {
+      box-shadow: inset 0 0 0 1px #BBB; }
   .Cal__Day__root.Cal__Day__selected {
     position: relative; }
     .Cal__Day__root.Cal__Day__selected > .Cal__Day__month, .Cal__Day__root.Cal__Day__selected > .Cal__Day__year {
@@ -325,14 +327,14 @@
 
 .Cal__Week__weekNumber {
   bottom: -3px;
-  color: #747474; }
+  color: #9B9B9B; }
 
 .Cal__Week__weekDistance {
   bottom: -1px;
   font-family: "Hind-Regular";
   font-size: 15px;
   line-height: 15px;
-  color: #FF466E; }
+  color: #535353; }
 .Cal__Month__root {
   position: relative;
   /* background: linear-gradient(to bottom, rgba(255,255,255,0) 50%,rgba(0,0,0,0.05) 100%); */ }
@@ -460,7 +462,7 @@
   cursor: pointer;
   text-align: center;
   line-height: 33px;
-  color: #FF466E;
+  color: #535353;
   font-size: 15px;
   font-weight: 400;
   height: 32px;
@@ -476,6 +478,7 @@
   width: 60px; }
 
 .Cal__Shortcuts__today span {
+  color: #675ff5;
   width: 60px; }
 .Cal__Years__root {
   position: absolute;
@@ -629,7 +632,8 @@
   height: 40px;
   width: 40px;
   color: white;
-  background: #4B4B4B;
+  background: #000;
+  opacity: 0.6;
   border: 1px solid grey;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
   padding: 0px;

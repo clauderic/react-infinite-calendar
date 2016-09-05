@@ -6,9 +6,9 @@ module.exports = {
         active: '#FFF'
     },
     weekBackground: '#EDEDED',
-    selectedWeekBackground: '#FF466E',
-    selectionColor: '#FF466E',
-    todayColor: '#F5387A',
+    selectedWeekBackground: '#535353',
+    selectionColor: '#535353',
+    todayColor: '#675ff5',
     weekdayColor: '#FFFFFF',
     headerColor: '#448AFF',
     floatingNav: {
