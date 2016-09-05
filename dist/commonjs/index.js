@@ -87,13 +87,13 @@ var expansionButtonStyle = {
 var dayStyle = {
 	'root': 'Cal__Day__root',
 	'today': 'Cal__Day__today',
-	'disabled': 'Cal__Day__disabled',
 	'selected': 'Cal__Day__selected',
 	'month': 'Cal__Day__month',
 	'year': 'Cal__Day__year',
 	'selection': 'Cal__Day__selection',
 	'day': 'Cal__Day__day',
 	'dayHiddenText': 'Cal__Day__dayHiddenText',
+	'disabled': 'Cal__Day__disabled',
 	'weekend': 'Cal__Day__weekend',
 	'past': 'Cal__Day__past',
 	'weekSelected': 'Cal__Day__weekSelected'
