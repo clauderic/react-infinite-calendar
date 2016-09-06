@@ -47,6 +47,11 @@
     width:60px;
 }
 .today span {
-    color: #675ff5;
+    background:#675ff5;
+    border-color:#675ff5;
+    color: #ffffff;
     width:60px;
+}
+.today span:hover, .today span:focus {
+    background:#675ff5;
 }
