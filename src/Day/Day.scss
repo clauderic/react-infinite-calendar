@@ -1,6 +1,6 @@
 @import "../variables";
 
-@mixin circle($border: "") {
+@mixin circle($border: "", $backgroundColor: "") {
     content: '';
     position: absolute;
     top: 50%;
@@ -12,13 +12,19 @@
     @if $border == "" {
         $calculatedHeight: $rowHeight - 4;
     }
+    @if $backgroundColor == "#675ff5" {
+        background-color: #675ff5;
+    } 
+    @if $backgroundColor == "" {
+
+        background-color: $todayColor;
+    }
 
     width: $calculatedHeight;
     height: $calculatedHeight;
     margin-top: -0.5 * $calculatedHeight;
     margin-left: -0.5 * $calculatedHeight;
     border-radius: 50%;
-    background-color: $todayColor;
     border: unquote($border);
 }
 
@@ -125,6 +131,7 @@
             }
         }
         .today {
+            background: #675ff5 !important;
             /* border: 2px solid #675FF5;
             height: $rowHeight - 7px;
             width: $rowHeight - 7px; */
