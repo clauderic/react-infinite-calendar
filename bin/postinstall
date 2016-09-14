@@ -1,0 +1,4 @@
+#!/bin/bash
+
+node -e "require('fs').stat('dist', function (e, s) { process.exit(e || !s.isDirectory() ? 1 : 0) })" || npm install --ignore-scripts --only=dev && npm run build
+

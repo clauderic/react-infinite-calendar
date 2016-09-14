@@ -1,7 +1,5 @@
 .github
-.babelrc
 coverage
-src
 test
 .*
 *.md
@@ -9,7 +7,5 @@ server.js
 index.html
 /index.js
 karma.conf.js
-webpack.config.*.js
-babel.preprocess.sass.js
 codecov.yml
 .travis.yml
