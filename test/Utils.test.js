@@ -1,18 +1,10 @@
 import {expect} from 'chai';
 import moment from 'moment';
-import {getDaysInMonth, validDate, validLayout, validParsedDate} from '../src/utils';
+import {getDaysInMonth, validDate, validParsedDate} from '../src/utils';
 
 describe("Moment.js Date Validator", function() {
 	it("should return an error when an invalid date is provided", () => {
 		expect(validDate({date: '20160231'}, 'date')).to.be.an.instanceof(Error);
-	})
-});
-
-describe("Layout Prop Validator", function() {
-	it("should return an error when an invalid layout is provided", () => {
-		expect(validLayout({layout: 'portrait'}, 'layout')).to.not.be.an.instanceof(Error);
-		expect(validLayout({layout: 'landscape'}, 'layout')).to.not.be.an.instanceof(Error);
-		expect(validLayout({layout: 'invalid'}, 'layout')).to.be.an.instanceof(Error);
 	})
 });
 

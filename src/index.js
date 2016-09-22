@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import moment from 'moment';
 import debounce from 'lodash/debounce';
 import range from 'lodash/range';
-import {getScrollSpeed, getMonthsForYear, keyCodes, parseDate, validDate, validDisplay, validLayout} from './utils';
+import {getScrollSpeed, getMonthsForYear, keyCodes, parseDate, validDate} from './utils';
 import defaultLocale from './locale';
 import defaultTheme from './theme';
 import Today from './Today';
@@ -81,8 +81,8 @@ export default class InfiniteCalendar extends Component {
 		autoFocus: PropTypes.bool,
 		onKeyDown: PropTypes.func,
 		tabIndex: PropTypes.number,
-		layout: validLayout,
-		display: validDisplay,
+		layout: PropTypes.oneOf(['portrait', 'landscape']),
+		display: PropTypes.oneOf(['years', 'days']),
 		hideYearsOnSelect: PropTypes.bool,
 		shouldHeaderAnimate: PropTypes.bool,
 		showOverlay: PropTypes.bool,
