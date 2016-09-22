@@ -1,5 +1,8 @@
 Changelog
 ------------
+### 1.2.0
+Minor refactoring tweaks to support React Virtualized 8.0.0 and up
+
 ### 1.1.18
 Fixes a bug with scrolling programatically to an arbitrary value introduced with newer versions of react-virtualized ([#40](https://github.com/clauderic/react-infinite-calendar/issues/40))
 
