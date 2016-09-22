@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {VirtualScroll} from 'react-virtualized';
+import {List as VirtualScroll} from 'react-virtualized';
 import classNames from 'classnames';
 import {keyCodes} from '../utils';
 import moment from 'moment';
@@ -114,7 +114,7 @@ export default class Years extends Component {
                     rowHeight={rowHeight}
                     scrollToIndex={selectedYearIndex + 1}
                     scrollToAlignment={'center'}
-                    rowRenderer={({index}) => {
+                    rowRenderer={({index, style: rowStyle}) => {
                         let year = years[index];
 
                         if (year !== null) {
@@ -126,7 +126,7 @@ export default class Years extends Component {
                                     onClick={() => this.handleClick(year)}
                                     title={`Set year to ${year}`}
                                     data-year={year}
-                                    style={{color: (typeof theme.selectionColor == 'function') ? theme.selectionColor(selectedDate.clone().year(year)) : theme.selectionColor}}
+                                    style={Object.assign({}, rowStyle, {color: (typeof theme.selectionColor == 'function') ? theme.selectionColor(selectedDate.clone().year(year)) : theme.selectionColor})}
                                 >
                                     <span style={(year == currentYear) ? {borderColor: theme.todayColor} : null}>
                                         {year}

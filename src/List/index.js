@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {VirtualScroll} from 'react-virtualized';
+import {List as VirtualScroll} from 'react-virtualized';
 import classNames from 'classnames';
 import moment from 'moment';
 import {getMonth, getWeeksInMonth, validParsedDate} from '../utils';
@@ -80,7 +80,7 @@ export default class List extends Component {
 			this.scrollEl.scrollTop = scrollTop;
 		}
 	};
-	renderMonth = ({index, isScrolling}) => {
+	renderMonth = ({index, isScrolling, style: rowStyle}) => {
 		let {disabledDates, disabledDays, locale, months, maxDate, minDate, onDaySelect, rowHeight, selectedDate, showOverlay, theme, today} = this.props;
 		let {date, rows} = this.memoize(months[index]);
 
@@ -101,6 +101,7 @@ export default class List extends Component {
 				today={today}
 				theme={theme}
 				locale={locale}
+				rowStyle={rowStyle}
 			/>
 		);
 	};

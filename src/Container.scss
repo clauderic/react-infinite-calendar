@@ -26,12 +26,14 @@
     }
 
     :global {
-        .VirtualScroll {
-            -webkit-overflow-scrolling: touch;
+        .ReactVirtualized__List {
+            position: relative;
+            overflow: auto;
             outline: none;
             overflow-x: hidden !important;
+            -webkit-overflow-scrolling: touch;
         }
-        .Grid__innerScrollContainer {
+        .ReactVirtualized__Grid__innerScrollContainer {
             width: 100% !important;
         }
     }
@@ -39,13 +41,4 @@
 .listWrapper {
     position: relative;
     overflow: hidden;
-}
-:global {
-    .VirtualScroll {
-        position: relative;
-        overflow: auto;
-    }
-    .Grid__cell {
-        position: absolute;
-    }
 }

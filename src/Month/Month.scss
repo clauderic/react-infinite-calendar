@@ -1,10 +1,13 @@
 @import "../variables";
 
 .root {
+    position: absolute;
+    width: 100%;
+}
+.rows {
     position: relative;
     background: linear-gradient(to bottom, rgba(255,255,255,0) 50%,rgba(0,0,0,0.05) 100%);
 }
-
 .row {
     padding: 0;
     margin: 0;

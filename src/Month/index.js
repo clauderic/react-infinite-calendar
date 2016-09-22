@@ -62,18 +62,18 @@ export default class Month extends Component {
 		return monthRows;
 	}
 	render() {
-		let {displayDate, today, rows, showOverlay, theme} = this.props;
+		let {displayDate, today, rows, showOverlay, rowStyle, theme} = this.props;
 
 		return (
-			<div className={style.root}>
+			<div className={style.root} style={rowStyle}>
 				<div className={style.rows}>
 					{this.renderRows()}
+					{showOverlay &&
+						<label className={classNames(style.label, {[style.partialFirstRow] : (rows[0].length !== 7)})} style={theme && theme.overlayColor && {backgroundColor: theme.overlayColor}}>
+							<span>{`${displayDate.format('MMMM')}${(!displayDate.isSame(today.date, 'year')) ? ' ' + displayDate.year() : ''}`}</span>
+						</label>
+					}
 				</div>
-				{showOverlay &&
-					<label className={classNames(style.label, {[style.partialFirstRow] : (rows[0].length !== 7)})} style={theme && theme.overlayColor && {backgroundColor: theme.overlayColor}}>
-						<span>{`${displayDate.format('MMMM')}${(!displayDate.isSame(today.date, 'year')) ? ' ' + displayDate.year() : ''}`}</span>
-					</label>
-				}
 			</div>
 		);
 	}
