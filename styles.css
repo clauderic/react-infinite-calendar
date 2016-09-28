@@ -243,6 +243,10 @@
 .Cal__Day__year {
   bottom: 5px; }
 .Cal__Month__root {
+  position: absolute;
+  width: 100%; }
+
+.Cal__Month__rows {
   position: relative;
   background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.05) 100%);
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.05) 100%); }
@@ -429,20 +433,15 @@
       z-index: 1;
       border-top-right-radius: 3px;
       border-bottom-right-radius: 3px; }
-  .Cal__Container__root .VirtualScroll {
-    -webkit-overflow-scrolling: touch;
+  .Cal__Container__root .ReactVirtualized__List {
+    position: relative;
+    overflow: auto;
     outline: none;
-    overflow-x: hidden !important; }
-  .Cal__Container__root .Grid__innerScrollContainer {
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch; }
+  .Cal__Container__root .ReactVirtualized__Grid__innerScrollContainer {
     width: 100% !important; }
 
 .Cal__Container__listWrapper {
   position: relative;
   overflow: hidden; }
-
-.VirtualScroll {
-  position: relative;
-  overflow: auto; }
-
-.Grid__cell {
-  position: absolute; }
