@@ -1,5 +1,11 @@
 Changelog
 ------------
+### 1.2.2
+Fixes a zIndex bug introduced with 1.2.0 with partial last month rows ([#52](https://github.com/clauderic/react-infinite-calendar/issues/52))
+
+### 1.2.1
+Hotfix release to fix borked build.
+
 ### 1.2.0
 Minor refactoring tweaks to support React Virtualized 8.0.0 and up
 
