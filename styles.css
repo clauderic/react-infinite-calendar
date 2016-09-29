@@ -267,7 +267,7 @@
     box-shadow: 0 -1px 0 #E9E9E9; }
   .Cal__Month__row.Cal__Month__partial:first-child li:first-child {
     border-left: 1px solid #E9E9E9; }
-  .Cal__Month__row.Cal__Month__partial:last-child li {
+  .Cal__Month__row.Cal__Month__partial:last-of-type li {
     position: relative;
     z-index: 1; }
 
