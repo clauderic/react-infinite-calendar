@@ -16579,9 +16579,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        active: '#FFF'
 	    },
 	    weekBackground: '#EDEDED',
-	    selectedWeekBackground: '#5C676B',
-	    selectionColor: '#3E3F40',
-	    todayColor: '#F5387A',
+	    selectedWeekBackground: '#535353',
+	    selectionColor: '#535353',
+	    todayColor: '#675ff5',
 	    weekdayColor: '#FFFFFF',
 	    headerColor: '#448AFF',
 	    floatingNav: {
@@ -24219,7 +24219,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		return _react2.default.createElement(
 			'li',
 			{
-				style: (isToday ? { 'color': theme.textColor.active } : null, isWeekSelected ? { 'backgroundColor': theme.selectedWeekBackground, border: 0 } : null),
+				style: (isToday ? { 'color': theme.textColor.active } : null, isWeekSelected ? { 'backgroundColor': theme.selectedWeekBackground } : null),
 				className: '' + style.root + (isToday ? ' ' + style.today : '') + (isSelected ? ' ' + style.selected : '') + (isDisabled ? ' ' + style.disabled : ' ' + style.enabled) + (isWeekSelected ? ' ' + style.weekSelected : '') + (isWeekend ? ' ' + style.weekend : '') + (isPast ? ' ' + style.past : ''),
 				'data-date': date.date.format('YYYY-MM-DD'),
 				onClick: !isDisabled && handleDayClick ? handleDayClick.bind(this, mmt) : null
@@ -24261,7 +24261,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-	module.exports = {"root":"Cal__Day__root","enabled":"Cal__Day__enabled","highlighted":"Cal__Day__highlighted","today":"Cal__Day__today","disabled":"Cal__Day__disabled","selected":"Cal__Day__selected","month":"Cal__Day__month","year":"Cal__Day__year","selection":"Cal__Day__selection","day":"Cal__Day__day","dayHiddenText":"Cal__Day__dayHiddenText","weekend":"Cal__Day__weekend","past":"Cal__Day__past","weekSelected":"Cal__Day__weekSelected"};
+	module.exports = {"root":"Cal__Day__root","today":"Cal__Day__today","weekSelected":"Cal__Day__weekSelected","selected":"Cal__Day__selected","month":"Cal__Day__month","year":"Cal__Day__year","selection":"Cal__Day__selection","day":"Cal__Day__day","dayHiddenText":"Cal__Day__dayHiddenText","disabled":"Cal__Day__disabled","weekend":"Cal__Day__weekend","past":"Cal__Day__past"};
 
 /***/ },
 /* 196 */,
@@ -24414,16 +24414,12 @@ return /******/ (function(modules) { // webpackBootstrap
 					{ className: style.root, style: { backgroundColor: theme.weekdayColor, color: theme.textColor.default } },
 					(0, _range2.default)(0, 8).map(function (val, index) {
 						if (index === 0) {
-							return _react2.default.createElement(
-								'li',
-								{ key: 'Week-column', className: style.weekColumn },
-								'V.'
-							);
+							return _react2.default.createElement('li', { key: 'Week-column', className: style.weekColumn });
 						} else {
 							return _react2.default.createElement(
 								'li',
 								{ key: 'Weekday-' + index, className: style.day },
-								(0, _moment2.default)().weekday(index - 1).format('dd')
+								(0, _moment2.default)().weekday(index - 1).format('dd').substring(1, 0)
 							);
 						}
 					})
@@ -24539,7 +24535,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				return _react2.default.createElement(
 					'ul',
-					{ className: style.root, style: { backgroundColor: '#ececec' } },
+					{ className: style.root, style: { backgroundColor: '#F5F5F5' } },
 					_react2.default.createElement(
 						'li',
 						{ key: 'Shortcut-0', className: (0, _classnames2.default)(style.root, style.shortcut, style.today) },

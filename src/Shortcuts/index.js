@@ -36,7 +36,7 @@ export default class Shortcuts extends Component {
 		let {theme, locale} = this.props;
 
 		return (
-			<ul className={style.root} style={{backgroundColor: '#ececec'}}>
+			<ul className={style.root} style={{backgroundColor: '#F5F5F5'}}>
   				<li key={`Shortcut-0`} className={classNames(style.root, style.shortcut, style.today)}><span onClick={this.handleTodayClick}>{locale.todayLabel.long}</span></li>
   				<li key={`Shortcut-1`} className={classNames(style.root, style.shortcut)}><span onClick={() => this.handleJumpClick(4)}>+4</span></li>
   				<li key={`Shortcut-2`} className={classNames(style.root, style.shortcut)}><span onClick={() => this.handleJumpClick(5)}>+5</span></li>

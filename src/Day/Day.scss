@@ -1,32 +1,51 @@
 @import "../variables";
 
-@mixin circle() {
+@mixin circle($border: "", $backgroundColor: "") {
     content: '';
     position: absolute;
     top: 50%;
     left: 50%;
-    width: $rowHeight - 4px;
-    height: $rowHeight - 4px;
-    margin-top: -0.5 * ($rowHeight - 4px);
-    margin-left: -0.5 * ($rowHeight - 4px);
+    $calculatedHeight:$rowHeight;
+    @if $border == "2px solid #fff" {
+        $calculatedHeight: $rowHeight - 10;
+    }
+    @if $border == "" {
+        $calculatedHeight: $rowHeight - 4;
+    }
+    @if $backgroundColor == "#675ff5" {
+        background-color: #675ff5;
+    } 
+    @if $backgroundColor == "" {
+
+        background-color: $todayColor;
+    }
+
+    width: $calculatedHeight;
+    height: $calculatedHeight;
+    margin-top: -0.5 * $calculatedHeight;
+    margin-left: -0.5 * $calculatedHeight;
     border-radius: 50%;
-    background-color: $todayColor;
+    border: unquote($border);
 }
 
 .root {
+    /* top:-1px; */
+/*     border-bottom: none;
+    border-top: 1px solid #FFF; */
     display: inline-block;
     box-sizing: border-box;
     width: 1 / 8 * 100%;
-
+    height:40px;
     list-style: none;
-
-    font-size: 16px;
+    font-family:"Hind-Regular";
+    font-size: 20px;
     text-align: center;
+    color:#646464;
 
     cursor: pointer;
     user-select: none;
 
-    &.enabled {
+    /* &.enabled {
         &.highlighted, &:active, &:hover {
             position: relative;
             z-index: 1;
@@ -45,30 +64,31 @@
         &.highlighted:before, &:active:before {
             opacity: 1;
         }
-    }
+    } */
 
     &:first-child {
         position: relative;
     }
 
-    &.today {
+     &.today {
         position: relative;
         z-index: 2;
         color: white;
 
-        &.disabled > span {
-            color: #AAA;
-        }
-
-        &:before {
+        &:not(.weekSelected):before {
             @include circle();
-            box-shadow: inset 0 0 0 1px;
             z-index: -1;
         }
+    } 
 
-        &.disabled:before {
-            box-shadow: inset 0 0 0 1px #BBB;
-        }
+    &.weekSelected.today :before {
+        @include circle("2px solid #fff");
+        z-index:-1;
+        top:45%;
+        left:45%;
+    }
+    &.weekSelected.today span {
+        color:#fff;
     }
     &.selected {
         position: relative;
@@ -85,10 +105,11 @@
             @include circle();
             line-height: $rowHeight;
             z-index: 2;
+            background: #FF466E;
 
-            &.today {
+            /*&.today {
                 box-shadow: inset 0 0 0 2px $todayColor;
-            }
+            } */
 
             .month {
                 top: 5px;
@@ -109,6 +130,12 @@
                 font-size: 17px;
             }
         }
+        .today {
+            background: #675ff5 !important;
+            /* border: 2px solid #675FF5;
+            height: $rowHeight - 7px;
+            width: $rowHeight - 7px; */
+        }
     }
     &.disabled {
         cursor: default;
@@ -116,10 +143,13 @@
         cursor: not-allowed;
     }
     &.weekend {
-        color: #919191;
+        color: #D7D7D7;
     }
     &.past {
         color: #AAA;
+    }
+    &.weekSelected {
+        color: #fff;
     }
 }
 
@@ -141,4 +171,10 @@
 }
 .weekSelected {
     color: white;
+
+    /* .weekSelected {
+        color:#fff;
+        font-family: "Hind-Regular";
+        opacity: 0.5;
+    } */
 }

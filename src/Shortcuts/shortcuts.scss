@@ -1,33 +1,40 @@
 @import "../variables";
 .root {
+    background: #F5F5F5;
     position: relative;
     z-index: 5;
-    padding: 0;
-    margin: 10px;
     text-align: center;
     list-style: none;
-    height: 55px;
     display: flex;
+    justify-content:space-around;
+    margin:0;
+    padding:0;
+    padding-top:2px !important;
+    padding-bottom:4px !important;
 }
 
 .shortcut {
-    height:40px;
-    width: 40px;
-    flex-grow: 1;    
+    height:32px;
+    width: 32px;
+/*     flex-grow: 1; */    
 
 }
 .shortcut span {
     display:inline-block;
     background:#fff;
-    border-radius: 25px;
-    border:1px solid #fff;
+    border-radius: 100px;
+    border: 1px solid #EBEBEB;
+
+    font-family:"Hind-Medium";
     cursor: pointer;
     text-align: center;
-    line-height:$rowHeight;
-    color: #ff0062;
-    font-weight: 500;
-    height:40px;
-    width: 40px;
+    line-height:33px;//$rowHeight;
+    color: #535353;
+    font-size:15px;
+    font-weight: 400;
+    height:32px;
+    width: 32px;
+
 }
 .shortcut span:focus,.shortcut span:hover {
     background: #fcfcfc;
@@ -36,6 +43,15 @@
 .shortcut span:active {
     background: #f4f4f4;
 }
-.today span {
+.today {
     width:60px;
+}
+.today span {
+    background:#675ff5;
+    border-color:#675ff5;
+    color: #ffffff;
+    width:60px;
+}
+.today span:hover, .today span:focus {
+    background:#675ff5;
 }

@@ -38,7 +38,7 @@ module.exports = {
     },
     plugins: (minify) ? plugins.minify : plugins.default,
     resolve: {
-		extensions: ['', '.js', '.jsx', '.scss']
+		extensions: ['', '.js', '.jsx', '.scss', '.ttf']
     },
     module: {
         loaders: [
@@ -52,6 +52,10 @@ module.exports = {
 				test: /(\.scss|\.css)$/,
 				loader: ExtractTextPlugin.extract('style', 'css?-minimize&modules&importLoaders=1&localIdentName=Cal__[name]__[local]!postcss!sass?output=nested'),
                 include: path.join(__dirname, 'src')
+            },
+            {
+                test: /\.(eot|svg|ttf|woff|woff2)$/,
+                loader: 'file?name=fonts/[name].[ext]'
             }
         ]
     },

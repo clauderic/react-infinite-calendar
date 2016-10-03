@@ -1,10 +1,14 @@
 @import "../variables";
 
 .root {
-    border-width: 0 1px 1px 1px;
+/*     border-width: 0 1px 1px 1px;
     border-style: solid;
-    border-color: #ADADAD;
-
+    border-color: #ADADAD; */
+    /* Rectangle 17 Copy 18: */
+    background: #DDDDDD;
+    border: 1px solid #DDDDDD;
+    border-left: none;
+    border-bottom:none;
     display: inline-flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -14,33 +18,51 @@
     user-select: none;
     list-style: none;
 
-    font-size: 12px;
+/*     font-size: 12px; */
     text-align: center;
 
     z-index: 3;
 
     position: relative;
-    top: -1px;
-    margin-top: -1px;
+/*     top: -1px;
+    margin-top: -1px; */
     height: 40px;
-
     overflow: hidden;
+    line-height: 40px;
+    float:left;
+    height:40px;
 }
 
 .weekItem {
+    font-family:"Hind-Regular";
+    font-size:15px;
+    line-height:15px;
     z-index: 3;
     position: relative;
 }
 
 .weekSelected {
-    color: white;
+    color: #fff;
+
+    .weekNumber {
+        color:#fff;
+    }
+
+    >.weekDistance {
+        color: #fff;
+    }
 }
 
 .weekNumber {
-    bottom: 5px;
+    bottom: -3px;
+    color:#9B9B9B;
 }
 
 .weekDistance {
-    bottom: 14px;
-    color: #8C8C8C;
+    bottom: -1px;
+    font-family: "Hind-Regular";
+    font-size:15px;
+
+    line-height:15px;
+    color: #535353;
 }

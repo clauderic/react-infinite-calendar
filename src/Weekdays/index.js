@@ -23,11 +23,11 @@ export default class Weekdays extends Component {
 				{range(0,8).map((val, index) => {
 				  if (index === 0) {
             return (
-      				<li key={`Week-column`} className={style.weekColumn}>V.</li>
+      				<li key={`Week-column`} className={style.weekColumn}></li>
 				  	);
 				  } else {
             return (
-						  <li key={`Weekday-${index}`} className={style.day}>{moment().weekday(index - 1).format('dd')}</li>
+						  <li key={`Weekday-${index}`} className={style.day}>{moment().weekday(index - 1).format('dd').substring(1,0)}</li>
 					  );
 				  }
 				})}
