@@ -43,6 +43,7 @@ class InfiniteCalendar extends Component {
 			isCollapsed: props.isCollapsed,
 			expandOnScroll: false,
 			desktop: props.desktop,
+			device: props.device,
 		};
 	}
 
@@ -129,12 +130,6 @@ class InfiniteCalendar extends Component {
 		if (keyboardSupport && autoFocus) {
 			this.node.focus();
 		}
-
-		if (!this.state.desktop) {
-			console.log("handheld version");
-		} else {
-			console.log("desktop version");
-		}
 	}
 
 	componentWillReceiveProps(next) {
@@ -160,13 +155,15 @@ class InfiniteCalendar extends Component {
 		}
 
 		if (next.selectedDate !== null && moment(nextDate).valueOf() !== stateDate) {
-
 			if (new Date(nextDate).getTime() > new Date(minDate.year + "-01-01").getTime() &&
 					new Date(nextDate).getTime() < new Date(maxDate.year + "-12-31").getTime()) {
 				this.setState({
 					selectedWeek: null,
 					selectedDate: nextDate,
-					isCollapsed: true,
+				});
+
+				this.setState({
+					isCollapsed: this.state.desktop,
 				});
 
 				this.clearHighlight();
@@ -180,7 +177,10 @@ class InfiniteCalendar extends Component {
 				this.setState({
 					selectedWeek: nextWeek,
 					selectedDate: null,
-					isCollapsed: true,
+				});
+
+				this.setState({
+					isCollapsed: this.state.desktop,
 				});
 
 				this.clearHighlight();
@@ -206,7 +206,7 @@ class InfiniteCalendar extends Component {
 	}
 
 	handleClickOutside(evt) {
-    if (!this.state.isCollapsed) {
+    if (!this.state.isCollapsed && this.state.desktop) {
    		this.setState({
    			isCollapsed: true,
    		}, () => {
@@ -295,13 +295,16 @@ class InfiniteCalendar extends Component {
 				const prevCollapsed = this.state.isCollapsed;
 
 				this.setState({
+					isCollapsed: this.state.desktop,
+				});
+
+				this.setState({
 					selectedDate: selectedDate,
 					selectedWeek: null,
-					isCollapsed: true,
 				}, () => {
 					this.clearHighlight();
 
-					if (!prevCollapsed || moment(selectedDate).format('YYYYMMDD') === moment().format('YYYYMMDD')) {
+					if (!prevCollapsed || moment(selectedDate).format('YYYYMMDD') === moment().format('YYYYMMDD')) {
 						this.scrollToDate(selectedDate, 0);
 					}
 					
@@ -325,9 +328,12 @@ class InfiniteCalendar extends Component {
 				const prevCollapsed = this.state.isCollapsed;
 
 				this.setState({
+					isCollapsed: this.state.desktop,
+				});
+
+				this.setState({
 					selectedWeek: selectedWeek,
 					selectedDate: null,
-					isCollapsed: true,
 					isClickOnDatepicker: true,
 				}, () => {
 					this.clearHighlight();
@@ -363,7 +369,7 @@ class InfiniteCalendar extends Component {
 		}, () => {
 			this.list.scrollToDate(date, offset);
 
-			if (!this.state.isCollapsed) {
+			if (!this.state.isCollapsed && this.state.desktop) {
 				this.setState({
 					isCollapsed: true,
 					expandOnScroll: true,
@@ -594,6 +600,7 @@ class InfiniteCalendar extends Component {
 			width,
 			showSelectionText,
 			device,
+			desktop,
 			...other
 		} = this.props;
 		let disabledDates = this.getDisabledDates(this.props.disabledDates);
@@ -615,11 +622,13 @@ class InfiniteCalendar extends Component {
 				style={{color: theme.textColor.default, width: '100%', overflow: (isCollapsed) ? 'hidden' : 'visible', height: collapsedHeight+"px" }}
 				aria-label="Calendar" ref="node"
 			>
-				<div
-					className={classNames(style.expansionButton.root, 'ion-chevron-down')}
-					style={{ display: (isCollapsed) ? 'initial' : 'none'}}
-					onClick={this.handleExpansionClick}
-				></div>
+				{desktop &&
+					<div
+						className={classNames(style.expansionButton.root, 'ion-chevron-down')}
+						style={{ display: (isCollapsed) ? 'initial' : 'none'}}
+						onClick={this.handleExpansionClick}
+					></div>
+				}
 				{showHeader &&
 					<Header
 						selectedDate={selectedDate}
