@@ -12,16 +12,6 @@
     border-radius: 50% 50% 50% 50%;
 }
 
-@mixin semicircleL() {
-    border-radius: 50% 0% 0% 50%;
-}
-@mixin semicircleR() {
-    border-radius: 0% 50% 50% 0%;
-}
-@mixin square() {
-    border-radius: 0%;
-}
-
 .root {
     display: inline-block;
     box-sizing: border-box;
@@ -88,7 +78,7 @@
         > .month, > .year {
             display: none;
         }
-        
+
         &:before {
             display: none;
         }
@@ -109,14 +99,25 @@
                 font-size: 18px;
             }
         }
+        .selectionStart, .selectionEnd, .selectionBetween {
+            width: 101%;
+            margin-left: -30px;
+        }
+        .selectionStart, .selectionEnd {
+            box-shadow: inset 0 0 0 4px, inset 0 0 0 100px rgba(0,0,0,0.2);
+        }
         .selectionStart {
-            @include semicircleL();
+            border-radius: 20% 0 0 20%;
         }
         .selectionEnd {
-            @include semicircleR();
+            border-radius: 0 20% 20% 0;
         }
         .selectionBetween {
-            @include square();
+            border-radius: 0;
+
+            .day {
+                top: -2px;
+            }
         }
     }
     &.disabled {
