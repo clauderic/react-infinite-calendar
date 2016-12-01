@@ -187,7 +187,7 @@ export default class InfiniteCalendar extends Component {
 			});
 		}
 	};
-	onDayDoubleClick = (clickedDate, e) => {
+	onDayDoubleClick = (clickedDate, e) => {		
 		let {onDayDoubleClick} = this.props;
 
 		if (typeof onDayDoubleClick == 'function') {

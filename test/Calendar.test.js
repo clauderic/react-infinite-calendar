@@ -171,6 +171,14 @@ describe("<InfiniteCalendar/> Callback Events", function() {
 		expect(onSelect.calledOnce).to.equal(true);
 		setTimeout(done);
 	})
+	it('should fire a callback onDayDoubleClick', (done) => {
+		const onDayDoubleClick = sinon.spy();
+		const wrapper = mount(<InfiniteCalendar onDayDoubleClick={onDayDoubleClick} />);
+		wrapper.find(Day).first().simulate('doubleclick');
+
+		expect(onDayDoubleClick.calledOnce).to.equal(true);
+		setTimeout(done);
+	})
 	it('should fire a callback afterSelect', (done) => {
 		const afterSelect = sinon.spy();
 		const wrapper = mount(<InfiniteCalendar afterSelect={afterSelect} />);
