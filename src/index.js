@@ -74,6 +74,7 @@ export default class InfiniteCalendar extends Component {
 		disabledDates: PropTypes.arrayOf(validDate),
 		beforeSelect: PropTypes.func,
 		onSelect: PropTypes.func,
+		onDayDoubleClick: PropTypes.func,
 		afterSelect: PropTypes.func,
 		onScroll: PropTypes.func,
 		onScrollEnd: PropTypes.func,
@@ -184,6 +185,13 @@ export default class InfiniteCalendar extends Component {
 					afterSelect(selectedDate);
 				}
 			});
+		}
+	};
+	onDayDoubleClick = (clickedDate, e) => {
+		let {onDayDoubleClick} = this.props;
+
+		if (typeof onDayDoubleClick == 'function') {
+			onDayDoubleClick(clickedDate, e);
 		}
 	};
 	getCurrentOffset = () => {
@@ -404,6 +412,7 @@ export default class InfiniteCalendar extends Component {
 							disabledDays={disabledDays}
 							months={this.months}
 							onDaySelect={this.onDaySelect}
+							onDayDoubleClick={this.onDayDoubleClick}
 							onScroll={this.onScroll}
 							isScrolling={isScrolling}
 							today={today}
