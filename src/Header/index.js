@@ -51,29 +51,50 @@ export default class Header extends Component {
 			}
 		];
 	}
+	renderSelection() {
+		const {selectedDate, shouldHeaderAnimate} = this.props;
+		const selected = this.getDateValues(selectedDate);
+
+		return selected.map(({handleClick, item, key, value, active, title}) => {
+			return (
+				<div key={item} className={classNames(style.dateWrapper, style[item], {[style.active]: active})} title={title}>
+					<ReactCSSTransitionGroup transitionName={animation} transitionEnterTimeout={250} transitionLeaveTimeout={250} transitionEnter={shouldHeaderAnimate} transitionLeave={shouldHeaderAnimate}>
+						<span key={`${item}-${key || value}`} className={style.date} aria-hidden={true} onClick={handleClick}>
+							{value}
+						</span>
+					</ReactCSSTransitionGroup>
+				</div>
+			);
+		})
+	}
+	renderRangeSelection() {
+		const {rangeSelectionEndDate, selectedDate, theme} = this.props;
+
+		return (
+			<ul className={style.range} style={theme && {color: theme.headerColor}}>
+				<li style={theme && {color: theme.textColor.active}}>
+					<strong>From</strong>
+					<span>{selectedDate.format('MMM Do')}</span>
+				</li>
+				<li style={theme && {color: theme.textColor.active}}>
+					<strong>To</strong>
+					<span>{rangeSelectionEndDate.format('MMM Do')}</span>
+				</li>
+			</ul>
+		);
+	}
 	render() {
-		let {layout, locale, selectedDate, rangeSelectionEndDate, shouldHeaderAnimate, theme} = this.props;
-		let startValues = selectedDate && this.getDateValues(selectedDate);
+		let {layout, locale, selectedDate, rangeSelectionEndDate, theme} = this.props;
 		// let numDays = rangeSelectionEndDate.diff(selectedDate,'days');
-		let endLabel = "";
-		if(selectedDate && rangeSelectionEndDate && !selectedDate.isSame(rangeSelectionEndDate)) endLabel = locale.rangeLabel+" "+rangeSelectionEndDate.format(locale.headerFormat);
 
 		return (
 			<div className={classNames(style.root, {[style.blank]: !selectedDate, [style.landscape]: layout == 'landscape'})} style={theme && {backgroundColor: theme.headerColor, color: theme.textColor.active}}>
 				{(selectedDate) ?
 					<div className={style.wrapper} aria-label={selectedDate.format(locale.headerFormat + ' YYYY')}>
-						{startValues.map(({handleClick, item, key, value, active, title}) => {
-							return (
-								<div key={item} className={classNames(style.dateWrapper, style[item], {[style.active]: active})} title={title}>
-									<ReactCSSTransitionGroup transitionName={animation} transitionEnterTimeout={250} transitionLeaveTimeout={250} transitionEnter={shouldHeaderAnimate} transitionLeave={shouldHeaderAnimate}>
-										<span key={`${item}-${key || value}`} className={style.date} aria-hidden={true} onClick={handleClick}>
-											{value}
-										</span>
-									</ReactCSSTransitionGroup>
-								</div>
-							);
-						})}
-						<span className={style.rangeLabel}>{ endLabel }</span>
+						{rangeSelectionEndDate.isSame(selectedDate, 'day')
+							? this.renderSelection()
+							: this.renderRangeSelection()
+						}
 					</div>
 				: <div className={style.wrapper}>{locale.blank}</div>}
 			</div>
