@@ -133,13 +133,3 @@ If you find an [issue](https://github.com/clauderic/react-infinite-calendar/issu
 Contributions
 ------------
 Yes please! Feature requests / pull requests are welcome. Have a suggestion or just want to say hello? Come chat on [gitter](https://gitter.im/clauderic/react-infinite-calendar)!
-
-
-<div align="center">
-<a href="http://peoplelikeus.ca">
-<img src="https://cloud.githubusercontent.com/assets/1416436/15581553/d7596d76-233a-11e6-9ac6-aade6b00f6b3.png" border="0" width="72"/>
-</a>
-</div>
-<div align="center">
-<small>Made with ❤︎ in the heart of Montreal.</small>
-</div>
