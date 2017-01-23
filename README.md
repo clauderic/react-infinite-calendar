@@ -7,9 +7,7 @@
 ![downloads](https://img.shields.io/npm/dm/react-infinite-calendar.svg)
 [![build](https://travis-ci.org/clauderic/react-infinite-calendar.svg?branch=master)](https://travis-ci.org/clauderic/react-infinite-calendar)
 [![coverage](https://img.shields.io/codecov/c/github/clauderic/react-infinite-calendar.svg)](https://codecov.io/gh/clauderic/react-infinite-calendar)
-[![bitHound Overall Score](https://www.bithound.io/github/clauderic/react-infinite-calendar/badges/score.svg)](https://www.bithound.io/github/clauderic/react-infinite-calendar)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/clauderic/react-infinite-calendar/blob/master/LICENSE)
-[![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 [![Gitter](https://badges.gitter.im/clauderic/react-infinite-calendar.svg)](https://gitter.im/clauderic/react-infinite-calendar)
 ### Examples available here: <a href="#">http://clauderic.github.io/react-infinite-calendar/</a>
 
