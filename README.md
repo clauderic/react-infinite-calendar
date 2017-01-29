@@ -23,7 +23,6 @@ Features
 * **Events and callbacks** – beforeSelect, onSelect, onScroll, yadda yadda yadda.
 * **Mobile-friendly** – Silky smooth scrolling on mobile
 
-And mucho, mucho mas 🎉
 <div style="padding:30px">
 <img src="https://raw.githubusercontent.com/clauderic/react-infinite-calendar/master/.github/preview.gif" width="300" />
 </div>
