@@ -1,26 +1,51 @@
-import React from 'react';
-const style = require('./Day.scss');
+import React, {PureComponent} from 'react';
+import classNames from 'classnames';
+import parse from 'date-fns/parse';
+import styles from './Day.scss';
 
-export default function Day({currentYear, date, day, handleDayClick, isDisabled, isToday, isSelected, monthShort, locale, theme}) {
-	var {date: mmt, yyyymmdd} = date;
-	var year = mmt.year();
+export default class Day extends PureComponent {
+	handleClick = () => {
+		let {date, isDisabled, onClick} = this.props;
 
-	return (
-		<li
-			style={(isToday) ? {color: theme.todayColor} : null}
-			className={`${style.root}${isToday ? ' ' + style.today : ''}${isSelected ? ' ' + style.selected : ''}${isDisabled ? ' ' + style.disabled : ' ' + style.enabled}`}
-			data-date={yyyymmdd}
-			onClick={(!isDisabled && handleDayClick) ? handleDayClick.bind(this, mmt) : null}
-		>
-			{(day === 1) && <span className={style.month}>{monthShort}</span>}
-			<span>{day}</span>
-			{(day === 1 && currentYear !== year) && <span className={style.year}>{year}</span>}
-			{isSelected &&
-				<div className={style.selection} style={{backgroundColor: (typeof theme.selectionColor == 'function') ? theme.selectionColor(mmt) : theme.selectionColor, color: theme.textColor.active}}>
-					<span className={style.month}>{(isToday) ? (locale.todayLabel.short || locale.todayLabel.long) : monthShort}</span>
-					<span className={style.day}>{day}</span>
-				</div>
-			}
-		</li>
-	);
+		if (!isDisabled && typeof onClick === 'function') {
+			onClick(parse(date));
+		}
+	}
+  renderSelection() {
+    const {day, date, isToday, locale, monthShort, theme} = this.props;
+
+    return (
+        <div
+          className={styles.selection}
+          style={{
+            backgroundColor: (typeof theme.selectionColor === 'function') ? theme.selectionColor(date) : theme.selectionColor, color: theme.textColor.active
+          }}
+        >
+          <span className={styles.month}>{(isToday) ? (locale.todayLabel.short || locale.todayLabel.long) : monthShort}</span>
+          <span className={styles.day}>{day}</span>
+        </div>
+    )
+  }
+	render() {
+		const {currentYear, date, day, isDisabled, isToday, isSelected, monthShort, theme, year} = this.props;
+
+		return (
+			<li
+				style={(isToday) ? {color: theme.todayColor} : null}
+				className={classNames(styles.root, {
+          [styles.today]: isToday,
+          [styles.selected]: isSelected,
+          [styles.disabled]: isDisabled,
+          [styles.enabled]: !isDisabled
+        })}
+				onClick={this.handleClick}
+        data-date={date}
+			>
+				{(day === 1) && <span className={styles.month}>{monthShort}</span>}
+				{(isToday) ? <span>{day}</span> : day}
+				{(day === 1 && currentYear !== year) && <span className={styles.year}>{year}</span>}
+				{isSelected && this.renderSelection()}
+			</li>
+		);
+	}
 }

@@ -1,17 +1,19 @@
 import React, {Component, PropTypes} from 'react';
-import {List as VirtualScroll} from 'react-virtualized';
+import {List} from 'react-virtualized';
 import classNames from 'classnames';
-import moment from 'moment';
-import {getMonth, getWeeksInMonth, validParsedDate} from '../utils';
+import {getMonth, getWeeksInMonth} from '../utils';
+import differenceInWeeks from 'date-fns/difference_in_weeks';
+import differenceInMonths from 'date-fns/difference_in_months';
+import startOfMonth from 'date-fns/start_of_month';
 import Month from '../Month';
-const style = require('./List.scss');
+import styles from './MonthList.scss';
 
-export default class List extends Component {
+export default class MonthList extends Component {
 	static propTypes = {
 		width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 		height: PropTypes.number,
 		rowHeight: PropTypes.number,
-		selectedDate: PropTypes.object,
+		selectedDate: PropTypes.instanceOf(Date),
 		disabledDates: PropTypes.arrayOf(PropTypes.string),
 		disabledDays: PropTypes.arrayOf(PropTypes.number),
 		months: PropTypes.arrayOf(PropTypes.object),
@@ -19,16 +21,16 @@ export default class List extends Component {
 		onScroll: PropTypes.func,
 		overscanMonthCount: PropTypes.number,
 		isScrolling: PropTypes.bool,
-		today: validParsedDate,
-		min: validParsedDate,
-		minDate: validParsedDate,
-		maxDate: validParsedDate,
+		today: PropTypes.instanceOf(Date),
+		min: PropTypes.instanceOf(Date),
+		minDate: PropTypes.instanceOf(Date),
+		maxDate: PropTypes.instanceOf(Date),
 		showOverlay: PropTypes.bool,
 		theme: PropTypes.object,
 		locale: PropTypes.object
 	};
 	componentDidMount() {
-		let vs = this.refs.VirtualScroll;
+		let vs = this.refs.List;
 		let grid = vs && vs.Grid;
 
 		this.scrollEl = grid && grid._scrollingContainer;
@@ -37,7 +39,8 @@ export default class List extends Component {
 	state = {};
 	memoize = function(param) {
 		if (!this.cache[param]) {
-			var result = getMonth(param); //custom function
+			let [year, month] = param.split(':');
+			let result = getMonth(year, month, this.props.locale.dow);
 			this.cache[param] = result;
 		}
 		return this.cache[param];
@@ -46,8 +49,8 @@ export default class List extends Component {
 	getMonthHeight = ({index}) => {
 		if (!this.monthHeights[index]) {
 			let {locale, months, rowHeight} = this.props;
-			let date = months[index];
-			let weeks = getWeeksInMonth(date, locale);
+			let {month, year} = months[index];
+			let weeks = getWeeksInMonth(month, year, locale.dow);
 			let height = weeks * rowHeight;
 			this.monthHeights[index] = height;
 		}
@@ -55,14 +58,14 @@ export default class List extends Component {
 		return this.monthHeights[index];
 	};
 	getMonthIndex = (date) => {
-		let min = this.props.min.date;
-		let index = date.diff(min, 'months');
+		const {min} = this.props;
+		const index = differenceInMonths(min, date);
 
 		return index;
 	};
 	getDateOffset = (date) => {
-		let {min, rowHeight} = this.props;
-		let weeks = date.clone().startOf('month').diff(min.date.clone().startOf('month'), 'weeks')
+		const {min, rowHeight} = this.props;
+		const weeks = differenceInWeeks(startOfMonth(date), startOfMonth(min));
 
 		return weeks * rowHeight;
 	};
@@ -77,16 +80,26 @@ export default class List extends Component {
 	};
 	scrollTo = (scrollTop = 0) => {
 		if (this.scrollEl) {
-			this.scrollEl.scrollTop = scrollTop;
+			this.scrollEl.style.overflowY = 'hidden';
+
+			window.requestAnimationFrame(() => {
+				this.scrollEl.scrollTop = scrollTop;
+
+				setTimeout(() => {
+					this.scrollEl.style.overflowY = 'auto';
+				});
+			});
 		}
 	};
-	renderMonth = ({index, isScrolling, style: rowStyle}) => {
-		let {disabledDates, disabledDays, locale, months, maxDate, minDate, onDaySelect, rowHeight, selectedDate, showOverlay, theme, today} = this.props;
-		let {date, rows} = this.memoize(months[index]);
+	renderMonth = ({index, isScrolling, style}) => {
+		let {disabledDates, disabledDays, locale, maxDate, minDate, months, onDaySelect, rowHeight, selectedDate, showOverlay, theme, today} = this.props;
+		let {month, year} = months[index];
+		let key = `${year}:${month}`;
+		let {date, rows} = this.memoize(key);
 
 		return (
 			<Month
-				key={`Month-${index}`}
+				key={key}
 				selectedDate={selectedDate}
 				displayDate={date}
 				disabledDates={disabledDates}
@@ -101,32 +114,34 @@ export default class List extends Component {
 				today={today}
 				theme={theme}
 				locale={locale}
-				rowStyle={rowStyle}
+				style={style}
 			/>
 		);
 	};
 	render() {
 		let {height, isScrolling, onScroll, overscanMonthCount, months, rowHeight, selectedDate, today, width} = this.props;
-		if (!this._initScrollTop) this._initScrollTop = this.getDateOffset(selectedDate && selectedDate.date || today.date);
-		if (typeof width == 'string' && width.indexOf('%') !== -1) {
+		if (!this._initScrollTop) this._initScrollTop = this.getDateOffset(selectedDate || today);
+		if (typeof width === 'string' && width.indexOf('%') !== -1) {
 			width = window.innerWidth * parseInt(width.replace('%', ''), 10) / 100; // See https://github.com/bvaughn/react-virtualized/issues/229
 		}
 
 		return (
-			<VirtualScroll
-				ref="VirtualScroll"
-				width={width}
-				height={height}
-				rowCount={months.length}
-				rowHeight={this.getMonthHeight}
-				estimatedRowSize={rowHeight * 5}
-				rowRenderer={this.renderMonth}
-				onScroll={onScroll}
-				scrollTop={this._initScrollTop}
-				className={classNames(style.root, {[style.scrolling]: isScrolling})}
-				style={{lineHeight: `${rowHeight}px`}}
-				overscanRowCount={overscanMonthCount}
-			/>
+			<div onClick={this.handleClick}>
+				<List
+					ref="List"
+					width={width}
+					height={height}
+					rowCount={months.length}
+					rowHeight={this.getMonthHeight}
+					estimatedRowSize={rowHeight * 5}
+					rowRenderer={this.renderMonth}
+					onScroll={onScroll}
+					scrollTop={this._initScrollTop}
+					className={classNames(styles.root, {[styles.scrolling]: isScrolling})}
+					style={{lineHeight: `${rowHeight}px`}}
+					overscanRowCount={overscanMonthCount}
+				/>
+			</div>
 		);
 	}
 }

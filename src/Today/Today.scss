@@ -1,47 +1,47 @@
 .root {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 32px;
-    padding: 6px;
-    box-sizing: border-box;
-    transform: translate3d(0, -100%, 0);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 6px;
+  box-sizing: border-box;
+  transform: translate3d(0, -100%, 0);
 
-    font-weight: 500;
-    line-height: 0;
-    z-index: 10;
-    cursor: pointer;
+  font-weight: 500;
+  line-height: 0;
+  z-index: 10;
+  cursor: pointer;
 
-    transition: transform 0.3s ease;
-    transition-delay: 0.3s;
+  transition: transform 0.3s ease;
+  transition-delay: 0.3s;
 
-    &.show {
-        transform: translate3d(0, 0, 0);
-        transition-delay: 0s;
-
-        .chevron {
-            transition: transform 0.3s ease;
-        }
-    }
+  &.show {
+    transform: translate3d(0, 0, 0);
+    transition-delay: 0s;
 
     .chevron {
-        position: absolute;
-        top: 50%;
-        margin-top: -6px;
-        margin-left: 5px;
-        transform: rotate(270deg);
-        transition: transform 0.3s ease;
+      transition: transform 0.3s ease;
     }
+  }
 
-    &.chevronUp .chevron {
-        transform: rotate(180deg);
-    }
+  .chevron {
+    position: absolute;
+    top: 50%;
+    margin-top: -6px;
+    margin-left: 5px;
+    transform: rotate(270deg);
+    transition: transform 0.3s ease;
+  }
 
-    &.chevronDown .chevron {
-        transform: rotate(360deg);
-    }
+  &.chevronUp .chevron {
+    transform: rotate(180deg);
+  }
+
+  &.chevronDown .chevron {
+    transform: rotate(360deg);
+  }
 }

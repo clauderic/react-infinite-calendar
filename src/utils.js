@@ -1,158 +1,123 @@
-import moment from 'moment';
-import 'moment-range';
 import getScrollbarSize from 'dom-helpers/util/scrollbarSize';
+import getDaysInMonth from 'date-fns/get_days_in_month';
+import getDay from 'date-fns/get_day';
+import endOfWeek from 'date-fns/end_of_week';
+import isSameDay from 'date-fns/is_same_day';
+import isValid from 'date-fns/is_valid';
+import parse from 'date-fns/parse';
+import invariant from 'invariant';
 
 export const keyCodes = {
-    enter: 13,
-    left: 37,
-    up: 38,
-    right: 39,
-    down: 40,
-    shift: 16,
-    control: 17,
-    command: 91,
-    escape: 27
+  enter: 13,
+  left: 37,
+  up: 38,
+  right: 39,
+  down: 40,
+  shift: 16,
+  control: 17,
+  command: 91,
+  escape: 27
 };
 
-export function getDaysInMonth(date) {
-    return moment(date).range('month').toArray('days');
-}
+export function getMonth(year, month, weekStartsOn) {
+  const rows = [];
+  const monthDate = new Date(year, month, 1);
+  const daysInMonth = getDaysInMonth(monthDate);
+  const weekEndsOn = getEndOfWeekIndex(weekStartsOn);
 
-export function getMonthsForYear(year, min, max) {
-    let months;
+  let dow = getDay(new Date(year, month, 1));
+  let week = 0;
 
-    if (min && min.year() == year) {
-        months = moment.range([min, (max && max.year() == year) ? max : moment(min).endOf('year')]);
-    } else if (max && max.year() == year) {
-        months = moment.range([(min && min.year() == year) ? min : moment(year, 'YYYY').startOf('year'), max]);
-    } else if (year) {
-        months = moment(year, 'YYYY').range('year');
-    } else {
-        months = moment().range('year');
+  for (let day = 1; day <= daysInMonth; day++) {
+    if (!rows[week]) {
+      rows[week] = [];
     }
 
-    return months.toArray('months');
-}
+    rows[week].push(day);
 
-export function getMonth(monthDate) {
-	let rows = {};
-	let daysInMonth = monthDate.daysInMonth();
-	let year = monthDate.year();
-	let month = monthDate.month();
-
-	let week, date, lastWeekVal;
-	let weekIndex = -1;
-
-	for (let i = 0; i < daysInMonth; i++) {
-		date = moment(new Date(year,month,i+1));
-		week = date.week();
-
-		if (week !== lastWeekVal) {
-			lastWeekVal = week;
-			weekIndex++;
-		}
-
-		if (!rows[weekIndex]) {
-			rows[weekIndex] = [];
-		}
-
-		rows[weekIndex].push({
-			date,
-			yyyymmdd: date.format('YYYYMMDD')
-		});
-	}
-
-	return {
-		date: monthDate,
-		rows: Object.keys(rows).map((row) => rows[row])
-	};
-}
-
-export function getWeeksInMonth(date, locale) {
-	let first = moment(date).startOf('month');
-	let last = moment(date).endOf('month');
-	let firstWeek = first.locale(locale.name).week();
-	let lastWeek = last.locale(locale.name).week();
-
-	// For those tricky months...
-	//
-	// SCENARIO 1
-	// firstWeek = 48
-	// lastWeek = 1
-	//
-	// SCENARIO 2
-	// firstWeek = 48
-	// lastWeek = 5
-	if (firstWeek > lastWeek) {
-		if (firstWeek > 50) {
-			firstWeek = 0;
-		} else {
-			lastWeek = last.weeksInYear() + 1;
-		}
-	}
-
-	let rows = lastWeek - firstWeek;
-
-	// If the last week contains 7 days, we need to add an extra row
-	if (last.clone().subtract(6,'day').locale(locale.name).day() == locale.week.dow) {
-		rows++;
-	}
-
-	return rows;
-}
-
-export function getScrollSpeed(settings) {
-    settings = settings || {};
-
-    var lastPos, newPos, timer, delta,
-        delay = settings.delay || 50; // in "ms" (higher means lower fidelity )
-
-    function clear() {
-      lastPos = null;
-      delta = 0;
+    if (dow === weekEndsOn) {
+      week++;
     }
 
-    clear();
+    dow = dow < 6 ? dow + 1 : 0;
+  }
 
-    return function(scrollY){
-      newPos = scrollY;
-      if ( lastPos != null ){ // && newPos < maxScroll
-        delta = newPos -  lastPos;
-      }
-      lastPos = newPos;
-      clearTimeout(timer);
-      timer = setTimeout(clear, delay);
-      return delta;
-    };
+  return {
+    date: monthDate,
+    rows
+  };
 }
 
-export function parseDate (date) {
-    if (date) {
-        if (!date._isAMomentObject) date = moment(date);
+function getWeek(year, date, weekStartsOn) {
+  const yearStart = new Date(year, 0, 1); // 1st Jan of the Year
 
-        return {
-            date,
-            yyyymmdd: date.format('YYYYMMDD')
-        }
-    }
+  return Math.ceil(
+    ((date - yearStart) / 86400000 + yearStart.getDay() + 1 - weekStartsOn) / 7
+  );
 }
 
-// Custom date prop validation
-export function validDate(props, propName, componentName) {
-    if (props[propName] && !moment(props[propName]).isValid()) {
-        return new Error(`Invalid prop \`${propName}\` supplied to ${componentName}. Should be a format supported by Moment.js, see http://momentjs.com/docs/.`);
-    }
+export function getWeeksInMonth(
+  month,
+  year = new Date().getFullYear(),
+  weekStartsOn
+) {
+  const weekEndsOn = getEndOfWeekIndex(weekStartsOn);
+
+  const firstDayOfMonth = new Date(year, month, 1);
+  const firstWeekNumber = getWeek(year, firstDayOfMonth, weekStartsOn);
+
+  const lastDayOfMonth = new Date(year, month + 1, 0); // Last date of the Month
+  const lastWeekNumber = getWeek(year, lastDayOfMonth, weekStartsOn);
+
+  let rowCount = lastWeekNumber - firstWeekNumber;
+
+  // If the last week contains 7 days, we need to add an extra row
+  if (lastDayOfMonth.getDay() === weekEndsOn) {
+    rowCount++;
+  }
+
+  return rowCount;
 }
 
-// Custom date prop validation
-export function validParsedDate(props, propName, componentName) {
-    let prop = props[propName];
+const daysOfWeek = [0, 1, 2, 3, 4, 5, 6];
 
-    if (prop.date && moment(prop.date).isValid() && prop.yyyymmdd && prop.yyyymmdd.length == 8) {
-        // valid
-    } else {
-        return new Error(`Invalid prop \`${propName}\` supplied to ${componentName}.`);
+function getEndOfWeekIndex(weekStartsOn) {
+  invariant(daysOfWeek.includes(weekStartsOn), 'Day of the week should be between 0 and 6');
+
+  const weekEndsOn = (weekStartsOn === 0) ? 6 : weekStartsOn - 1;
+
+  return weekEndsOn;
+}
+
+export function getScrollSpeed(
+  settings = {
+    delay: 50 // in ms, higher means lower fidelity
+  }
+) {
+  let lastPos;
+  let newPos;
+  let timer;
+  let delta;
+
+  function clear() {
+    lastPos = null;
+    delta = 0;
+  }
+
+  clear();
+
+  return function(scrollY) {
+    newPos = scrollY;
+    if (lastPos != null) {
+      delta = newPos - lastPos;
     }
+    lastPos = newPos;
+    clearTimeout(timer);
+    timer = setTimeout(clear, settings.delay);
+    return delta;
+  };
 }
 
 export const scrollbarSize = getScrollbarSize();
+
+export function emptyFn() { /* no-op */ }
