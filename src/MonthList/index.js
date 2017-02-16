@@ -7,6 +7,7 @@ import differenceInMonths from 'date-fns/difference_in_months';
 import startOfMonth from 'date-fns/start_of_month';
 import Month from '../Month';
 import styles from './MonthList.scss';
+import cellRangeRenderer from './cellRangeRenderer';
 
 export default class MonthList extends Component {
 	static propTypes = {
@@ -140,6 +141,7 @@ export default class MonthList extends Component {
 					className={classNames(styles.root, {[styles.scrolling]: isScrolling})}
 					style={{lineHeight: `${rowHeight}px`}}
 					overscanRowCount={overscanMonthCount}
+          cellRangeRenderer={cellRangeRenderer}
 				/>
 			</div>
 		);
