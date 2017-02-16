@@ -135,15 +135,15 @@ export default class InfiniteCalendar extends Component {
 		}
 	}
 	parseSelectedDate(selectedDate) {
-		if (selectedDate) {
-			selectedDate = parse(selectedDate);
+		if (!selectedDate) { return null; }
 
-			// Selected Date should not be before min date or after max date
-			if (isBefore(selectedDate, this._minDate)) {
-				return this._minDate;
-			} else if (isAfter(selectedDate, this._maxDate)) {
-				return this._maxDate;
-			}
+    selectedDate = parse(selectedDate);
+
+		// Selected Date should not be before min date or after max date
+		if (isBefore(selectedDate, this._minDate)) {
+			return this._minDate;
+		} else if (isAfter(selectedDate, this._maxDate)) {
+			return this._maxDate;
 		}
 
 		return startOfDay(new Date(selectedDate));
@@ -398,7 +398,6 @@ export default class InfiniteCalendar extends Component {
     ) {
       selectedDate = null;
     }
-
 
 		return (
       <div
