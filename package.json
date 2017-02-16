@@ -1,7 +1,7 @@
 {
   "name": "react-infinite-calendar",
-  "version": "1.0.0",
-  "description": "react-infinite-calendar React component",
+  "version": "2.0.0-rc.1",
+  "description": "Infinite scrolling date-picker built with React, with localization, themes, keyboard support, and more.",
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [
@@ -27,7 +27,8 @@
     "react-virtualized": "next"
   },
   "peerDependencies": {
-    "react": ""
+    "react": "^15.3.0 || ^16.0.0-alpha",
+    "react-dom": "^15.3.0 || ^16.0.0-alpha"
   },
   "devDependencies": {
     "babel-eslint": "^7.0.0",
@@ -42,11 +43,36 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
   },
-  "author": "",
-  "homepage": "",
+  "author": {
+    "name": "Clauderic Demers",
+    "email": "me@ced.io"
+  },
+  "user": "clauderic",
+  "homepage": "https://github.com/clauderic/react-infinite-calendar",
   "license": "MIT",
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clauderic/react-infinite-calendar.git"
+  },
+  "bugs": {
+    "url": "https://github.com/clauderic/react-infinite-calendar/issues"
+  },
   "keywords": [
-    "react-component"
+    "react",
+    "reactjs",
+    "react-component",
+    "infinite",
+    "calendar",
+    "endless",
+    "date",
+    "date-picker",
+    "month",
+    "day",
+    "year",
+    "scrolling",
+    "virtual",
+    "picker",
+    "material",
+    "flat"
   ]
 }
