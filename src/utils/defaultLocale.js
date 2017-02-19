@@ -1,10 +1,9 @@
 module.exports = {
-  name: 'en',
-  todayLabel: {
-    long: 'Today'
-  },
   blank: 'Select a date...',
   headerFormat: 'ddd, MMM Do',
+  todayLabel: {
+    long: 'Today',
+  },
   weekdays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-  dow: 0
+  weekStartsOn: 0,
 };

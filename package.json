@@ -18,19 +18,19 @@
     "storybook": "start-storybook -p 9001 -c .storybook",
     "test": "nwb test-react",
     "test:coverage": "nwb test-react --coverage",
-    "test:watch": "nwb test-react --server"
+    "test:watch": "nwb test-react --server",
+    "lint": "eslint --fix src/**/*.js"
   },
   "dependencies": {
     "classnames": "^2.2.5",
     "date-fns": "^1.27.2",
     "dom-helpers": "^3.2.1",
-    "invariant": "^2.2.2",
-    "react-addons-css-transition-group": "^15.4.2",
-    "react-virtualized": "next"
+    "react-virtualized": "^9.0.0"
   },
   "peerDependencies": {
     "react": "^15.3.0 || ^16.0.0-alpha",
-    "react-dom": "^15.3.0 || ^16.0.0-alpha"
+    "react-dom": "^15.3.0 || ^16.0.0-alpha",
+    "react-addons-css-transition-group": "^15.4.2"
   },
   "devDependencies": {
     "@kadira/storybook": "^2.35.3",
@@ -47,7 +47,8 @@
     "nwb": "0.14.x",
     "nwb-sass": "^0.7.1",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "react-addons-css-transition-group": "^15.4.2"
   },
   "author": {
     "name": "Clauderic Demers",

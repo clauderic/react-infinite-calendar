@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {List as VirtualScroll} from 'react-virtualized';
+import {List} from 'react-virtualized';
 import classNames from 'classnames';
 import {keyCodes} from '../utils';
 import addYears from 'date-fns/add_years';
@@ -11,7 +11,6 @@ import styles from './Years.scss';
 export default class Years extends Component {
   static propTypes = {
     height: PropTypes.number,
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     hideYearsOnSelect: PropTypes.bool,
     maxDate: PropTypes.object,
     minDate: PropTypes.object,
@@ -20,7 +19,8 @@ export default class Years extends Component {
     selectedDate: PropTypes.object,
     setDisplay: PropTypes.func,
     theme: PropTypes.object,
-    years: PropTypes.array
+    width: PropTypes.number,
+    years: PropTypes.array,
   };
   constructor(props) {
     super(props);
@@ -30,12 +30,12 @@ export default class Years extends Component {
         props.selectedDate
           ? props.selectedDate.getFullYear()
           : new Date().getFullYear()
-      )
+      ),
     };
   }
   componentDidMount() {
-    let vs = this.refs.VirtualScroll;
-    let grid = vs && vs.refs.Grid;
+    let list = this.refs.list;
+    let grid = list && list.refs.Grid;
 
     this.scrollEl = grid && grid.refs.scrollingContainer;
   }
@@ -44,7 +44,7 @@ export default class Years extends Component {
       hideYearsOnSelect,
       scrollToDate,
       selectedDate,
-      setDisplay
+      setDisplay,
     } = this.props;
     let date = selectedDate || new Date();
     let newDate = setYear(date, year);
@@ -62,7 +62,7 @@ export default class Years extends Component {
     if (!isBefore(date, minDate) && !isAfter(date, maxDate)) {
       if (updateState) {
         this.setState({
-          selectedYear: date.year()
+          selectedYear: date.getFullYear(),
         });
       }
 
@@ -98,7 +98,7 @@ export default class Years extends Component {
     }
   }
   render() {
-    let {height, selectedDate, theme, width} = this.props;
+    const {height, selectedDate, theme, width} = this.props;
     const {selectedYear} = this.state;
     const today = new Date();
     const currentYear = today.getFullYear();
@@ -114,17 +114,13 @@ export default class Years extends Component {
       ? years.length * rowHeight
       : height + 50;
 
-    if (typeof width === 'string' && width.indexOf('%') !== -1) {
-      width = window.innerWidth * parseInt(width.replace('%', ''), 10) / 100; // See https://github.com/bvaughn/react-virtualized/issues/229
-    }
-
     return (
       <div
         className={styles.root}
         style={{color: theme.selectionColor, height: height + 50}}
       >
-        <VirtualScroll
-          ref="VirtualScroll"
+        <List
+          ref="List"
           className={styles.list}
           width={width}
           height={containerHeight}
@@ -143,7 +139,7 @@ export default class Years extends Component {
                   key={index}
                   className={classNames(styles.year, {
                     [styles.active]: isActive,
-                    [styles.currentYear]: year === currentYear
+                    [styles.currentYear]: year === currentYear,
                   })}
                   onClick={() => this.handleClick(year)}
                   title={`Set year to ${year}`}
@@ -153,7 +149,7 @@ export default class Years extends Component {
                       typeof theme.selectionColor === 'function'
                         ? theme.selectionColor(setYear(selectedDate, year))
                         : theme.selectionColor
-                    )
+                    ),
                   })}
                 >
                   <span

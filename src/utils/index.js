@@ -1,22 +1,17 @@
 import getScrollbarSize from 'dom-helpers/util/scrollbarSize';
 import getDaysInMonth from 'date-fns/get_days_in_month';
 import getDay from 'date-fns/get_day';
-import endOfWeek from 'date-fns/end_of_week';
-import isSameDay from 'date-fns/is_same_day';
-import isValid from 'date-fns/is_valid';
-import parse from 'date-fns/parse';
-import invariant from 'invariant';
 
 export const keyCodes = {
-  enter: 13,
-  left: 37,
-  up: 38,
-  right: 39,
-  down: 40,
-  shift: 16,
-  control: 17,
   command: 91,
-  escape: 27
+  control: 17,
+  down: 40,
+  enter: 13,
+  escape: 27,
+  left: 37,
+  right: 39,
+  shift: 16,
+  up: 38,
 };
 
 export function getMonth(year, month, weekStartsOn) {
@@ -44,7 +39,7 @@ export function getMonth(year, month, weekStartsOn) {
 
   return {
     date: monthDate,
-    rows
+    rows,
   };
 }
 
@@ -63,27 +58,23 @@ export function getWeeksInMonth(
 ) {
   const weekEndsOn = getEndOfWeekIndex(weekStartsOn);
 
-  const firstDayOfMonth = new Date(year, month, 1);
-  const firstWeekNumber = getWeek(year, firstDayOfMonth, weekStartsOn);
+  const firstOfMonth = new Date(year, month, 1);
+  const firstWeekNumber = getWeek(year, firstOfMonth, weekStartsOn);
 
-  const lastDayOfMonth = new Date(year, month + 1, 0); // Last date of the Month
-  const lastWeekNumber = getWeek(year, lastDayOfMonth, weekStartsOn);
+  const lastOfMonth = new Date(year, month + 1, 0); // Last date of the Month
+  const lastWeekNumber = getWeek(year, lastOfMonth, weekStartsOn);
 
   let rowCount = lastWeekNumber - firstWeekNumber;
 
   // If the last week contains 7 days, we need to add an extra row
-  if (lastDayOfMonth.getDay() === weekEndsOn) {
+  if (lastOfMonth.getDay() === weekEndsOn) {
     rowCount++;
   }
 
   return rowCount;
 }
 
-const daysOfWeek = [0, 1, 2, 3, 4, 5, 6];
-
 function getEndOfWeekIndex(weekStartsOn) {
-  invariant(daysOfWeek.includes(weekStartsOn), 'Day of the week should be between 0 and 6');
-
   const weekEndsOn = (weekStartsOn === 0) ? 6 : weekStartsOn - 1;
 
   return weekEndsOn;
@@ -91,7 +82,7 @@ function getEndOfWeekIndex(weekStartsOn) {
 
 export function getScrollSpeed(
   settings = {
-    delay: 50 // in ms, higher means lower fidelity
+    delay: 50, // in ms, higher means lower fidelity
   }
 ) {
   let lastPos;

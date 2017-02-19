@@ -7,81 +7,81 @@ import animation from './Animation.scss';
 
 export default class Header extends PureComponent {
   static propTypes = {
+    display: PropTypes.string,
     layout: PropTypes.string,
     locale: PropTypes.object,
     onClick: PropTypes.func,
-    selectedDate: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.bool]),
+    selectedDate: PropTypes.oneOfType([
+      PropTypes.instanceOf(Date),
+      PropTypes.bool,
+    ]),
     shouldHeaderAnimate: PropTypes.bool,
     theme: PropTypes.object,
-    display: PropTypes.string
   };
   render() {
     let {
       display,
       layout,
-      locale,
+      locale: {blank, headerFormat, locale},
       scrollToDate,
       selectedDate,
       setDisplay,
       shouldHeaderAnimate,
-      theme
+      theme,
     } = this.props;
-    let values = selectedDate &&
-      [
-        {
-          item: 'year',
-          value: selectedDate.getFullYear(),
-          active: display === 'years',
-          title: display === 'days' ? `Change year` : null,
-          handleClick: e => {
-            e && e.stopPropagation();
-            setDisplay('years');
+    let values = selectedDate && [
+      {
+        active: display === 'years',
+        handleClick: e => {
+          e && e.stopPropagation();
+          setDisplay('years');
+        },
+        item: 'year',
+        title: display === 'days' ? `Change year` : null,
+        value: selectedDate.getFullYear(),
+      },
+      {
+        active: display === 'days',
+        handleClick: e => {
+          e && e.stopPropagation();
+
+          if (display !== 'days') {
+            setDisplay('days');
+          } else if (selectedDate) {
+            scrollToDate(selectedDate, -40);
           }
         },
-        {
-          item: 'day',
-          key: format(selectedDate, 'YYYYMMDD'),
-          value: format(selectedDate, locale.headerFormat),
-          active: display === 'days',
-          title: (
-            display === 'days'
-              ? `Scroll to ${format(format, locale.headerFormat)}`
-              : null
-          ),
-          handleClick: e => {
-            e && e.stopPropagation();
-
-            if (display !== 'days') {
-              setDisplay('days');
-            } else if (selectedDate) {
-              scrollToDate(selectedDate, -40);
-            }
-          }
-        }
-      ];
+        item: 'day',
+        key: format(selectedDate, 'YYYYMMDD', {locale}),
+        title: display === 'days'
+          ? `Scroll to ${format(format, headerFormat, {locale})}`
+          : null,
+        value: format(selectedDate, headerFormat, {locale}),
+      },
+    ];
 
     return (
       <div
         className={classNames(styles.root, {
           [styles.blank]: !selectedDate,
-          [styles.landscape]: layout === 'landscape'
+          [styles.landscape]: layout === 'landscape',
         })}
-        style={
-          theme &&
-            {backgroundColor: theme.headerColor, color: theme.textColor.active}
-        }
+        style={{
+          backgroundColor: theme.headerColor,
+          color: theme.textColor.active,
+        }}
       >
         {selectedDate
           ? <div
               className={styles.wrapper}
-              aria-label={format(format, locale.headerFormat + ' YYYY')}
+              aria-label={format(format, headerFormat + ' YYYY', {locale})}
             >
               {values.map(({handleClick, item, key, value, active, title}) => {
                 return (
                   <div
                     key={item}
                     className={classNames(styles.dateWrapper, styles[item], {
-                      [styles.active]: active
+                      [styles.active]: active,
                     })}
                     title={title}
                   >
@@ -105,7 +105,7 @@ export default class Header extends PureComponent {
                 );
               })}
             </div>
-          : <div className={styles.wrapper}>{locale.blank}</div>}
+          : <div className={styles.wrapper}>{blank}</div>}
       </div>
     );
   }

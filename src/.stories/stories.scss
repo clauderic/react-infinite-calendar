@@ -2,6 +2,7 @@
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   background: #f3f3f3;
@@ -12,5 +13,24 @@
     width: 100%;
     height: 100%;
     margin: 0;
+  }
+  label {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+    color: #888;
+    -webkit-font-smoothing: antialiased;
+    font-size: 15px;
+    line-height: 1.4;
+    font-style: normal;
+
+    code {
+      background: #eaeaea;
+      padding: 2px 7px;
+      font-size: 14px;
+      border-radius: 2px;
+    }
   }
 }

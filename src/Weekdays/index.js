@@ -5,10 +5,11 @@ import styles from './Weekdays.scss';
 export default class Weekdays extends PureComponent {
   static propTypes = {
     locale: PropTypes.object,
-    theme: PropTypes.object
+    theme: PropTypes.object,
   };
   render() {
-    let {locale: {weekdays}, theme} = this.props;
+    const {weekdays, weekStartsOn, theme} = this.props;
+    const orderedWeekdays = [...weekdays.slice(weekStartsOn, 7), ...weekdays.slice(0, weekStartsOn)];
 
     return (
       <ul
@@ -16,11 +17,11 @@ export default class Weekdays extends PureComponent {
         style={{
           backgroundColor: theme.weekdayColor,
           color: theme.textColor.active,
-          paddingRight: scrollbarSize
+          paddingRight: scrollbarSize,
         }}
         aria-hidden={true}
       >
-        {weekdays.map((val, index) => (
+        {orderedWeekdays.map((val, index) => (
           <li key={`Weekday-${index}`} className={styles.day}>{val}</li>
         ))}
       </ul>
