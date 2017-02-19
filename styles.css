@@ -117,13 +117,62 @@
   left: 0;
   right: 0;
   font-size: 12px;
-  line-height: 12px; }
+  line-height: 12px;
+  text-transform: capitalize; }
 
 .Cal__Day__month {
   top: 5px; }
 
 .Cal__Day__year {
   bottom: 5px; }
+.Cal__Today__root {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 6px;
+  box-sizing: border-box;
+  transform: translate3d(0, -100%, 0);
+  font-weight: 500;
+  line-height: 0;
+  z-index: 10;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  transition-delay: 0.3s; }
+  .Cal__Today__root.Cal__Today__show {
+    transform: translate3d(0, 0, 0);
+    transition-delay: 0s; }
+    .Cal__Today__root.Cal__Today__show .Cal__Today__chevron {
+      transition: transform 0.3s ease; }
+  .Cal__Today__root .Cal__Today__chevron {
+    position: absolute;
+    top: 50%;
+    margin-top: -6px;
+    margin-left: 5px;
+    transform: rotate(270deg);
+    transition: transform 0.3s ease; }
+  .Cal__Today__root.Cal__Today__chevronUp .Cal__Today__chevron {
+    transform: rotate(180deg); }
+  .Cal__Today__root.Cal__Today__chevronDown .Cal__Today__chevron {
+    transform: rotate(360deg); }
+.Cal__Weekdays__root {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none; }
+
+.Cal__Weekdays__day {
+  padding: 15px 0;
+  flex-basis: 14.28571%;
+  flex-grow: 1;
+  font-weight: 500;
+  text-align: center; }
 .Cal__Header__root {
   display: flex;
   align-items: center;
@@ -165,7 +214,8 @@
   .Cal__Header__dateWrapper.Cal__Header__day {
     height: 38px;
     font-size: 36px;
-    line-height: 36px; }
+    line-height: 36px;
+    text-transform: capitalize; }
   .Cal__Header__dateWrapper.Cal__Header__year {
     height: 20px;
     font-size: 18px;
@@ -193,59 +243,11 @@
 .Cal__Animation__leave.Cal__Animation__leaveActive {
   opacity: 0;
   transform: translate3d(0, 100%, 0); }
-.Cal__Today__root {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 32px;
-  padding: 6px;
-  box-sizing: border-box;
-  transform: translate3d(0, -100%, 0);
-  font-weight: 500;
-  line-height: 0;
-  z-index: 10;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-  transition-delay: 0.3s; }
-  .Cal__Today__root.Cal__Today__show {
-    transform: translate3d(0, 0, 0);
-    transition-delay: 0s; }
-    .Cal__Today__root.Cal__Today__show .Cal__Today__chevron {
-      transition: transform 0.3s ease; }
-  .Cal__Today__root .Cal__Today__chevron {
-    position: absolute;
-    top: 50%;
-    margin-top: -6px;
-    margin-left: 5px;
-    transform: rotate(270deg);
-    transition: transform 0.3s ease; }
-  .Cal__Today__root.Cal__Today__chevronUp .Cal__Today__chevron {
-    transform: rotate(180deg); }
-  .Cal__Today__root.Cal__Today__chevronDown .Cal__Today__chevron {
-    transform: rotate(360deg); }
 .Cal__MonthList__root {
   width: 100% !important;
   background-color: #FFF; }
   .Cal__MonthList__root.Cal__MonthList__scrolling label {
     opacity: 1; }
-.Cal__Weekdays__root {
-  position: relative;
-  z-index: 5;
-  display: flex;
-  padding: 0;
-  margin: 0;
-  list-style: none; }
-
-.Cal__Weekdays__day {
-  padding: 15px 0;
-  flex-basis: 14.28571%;
-  flex-grow: 1;
-  font-weight: 500;
-  text-align: center; }
 .Cal__Years__root {
   position: absolute;
   left: 0;
@@ -340,6 +342,7 @@
   bottom: 0;
   left: 0;
   right: 0;
+  margin: 0;
   font-size: 30px;
   font-weight: 500;
   z-index: 3;
