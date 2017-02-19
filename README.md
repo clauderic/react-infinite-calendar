@@ -1,5 +1,5 @@
 <div align="center" style="margin-bottom: 30px;">
-<img src="https://raw.githubusercontent.com/clauderic/react-infinite-calendar/master/.github/InfiniteCalendar.png" width="250"/>
+<img src="https://raw.githubusercontent.com/clauderic/react-infinite-calendar/master/.github/logo.png" width="180"/>
 </div>
 
 # React Infinite Calendar
@@ -117,7 +117,7 @@ For more usage examples, see [http://clauderic.github.io/react-infinite-calendar
 | overscanMonthCount   | Number  | 4          | Number of months to render above/below the visible months. Tweaking this can help reduce flickering during scrolling on certain browers/devices. |
 | todayHelperRowOffset | Number  | 4          | This controls the number of rows to scroll past before the *Today* helper appears                                                                |
 
-Example usage:
+Example usage of display options:
 ```jsx
 <InfiniteCalendar
   displayOptions={{
@@ -142,3 +142,7 @@ Contributions
 Yes please! Feature requests / pull requests are welcome. [Learn how to contribute](https://github.com/clauderic/react-infinite-calendar/blob/master/CONTRIBUTING.md)
 
 Have a suggestion or just want to say hello? Come chat on [Gitter](https://gitter.im/clauderic/react-infinite-calendar)!
+
+License
+---------
+*react-infinite-calendar* is available under the MIT License.
