@@ -9,7 +9,6 @@ import addMonths from 'date-fns/add_months';
 import endOfMonth from 'date-fns/end_of_month';
 import format from 'date-fns/format';
 import isBefore from 'date-fns/is_before';
-import isSameWeek from 'date-fns/is_same_week';
 import subDays from 'date-fns/sub_days';
 import subMonths from 'date-fns/sub_days';
 
@@ -44,7 +43,7 @@ storiesOf('Basic settings', module)
         addDays(today, 5),
         addDays(today, 6),
         addDays(today, 7),
-        addDays(today, 2)
+        addDays(today, 2),
       ]}
     />
   ))
@@ -59,21 +58,21 @@ storiesOf('Internationalization', module)
   .add('Locale', () => (
     <InfiniteCalendar
       locale={{
-        headerFormat: 'dddd, D MMM',
-        weekdays: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
         blank: 'Aucune date sélectionnée',
+        headerFormat: 'dddd, D MMM',
+        locale: require('date-fns/locale/fr'),
         todayLabel: {
           long: "Aujourd'hui",
-          short: 'Auj.'
+          short: 'Auj.',
         },
-        locale: require('date-fns/locale/fr')
+        weekdays: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
       }}
     />
   ))
   .add('First Day of the Week', () => (
     <InfiniteCalendar
       locale={{
-        weekStartsOn: 1
+        weekStartsOn: 1,
       }}
     />
   ));
@@ -82,18 +81,18 @@ storiesOf('Customization', module)
   .add('Theming', () => (
     <InfiniteCalendar
       theme={{
-        selectionColor: 'rgb(146, 118, 255)',
-        textColor: {
-          default: '#333',
-          active: '#FFF'
-        },
-        weekdayColor: 'rgb(146, 118, 255)',
-        headerColor: 'rgb(127, 95, 251)',
         floatingNav: {
           background: 'rgba(105, 74, 228, 0.91)',
+          chevron: '#FFA726',
           color: '#FFF',
-          chevron: '#FFA726'
-        }
+        },
+        headerColor: 'rgb(127, 95, 251)',
+        selectionColor: 'rgb(146, 118, 255)',
+        textColor: {
+          active: '#FFF',
+          default: '#333',
+        },
+        weekdayColor: 'rgb(146, 118, 255)',
       }}
     />
   ))
