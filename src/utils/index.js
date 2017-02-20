@@ -14,6 +14,13 @@ export const keyCodes = {
   up: 38,
 };
 
+/**
+ * Given a year and a month, returns the rows for that month to be iterated over
+ * @param {Number} year - the year number
+ * @param {Number} month - the index of the month
+ * @param {Number} weekStartsOn - the index of the first day of the week (from 0 to 6)
+ * @return {Object} - Returns the first day of the month and the rows of that month
+ */
 export function getMonth(year, month, weekStartsOn) {
   const rows = [];
   const monthDate = new Date(year, month, 1);
@@ -43,18 +50,36 @@ export function getMonth(year, month, weekStartsOn) {
   };
 }
 
+/**
+ * Get the localized week number of a given month based on the first day of the week
+ * @param {Number} year - the year number
+ * @param {Date} date - the date for which we're trying to get the week number
+ * @param {Number} weekStartsOn - the index of the first day of the week (from 0 to 6)
+ * @return {Object} - Returns the week index for that date
+ */
 function getWeek(year, date, weekStartsOn) {
   const yearStart = new Date(year, 0, 1); // 1st Jan of the Year
 
   return Math.ceil(
-    ((date - yearStart) / 86400000 + yearStart.getDay() + 1 - weekStartsOn) / 7
+    ((date - yearStart) / (60 * 60 * 24 * 1000) +
+      yearStart.getDay() +
+      1 -
+      weekStartsOn) /
+      7,
   );
 }
 
+/**
+ * Get the number of weeks in a given month to be able to calculate the height of that month
+ * @param {Number} year - the year number
+ * @param {Number} month - the index of the month
+ * @param {Number} weekStartsOn - the index of the first day of the week (from 0 to 6)
+ * @return {Number} - Returns the number of weeks for the given month
+ */
 export function getWeeksInMonth(
   month,
   year = new Date().getFullYear(),
-  weekStartsOn
+  weekStartsOn,
 ) {
   const weekEndsOn = getEndOfWeekIndex(weekStartsOn);
 
@@ -74,41 +99,37 @@ export function getWeeksInMonth(
   return rowCount;
 }
 
+/**
+ * Helper to find out what day the week ends on given the localized start of the week
+ * @param {Number} weekStartsOn - the index of the first day of the week (from 0 to 6)
+ * @return {Number} - Returns the index of the day the week ends on
+ */
 function getEndOfWeekIndex(weekStartsOn) {
-  const weekEndsOn = (weekStartsOn === 0) ? 6 : weekStartsOn - 1;
+  const weekEndsOn = weekStartsOn === 0 ? 6 : weekStartsOn - 1;
 
   return weekEndsOn;
 }
 
-export function getScrollSpeed(
-  settings = {
-    delay: 50, // in ms, higher means lower fidelity
-  }
-) {
-  let lastPos;
-  let newPos;
-  let timer;
-  let delta;
-
-  function clear() {
-    lastPos = null;
-    delta = 0;
-  }
-
-  clear();
-
-  return function(scrollY) {
-    newPos = scrollY;
-    if (lastPos != null) {
-      delta = newPos - lastPos;
-    }
-    lastPos = newPos;
-    clearTimeout(timer);
-    timer = setTimeout(clear, settings.delay);
-    return delta;
+export class ScrollSpeed {
+  clear = () => {
+    this.lastPosition = null;
+    this.delta = 0;
   };
+  getScrollSpeed(scrollOffset) {
+    if (this.lastPosition != null) {
+      this.delta = scrollOffset - this.lastPosition;
+    }
+    this.lastPosition = scrollOffset;
+
+    clearTimeout(this._timeout);
+    this._timeout = setTimeout(this.clear, 50);
+
+    return this.delta;
+  }
 }
 
 export const scrollbarSize = getScrollbarSize();
 
-export function emptyFn() { /* no-op */ }
+export function emptyFn() {
+  /* no-op */
+}
