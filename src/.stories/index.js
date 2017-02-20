@@ -111,7 +111,7 @@ storiesOf('Customization', module)
       selectedDate={subDays(today, 1)}
       theme={{
         selectionColor: (date) => {
-          return (isBefore(today, date)) ? '#EC6150' : '#559FFF';
+          return isBefore(date, today) ? '#EC6150' : '#559FFF';
         },
       }}
     />
