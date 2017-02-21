@@ -3,14 +3,19 @@ import classNames from 'classnames';
 import parse from 'date-fns/parse';
 import styles from './Day.scss';
 
+const updateKeys = ['day', 'monthShort', 'isDisabled', 'isToday', 'isSelected', 'isHighlighted'];
+
 export default class Day extends PureComponent {
+  shouldComponentUpdate(nextProps) {
+    return updateKeys.some((key) => this.props[key] !== nextProps[key]);
+  }
   handleClick = () => {
     let {date, isDisabled, onClick} = this.props;
 
     if (!isDisabled && typeof onClick === 'function') {
       onClick(parse(date));
     }
-  }
+  };
   renderSelection() {
     const {
       day,
@@ -25,11 +30,9 @@ export default class Day extends PureComponent {
       <div
         className={styles.selection}
         style={{
-          backgroundColor: (
-            typeof selectionColor === 'function'
-              ? selectionColor(date)
-              : selectionColor
-          ),
+          backgroundColor: typeof selectionColor === 'function'
+            ? selectionColor(date)
+            : selectionColor,
           color: textColor.active,
         }}
       >
@@ -41,25 +44,39 @@ export default class Day extends PureComponent {
     );
   }
   render() {
-    const {currentYear, date, day, isDisabled, isToday, isSelected, monthShort, theme, year} = this.props;
+    const {
+      currentYear,
+      date,
+      day,
+      isDisabled,
+      isHighlighted,
+      isToday,
+      isSelected,
+      monthShort,
+      theme,
+      year,
+    } = this.props;
 
     return (
-			<li
-				style={(isToday) ? {color: theme.todayColor} : null}
-				className={classNames(styles.root, {
-  [styles.today]: isToday,
-  [styles.selected]: isSelected,
-  [styles.disabled]: isDisabled,
-  [styles.enabled]: !isDisabled,
-})}
-				onClick={this.handleClick}
+      <li
+        style={isToday ? {color: theme.todayColor} : null}
+        className={classNames(styles.root, {
+          [styles.today]: isToday,
+          [styles.highlighted]: isHighlighted,
+          [styles.selected]: isSelected,
+          [styles.disabled]: isDisabled,
+          [styles.enabled]: !isDisabled,
+        })}
+        onClick={this.handleClick}
         data-date={date}
-			>
-				{(day === 1) && <span className={styles.month}>{monthShort}</span>}
-				{(isToday) ? <span>{day}</span> : day}
-				{(day === 1 && currentYear !== year) && <span className={styles.year}>{year}</span>}
-				{isSelected && this.renderSelection()}
-			</li>
+      >
+        {day === 1 && <span className={styles.month}>{monthShort}</span>}
+        {isToday ? <span>{day}</span> : day}
+        {day === 1 &&
+          currentYear !== year &&
+          <span className={styles.year}>{year}</span>}
+        {isSelected && this.renderSelection()}
+      </li>
     );
   }
 }

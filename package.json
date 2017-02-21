@@ -1,6 +1,6 @@
 {
   "name": "react-infinite-calendar",
-  "version": "2.0.0",
+  "version": "2.0.0-rc.4",
   "description": "Infinite scrolling date-picker built with React, with localization, themes, keyboard support, and more.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -25,12 +25,13 @@
     "classnames": "^2.2.5",
     "date-fns": "^1.27.2",
     "dom-helpers": "^3.2.1",
-    "react-virtualized": "^9.0.0"
+    "react-virtualized": "^9.0.0",
+    "recompose": "^0.22.0"
   },
   "peerDependencies": {
     "react": "^15.3.0 || ^16.0.0-alpha",
-    "react-dom": "^15.3.0 || ^16.0.0-alpha",
-    "react-addons-css-transition-group": "^15.4.2"
+    "react-addons-css-transition-group": "^15.4.2",
+    "react-dom": "^15.3.0 || ^16.0.0-alpha"
   },
   "devDependencies": {
     "@kadira/storybook": "^2.35.3",
@@ -47,8 +48,8 @@
     "nwb": "0.14.x",
     "nwb-sass": "^0.7.1",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "react-addons-css-transition-group": "^15.4.2"
+    "react-addons-css-transition-group": "^15.4.2",
+    "react-dom": "^15.4.2"
   },
   "author": {
     "name": "Clauderic Demers",

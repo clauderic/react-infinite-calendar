@@ -1,6 +1,7 @@
 import React, {PureComponent, PropTypes} from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import classNames from 'classnames';
+import parse from 'date-fns/parse';
 import format from 'date-fns/format';
 import styles from './Header.scss';
 import animation from './Animation.scss';
@@ -11,8 +12,8 @@ export default class Header extends PureComponent {
     layout: PropTypes.string,
     locale: PropTypes.object,
     onClick: PropTypes.func,
-    selectedDate: PropTypes.oneOfType([
-      PropTypes.instanceOf(Date),
+    selected: PropTypes.oneOfType([
+      PropTypes.string,
       PropTypes.bool,
     ]),
     shouldHeaderAnimate: PropTypes.bool,
@@ -24,12 +25,13 @@ export default class Header extends PureComponent {
       layout,
       locale: {blank, headerFormat, locale},
       scrollToDate,
-      selectedDate,
       setDisplay,
       shouldHeaderAnimate,
       theme,
     } = this.props;
-    let values = selectedDate && [
+    const selected = (this.props.selected != null) ? parse(this.props.selected) : this.props.selected;
+    
+    let values = selected && [
       {
         active: display === 'years',
         handleClick: e => {
@@ -38,7 +40,7 @@ export default class Header extends PureComponent {
         },
         item: 'year',
         title: display === 'days' ? `Change year` : null,
-        value: selectedDate.getFullYear(),
+        value: selected.getFullYear(),
       },
       {
         active: display === 'days',
@@ -47,23 +49,23 @@ export default class Header extends PureComponent {
 
           if (display !== 'days') {
             setDisplay('days');
-          } else if (selectedDate) {
-            scrollToDate(selectedDate, -40);
+          } else if (selected) {
+            scrollToDate(selected, -40);
           }
         },
         item: 'day',
-        key: format(selectedDate, 'YYYYMMDD', {locale}),
+        key: format(selected, 'YYYYMMDD', {locale}),
         title: display === 'days'
           ? `Scroll to ${format(format, headerFormat, {locale})}`
           : null,
-        value: format(selectedDate, headerFormat, {locale}),
+        value: format(selected, headerFormat, {locale}),
       },
     ];
 
     return (
       <div
         className={classNames(styles.root, {
-          [styles.blank]: !selectedDate,
+          [styles.blank]: !selected,
           [styles.landscape]: layout === 'landscape',
         })}
         style={{
@@ -71,7 +73,7 @@ export default class Header extends PureComponent {
           color: theme.textColor.active,
         }}
       >
-        {selectedDate
+        {selected
           ? <div
               className={styles.wrapper}
               aria-label={format(format, headerFormat + ' YYYY', {locale})}

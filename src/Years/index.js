@@ -3,9 +3,6 @@ import {List} from 'react-virtualized';
 import classNames from 'classnames';
 import {keyCodes} from '../utils';
 import addYears from 'date-fns/add_years';
-import setYear from 'date-fns/set_year';
-import isAfter from 'date-fns/is_after';
-import isBefore from 'date-fns/is_before';
 import styles from './Years.scss';
 
 export default class Years extends Component {
@@ -14,25 +11,14 @@ export default class Years extends Component {
     hideYearsOnSelect: PropTypes.bool,
     maxDate: PropTypes.object,
     minDate: PropTypes.object,
-    onDaySelect: PropTypes.func,
+    onSelect: PropTypes.func,
     scrollToDate: PropTypes.func,
-    selectedDate: PropTypes.object,
+    selectedYear: PropTypes.number,
     setDisplay: PropTypes.func,
     theme: PropTypes.object,
     width: PropTypes.number,
     years: PropTypes.array,
   };
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      selectedYear: (
-        props.selectedDate
-          ? props.selectedDate.getFullYear()
-          : new Date().getFullYear()
-      ),
-    };
-  }
   componentDidMount() {
     let list = this.refs.list;
     let grid = list && list.refs.Grid;
@@ -41,65 +27,15 @@ export default class Years extends Component {
   }
   handleClick(year, e) {
     let {
-      hideYearsOnSelect,
-      scrollToDate,
-      selectedDate,
+      onSelect,
       setDisplay,
     } = this.props;
-    let date = selectedDate || new Date();
-    let newDate = setYear(date, year);
 
-    this.selectDate(newDate, e, !hideYearsOnSelect);
-    scrollToDate(newDate, -40);
-
-    if (hideYearsOnSelect) {
-      setDisplay('days');
-    }
-  }
-  selectDate(date, e, updateState = true, shouldHeaderAnimate = false) {
-    let {minDate, maxDate, onDaySelect} = this.props;
-
-    if (!isBefore(date, minDate) && !isAfter(date, maxDate)) {
-      if (updateState) {
-        this.setState({
-          selectedYear: date.getFullYear(),
-        });
-      }
-
-      onDaySelect(date, e, shouldHeaderAnimate);
-    }
-  }
-  handleKeyDown(e) {
-    let {scrollToDate, setDisplay, selectedDate} = this.props;
-    let {selectedYear} = this.state;
-    let delta = 0;
-
-    switch (e.keyCode) {
-      case keyCodes.enter:
-      case keyCodes.escape:
-        setDisplay('days');
-        scrollToDate(selectedDate || new Date(selectedYear, 0), -40);
-        return;
-      case keyCodes.down:
-        delta = +1;
-        break;
-      case keyCodes.up:
-        delta = -1;
-        break;
-      default:
-        delta = 0;
-    }
-
-    if (delta) {
-      if (!selectedDate) selectedDate = new Date(selectedYear, 0);
-
-      let newSelectedDate = addYears(selectedDate, delta);
-      this.selectDate(newSelectedDate, e);
-    }
+    onSelect(year, e);
+    requestAnimationFrame(() => setDisplay('days'));
   }
   render() {
-    const {height, selectedDate, theme, width} = this.props;
-    const {selectedYear} = this.state;
+    const {height, selectedYear, theme, width} = this.props;
     const today = new Date();
     const currentYear = today.getFullYear();
     const years = this.props.years.slice(0, this.props.years.length);
@@ -147,7 +83,7 @@ export default class Years extends Component {
                   style={Object.assign({}, rowStyle, {
                     color: (
                       typeof theme.selectionColor === 'function'
-                        ? theme.selectionColor(setYear(selectedDate, year))
+                        ? theme.selectionColor(new Date(year, 0, 1)) // TODO: Change this
                         : theme.selectionColor
                     ),
                   })}

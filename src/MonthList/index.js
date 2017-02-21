@@ -1,10 +1,11 @@
 import React, {Component, PropTypes} from 'react';
 import {List} from 'react-virtualized';
 import classNames from 'classnames';
-import {getMonth, getWeeksInMonth} from '../utils';
+import {getMonth, getWeek, getWeeksInMonth} from '../utils';
 import differenceInWeeks from 'date-fns/difference_in_weeks';
 import differenceInMonths from 'date-fns/difference_in_months';
 import startOfMonth from 'date-fns/start_of_month';
+import parse from 'date-fns/parse';
 import Month from '../Month';
 import styles from './MonthList.scss';
 import overscanIndicesGetter from './overscanIndicesGetter';
@@ -66,10 +67,10 @@ export default class MonthList extends Component {
     return index;
   };
   getDateOffset = date => {
-    const {min, rowHeight} = this.props;
-    const weeks = differenceInWeeks(startOfMonth(date), startOfMonth(min));
+    const {min, rowHeight, locale: {weekStartsOn}, height} = this.props;
+    const weeks = getWeek(min.getFullYear(), parse(date), weekStartsOn);
 
-    return weeks * rowHeight;
+    return weeks * rowHeight - (height - rowHeight)/2;
   };
   getCurrentOffset = () => {
     if (this.scrollEl) {
@@ -95,18 +96,20 @@ export default class MonthList extends Component {
   };
   renderMonth = ({index, isScrolling, style}) => {
     let {
+      DayComponent,
       disabledDates,
       disabledDays,
       locale,
       maxDate,
       minDate,
       months,
-      onDaySelect,
+      onDayClick,
       rowHeight,
-      selectedDate,
+      selected,
       showOverlay,
       theme,
       today,
+      ...other
     } = this.props;
 
     let {month, year} = months[index];
@@ -116,13 +119,14 @@ export default class MonthList extends Component {
     return (
       <Month
         key={key}
-        selectedDate={selectedDate}
+        selected={selected}
+        DayComponent={DayComponent}
         displayDate={date}
         disabledDates={disabledDates}
         disabledDays={disabledDays}
         maxDate={maxDate}
         minDate={minDate}
-        onDaySelect={onDaySelect}
+        onDayClick={onDayClick}
         rows={rows}
         rowHeight={rowHeight}
         isScrolling={isScrolling}
@@ -131,6 +135,7 @@ export default class MonthList extends Component {
         theme={theme}
         locale={locale}
         style={style}
+        {...other}
       />
     );
   };
@@ -142,12 +147,9 @@ export default class MonthList extends Component {
       overscanMonthCount,
       months,
       rowHeight,
-      selectedDate,
-      today,
+      scrollDate,
       width,
     } = this.props;
-    if (!this._initScrollTop)
-      this._initScrollTop = this.getDateOffset(selectedDate || today);
 
     return (
       <div onClick={this.handleClick}>
@@ -160,7 +162,7 @@ export default class MonthList extends Component {
           estimatedRowSize={rowHeight * 5}
           rowRenderer={this.renderMonth}
           onScroll={onScroll}
-          scrollTop={this._initScrollTop}
+          scrollTop={this.getDateOffset(scrollDate)}
           className={classNames(styles.root, {[styles.scrolling]: isScrolling})}
           style={{lineHeight: `${rowHeight}px`}}
           overscanRowCount={overscanMonthCount}

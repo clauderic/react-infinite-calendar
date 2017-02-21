@@ -1,6 +1,10 @@
 import getScrollbarSize from 'dom-helpers/util/scrollbarSize';
 import getDaysInMonth from 'date-fns/get_days_in_month';
 import getDay from 'date-fns/get_day';
+import isAfter from 'date-fns/is_after';
+import isBefore from 'date-fns/is_before';
+import isSameDay from 'date-fns/is_same_day';
+import startOfDay from 'date-fns/start_of_day';
 
 export const keyCodes = {
   command: 91,
@@ -57,7 +61,7 @@ export function getMonth(year, month, weekStartsOn) {
  * @param {Number} weekStartsOn - the index of the first day of the week (from 0 to 6)
  * @return {Object} - Returns the week index for that date
  */
-function getWeek(year, date, weekStartsOn) {
+export function getWeek(year, date, weekStartsOn) {
   const yearStart = new Date(year, 0, 1); // 1st Jan of the Year
 
   return Math.ceil(
@@ -132,4 +136,25 @@ export const scrollbarSize = getScrollbarSize();
 
 export function emptyFn() {
   /* no-op */
+}
+
+
+export function sanitizeDate(date, {
+  disabledDates = [],
+  disabledDays = [],
+  minDate,
+  maxDate,
+}) {
+  // Selected date should not be disabled or outside the selectable range
+  if (
+    !date ||
+    disabledDates.some(disabledDate => isSameDay(disabledDate, date)) ||
+    disabledDays && disabledDays.indexOf(getDay(date)) !== -1 ||
+    minDate && isBefore(date, startOfDay(minDate)) ||
+    maxDate && isAfter(date, startOfDay(maxDate))
+  ) {
+    return null;
+  }
+
+  return date;
 }

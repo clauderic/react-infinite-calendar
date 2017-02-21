@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import classNames from 'classnames';
-import Day from '../Day';
 import format from 'date-fns/format';
 import getDay from 'date-fns/get_day';
 import isSameYear from 'date-fns/is_same_year';
@@ -9,18 +8,19 @@ import styles from './Month.scss';
 export default class Month extends Component {
   renderRows() {
     const {
+      DayComponent,
       disabledDates,
       disabledDays,
       displayDate,
       locale,
       maxDate,
       minDate,
-      onDaySelect,
+      onDayClick,
       rowHeight,
       rows,
-      selectedDate,
       today,
       theme,
+      ...other
     } = this.props;
     const currentYear = today.getFullYear();
     const year = displayDate.getFullYear();
@@ -29,12 +29,10 @@ export default class Month extends Component {
     const monthRows = [];
     let day = 0;
     let isDisabled = false;
-    let isSelected = false;
     let isToday = false;
     let date, days, dow, row;
 
     // Used for faster comparisons
-    const _selected = format(selectedDate, 'YYYY-MM-DD');
     const _today = format(today, 'YYYY-MM-DD');
     const _minDate = format(minDate, 'YYYY-MM-DD');
     const _maxDate = format(maxDate, 'YYYY-MM-DD');
@@ -49,7 +47,6 @@ export default class Month extends Component {
         day = row[k];
 
         date = `${year}-${('0' + (month + 1)).slice(-2)}-${('0' + day).slice(-2)}`;
-        isSelected = (date === _selected);
         isToday = (date === _today);
 
         isDisabled = (
@@ -60,16 +57,17 @@ export default class Month extends Component {
 				);
 
         days[k] = (
-					<Day
+					<DayComponent
 						key={`day-${day}`}
+            {...other}
 						currentYear={currentYear}
             year={year}
 						date={date}
 						day={day}
-						onClick={onDaySelect}
+            month={month}
+						onClick={onDayClick}
 						isDisabled={isDisabled}
 						isToday={isToday}
-						isSelected={isSelected}
 						locale={locale}
 						monthShort={monthShort}
 						theme={theme}

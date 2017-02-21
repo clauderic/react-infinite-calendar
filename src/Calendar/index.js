@@ -2,7 +2,8 @@ import React, {Component, PropTypes} from 'react';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import range from 'lodash/range';
-import {emptyFn, ScrollSpeed, keyCodes} from '../utils';
+import {emptyFn, ScrollSpeed} from '../utils';
+import {defaultProps} from 'recompose';
 import defaultDisplayOptions from '../utils/defaultDisplayOptions';
 import defaultLocale from '../utils/defaultLocale';
 import defaultTheme from '../utils/defaultTheme';
@@ -11,13 +12,10 @@ import Header from '../Header';
 import MonthList from '../MonthList';
 import Weekdays from '../Weekdays';
 import Years from '../Years';
+import Day from '../Day';
 
 import parse from 'date-fns/parse';
 import format from 'date-fns/format';
-import addDays from 'date-fns/add_days';
-import isSameDay from 'date-fns/is_same_day';
-import isBefore from 'date-fns/is_before';
-import isAfter from 'date-fns/is_after';
 import getDay from 'date-fns/get_day';
 import startOfMonth from 'date-fns/start_of_month';
 import startOfDay from 'date-fns/start_of_day';
@@ -27,44 +25,43 @@ const styles = {
   day: require('../Day/Day.scss'),
 };
 
+export const withDefaultProps = defaultProps({
+  autoFocus: true,
+  DayComponent: Day,
+  display: 'days',
+  displayOptions: {},
+  handlers: [],
+  height: 500,
+  keyboardSupport: true,
+  max: new Date(2050, 11, 31),
+  maxDate: new Date(2050, 11, 31),
+  min: new Date(1980, 0, 1),
+  minDate: new Date(1980, 0, 1),
+  onHighlightedDateChange: emptyFn,
+  onScroll: emptyFn,
+  onScrollEnd: emptyFn,
+  onSelect: emptyFn,
+  rowHeight: 56,
+  shouldPreventSelect: () => false,
+  tabIndex: 1,
+  width: 400,
+  YearComponent: Years,
+});
+
 export default class Calendar extends Component {
   constructor(props) {
-    super(props);
-
-    const displayOptions = this.getDisplayOptions(props.displayOptions);
+    super(...arguments);
 
     this.updateYears(props);
 
     this.state = {
       display: props.display,
-      selectedDate: this.parseSelectedDate(props.selectedDate),
-      shouldHeaderAnimate: displayOptions.shouldHeaderAnimate,
     };
   }
-  static defaultProps = {
-    autoFocus: true,
-    display: 'days',
-    displayOptions: {},
-    height: 500,
-    keyboardSupport: true,
-    max: new Date(2050, 11, 31),
-    maxDate: new Date(2050, 11, 31),
-    min: new Date(1980, 0, 1),
-    minDate: new Date(1980, 0, 1),
-    onHighlightedDateChange: emptyFn,
-    onKeyDown: emptyFn,
-    onScroll: emptyFn,
-    onScrollEnd: emptyFn,
-    onSelect: emptyFn,
-    rowHeight: 56,
-    selectedDate: new Date(),
-    shouldPreventSelect: () => false,
-    tabIndex: 1,
-    width: 400,
-  };
   static propTypes = {
     autoFocus: PropTypes.bool,
     className: PropTypes.string,
+    DayComponent: PropTypes.func,
     disabledDates: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
     disabledDays: PropTypes.arrayOf(PropTypes.number),
     display: PropTypes.oneOf(['years', 'days']),
@@ -78,6 +75,7 @@ export default class Calendar extends Component {
   		showTodayHelper: PropTypes.bool,
       todayHelperRowOffset: PropTypes.number,
     }),
+    handlers: PropTypes.arrayOf(PropTypes.string),
     height: PropTypes.number,
     keyboardSupport: PropTypes.bool,
     locale: PropTypes.shape({
@@ -95,7 +93,6 @@ export default class Calendar extends Component {
     min: PropTypes.instanceOf(Date),
     minDate: PropTypes.instanceOf(Date),
     onHighlightedDateChange: PropTypes.func,
-    onKeyDown: PropTypes.func,
     onScroll: PropTypes.func,
     onScrollEnd: PropTypes.func,
     onSelect: PropTypes.func,
@@ -119,55 +116,25 @@ export default class Calendar extends Component {
       weekdayColor: PropTypes.string,
     }),
     width: PropTypes.number,
+    YearComponent: PropTypes.func,
   };
   componentDidMount() {
-    let {autoFocus, keyboardSupport} = this.props;
+    let {autoFocus} = this.props;
 
-    if (keyboardSupport && autoFocus) {
+    if (autoFocus) {
       this.node.focus();
     }
   }
-  componentWillReceiveProps(next) {
-    let {min, minDate, max, maxDate, selectedDate} = this.props;
-    let {display} = this.state;
+  componentWillUpdate(nextProps, nextState) {
+    let {min, minDate, max, maxDate} = this.props;
 
-    if (next.min !== min || next.minDate !== minDate || next.max !== max || next.maxDate !== maxDate) {
-      this.updateYears(next);
-    }
-    if (next.selectedDate !== selectedDate) {
-      var parsed = this.parseSelectedDate(next.selectedDate);
-      this.setState({
-        selectedDate: parsed,
-      });
-      if(parsed) this.scrollToDate(parsed,-this.props.rowHeight*2);
-    } else if (next.minDate !== minDate || next.maxDate !== maxDate) {
-			// Need to make sure the currently selected date is not before the new minDate or after maxDate
-      let _selectedDate = this.parseSelectedDate(this.state.selectedDate);
-      if (!isSameDay(_selectedDate, this.state.selectedDate)) {
-        this.setState({
-          selectedDate: _selectedDate,
-        });
-      }
-    }
-    if (next.display !== display) {
-      this.setState({
-        display: next.display,
-      });
-    }
-  }
-  parseSelectedDate(selectedDate) {
-    if (!selectedDate) { return null; }
-
-    selectedDate = parse(selectedDate);
-
-		// Selected Date should not be before min date or after max date
-    if (isBefore(selectedDate, this._minDate)) {
-      return this._minDate;
-    } else if (isAfter(selectedDate, this._maxDate)) {
-      return this._maxDate;
+    if (nextProps.min !== min || nextProps.minDate !== minDate || nextProps.max !== max || nextProps.maxDate !== maxDate) {
+      this.updateYears(nextProps);
     }
 
-    return startOfDay(new Date(selectedDate));
+    if (nextProps.display !== this.props.display) {
+      this.setState({display: nextProps.display});
+    }
   }
   updateYears(props = this.props) {
     this._min = parse(props.min);
@@ -191,28 +158,18 @@ export default class Calendar extends Component {
   getDisabledDates(disabledDates) {
     return disabledDates && disabledDates.map((date) => format(parse(date), 'YYYY-MM-DD'));
   }
+  _displayOptions = {};
   getDisplayOptions(displayOptions = this.props.displayOptions) {
-    return Object.assign({}, defaultDisplayOptions, displayOptions);
+    return Object.assign(this._displayOptions, defaultDisplayOptions, displayOptions);
   }
+  _locale = {};
   getLocale() {
-    return Object.assign({}, defaultLocale, this.props.locale);
+    return Object.assign(this._locale, defaultLocale, this.props.locale);
   }
+  _theme = {};
   getTheme() {
-    return Object.assign({}, defaultTheme, this.props.theme);
+    return Object.assign(this._theme, defaultTheme, this.props.theme);
   }
-  onDaySelect = (selectedDate, e, shouldHeaderAnimate = this.state.shouldHeaderAnimate) => {
-    let {shouldPreventSelect, onSelect} = this.props;
-
-    if (!shouldPreventSelect(selectedDate)) {
-      onSelect(selectedDate, e);
-
-      this.setState({
-        highlightedDate: new Date(selectedDate),
-        selectedDate,
-        shouldHeaderAnimate,
-      }, this.clearHighlight);
-    }
-  };
   getCurrentOffset = () => {
     return this.scrollTop;
   }
@@ -293,144 +250,36 @@ export default class Calendar extends Component {
       this.setState({showToday: newState});
     }
   };
-  handleKeyDown = (e) => {
-    const {maxDate, minDate, onHighlightedDateChange, onKeyDown} = this.props;
-    let {display, selectedDate, highlightedDate, showToday} = this.state;
-    let delta = 0;
-
-    onKeyDown(e);
-
-    if ([keyCodes.left, keyCodes.up, keyCodes.right, keyCodes.down].indexOf(e.keyCode) > -1 && typeof e.preventDefault === 'function') {
-      e.preventDefault();
-    }
-
-    if (!selectedDate) {
-      selectedDate = new Date();
-    }
-
-    if (display === 'days') {
-      if (!highlightedDate) {
-        highlightedDate = new Date(selectedDate);
-        this.setState({highlightedDate});
-      }
-
-      switch (e.keyCode) {
-        case keyCodes.enter:
-          this.onDaySelect(new Date(highlightedDate), e);
-          return;
-        case keyCodes.left:
-          delta = -1;
-          break;
-        case keyCodes.right:
-          delta = +1;
-          break;
-        case keyCodes.down:
-          delta = +7;
-          break;
-        case keyCodes.up:
-          delta = -7;
-          break;
-        default:
-          delta = 0;
-      }
-
-      if (delta) {
-        let {rowHeight} = this.props;
-        let newHighlightedDate = addDays(highlightedDate, delta);
-
-				// Make sure the new highlighted date isn't before min / max
-        if (isBefore(newHighlightedDate, minDate)) {
-          newHighlightedDate = new Date(minDate);
-        } else if (isAfter(newHighlightedDate, maxDate)) {
-          newHighlightedDate = new Date(maxDate);
-        }
-
-				// Update the highlight indicator
-        this.clearHighlight();
-
-				// Scroll the view
-        if (!this.currentOffset) this.currentOffset = this.getCurrentOffset();
-        let currentOffset = this.currentOffset;
-        let monthOffset = this.getDateOffset(newHighlightedDate);
-        let navOffset = (showToday) ? 36 : 0;
-
-        let highlightedEl = this.highlightedEl = this.node.querySelector(`[data-date='${format(newHighlightedDate, 'YYYY-MM-DD')}']`);
-
-				// Edge-case: if the user tries to use the keyboard when the new highlighted date isn't rendered because it's too far off-screen
-				// We need to scroll to the month of the new highlighted date so it renders
-        if (!highlightedEl) {
-          this.scrollTo(monthOffset - navOffset);
-          return;
-        }
-
-        highlightedEl.classList.add(styles.day.highlighted);
-
-        let dateOffset = highlightedEl.offsetTop - rowHeight;
-        let newOffset = monthOffset + dateOffset;
-
-
-        if (currentOffset !== newOffset) {
-          this.currentOffset = newOffset;
-          this.scrollTo(newOffset - navOffset);
-        }
-
-				// Update the reference to the currently highlighted date
-        this.setState({
-          highlightedDate: newHighlightedDate,
-        }, () => onHighlightedDateChange(newHighlightedDate));
-
-      }
-    } else if (display === 'years' && this._Years) {
-      this._Years.handleKeyDown(e);
-    }
-  };
-  clearHighlight = () => {
-    if (this.highlightedEl) {
-      this.highlightedEl.classList.remove(styles.day.highlighted);
-      this.highlightedEl = null;
-    }
-  }
   setDisplay = (display) => {
     this.setState({display});
-  }
-  sanitizeDate(date, disabledDates = this.getDisabledDates()) {
-    const {disabledDays} = this.props;
-
-    if (!date) { return null; }
-
-    // Selected date should not be disabled
-    if (
-      disabledDates && disabledDates.indexOf(format(date, 'YYYY-MM-DD')) !== -1 ||
-      disabledDays && disabledDays.indexOf(getDay(date)) !== -1
-    ) {
-      return null;
-    }
-
-    return date;
   }
   render() {
     let {
 			className,
+      DayComponent,
 			disabledDays,
+      handlers,
 			height,
-			keyboardSupport,
 			minDate,
 			maxDate,
+      onDayClick,
+      selected,
 			tabIndex,
 			width,
+      YearComponent,
 			...other
 		} = this.props;
     const {
       hideYearsOnSelect,
       layout,
       overscanMonthCount,
+      shouldHeaderAnimate,
       showHeader,
       showOverlay,
       showTodayHelper,
     } = this.getDisplayOptions();
-    const {display, isScrolling, showToday, shouldHeaderAnimate} = this.state;
+    const {display, isScrolling, showToday} = this.state;
     const disabledDates = this.getDisabledDates(this.props.disabledDates);
-    const selectedDate = this.sanitizeDate(this.state.selectedDate, disabledDates);
     const locale = this.getLocale();
     const theme = this.getTheme();
     const today = this.today = startOfDay(new Date());
@@ -438,7 +287,6 @@ export default class Calendar extends Component {
     return (
       <div
         tabIndex={tabIndex}
-        onKeyDown={keyboardSupport && this.handleKeyDown}
         className={classNames(className, styles.container.root, {
           [styles.container.landscape]: layout === 'landscape',
         })}
@@ -447,11 +295,14 @@ export default class Calendar extends Component {
         ref={node => {
           this.node = node;
         }}
+        {...handlers.reduce((acc, handlerKey) => (
+          Object.assign(acc, {[handlerKey]: this.props[handlerKey]})
+        ), {})}
       >
         {showHeader &&
           <Header
-            selectedDate={selectedDate}
-            shouldHeaderAnimate={shouldHeaderAnimate}
+            selected={selected}
+            shouldHeaderAnimate={Boolean(shouldHeaderAnimate && display !== 'years')}
             layout={layout}
             theme={theme}
             locale={locale}
@@ -477,13 +328,13 @@ export default class Calendar extends Component {
                 this._MonthList = instance;
               }}
               {...other}
+              DayComponent={DayComponent}
               width={width}
               height={height}
-              selectedDate={selectedDate}
               disabledDates={disabledDates}
               disabledDays={disabledDays}
               months={this.months}
-              onDaySelect={this.onDaySelect}
+              onDayClick={onDayClick}
               onScroll={this.onScroll}
               isScrolling={isScrolling}
               today={today}
@@ -493,20 +344,21 @@ export default class Calendar extends Component {
               theme={theme}
               locale={locale}
               overscanMonthCount={overscanMonthCount}
+              selected={selected}
               showOverlay={showOverlay}
             />
           </div>
           {display === 'years' &&
-            <Years
+            <YearComponent
               ref={instance => {
                 this._Years = instance;
               }}
+              {...other}
               width={width}
               height={height}
-              onDaySelect={this.onDaySelect}
               minDate={minDate}
               maxDate={maxDate}
-              selectedDate={selectedDate}
+              selected={selected}
               theme={theme}
               today={today}
               years={range(this._min.getFullYear(), this._max.getFullYear() + 1)}
@@ -519,4 +371,4 @@ export default class Calendar extends Component {
       </div>
     );
   }
-}
+};
