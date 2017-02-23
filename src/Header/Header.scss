@@ -1,25 +1,18 @@
 @import "../variables";
 
 .root {
+  position: relative;
   display: flex;
   align-items: center;
   box-sizing: border-box;
 
+  min-height: 98px;
   padding: 20px;
   line-height: 1.3;
   font-weight: 400;
   border-top-left-radius: $borderRadius;
   border-top-right-radius: $borderRadius;
 
-  &.blank {
-    height: 98px;
-
-    .wrapper {
-      color: rgba(255,255,255,0.5);
-      font-size: 18px;
-      cursor: default;
-    }
-  }
   &.landscape {
     align-items: flex-start;
     min-width: 200px;
@@ -38,6 +31,14 @@
   flex-direction: column;
   flex-grow: 1;
   cursor: pointer;
+
+  &.blank {
+    height: 58px;
+    line-height: 58px;
+    color: rgba(255,255,255,0.5);
+    font-size: 18px;
+    cursor: default;
+  }
 }
 
 .dateWrapper {

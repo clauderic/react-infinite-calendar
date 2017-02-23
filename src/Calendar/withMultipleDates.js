@@ -1,50 +1,69 @@
 import {compose, mapProps, withHandlers, withProps, withState} from 'recompose';
 import {withDefaultProps} from './';
-import {sanitizeDate} from '../utils';
+import {sanitizeDate, withImmutableProps} from '../utils';
+import enhanceHeader from '../Header/withMultipleDates';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 
-export const withSelectedState = mapProps(props => ({
+// Enhance Day component to display selected state based on an array of selected dates
+export const enhanceDay = mapProps(props => ({
   ...props,
   isSelected: props.selected.indexOf(props.date) !== -1,
 }));
 
-
-const withSelectedYear = compose(
-  mapProps(({selected, onYearSelect, ...props}) => ({
+// Enhance year component
+const enhanceYears = compose(
+  mapProps(({selected, onYearSelect, displayDate, ...props}) => ({
     ...props,
     onSelect: onYearSelect,
-    selectedYear: selected.length ? parse(selected[0]).getFullYear() : null,
-  }))
+    selectedYear: displayDate ? parse(displayDate).getFullYear() : null,
+  })),
 );
 
-// Enhancer to handle selecting and displaying a single date
+// Enhancer to handle selecting and displaying multiple dates
 export const withMultipleDates = compose(
   withDefaultProps,
-  withHandlers({
-    DayComponent: ({DayComponent}) => withSelectedState(DayComponent),
-    onDayClick: props => date => handleSelect(date, props),
-    onYearSelect: props => (year, e, callback) => handleYearSelect(year, props, callback),
-    YearComponent: ({YearComponent}) => withSelectedYear(YearComponent),
-  }),
-  withProps((props) => ({
+  withState('scrollDate', 'setScrollDate', getInitialDate),
+  withState('displayDate', 'setDisplayDate', getInitialDate),
+  withImmutableProps(({
+    DayComponent,
+    displayDate,
+    HeaderComponent,
+    setDisplayDate,
+    YearComponent,
+  }) => ({
+    DayComponent: enhanceDay(DayComponent),
+    HeaderComponent: compose(
+      withProps({
+        setDisplayDate,
+      }),
+      enhanceHeader,
+    )(HeaderComponent),
+    YearComponent: enhanceYears(YearComponent),
+  })),
+  withProps(props => ({
     selected: props.selected
       .filter(date => sanitizeDate(date, props))
       .map(date => format(date, 'YYYY-MM-DD')),
   })),
-  withState('scrollDate', 'scrollToDate', props =>
-    props.selected.length
-      ? props.selected[0]
-      : new Date()
-  ),
+  withHandlers({
+    onDayClick: props => date => handleSelect(date, props),
+    onYearSelect: props =>
+      (year, e, scrollToDate) => handleYearSelect(year, props, scrollToDate),
+  }),
 );
 
-function handleSelect(date, props) {
-  props.onSelect(date);
+function handleSelect(date, {onSelect, setDisplayDate}) {
+  onSelect(date);
+  setDisplayDate(date);
 }
 
-function handleYearSelect(year, props, callback) {
-  const {selected, onSelect} = props;
+function handleYearSelect(year, props, scrollToDate) {
+  const {displayDate} = props;
 
-  onSelect(parse(selected).setYear(year), callback);
+  scrollToDate(parse(displayDate).setYear(year));
+}
+
+function getInitialDate({selected}) {
+  return selected.length ? selected[0] : new Date();
 }

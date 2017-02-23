@@ -16,7 +16,7 @@ export default class Today extends PureComponent {
   scrollToToday = () => {
     let {scrollToDate} = this.props;
 
-    scrollToDate(new Date(), -40);
+    scrollToDate(new Date(), -40, true);
   };
   render() {
     let {todayLabel, show, theme} = this.props;

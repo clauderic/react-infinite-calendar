@@ -31,6 +31,7 @@ export const withDefaultProps = defaultProps({
   display: 'days',
   displayOptions: {},
   handlers: [],
+  HeaderComponent: Header,
   height: 500,
   keyboardSupport: true,
   max: new Date(2050, 11, 31),
@@ -42,7 +43,6 @@ export const withDefaultProps = defaultProps({
   onScrollEnd: emptyFn,
   onSelect: emptyFn,
   rowHeight: 56,
-  shouldPreventSelect: () => false,
   tabIndex: 1,
   width: 400,
   YearComponent: Years,
@@ -98,7 +98,6 @@ export default class Calendar extends Component {
     onSelect: PropTypes.func,
     rowHeight: PropTypes.number,
     selectedDate: PropTypes.instanceOf(Date),
-    shouldPreventSelect: PropTypes.func,
     tabIndex: PropTypes.number,
     theme: PropTypes.shape({
       floatingNav: PropTypes.shape({
@@ -179,19 +178,19 @@ export default class Calendar extends Component {
   scrollTo = (offset) => {
     return this._MonthList && this._MonthList.scrollTo(offset);
   }
-  scrollToDate = (date = new Date(), offset) => {
-    return this._MonthList && this._MonthList.scrollToDate(date, offset);
+  scrollToDate = (date = new Date(), offset, shouldAnimate) => {
+    return this._MonthList && this._MonthList.scrollToDate(date, offset, shouldAnimate, () => this.setState({isScrolling: false}));
   };
   getScrollSpeed = new ScrollSpeed().getScrollSpeed;
   onScroll = ({scrollTop}) => {
-    const {onScroll} = this.props;
+    const {onScroll, rowHeight} = this.props;
     const {isScrolling} = this.state;
     const {showTodayHelper, showOverlay} = this.getDisplayOptions();
     const scrollSpeed = this.scrollSpeed = Math.abs(this.getScrollSpeed(scrollTop));
     this.scrollTop = scrollTop;
 
 		// We only want to display the months overlay if the user is rapidly scrolling
-    if (showOverlay && scrollSpeed >= 50 && !isScrolling) {
+    if (showOverlay && scrollSpeed > rowHeight && !isScrolling) {
       this.setState({
         isScrolling: true,
       });
@@ -258,8 +257,10 @@ export default class Calendar extends Component {
 			className,
       DayComponent,
 			disabledDays,
+      displayDate,
       handlers,
 			height,
+      HeaderComponent,
 			minDate,
 			maxDate,
       onDayClick,
@@ -300,15 +301,16 @@ export default class Calendar extends Component {
         ), {})}
       >
         {showHeader &&
-          <Header
+          <HeaderComponent
             selected={selected}
-            shouldHeaderAnimate={Boolean(shouldHeaderAnimate && display !== 'years')}
+            shouldAnimate={Boolean(shouldHeaderAnimate && display !== 'years')}
             layout={layout}
             theme={theme}
             locale={locale}
             scrollToDate={this.scrollToDate}
             setDisplay={this.setDisplay}
             display={display}
+            displayDate={displayDate}
           />
         }
         <div className={styles.container.wrapper}>
@@ -353,7 +355,6 @@ export default class Calendar extends Component {
               ref={instance => {
                 this._Years = instance;
               }}
-              {...other}
               width={width}
               height={height}
               minDate={minDate}

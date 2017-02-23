@@ -66,7 +66,7 @@ storiesOf('Higher Order Components', module)
   .add('Multiple date selection', () => {
     return (
       <CalendarWrapper
-        selected={[today, addDays(today, 2)]}
+        selected={[addDays(today, -600), addDays(today, -200), today, addDays(today, 50), addDays(today, 400)]}
         handleSelect={(date, instance) => {
           const selected = instance.state.selected;
           const selectedMap = selected.map(date => format(date, 'YYYY-MM-DD'));

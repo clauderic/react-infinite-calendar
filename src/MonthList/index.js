@@ -1,10 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import {List} from 'react-virtualized';
 import classNames from 'classnames';
-import {getMonth, getWeek, getWeeksInMonth} from '../utils';
-import differenceInWeeks from 'date-fns/difference_in_weeks';
+import {emptyFn, getMonth, getWeek, getWeeksInMonth, smoothScroll} from '../utils';
 import differenceInMonths from 'date-fns/difference_in_months';
-import startOfMonth from 'date-fns/start_of_month';
 import parse from 'date-fns/parse';
 import Month from '../Month';
 import styles from './MonthList.scss';
@@ -77,24 +75,42 @@ export default class MonthList extends Component {
       return this.scrollEl.scrollTop;
     }
   };
-  scrollToDate = (date, offset = 0) => {
+  scrollToDate = (date, offset = 0, shouldAnimate, callback) => {
     let offsetTop = this.getDateOffset(date);
-    this.scrollTo(offsetTop + offset);
+    this.scrollTo(offsetTop + offset, shouldAnimate, callback);
   };
-  scrollTo = (scrollTop = 0) => {
+  scrollTo = (scrollTop = 0, shouldAnimate = false, callback = emptyFn) => {
     if (this.scrollEl) {
+      const onScrollEnd = () => setTimeout(() => {
+        this.scrollEl.style.overflowY = 'auto';
+      });
+
+      // Interrupt iOS Momentum scroll
       this.scrollEl.style.overflowY = 'hidden';
 
-      window.requestAnimationFrame(() => {
-        this.scrollEl.scrollTop = scrollTop;
-
-        setTimeout(() => {
-          this.scrollEl.style.overflowY = 'auto';
+      if (shouldAnimate) {
+        smoothScroll({
+          callback: () => {
+            callback();
+            onScrollEnd();
+          },
+          element: this.scrollEl,
+          offsetTop: scrollTop,
+          setState: this.setState.bind(this),
         });
-      });
+      } else {
+        window.requestAnimationFrame(() => {
+          this.scrollEl.scrollTop = scrollTop;
+          onScrollEnd();
+        });
+      }
     }
   };
+  cache = {};
   renderMonth = ({index, isScrolling, style}) => {
+    if (isScrolling) {
+    }
+
     let {
       DayComponent,
       disabledDates,
@@ -121,7 +137,7 @@ export default class MonthList extends Component {
         key={key}
         selected={selected}
         DayComponent={DayComponent}
-        displayDate={date}
+        monthDate={date}
         disabledDates={disabledDates}
         disabledDays={disabledDays}
         maxDate={maxDate}
@@ -162,7 +178,7 @@ export default class MonthList extends Component {
           estimatedRowSize={rowHeight * 5}
           rowRenderer={this.renderMonth}
           onScroll={onScroll}
-          scrollTop={this.getDateOffset(scrollDate)}
+          scrollTop={this.state.scrollTop || this.getDateOffset(scrollDate)}
           className={classNames(styles.root, {[styles.scrolling]: isScrolling})}
           style={{lineHeight: `${rowHeight}px`}}
           overscanRowCount={overscanMonthCount}
