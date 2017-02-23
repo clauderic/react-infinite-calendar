@@ -1,17 +1,17 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import classNames from 'classnames';
 import format from 'date-fns/format';
 import getDay from 'date-fns/get_day';
 import isSameYear from 'date-fns/is_same_year';
 import styles from './Month.scss';
 
-export default class Month extends Component {
+export default class Month extends PureComponent {
   renderRows() {
     const {
       DayComponent,
       disabledDates,
       disabledDays,
-      displayDate,
+      monthDate,
       locale,
       maxDate,
       minDate,
@@ -23,9 +23,9 @@ export default class Month extends Component {
       ...other
     } = this.props;
     const currentYear = today.getFullYear();
-    const year = displayDate.getFullYear();
-    const month = displayDate.getMonth();
-    const monthShort = format(displayDate, 'MMM', {locale: locale.locale});
+    const year = monthDate.getFullYear();
+    const month = monthDate.getMonth();
+    const monthShort = format(monthDate, 'MMM', {locale: locale.locale});
     const monthRows = [];
     let day = 0;
     let isDisabled = false;
@@ -86,7 +86,7 @@ export default class Month extends Component {
     return monthRows;
   }
   render() {
-    let {displayDate, today, rows, showOverlay, style, theme} = this.props;
+    let {monthDate, today, rows, showOverlay, style, theme} = this.props;
 
     return (
       <div className={styles.root} style={style}>
@@ -101,8 +101,8 @@ export default class Month extends Component {
               >
                 <span>
                   {
-                    `${format(displayDate, 'MMMM')}${!isSameYear(displayDate, today)
-                      ? ' ' + displayDate.getFullYear()
+                    `${format(monthDate, 'MMMM')}${!isSameYear(monthDate, today)
+                      ? ' ' + monthDate.getFullYear()
                       : ''}`
                   }
                 </span>
