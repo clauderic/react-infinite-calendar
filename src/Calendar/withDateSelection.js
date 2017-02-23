@@ -1,44 +1,57 @@
-import {compose, mapProps, withHandlers, withProps, withState} from 'recompose';
+import {
+  compose,
+  withHandlers,
+  withProps,
+  withPropsOnChange,
+  withState,
+} from 'recompose';
 import {withDefaultProps} from './';
-import {sanitizeDate} from '../utils';
+import {sanitizeDate, withImmutableProps} from '../utils';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 
-export const withSelectedState = mapProps(props => ({
-  ...props,
+export const enhanceDay = withPropsOnChange(['selected'], props => ({
   isSelected: props.selected === props.date,
 }));
 
-const withSelectedYear = compose(
-  mapProps(({selected, onYearSelect, ...props}) => ({
-    ...props,
-    onSelect: onYearSelect,
+const enhanceYear = (Component, {onSelect, setScrollDate}) => compose(
+  withPropsOnChange(['selected'], ({selected}) => ({
     selectedYear: parse(selected).getFullYear(),
-  }))
-);
+  })),
+  withImmutableProps((props) => ({
+    onSelectYear: year =>
+      handleYearSelect(year, {...props, onSelect, setScrollDate}),
+  })),
+)(Component);
 
 // Enhancer to handle selecting and displaying a single date
 export const withDateSelection = compose(
   withDefaultProps,
+  withState('scrollDate', 'setScrollDate', props => props.selected),
+  withImmutableProps(({
+    DayComponent,
+    onSelect,
+    setScrollDate,
+    YearComponent,
+  }) => ({
+    DayComponent: enhanceDay(DayComponent),
+    YearComponent: enhanceYear(YearComponent, {onSelect, setScrollDate}),
+  })),
   withHandlers({
-    DayComponent: ({DayComponent}) => withSelectedState(DayComponent),
     onDayClick: props => date => props.onSelect(date),
-    onYearSelect: props => year => handleYearSelect(year, props),
-    YearComponent: ({YearComponent}) => withSelectedYear(YearComponent),
   }),
-  withProps((props) => {
+  withProps(props => {
     const selected = sanitizeDate(props.selected, props);
 
     return {
       selected: selected && format(selected, 'YYYY-MM-DD'),
     };
   }),
-  withState('scrollDate', 'scrollToDate', props => props.selected),
 );
 
+function handleYearSelect(year, {setScrollDate, selected, onSelect}) {
+  const newDate = parse(selected).setYear(year);
 
-function handleYearSelect(year, props) {
-  const {selected, onSelect} = props;
-
-  onSelect(parse(selected).setYear(year));
+  onSelect(newDate);
+  setScrollDate(newDate);
 }
