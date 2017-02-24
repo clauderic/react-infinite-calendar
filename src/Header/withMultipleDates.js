@@ -23,7 +23,7 @@ export default withImmutableProps(({renderSelection, setDisplayDate}) => ({
         {dates.map(value =>
           defaultSelectionRenderer(value, {
             ...props,
-            index,
+            key: index,
             scrollToDate,
             shouldAnimate: false,
           }))}

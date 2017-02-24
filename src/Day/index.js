@@ -3,12 +3,7 @@ import classNames from 'classnames';
 import parse from 'date-fns/parse';
 import styles from './Day.scss';
 
-const updateKeys = ['currentYear', 'day', 'monthShort', 'isDisabled', 'isToday', 'isSelected', 'isHighlighted', 'locale', 'theme'];
-
 export default class Day extends PureComponent {
-  shouldComponentUpdate(nextProps) {
-    return updateKeys.some((key) => this.props[key] !== nextProps[key]);
-  }
   handleClick = () => {
     let {date, isDisabled, onClick} = this.props;
 
@@ -16,24 +11,23 @@ export default class Day extends PureComponent {
       onClick(parse(date));
     }
   };
-  renderSelection() {
+  renderSelection(selectionColor) {
     const {
       day,
-      date,
       isToday,
       locale: {todayLabel},
       monthShort,
-      theme: {selectionColor, textColor},
+      theme: {textColor},
+      selectionStyle,
     } = this.props;
 
     return (
       <div
         className={styles.selection}
         style={{
-          backgroundColor: typeof selectionColor === 'function'
-            ? selectionColor(date)
-            : selectionColor,
+          backgroundColor: this.selectionColor,
           color: textColor.active,
+          ...selectionStyle,
         }}
       >
         <span className={styles.month}>
@@ -45,6 +39,7 @@ export default class Day extends PureComponent {
   }
   render() {
     const {
+      className,
       currentYear,
       date,
       day,
@@ -53,20 +48,29 @@ export default class Day extends PureComponent {
       isToday,
       isSelected,
       monthShort,
-      theme,
+      theme: {selectionColor, todayColor},
       year,
     } = this.props;
+    let color;
+
+    if (isSelected) {
+      color = this.selectionColor = typeof selectionColor === 'function'
+        ? selectionColor(date)
+        : selectionColor;
+    } else if (isToday) {
+      color = todayColor;
+    }
 
     return (
       <li
-        style={isToday ? {color: theme.todayColor} : null}
+        style={color ? {color} : null}
         className={classNames(styles.root, {
           [styles.today]: isToday,
           [styles.highlighted]: isHighlighted,
           [styles.selected]: isSelected,
           [styles.disabled]: isDisabled,
           [styles.enabled]: !isDisabled,
-        })}
+        }, className)}
         onClick={this.handleClick}
         data-date={date}
       >

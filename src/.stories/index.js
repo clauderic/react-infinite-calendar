@@ -1,6 +1,12 @@
+/* eslint-disable sort-keys */
 import React, {Component} from 'react';
 import {addDecorator, storiesOf} from '@kadira/storybook';
-import InfiniteCalendar, {withDateSelection, withKeyboardSupport, withMultipleDates} from '../';
+import InfiniteCalendar, {
+  withDateSelection,
+  withKeyboardSupport,
+  withMultipleDates,
+  withRange,
+} from '../';
 import styles from './stories.scss';
 
 // Date manipulation utils
@@ -63,6 +69,42 @@ storiesOf('Basic settings', module)
   ));
 
 storiesOf('Higher Order Components', module)
+  .add('Range selection', () => (
+    <CalendarWrapper
+      selected={{
+        start: new Date(),
+        end: addDays(new Date(), 7),
+      }}
+      handleSelect={(date, instance) => {
+        const {state: {selected}} = instance;
+
+        if (selected.start !== selected.end || !selected.start && !selected.end) {
+          instance.setState({
+            selected: {
+              start: date,
+              end: date,
+            },
+          });
+        } else if (selected.start) {
+          let start = selected.start;
+          let end = date;
+
+          if (start > end) {
+            end = start;
+            start = date;
+          }
+
+          instance.setState({
+            selected: {
+              start,
+              end,
+            },
+          });
+        }
+      }}
+      Component={withRange(InfiniteCalendar)}
+    />
+  ))
   .add('Multiple date selection', () => {
     return (
       <CalendarWrapper

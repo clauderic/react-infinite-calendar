@@ -7,9 +7,10 @@ import styles from './Header.scss';
 import animation from './Animation.scss';
 
 export default function defaultSelectionRenderer(value, {
-  index = 0,
   display,
-  locale: {headerFormat, locale},
+  key,
+  locale: {locale},
+  dateFormat,
   scrollToDate,
   setDisplay,
   shouldAnimate,
@@ -39,17 +40,17 @@ export default function defaultSelectionRenderer(value, {
       },
       item: 'day',
       title: display === 'days'
-        ? `Scroll to ${format(date, headerFormat, {locale})}`
+        ? `Scroll to ${format(date, dateFormat, {locale})}`
         : null,
-      value: format(date, headerFormat, {locale}),
+      value: format(date, dateFormat, {locale}),
     },
   ];
 
   return (
     <div
-      key={index}
+      key={key}
       className={styles.wrapper}
-      aria-label={format(format, headerFormat + ' YYYY', {locale})}
+      aria-label={format(date, dateFormat + ' YYYY', {locale})}
     >
       {values.map(({handleClick, item, key, value, active, title}) => {
         return (

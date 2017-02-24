@@ -124,3 +124,73 @@
 .year {
   bottom: 5px;
 }
+
+/*
+ * Range selection styles
+ */
+.range.selected {
+  &.start, &.end {
+    &:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: ($rowHeight - 4px) / 2;
+      height: $rowHeight - 4px;
+      margin-top: -0.5 * ($rowHeight - 4px);
+      box-shadow: inset $rowHeight $rowHeight;
+    }
+  }
+
+  &.start {
+    .selection {
+      border-top-left-radius: 50%;
+      border-bottom-left-radius: 50%;
+    }
+
+    &:after {
+      right: 0;
+    }
+
+    &.end:after {
+      display: none;
+    }
+  }
+  &.betweenRange {
+    .selection {
+      left: 0;
+      right: 0;
+      width: 100%;
+      margin-left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 0;
+    }
+    .day {
+      top: 0;
+      font-size: 16px;
+    }
+    .month {
+      display: none;
+    }
+  }
+  &.end {
+    &:after {
+      left: 0;
+    }
+
+    .selection {
+      border-top-right-radius: 50%;
+      border-bottom-right-radius: 50%;
+
+      color: inherit !important;
+      background-color: #FFF !important;
+      border: 2px solid;
+      box-sizing: border-box;
+
+      .day {
+        top: 4px;
+      }
+    }
+  }
+}

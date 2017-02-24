@@ -8,6 +8,7 @@ export default class Header extends PureComponent {
     renderSelection: defaultSelectionRenderer,
   };
   static propTypes = {
+    dateFormat: PropTypes.string,
     display: PropTypes.string,
     layout: PropTypes.string,
     locale: PropTypes.object,

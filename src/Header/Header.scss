@@ -5,6 +5,7 @@
   display: flex;
   align-items: center;
   box-sizing: border-box;
+  overflow: hidden;
 
   min-height: 98px;
   padding: 20px;
@@ -69,4 +70,41 @@
   left: 0;
   right: 0;
   bottom: 0;
+}
+
+.range {
+  display: flex;
+  flex-grow: 1;
+
+  .wrapper {
+    &:first-child {
+      &:before, &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 0;
+        height: 0;
+        margin-top: -50px;
+        margin-left: -50px;
+
+        border-top: 100px solid transparent;
+        border-bottom: 100px solid transparent;
+
+        border-left: 60px solid;
+      }
+
+      &:before {
+        color: rgba(255,255,255, 0.15);
+        transform: translateX(1px);
+      }
+    }
+    &:last-child {
+      margin-left: 60px;
+    }
+
+    .date {
+      z-index: 1;
+    }
+  }
 }

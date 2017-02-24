@@ -314,6 +314,7 @@ export default class Calendar extends Component {
             locale={locale}
             scrollToDate={this.scrollToDate}
             setDisplay={this.setDisplay}
+            dateFormat={locale.headerFormat}
             display={display}
             displayDate={displayDate}
             {...passThrough.Header}

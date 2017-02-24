@@ -32,7 +32,7 @@
     &:first-child {
       li {
         &:first-child {
-          border-left: 1px solid $borderColor;
+          box-shadow: 0px -1px 0 #E9E9E9, inset 1px 0 0 #E9E9E9;
         }
       }
     }
