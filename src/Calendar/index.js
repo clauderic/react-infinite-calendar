@@ -30,7 +30,6 @@ export const withDefaultProps = defaultProps({
   DayComponent: Day,
   display: 'days',
   displayOptions: {},
-  handlers: [],
   HeaderComponent: Header,
   height: 500,
   keyboardSupport: true,
@@ -42,10 +41,11 @@ export const withDefaultProps = defaultProps({
   onScroll: emptyFn,
   onScrollEnd: emptyFn,
   onSelect: emptyFn,
+  passThrough: {},
   rowHeight: 56,
   tabIndex: 1,
   width: 400,
-  YearComponent: Years,
+  YearsComponent: Years,
 });
 
 export default class Calendar extends Component {
@@ -71,11 +71,11 @@ export default class Calendar extends Component {
       overscanMonthCount: PropTypes.number,
   		shouldHeaderAnimate: PropTypes.bool,
       showHeader: PropTypes.bool,
+      showMonthsForYears: PropTypes.bool,
   		showOverlay: PropTypes.bool,
   		showTodayHelper: PropTypes.bool,
       todayHelperRowOffset: PropTypes.number,
     }),
-    handlers: PropTypes.arrayOf(PropTypes.string),
     height: PropTypes.number,
     keyboardSupport: PropTypes.bool,
     locale: PropTypes.shape({
@@ -92,12 +92,10 @@ export default class Calendar extends Component {
     maxDate: PropTypes.instanceOf(Date),
     min: PropTypes.instanceOf(Date),
     minDate: PropTypes.instanceOf(Date),
-    onHighlightedDateChange: PropTypes.func,
     onScroll: PropTypes.func,
     onScrollEnd: PropTypes.func,
     onSelect: PropTypes.func,
     rowHeight: PropTypes.number,
-    selectedDate: PropTypes.instanceOf(Date),
     tabIndex: PropTypes.number,
     theme: PropTypes.shape({
       floatingNav: PropTypes.shape({
@@ -115,7 +113,7 @@ export default class Calendar extends Component {
       weekdayColor: PropTypes.string,
     }),
     width: PropTypes.number,
-    YearComponent: PropTypes.func,
+    YearsComponent: PropTypes.func,
   };
   componentDidMount() {
     let {autoFocus} = this.props;
@@ -179,7 +177,15 @@ export default class Calendar extends Component {
     return this._MonthList && this._MonthList.scrollTo(offset);
   }
   scrollToDate = (date = new Date(), offset, shouldAnimate) => {
-    return this._MonthList && this._MonthList.scrollToDate(date, offset, shouldAnimate, () => this.setState({isScrolling: false}));
+    const {display} = this.props;
+
+    return this._MonthList &&
+      this._MonthList.scrollToDate(
+        date,
+        offset,
+        shouldAnimate && display === 'days',
+        () => this.setState({isScrolling: false}),
+      );
   };
   getScrollSpeed = new ScrollSpeed().getScrollSpeed;
   onScroll = ({scrollTop}) => {
@@ -255,20 +261,20 @@ export default class Calendar extends Component {
   render() {
     let {
 			className,
+      passThrough,
       DayComponent,
 			disabledDays,
       displayDate,
-      handlers,
 			height,
       HeaderComponent,
 			minDate,
 			maxDate,
-      onDayClick,
+      rowHeight,
+      scrollDate,
       selected,
 			tabIndex,
 			width,
-      YearComponent,
-			...other
+      YearsComponent,
 		} = this.props;
     const {
       hideYearsOnSelect,
@@ -276,6 +282,7 @@ export default class Calendar extends Component {
       overscanMonthCount,
       shouldHeaderAnimate,
       showHeader,
+      showMonthsForYears,
       showOverlay,
       showTodayHelper,
     } = this.getDisplayOptions();
@@ -296,9 +303,7 @@ export default class Calendar extends Component {
         ref={node => {
           this.node = node;
         }}
-        {...handlers.reduce((acc, handlerKey) => (
-          Object.assign(acc, {[handlerKey]: this.props[handlerKey]})
-        ), {})}
+        {...passThrough.rootNode}
       >
         {showHeader &&
           <HeaderComponent
@@ -311,6 +316,7 @@ export default class Calendar extends Component {
             setDisplay={this.setDisplay}
             display={display}
             displayDate={displayDate}
+            {...passThrough.Header}
           />
         }
         <div className={styles.container.wrapper}>
@@ -329,44 +335,46 @@ export default class Calendar extends Component {
               ref={instance => {
                 this._MonthList = instance;
               }}
-              {...other}
               DayComponent={DayComponent}
-              width={width}
-              height={height}
               disabledDates={disabledDates}
               disabledDays={disabledDays}
-              months={this.months}
-              onDayClick={onDayClick}
-              onScroll={this.onScroll}
+              height={height}
               isScrolling={isScrolling}
-              today={today}
+              locale={locale}
+              maxDate={this._maxDate}
               min={this._min}
               minDate={this._minDate}
-              maxDate={this._maxDate}
-              theme={theme}
-              locale={locale}
+              months={this.months}
+              onScroll={this.onScroll}
               overscanMonthCount={overscanMonthCount}
+              passThrough={passThrough}
+              theme={theme}
+              today={today}
+              rowHeight={rowHeight}
               selected={selected}
+              scrollDate={scrollDate}
               showOverlay={showOverlay}
+              width={width}
             />
           </div>
           {display === 'years' &&
-            <YearComponent
+            <YearsComponent
               ref={instance => {
                 this._Years = instance;
               }}
-              width={width}
               height={height}
-              minDate={minDate}
+              hideOnSelect={hideYearsOnSelect}
               maxDate={maxDate}
+              minDate={minDate}
+              scrollToDate={this.scrollToDate}
               selected={selected}
+              setDisplay={this.setDisplay}
               showMonths={showMonthsForYears}
               theme={theme}
               today={today}
+              width={width}
               years={range(this._min.getFullYear(), this._max.getFullYear() + 1)}
-              setDisplay={this.setDisplay}
-              scrollToDate={this.scrollToDate}
-              hideYearsOnSelect={hideYearsOnSelect}
+              {...passThrough.Years}
             />
           }
         </div>

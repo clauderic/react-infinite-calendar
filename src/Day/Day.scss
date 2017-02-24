@@ -33,7 +33,7 @@
       &:before {
         @include circle();
 
-        background-color: #EFEFEF;
+        background-color: $cellHoverBg;
         z-index: -1;
       }
     }

@@ -83,7 +83,7 @@ storiesOf('Higher Order Components', module)
     );
   })
   .add('Keyboard Support', () => {
-    return <CalendarWrapper Component={withKeyboardSupport(InfiniteCalendar)} />;
+    return <CalendarWrapper Component={withDateSelection(withKeyboardSupport(InfiniteCalendar))} />;
   });
 
 storiesOf('Internationalization', module)

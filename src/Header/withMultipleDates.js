@@ -1,5 +1,4 @@
 import React from 'react';
-import {compose} from 'recompose';
 import {withImmutableProps} from '../utils';
 import defaultSelectionRenderer from './defaultSelectionRenderer';
 import Slider from './Slider';

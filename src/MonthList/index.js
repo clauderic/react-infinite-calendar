@@ -1,12 +1,20 @@
 import React, {Component, PropTypes} from 'react';
 import {List} from 'react-virtualized';
 import classNames from 'classnames';
-import {emptyFn, getMonth, getWeek, getWeeksInMonth, smoothScroll} from '../utils';
+import {
+  emptyFn,
+  getMonth,
+  getWeek,
+  getWeeksInMonth,
+  animate,
+} from '../utils';
 import differenceInMonths from 'date-fns/difference_in_months';
 import parse from 'date-fns/parse';
 import Month from '../Month';
 import styles from './MonthList.scss';
 import overscanIndicesGetter from './overscanIndicesGetter';
+
+const AVERAGE_ROWS_PER_MONTH = 5;
 
 export default class MonthList extends Component {
   static propTypes = {
@@ -68,49 +76,43 @@ export default class MonthList extends Component {
     const {min, rowHeight, locale: {weekStartsOn}, height} = this.props;
     const weeks = getWeek(min.getFullYear(), parse(date), weekStartsOn);
 
-    return weeks * rowHeight - (height - rowHeight)/2;
+    return weeks * rowHeight - (height - rowHeight) / 2;
   };
   getCurrentOffset = () => {
     if (this.scrollEl) {
       return this.scrollEl.scrollTop;
     }
   };
-  scrollToDate = (date, offset = 0, shouldAnimate, callback) => {
+  scrollToDate = (date, offset = 0, ...rest) => {
     let offsetTop = this.getDateOffset(date);
-    this.scrollTo(offsetTop + offset, shouldAnimate, callback);
+    this.scrollTo(offsetTop + offset, ...rest);
   };
-  scrollTo = (scrollTop = 0, shouldAnimate = false, callback = emptyFn) => {
-    if (this.scrollEl) {
-      const onScrollEnd = () => setTimeout(() => {
-        this.scrollEl.style.overflowY = 'auto';
+  scrollTo = (scrollTop = 0, shouldAnimate = false, onScrollEnd = emptyFn) => {
+    const onComplete = () => setTimeout(() => {
+      this.scrollEl.style.overflowY = 'auto';
+      onScrollEnd();
+    });
+
+    // Interrupt iOS Momentum scroll
+    this.scrollEl.style.overflowY = 'hidden';
+
+    if (shouldAnimate) {
+      /* eslint-disable sort-keys */
+      animate({
+        fromValue: this.scrollEl.scrollTop,
+        toValue: scrollTop,
+        onUpdate: (scrollTop, callback) =>
+          this.setState({scrollTop}, callback),
+        onComplete,
       });
-
-      // Interrupt iOS Momentum scroll
-      this.scrollEl.style.overflowY = 'hidden';
-
-      if (shouldAnimate) {
-        smoothScroll({
-          callback: () => {
-            callback();
-            onScrollEnd();
-          },
-          element: this.scrollEl,
-          offsetTop: scrollTop,
-          setState: this.setState.bind(this),
-        });
-      } else {
-        window.requestAnimationFrame(() => {
-          this.scrollEl.scrollTop = scrollTop;
-          onScrollEnd();
-        });
-      }
+    } else {
+      window.requestAnimationFrame(() => {
+        this.scrollEl.scrollTop = scrollTop;
+        onComplete();
+      });
     }
   };
-  cache = {};
   renderMonth = ({index, isScrolling, style}) => {
-    if (isScrolling) {
-    }
-
     let {
       DayComponent,
       disabledDates,
@@ -119,13 +121,12 @@ export default class MonthList extends Component {
       maxDate,
       minDate,
       months,
-      onDayClick,
+      passThrough,
       rowHeight,
       selected,
       showOverlay,
       theme,
       today,
-      ...other
     } = this.props;
 
     let {month, year} = months[index];
@@ -142,7 +143,6 @@ export default class MonthList extends Component {
         disabledDays={disabledDays}
         maxDate={maxDate}
         minDate={minDate}
-        onDayClick={onDayClick}
         rows={rows}
         rowHeight={rowHeight}
         isScrolling={isScrolling}
@@ -151,7 +151,8 @@ export default class MonthList extends Component {
         theme={theme}
         locale={locale}
         style={style}
-        {...other}
+        passThrough={passThrough}
+        {...passThrough.Month}
       />
     );
   };
@@ -168,23 +169,21 @@ export default class MonthList extends Component {
     } = this.props;
 
     return (
-      <div onClick={this.handleClick}>
-        <List
-          ref="List"
-          width={width}
-          height={height}
-          rowCount={months.length}
-          rowHeight={this.getMonthHeight}
-          estimatedRowSize={rowHeight * 5}
-          rowRenderer={this.renderMonth}
-          onScroll={onScroll}
-          scrollTop={this.state.scrollTop || this.getDateOffset(scrollDate)}
-          className={classNames(styles.root, {[styles.scrolling]: isScrolling})}
-          style={{lineHeight: `${rowHeight}px`}}
-          overscanRowCount={overscanMonthCount}
-          overscanIndicesGetter={overscanIndicesGetter}
-        />
-      </div>
+      <List
+        ref="List"
+        width={width}
+        height={height}
+        rowCount={months.length}
+        rowHeight={this.getMonthHeight}
+        estimatedRowSize={rowHeight * AVERAGE_ROWS_PER_MONTH}
+        rowRenderer={this.renderMonth}
+        onScroll={onScroll}
+        scrollTop={this.state.scrollTop || this.getDateOffset(scrollDate)}
+        className={classNames(styles.root, {[styles.scrolling]: isScrolling})}
+        style={{lineHeight: `${rowHeight}px`}}
+        overscanRowCount={overscanMonthCount}
+        overscanIndicesGetter={overscanIndicesGetter}
+      />
     );
   }
 }

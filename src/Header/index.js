@@ -36,7 +36,7 @@ export default class Header extends PureComponent {
         }}
       >
         {
-          renderSelection(selected, this.props) ||
+          selected && renderSelection(selected, this.props) ||
           <div className={classNames(styles.wrapper, styles.blank)}>{blank}</div>
         }
       </div>

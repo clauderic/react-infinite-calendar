@@ -1,6 +1,5 @@
 import {
   compose,
-  withHandlers,
   withProps,
   withPropsOnChange,
   withState,
@@ -14,43 +13,42 @@ export const enhanceDay = withPropsOnChange(['selected'], props => ({
   isSelected: props.selected === props.date,
 }));
 
-const enhanceYear = (Component, {onSelect, setScrollDate}) => compose(
-  withPropsOnChange(['selected'], ({selected}) => ({
-    selectedYear: parse(selected).getFullYear(),
-  })),
-  withImmutableProps((props) => ({
-    onSelectYear: year =>
-      handleYearSelect(year, {...props, onSelect, setScrollDate}),
-  })),
-)(Component);
+const enhanceYear = withPropsOnChange(['selected'], ({selected}) => ({
+  selected: parse(selected),
+}));
 
 // Enhancer to handle selecting and displaying a single date
 export const withDateSelection = compose(
   withDefaultProps,
-  withState('scrollDate', 'setScrollDate', props => props.selected),
   withImmutableProps(({
     DayComponent,
     onSelect,
     setScrollDate,
-    YearComponent,
+    YearsComponent,
   }) => ({
     DayComponent: enhanceDay(DayComponent),
-    YearComponent: enhanceYear(YearComponent, {onSelect, setScrollDate}),
+    YearsComponent: enhanceYear(YearsComponent),
   })),
-  withHandlers({
-    onDayClick: props => date => props.onSelect(date),
-  }),
-  withProps(props => {
+  withState('scrollDate', 'setScrollDate', props => props.selected || new Date()),
+  withProps(({onSelect, setScrollDate, ...props}) => {
     const selected = sanitizeDate(props.selected, props);
 
     return {
+      passThrough: {
+        Day: {
+          onClick: onSelect,
+        },
+        Years: {
+          onSelect: (year) => handleYearSelect(year, {onSelect, selected, setScrollDate}),
+        },
+      },
       selected: selected && format(selected, 'YYYY-MM-DD'),
     };
   }),
 );
 
-function handleYearSelect(year, {setScrollDate, selected, onSelect}) {
-  const newDate = parse(selected).setYear(year);
+function handleYearSelect(date, {setScrollDate, selected, onSelect}) {
+  const newDate = parse(date);
 
   onSelect(newDate);
   setScrollDate(newDate);

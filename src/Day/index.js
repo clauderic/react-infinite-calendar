@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import parse from 'date-fns/parse';
 import styles from './Day.scss';
 
-const updateKeys = ['day', 'monthShort', 'isDisabled', 'isToday', 'isSelected', 'isHighlighted'];
+const updateKeys = ['currentYear', 'day', 'monthShort', 'isDisabled', 'isToday', 'isSelected', 'isHighlighted', 'locale', 'theme'];
 
 export default class Day extends PureComponent {
   shouldComponentUpdate(nextProps) {

@@ -5,6 +5,7 @@ import isAfter from 'date-fns/is_after';
 import isBefore from 'date-fns/is_before';
 import isSameDay from 'date-fns/is_same_day';
 import startOfDay from 'date-fns/start_of_day';
+import {withPropsOnChange} from 'recompose';
 
 export const keyCodes = {
   command: 91,
@@ -54,13 +55,6 @@ export function getMonth(year, month, weekStartsOn) {
   };
 }
 
-/**
- * Get the localized week number of a given month based on the first day of the week
- * @param {Number} year - the year number
- * @param {Date} date - the date for which we're trying to get the week number
- * @param {Number} weekStartsOn - the index of the first day of the week (from 0 to 6)
- * @return {Object} - Returns the week index for that date
- */
 export function getWeek(year, date, weekStartsOn) {
   const yearStart = new Date(year, 0, 1); // 1st Jan of the Year
 
@@ -157,3 +151,15 @@ export function sanitizeDate(date, {
 
   return date;
 }
+
+export function getDateString(year, month, date) {
+  return `${year}-${('0' + (month + 1)).slice(-2)}-${('0' + date).slice(-2)}`;
+}
+
+export function getMonthsForYear(year, day = 1) {
+  return Array.apply(null, Array(12)).map((val, index) => new Date(year, index, day));
+}
+
+export const withImmutableProps = (props) => withPropsOnChange(() => false, props);
+
+export {default as animate} from './animate';

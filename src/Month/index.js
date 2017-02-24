@@ -1,5 +1,6 @@
 import React, {PureComponent} from 'react';
 import classNames from 'classnames';
+import {getDateString} from '../utils';
 import format from 'date-fns/format';
 import getDay from 'date-fns/get_day';
 import isSameYear from 'date-fns/is_same_year';
@@ -15,12 +16,12 @@ export default class Month extends PureComponent {
       locale,
       maxDate,
       minDate,
-      onDayClick,
       rowHeight,
       rows,
+      selected,
       today,
       theme,
-      ...other
+      passThrough,
     } = this.props;
     const currentYear = today.getFullYear();
     const year = monthDate.getFullYear();
@@ -46,7 +47,7 @@ export default class Month extends PureComponent {
       for (let k = 0, len = row.length; k < len; k++) {
         day = row[k];
 
-        date = `${year}-${('0' + (month + 1)).slice(-2)}-${('0' + day).slice(-2)}`;
+        date = getDateString(year, month, day);
         isToday = (date === _today);
 
         isDisabled = (
@@ -59,34 +60,42 @@ export default class Month extends PureComponent {
         days[k] = (
 					<DayComponent
 						key={`day-${day}`}
-            {...other}
 						currentYear={currentYear}
-            year={year}
 						date={date}
 						day={day}
-            month={month}
-						onClick={onDayClick}
+            selected={selected}
 						isDisabled={isDisabled}
 						isToday={isToday}
 						locale={locale}
-						monthShort={monthShort}
+            month={month}
+            monthShort={monthShort}
 						theme={theme}
+            year={year}
+            {...passThrough.Day}
 					/>
 				);
 
         dow += 1;
       }
       monthRows[i] = (
-				<ul className={classNames(styles.row, {[styles.partial]: row.length !== 7})} style={{height: rowHeight}} key={`Row-${i}`} role="row" aria-label={`Week ${i + 1}`}>
-					{days}
-				</ul>
-			);
+        <ul
+          key={`Row-${i}`}
+          className={classNames(styles.row, {[styles.partial]: row.length !== 7})}
+          style={{height: rowHeight}}
+          role="row"
+          aria-label={`Week ${i + 1}`}
+        >
+          {days}
+        </ul>
+      );
+
     }
 
     return monthRows;
   }
   render() {
-    let {monthDate, today, rows, showOverlay, style, theme} = this.props;
+    const {monthDate, today, rows, showOverlay, style, theme} = this.props;
+    const dateFormat = isSameYear(monthDate, today) ? 'MMMM YYYY' : 'MMMM';
 
     return (
       <div className={styles.root} style={style}>
@@ -99,13 +108,7 @@ export default class Month extends PureComponent {
                 })}
                 style={{backgroundColor: theme.overlayColor}}
               >
-                <span>
-                  {
-                    `${format(monthDate, 'MMMM')}${!isSameYear(monthDate, today)
-                      ? ' ' + monthDate.getFullYear()
-                      : ''}`
-                  }
-                </span>
+                <span>{format(monthDate, dateFormat)}</span>
               </label>
   					}
   				</div>
