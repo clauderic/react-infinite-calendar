@@ -360,6 +360,7 @@ export default class Calendar extends Component {
               minDate={minDate}
               maxDate={maxDate}
               selected={selected}
+              showMonths={showMonthsForYears}
               theme={theme}
               today={today}
               years={range(this._min.getFullYear(), this._max.getFullYear() + 1)}

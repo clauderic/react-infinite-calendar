@@ -1,14 +1,17 @@
 import React, {Component, PropTypes} from 'react';
 import {List} from 'react-virtualized';
 import classNames from 'classnames';
-import {keyCodes} from '../utils';
-import addYears from 'date-fns/add_years';
+import {emptyFn, getMonthsForYear} from '../utils';
+import format from 'date-fns/format';
+import isSameMonth from 'date-fns/is_same_month';
 import styles from './Years.scss';
+
+const SPACING = 40;
 
 export default class Years extends Component {
   static propTypes = {
     height: PropTypes.number,
-    hideYearsOnSelect: PropTypes.bool,
+    hideOnSelect: PropTypes.bool,
     maxDate: PropTypes.object,
     minDate: PropTypes.object,
     onSelect: PropTypes.func,
@@ -19,33 +22,80 @@ export default class Years extends Component {
     width: PropTypes.number,
     years: PropTypes.array,
   };
+  static defaultProps = {
+    onSelect: emptyFn,
+    showMonths: true,
+  };
   componentDidMount() {
     let list = this.refs.list;
     let grid = list && list.refs.Grid;
 
     this.scrollEl = grid && grid.refs.scrollingContainer;
   }
-  handleClick(year, e) {
+  handleClick(date, e) {
     let {
+      hideOnSelect,
       onSelect,
       setDisplay,
+      scrollToDate,
     } = this.props;
 
-    onSelect(year, e);
-    requestAnimationFrame(() => setDisplay('days'));
+    onSelect(date, e, (date) => scrollToDate(date));
+
+    if (hideOnSelect) {
+      window.requestAnimationFrame(() => setDisplay('days'));
+    }
+  }
+  renderMonths(year) {
+    const {selected, theme, today} = this.props;
+    const months = getMonthsForYear(year, selected.getDate());
+
+    return (
+      <ol>
+        {months.map((date, index) => {
+          const isSelected = isSameMonth(date, selected);
+          const isCurrentMonth = isSameMonth(date, today);
+          const style = Object.assign({}, isSelected && {
+            backgroundColor: (
+              typeof theme.selectionColor === 'function'
+                ? theme.selectionColor(date)
+                : theme.selectionColor
+            ),
+          }, isCurrentMonth && {
+            borderColor: theme.todayColor,
+          });
+
+          return (
+            <li
+              key={index}
+              onClick={(e) => {
+                e.stopPropagation();
+                this.handleClick(date, e);
+              }}
+              className={classNames(styles.month, {
+                [styles.selected]: isSelected,
+                [styles.currentMonth]: isCurrentMonth,
+              })}
+              style={style}
+              title={`Set date to ${format(date, 'MMMM Do, YYYY')}`}
+            >
+              {format(date, 'MMM')}
+            </li>
+          );
+        })}
+      </ol>
+    );
   }
   render() {
-    const {height, selectedYear, theme, width} = this.props;
-    const today = new Date();
+    const {height, selected, showMonths, theme, today, width} = this.props;
     const currentYear = today.getFullYear();
     const years = this.props.years.slice(0, this.props.years.length);
-
-    // Add spacer rows at the top and bottom
-    years.unshift(null);
-    years.push(null);
-
-    let selectedYearIndex = years.indexOf(selectedYear);
-    const rowHeight = 50;
+    const selectedYearIndex = years.indexOf(selected.getFullYear());
+    const rowHeight = showMonths ? 110 : 50;
+    const heights = years.map((val, index) => index === 0 || index === years.length - 1
+      ? rowHeight + SPACING
+      : rowHeight
+    );
     const containerHeight = years.length * rowHeight < height + 50
       ? years.length * rowHeight
       : height + 50;
@@ -61,47 +111,48 @@ export default class Years extends Component {
           width={width}
           height={containerHeight}
           rowCount={years.length}
-          rowHeight={rowHeight}
+          rowHeight={({index}) => heights[index]}
           scrollToIndex={selectedYearIndex + 1}
           scrollToAlignment={'center'}
           rowRenderer={({index, style: rowStyle}) => {
-            let year = years[index];
+            const year = years[index];
+            const isActive = index === selectedYearIndex;
 
-            if (year !== null) {
-              let isActive = index === selectedYearIndex;
-
-              return (
-                <div
-                  key={index}
-                  className={classNames(styles.year, {
-                    [styles.active]: isActive,
-                    [styles.currentYear]: year === currentYear,
-                  })}
-                  onClick={() => this.handleClick(year)}
-                  title={`Set year to ${year}`}
-                  data-year={year}
-                  style={Object.assign({}, rowStyle, {
-                    color: (
-                      typeof theme.selectionColor === 'function'
-                        ? theme.selectionColor(new Date(year, 0, 1)) // TODO: Change this
-                        : theme.selectionColor
-                    ),
-                  })}
-                >
+            return (
+              <div
+                key={index}
+                className={classNames(styles.year, {
+                  [styles.active]: !showMonths && isActive,
+                  [styles.currentYear]: !showMonths && year === currentYear,
+                  [styles.withMonths]: showMonths,
+                  [styles.first]: index === 0,
+                  [styles.last]: index === years.length - 1,
+                })}
+                onClick={() => this.handleClick(selected.setYear(year))}
+                title={`Set year to ${year}`}
+                data-year={year}
+                style={Object.assign({}, rowStyle, {
+                  color: (
+                    typeof theme.selectionColor === 'function'
+                      ? theme.selectionColor(new Date(year, 0, 1)) // TODO: Change this
+                      : theme.selectionColor
+                  ),
+                })}
+              >
+                <label>
                   <span
                     style={
-                      year === currentYear
+                      !showMonths && year === currentYear
                         ? {borderColor: theme.todayColor}
                         : null
                     }
                   >
                     {year}
                   </span>
-                </div>
-              );
-            } else {
-              return <div key={index} className={styles.spacer} />;
-            }
+                </label>
+                {showMonths && this.renderMonths(year)}
+              </div>
+            );
           }}
         />
       </div>

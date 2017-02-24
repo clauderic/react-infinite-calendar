@@ -186,6 +186,14 @@ storiesOf('Display Options', module)
         showTodayHelper: false,
       }}
     />
+  ))
+  .add('Hide Months in Year List', () => (
+    <CalendarWrapper
+      display={'years'}
+      displayOptions={{
+        showMonthsForYears: false,
+      }}
+    />
   ));
 
 storiesOf('Events', module)

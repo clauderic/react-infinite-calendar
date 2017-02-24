@@ -138,7 +138,6 @@ export function emptyFn() {
   /* no-op */
 }
 
-
 export function sanitizeDate(date, {
   disabledDates = [],
   disabledDays = [],

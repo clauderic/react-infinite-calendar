@@ -1,3 +1,5 @@
+@import "../variables";
+
 .root {
   position: absolute;
   left: 0;
@@ -14,17 +16,17 @@
     position: absolute;
     left: 0;
     right: 0;
-    height: 100px;
+    height: 50px;
     pointer-events: none;
     z-index: 1;
   }
   &:before {
     top: 0;
-    background: linear-gradient(to bottom, white 0%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%, rgba(255, 255, 255, 0) 100%);
   }
   &:after {
     bottom: 0;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, white 100%);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255,255,255,0.8) 100%);
   }
 }
 
@@ -39,7 +41,10 @@
 }
 
 .year {
+  $cellSize: 44px;
+
   display: flex;
+  padding: 0 20px;
   height: 100%;
   align-items: center;
   justify-content: center;
@@ -48,14 +53,69 @@
   text-align: center;
   cursor: pointer;
   -webkit-user-select: none;
+  box-sizing: border-box;
 
-  > span {
-    color: #666;
+  &.withMonths {
+    border-bottom: 1px solid $borderColor;
+
+    label {
+      height: $cellSize * 2;
+      padding-top: 12px;
+      box-sizing: border-box;
+    }
+  }
+
+  label {
+    flex-basis: 42%;
+
+    span {
+      flex-shrink: 0;
+      color: #333;
+    }
+  }
+
+  ol {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+
+    font-size: 14px;
+
+    li {
+      display: flex;
+      width: $cellSize;
+      height: $cellSize;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+      list-style: none;
+      border-radius: 50%;
+      box-sizing: border-box;
+
+      color: #444;
+      font-weight: 400;
+
+      &.currentMonth {
+        border: 1px solid;
+      }
+      &.selected {
+        position: relative;
+        z-index: 1;
+        background-color: blue;
+        color: #FFF !important;
+        border: 0;
+      }
+
+      &:hover {
+        background-color: $cellHoverBg;
+      }
+    }
   }
 
   &:hover, &.active {
-    > span {
-        color: inherit;
+    label > span {
+      color: inherit;
     }
   }
   &:hover, &.active {
@@ -68,17 +128,25 @@
   &.currentYear {
     position: relative;
 
-    > span {
+    label > span {
       min-width: 50px;
       padding-bottom: 5px;
       border-bottom: 3px solid;
     }
 
     &.active {
-      > span {
-        padding-bottom: 10px;
+      label > span {
         min-width: 85px;
       }
     }
+  }
+
+  // Spacing
+  $spacing: 40px;
+  &.first {
+    padding-top: $spacing;
+  }
+  &.last {
+    padding-bottom: $spacing;
   }
 }
