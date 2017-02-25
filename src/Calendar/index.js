@@ -363,6 +363,7 @@ export default class Calendar extends Component {
               }}
               height={height}
               hideOnSelect={hideYearsOnSelect}
+              locale={locale}
               maxDate={maxDate}
               minDate={minDate}
               scrollToDate={this.scrollToDate}

@@ -94,7 +94,7 @@ export default class Month extends PureComponent {
     return monthRows;
   }
   render() {
-    const {monthDate, today, rows, showOverlay, style, theme} = this.props;
+    const {locale: {locale}, monthDate, today, rows, showOverlay, style, theme} = this.props;
     const dateFormat = isSameYear(monthDate, today) ? 'MMMM' : 'MMMM YYYY';
 
     return (
@@ -108,7 +108,7 @@ export default class Month extends PureComponent {
                 })}
                 style={{backgroundColor: theme.overlayColor}}
               >
-                <span>{format(monthDate, dateFormat)}</span>
+                <span>{format(monthDate, dateFormat, {locale})}</span>
               </label>
   					}
   				</div>

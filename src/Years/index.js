@@ -12,6 +12,7 @@ export default class Years extends Component {
   static propTypes = {
     height: PropTypes.number,
     hideOnSelect: PropTypes.bool,
+    locale: PropTypes.object,
     maxDate: PropTypes.object,
     minDate: PropTypes.object,
     onSelect: PropTypes.func,
@@ -47,7 +48,7 @@ export default class Years extends Component {
     }
   }
   renderMonths(year) {
-    const {selected, theme, today} = this.props;
+    const {locale: {locale}, selected, theme, today} = this.props;
     const months = getMonthsForYear(year, selected.getDate());
 
     return (
@@ -79,7 +80,7 @@ export default class Years extends Component {
               style={style}
               title={`Set date to ${format(date, 'MMMM Do, YYYY')}`}
             >
-              {format(date, 'MMM')}
+              {format(date, 'MMM', {locale})}
             </li>
           );
         })}
