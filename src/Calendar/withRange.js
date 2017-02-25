@@ -8,6 +8,8 @@ import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 import styles from '../Day/Day.scss';
 
+let isTouchDevice = false;
+
 // Enhance Day component to display selected state based on an array of selected dates
 export const enhanceDay = withPropsOnChange(['selected'], ({date, selected, theme}) => {
   const isSelected = date >= selected.start && date <= selected.end;
@@ -51,7 +53,7 @@ export const withRange = compose(
       Day: {
         onClick: (date) => handleSelect(date, {selected, ...props}),
         handlers: {
-          onMouseOver: props.selectionStart
+          onMouseOver: !isTouchDevice && props.selectionStart
             ? (e) => handleMouseOver(e, {selected, ...props})
             : null,
         },
@@ -113,3 +115,9 @@ function handleYearSelect(date, {displayKey, onSelect, selected, setScrollDate})
 function getInitialDate({selected}) {
   return selected.start || new Date();
 }
+
+window.addEventListener('touchstart', function onTouch() {
+  isTouchDevice = true;
+
+  window.removeEventListener('touchstart', onTouch, false);
+});

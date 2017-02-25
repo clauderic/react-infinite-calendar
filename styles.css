@@ -299,6 +299,8 @@
 .Cal__Header__range {
   display: flex;
   flex-grow: 1; }
+  .Cal__Header__range .Cal__Header__dateWrapper {
+    overflow: visible; }
   .Cal__Header__range .Cal__Header__wrapper:first-child:before, .Cal__Header__range .Cal__Header__wrapper:first-child:after {
     content: '';
     position: absolute;

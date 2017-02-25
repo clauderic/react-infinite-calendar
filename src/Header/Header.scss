@@ -76,6 +76,10 @@
   display: flex;
   flex-grow: 1;
 
+  .dateWrapper {
+    overflow: visible;
+  }
+  
   .wrapper {
     &:first-child {
       &:before, &:after {
