@@ -12,8 +12,8 @@
     "styles.css"
   ],
   "scripts": {
-    "build": "nwb build-react-component --no-vendor",
-    "clean": "nwb clean-module && npm clean-demo",
+    "build": "npm run clean && nwb build-react-component --no-vendor",
+    "clean": "nwb clean-module && nwb clean-demo",
     "start": "nwb serve-react-demo",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "test": "nwb test-react",
@@ -30,8 +30,7 @@
   },
   "peerDependencies": {
     "react": "^15.3.0 || ^16.0.0-alpha",
-    "react-addons-css-transition-group": "^15.4.2",
-    "react-dom": "^15.3.0 || ^16.0.0-alpha"
+    "react-addons-css-transition-group": "^15.4.2"
   },
   "devDependencies": {
     "@kadira/storybook": "^2.35.3",
@@ -45,7 +44,7 @@
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.4.1",
     "node-sass": "^4.5.0",
-    "nwb": "0.14.x",
+    "nwb": "^0.15.6",
     "nwb-sass": "^0.7.1",
     "react": "^15.4.2",
     "react-addons-css-transition-group": "^15.4.2",
