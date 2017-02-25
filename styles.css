@@ -385,7 +385,8 @@
     bottom: 56px;
     display: flex;
     align-items: center;
-    justify-content: center; }
+    justify-content: center;
+    text-transform: capitalize; }
   .Cal__Month__label.Cal__Month__partialFirstRow {
     top: 56px; }
 .Cal__MonthList__root {
@@ -514,7 +515,8 @@
       border-radius: 50%;
       box-sizing: border-box;
       color: #444;
-      font-weight: 400; }
+      font-weight: 400;
+      text-transform: capitalize; }
       .Cal__Years__year ol li.Cal__Years__currentMonth {
         border: 1px solid; }
       .Cal__Years__year ol li.Cal__Years__selected {
