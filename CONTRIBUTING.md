@@ -8,7 +8,7 @@ Following these guidelines helps to communicate that you respect the time of the
 
 The issue tracker is the preferred channel for bug reports but please respect the following restrictions:
 
-* Please **do not** use the issue tracker for personal support requests (use [Gitter](https://gitter.im/clauderic/react-infinite-calendar)).
+* Please **try not to** use the issue tracker for personal support requests (use [Gitter](https://gitter.im/clauderic/react-sortable-hoc)).
 * Please **do not** derail or troll issues. Keep the discussion on topic and respect the opinions of others.
 
 ## Feature requests
@@ -34,7 +34,7 @@ Please adhere to the coding conventions used throughout a project (indentation, 
 
 ## Installation
 
-- Running `npm install` or `yarn` in the components's root directory will install everything you need for development.
+- Running `npm install` in the components's root directory will install everything you need for development.
 
 ## Demo and Storybook
 
@@ -46,5 +46,3 @@ Please adhere to the coding conventions used throughout a project (indentation, 
 ## Building
 
 - `npm run build` will build the component for publishing to npm and also bundle the demo app.
-
-- `npm run clean` will delete built resources.
