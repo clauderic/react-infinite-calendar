@@ -71,12 +71,11 @@ render(
     selected={today}
     disabledDays={[0,6]}
     minDate={lastWeek}
-    keyboardSupport={true}
   />,
   document.getElementById('root')
 );
 ```
-For more usage examples, see [http://clauderic.github.io/react-infinite-calendar/](http://clauderic.github.io/react-infinite-calendar/)
+For more usage examples, see [http://clauderic.github.io/react-infinite-calendar/](http://clauderic.github.io/react-infinite-calendar/) or check out some [code examples](https://github.com/clauderic/react-infinite-calendar/tree/master/examples).
 
 ### Prop Types
 | Property        | Type            | Default                                                                                                                              | Description                                                                                                                                                                                                                      |
@@ -99,7 +98,6 @@ For more usage examples, see [http://clauderic.github.io/react-infinite-calendar
 | onScroll        | Function        |                                                                                                                                      | Callback invoked when the scroll offset changes. `function (scrollTop: number) {}`                                                                                                                                               |
 | onScrollEnd     | Function        |                                                                                                                                      | Callback invoked `150ms` after the last onScroll event is triggered. `function (scrollTop: number) {}`                                                                                                                           |
 | rowHeight       | Number          | `56`                                                                                                                                 | Height of each row in the calendar (each week is considered a `row`)                                                                                                                                                             |
-| keyboardSupport | Boolean         | `true`                                                                                                                               | Keyboard support (`left`, `right`, `up`, `down`, `enter`)                                                                                                                                                                        |
 | autoFocus       | Boolean         | `true`                                                                                                                               | Whether the Calendar root should be auto-focused when it mounts. This is useful when `keyboardSupport` is enabled (the calendar must be focused to listen for keyboard events)                                                   |
 | tabIndex        | Number          | `1`                                                                                                                                  | Tab-index of the calendar                                                                                                                                                                                                        |
 
