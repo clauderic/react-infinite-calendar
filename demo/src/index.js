@@ -4,4 +4,8 @@ import InfiniteCalendar from '../../src';
 import '../../styles.css';
 import './demo.css';
 
-render(<InfiniteCalendar />, document.querySelector('#demo'));
+render(
+  <InfiniteCalendar
+    width={Math.min(window.innerWidth, 400)}
+  />
+, document.querySelector('#demo'));
