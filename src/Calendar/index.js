@@ -1,8 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import classNames from 'classnames';
-import debounce from 'lodash/debounce';
-import range from 'lodash/range';
-import {emptyFn, ScrollSpeed} from '../utils';
+import {debounce, emptyFn, range, ScrollSpeed} from '../utils';
 import {defaultProps} from 'recompose';
 import defaultDisplayOptions from '../utils/defaultDisplayOptions';
 import defaultLocale from '../utils/defaultLocale';

@@ -158,4 +158,28 @@ export function getMonthsForYear(year, day = 1) {
 
 export const withImmutableProps = (props) => withPropsOnChange(() => false, props);
 
+export function debounce(callback, wait) {
+  let timeout = null;
+  let callbackArgs = null;
+
+  const later = () => callback.apply(this, callbackArgs);
+
+  return function() {
+    callbackArgs = arguments;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
+
+export function range(start, stop, step = 1) {
+  const length = Math.max(Math.ceil((stop - start) / step), 0);
+  const range = Array(length);
+
+  for (let i = 0; i < length; i++, start += step) {
+    range[i] = start;
+  }
+
+  return range;
+};
+
 export {default as animate} from './animate';
