@@ -30,7 +30,7 @@ Getting Started
 
 Using [npm](https://www.npmjs.com/):
 ```
-npm install react-infinite-calendar --save
+npm install react-infinite-calendar react-addons-css-transition-group --save
 ```
 
 ES6, CommonJS, and UMD builds are available with each distribution. For example:
