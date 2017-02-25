@@ -14,6 +14,7 @@ Features
 
 * **Infinite scroll** – Just keep scrollin', just keep scrollin'
 * **Flexible** – Min/max date, disabled dates, disabled days, etc.
+* **Extensible** – Add date range-selection, multiple date selection, or create your own HOC
 * **Localization and translation** – En français, s'il vous plaît!
 * **Customizeable** – Customize and theme to your heart's content.
 * **Year selection** – For rapidly jumping from year to year
