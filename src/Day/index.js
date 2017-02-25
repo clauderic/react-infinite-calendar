@@ -14,6 +14,7 @@ export default class Day extends PureComponent {
   renderSelection(selectionColor) {
     const {
       day,
+      date,
       isToday,
       locale: {todayLabel},
       monthShort,
@@ -24,6 +25,7 @@ export default class Day extends PureComponent {
     return (
       <div
         className={styles.selection}
+        data-date={date}
         style={{
           backgroundColor: this.selectionColor,
           color: textColor.active,
@@ -43,6 +45,7 @@ export default class Day extends PureComponent {
       currentYear,
       date,
       day,
+      handlers,
       isDisabled,
       isHighlighted,
       isToday,
@@ -73,6 +76,7 @@ export default class Day extends PureComponent {
         }, className)}
         onClick={this.handleClick}
         data-date={date}
+        {...handlers}
       >
         {day === 1 && <span className={styles.month}>{monthShort}</span>}
         {isToday ? <span>{day}</span> : day}

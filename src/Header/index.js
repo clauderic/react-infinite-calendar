@@ -1,10 +1,12 @@
 import React, {PureComponent, PropTypes} from 'react';
+import {emptyFn} from '../utils';
 import defaultSelectionRenderer from './defaultSelectionRenderer';
 import classNames from 'classnames';
 import styles from './Header.scss';
 
 export default class Header extends PureComponent {
   static defaultProps = {
+    onYearClick: emptyFn,
     renderSelection: defaultSelectionRenderer,
   };
   static propTypes = {
@@ -12,7 +14,7 @@ export default class Header extends PureComponent {
     display: PropTypes.string,
     layout: PropTypes.string,
     locale: PropTypes.object,
-    onClick: PropTypes.func,
+    onYearClick: PropTypes.func,
     selected: PropTypes.any,
     shouldAnimate: PropTypes.bool,
     theme: PropTypes.object,

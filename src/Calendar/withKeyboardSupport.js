@@ -26,10 +26,11 @@ export const withKeyboardSupport = compose(
     passThrough: {
       ...passThrough,
       Day: {
+        ...passThrough.Day,
         highlightedDate: format(highlightedDate, 'YYYY-MM-DD'),
         onClick: (date) => {
-          onSelect(date);
           setHighlight(null);
+          passThrough.Day.onClick(date);
         },
       },
       rootNode: {onKeyDown},
@@ -39,15 +40,13 @@ export const withKeyboardSupport = compose(
 
 function handleKeyDown(e, props) {
   const {
-    displayDate,
     minDate,
     maxDate,
-    onSelect,
-    selected,
+    passThrough: {Day: {onClick}},
     setScrollDate,
     setHighlight,
   } = props;
-  const highlightedDate = props.highlightedDate || displayDate || selected || new Date();
+  const highlightedDate = getInitialDate(props);
   let delta = 0;
 
   if (
@@ -61,7 +60,7 @@ function handleKeyDown(e, props) {
 
   switch (e.keyCode) {
     case keyCodes.enter:
-      onSelect && onSelect(highlightedDate);
+      onClick && onClick(highlightedDate);
       return;
     case keyCodes.left:
       delta = -1;
@@ -92,4 +91,8 @@ function handleKeyDown(e, props) {
     setScrollDate(newHighlightedDate);
     setHighlight(newHighlightedDate);
   }
+}
+
+function getInitialDate({highlightedDate, selected, displayDate}) {
+  return highlightedDate || selected.start || displayDate || selected || new Date();
 }

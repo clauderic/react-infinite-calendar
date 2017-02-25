@@ -11,6 +11,7 @@ export default function defaultSelectionRenderer(value, {
   key,
   locale: {locale},
   dateFormat,
+  onYearClick,
   scrollToDate,
   setDisplay,
   shouldAnimate,
@@ -20,7 +21,7 @@ export default function defaultSelectionRenderer(value, {
     {
       active: display === 'years',
       handleClick: e => {
-        e && e.stopPropagation();
+        onYearClick(date, e, key);
         setDisplay('years');
       },
       item: 'year',
@@ -30,8 +31,6 @@ export default function defaultSelectionRenderer(value, {
     {
       active: display === 'days',
       handleClick: e => {
-        e && e.stopPropagation();
-
         if (display !== 'days') {
           setDisplay('days');
         } else if (date) {

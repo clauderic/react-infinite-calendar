@@ -1,7 +1,8 @@
 import {compose, withProps, withPropsOnChange, withState} from 'recompose';
 import classNames from 'classnames';
 import {withDefaultProps} from './';
-import {sanitizeDate, withImmutableProps} from '../utils';
+import {withImmutableProps} from '../utils';
+import isBefore from 'date-fns/is_before';
 import enhanceHeader from '../Header/withRange';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
@@ -29,15 +30,12 @@ export const enhanceDay = withPropsOnChange(['selected'], ({date, selected, them
   };
 });
 
-// Enhance year component
-const enhanceYears = withProps(({displayDate}) => ({
-  selected: displayDate ? parse(displayDate) : null,
-}));
-
 // Enhancer to handle selecting and displaying multiple dates
 export const withRange = compose(
   withDefaultProps,
   withState('scrollDate', 'setScrollDate', getInitialDate),
+  withState('displayKey', 'setDisplayKey', getInitialDate),
+  withState('selectionStart', 'setSelectionStart', null),
   withImmutableProps(({
     DayComponent,
     HeaderComponent,
@@ -45,21 +43,72 @@ export const withRange = compose(
   }) => ({
     DayComponent: enhanceDay(DayComponent),
     HeaderComponent: enhanceHeader(HeaderComponent),
-    YearsComponent: enhanceYears(YearsComponent),
   })),
-  withProps(({onSelect, selected: {start, end}}) => ({
+  withProps(({displayKey, passThrough, selected, setDisplayKey, ...props}) => ({
     /* eslint-disable sort-keys */
     passThrough: {
+      ...passThrough,
       Day: {
-        onClick: onSelect,
+        onClick: (date) => handleSelect(date, {selected, ...props}),
+        handlers: {
+          onMouseOver: props.selectionStart
+            ? (e) => handleMouseOver(e, {selected, ...props})
+            : null,
+        },
+      },
+      Years: {
+        selected: selected[displayKey],
+        onSelect: (date) => handleYearSelect(date, {displayKey, selected, ...props}),
+      },
+      Header: {
+        onYearClick: (date, e, key) => setDisplayKey(key),
       },
     },
     selected: {
-      start: format(start, 'YYYY-MM-DD'),
-      end: format(end, 'YYYY-MM-DD'),
+      start: format(selected.start, 'YYYY-MM-DD'),
+      end: format(selected.end, 'YYYY-MM-DD'),
     },
   })),
 );
+
+function getSortedSelection({start, end}) {
+  return isBefore(start, end)
+    ? {start, end}
+    : {start: end, end: start};
+}
+
+function handleSelect(date, {onSelect, selected, selectionStart, setSelectionStart}) {
+  if (selectionStart) {
+    onSelect(getSortedSelection({
+      start: selectionStart,
+      end: date,
+    }));
+    setSelectionStart(null);
+  } else {
+    onSelect({start: date, end: date});
+    setSelectionStart(date);
+  }
+}
+
+function handleMouseOver(e, {onSelect, selectionStart}) {
+  const dateStr = e.target.getAttribute('data-date');
+  const date = dateStr && parse(dateStr);
+
+  if (!date) { return; }
+
+  onSelect(getSortedSelection({
+    start: selectionStart,
+    end: date,
+  }));
+}
+
+function handleYearSelect(date, {displayKey, onSelect, selected, setScrollDate}) {
+
+  setScrollDate(date);
+  onSelect(getSortedSelection(
+    Object.assign({}, selected, {[displayKey]: parse(date)}))
+  );
+}
 
 function getInitialDate({selected}) {
   return selected.start || new Date();

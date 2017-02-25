@@ -141,6 +141,17 @@
     }
   }
 
+  &.disabled {
+    .selection.selection {
+      background-color: #EEE !important;
+
+      .day, .month {
+        color: #AAA;
+        font-weight: 300;
+      }
+    }
+  }
+
   &.start {
     .selection {
       border-top-left-radius: 50%;

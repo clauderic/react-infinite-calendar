@@ -16,8 +16,8 @@ export default withImmutableProps(({renderSelection}) => ({
 
     return (
       <div className={styles.range} style={{color: props.theme.headerColor}}>
-        {defaultSelectionRenderer(values.start, {...props, dateFormat})}
-        {defaultSelectionRenderer(values.end, {...props, dateFormat})}
+        {defaultSelectionRenderer(values.start, {...props, dateFormat, key: 'start', shouldAnimate: false})}
+        {defaultSelectionRenderer(values.end, {...props, dateFormat, key: 'end', shouldAnimate: false})}
       </div>
     );
   },
