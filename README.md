@@ -14,7 +14,7 @@ Features
 
 * **Infinite scroll** – Just keep scrollin', just keep scrollin'
 * **Flexible** – Min/max date, disabled dates, disabled days, etc.
-* **Extensible** – Add date range-selection, multiple date selection, or create your own HOC
+* **Extensible** – Add date range-selection, multiple date selection, or create your own HOC!
 * **Localization and translation** – En français, s'il vous plaît!
 * **Customizeable** – Customize and theme to your heart's content.
 * **Year selection** – For rapidly jumping from year to year
@@ -68,7 +68,7 @@ render(
   <InfiniteCalendar
     width={400}
     height={600}
-    selectedDate={today}
+    selected={today}
     disabledDays={[0,6]}
     minDate={minDate}
     keyboardSupport={true}
@@ -81,7 +81,7 @@ For more usage examples, see [http://clauderic.github.io/react-infinite-calendar
 ### Prop Types
 | Property        | Type            | Default                                                                                                                    | Description                                                                                                                                                                                                                      |
 |:----------------|:----------------|:---------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| selectedDate    | Date or Boolean | new Date()                                                                                                                 | Value of the date that appears to be selected. Set to `false` if you don't wish to have a date initially selected.                                                                                                               |
+| selected        | Date or Boolean | new Date()                                                                                                                 | Value of the date that appears to be selected. Set to `false` if you don't wish to have a date initially selected.                                                                                                               |
 | width           | Number          | 400                                                                                                                        | Width of the calendar, in pixels                                                                                                                                                                                                 |
 | height          | Number          | 600                                                                                                                        | Height of the calendar, in pixels                                                                                                                                                                                                |
 | min             | Date            | new&nbsp;Date(1980,0,1)                                                                                                    | The minimum month that can be scrolled to.                                                                                                                                                                                       |
