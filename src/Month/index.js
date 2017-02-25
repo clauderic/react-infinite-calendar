@@ -95,7 +95,7 @@ export default class Month extends PureComponent {
   }
   render() {
     const {monthDate, today, rows, showOverlay, style, theme} = this.props;
-    const dateFormat = isSameYear(monthDate, today) ? 'MMMM YYYY' : 'MMMM';
+    const dateFormat = isSameYear(monthDate, today) ? 'MMMM' : 'MMMM YYYY';
 
     return (
       <div className={styles.root} style={style}>
