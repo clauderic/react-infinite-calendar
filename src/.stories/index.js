@@ -2,6 +2,8 @@
 import React, {Component} from 'react';
 import {addDecorator, storiesOf} from '@kadira/storybook';
 import InfiniteCalendar, {
+  Calendar,
+  defaultMultipleDateInterpolation,
   withDateSelection,
   withKeyboardSupport,
   withMultipleDates,
@@ -22,115 +24,60 @@ addDecorator(CenterDecorator);
 
 const today = new Date();
 
-class CalendarWrapper extends Component {
-  static defaultProps = {
-    Component: withDateSelection(InfiniteCalendar),
-    handleSelect: (selected, instance) => instance.setState({selected}),
-  };
-  state = {
-    selected: typeof this.props.selected !== 'undefined'
-      ? this.props.selected
-      : new Date(),
-  };
-  render() {
-    const {Component, handleSelect} = this.props;
-    const {selected} = this.state;
-
-    return <Component {...this.props} selected={selected} onSelect={(date) => handleSelect(date, this)} />;
-  }
-}
-
 storiesOf('Basic settings', module)
-  .add('Default Configuration', () => <CalendarWrapper />)
-  .add('Initially Selected Date', () => <CalendarWrapper selected={addDays(today, 5)} />)
-  .add('Blank Initial State', () => <CalendarWrapper selected={null} />)
+  .add('Default Configuration', () => <InfiniteCalendar />)
+  .add('Initially Selected Date', () => <InfiniteCalendar selected={addDays(today, 5)} />)
+  .add('Blank Initial State', () => <InfiniteCalendar selected={null} />)
   .add('Min Date', () => (
-    <CalendarWrapper
+    <InfiniteCalendar
       min={subMonths(today, 2)} // Minimum month to render
       minDate={addDays(today, 1)} // Minimum selectable date
       selectedDate={addDays(today, 5)}
     />
   ))
   .add('Max Date', () => (
-    <CalendarWrapper
+    <InfiniteCalendar
       max={endOfMonth(addMonths(today, 1))} // Maximum rendered month
       maxDate={today} // Maximum selectable date
     />
   ))
   .add('Disable Specific Dates', () => (
-    <CalendarWrapper
+    <InfiniteCalendar
       disabledDates={[-10, -5, -6, 5, 6, 7, 2].map(amount =>
         addDays(today, amount)
       )}
     />
   ))
   .add('Disable Specific Weekdays', () => (
-    <CalendarWrapper disabledDays={[0, 6]} />
+    <InfiniteCalendar disabledDays={[0, 6]} />
   ));
 
 storiesOf('Higher Order Components', module)
   .add('Range selection', () => (
-    <CalendarWrapper
+    <InfiniteCalendar
       selected={{
         start: new Date(),
         end: addDays(new Date(), 7),
       }}
-      handleSelect={(date, instance) => {
-        const {state: {selected}} = instance;
-
-        if (selected.start !== selected.end || !selected.start && !selected.end) {
-          instance.setState({
-            selected: {
-              start: date,
-              end: date,
-            },
-          });
-        } else if (selected.start) {
-          let start = selected.start;
-          let end = date;
-
-          if (start > end) {
-            end = start;
-            start = date;
-          }
-
-          instance.setState({
-            selected: {
-              start,
-              end,
-            },
-          });
-        }
-      }}
-      Component={withRange(InfiniteCalendar)}
+      Component={withRange(withKeyboardSupport(Calendar))}
     />
   ))
   .add('Multiple date selection', () => {
     return (
-      <CalendarWrapper
+      <InfiniteCalendar
         selected={[addDays(today, -600), addDays(today, -200), today, addDays(today, 50), addDays(today, 400)]}
-        handleSelect={(date, instance) => {
-          const selected = instance.state.selected;
-          const selectedMap = selected.map(date => format(date, 'YYYY-MM-DD'));
-          const index = selectedMap.indexOf(format(date, 'YYYY-MM-DD'));
-
-          instance.setState({
-            selected: index === -1
-              ? [...selected, date]
-              : [...selected.slice(0, index), ...selected.slice(index+1)],
-          });
-        }}
-        Component={withMultipleDates(InfiniteCalendar)}
+        interpolateSelection={defaultMultipleDateInterpolation}
+        Component={withMultipleDates(withKeyboardSupport(Calendar))}
       />
     );
   })
   .add('Keyboard Support', () => {
-    return <CalendarWrapper Component={withDateSelection(withKeyboardSupport(InfiniteCalendar))} />;
+    return <InfiniteCalendar Component={withDateSelection(withKeyboardSupport(Calendar))} />;
   });
 
 storiesOf('Internationalization', module)
   .add('Locale', () => (
-    <CalendarWrapper
+    <InfiniteCalendar
       locale={{
         blank: 'Aucune date sélectionnée',
         headerFormat: 'dddd, D MMM',
@@ -144,7 +91,7 @@ storiesOf('Internationalization', module)
     />
   ))
   .add('First Day of the Week', () => (
-    <CalendarWrapper
+    <InfiniteCalendar
       locale={{
         weekStartsOn: 1,
       }}
@@ -153,7 +100,7 @@ storiesOf('Internationalization', module)
 
 storiesOf('Customization', module)
   .add('Theming', () => (
-    <CalendarWrapper
+    <InfiniteCalendar
       theme={{
         floatingNav: {
           background: 'rgba(105, 74, 228, 0.91)',
@@ -171,17 +118,17 @@ storiesOf('Customization', module)
     />
   ))
   .add('Flexible Size', () => (
-    <CalendarWrapper
+    <InfiniteCalendar
       width={window.innerWidth <= 700 ? window.innerWidth : 700}
       height={window.innerHeight - 147}
       rowHeight={70}
     />
   ))
   .add('Select Year First', () => (
-    <CalendarWrapper display={'years'} selectedDate={null} />
+    <InfiniteCalendar display={'years'} selectedDate={null} />
   ))
   .add('Dynamic Selection Color', () => (
-    <CalendarWrapper
+    <InfiniteCalendar
       selectedDate={addDays(today, -1)}
       theme={{
         selectionColor: date => {
@@ -193,7 +140,7 @@ storiesOf('Customization', module)
 
 storiesOf('Display Options', module)
   .add('Landscape Layout', () => (
-    <CalendarWrapper
+    <InfiniteCalendar
       displayOptions={{
         layout: 'landscape',
       }}
@@ -202,35 +149,35 @@ storiesOf('Display Options', module)
     />
   ))
   .add('Disable Header', () => (
-    <CalendarWrapper
+    <InfiniteCalendar
       displayOptions={{
         showHeader: false,
       }}
     />
   ))
   .add('Disable Header Animation', () => (
-    <CalendarWrapper
+    <InfiniteCalendar
       displayOptions={{
         shouldHeaderAnimate: false,
       }}
     />
   ))
   .add('Disable Month Overlay', () => (
-    <CalendarWrapper
+    <InfiniteCalendar
       displayOptions={{
         showOverlay: false,
       }}
     />
   ))
   .add('Disable Floating Today Helper', () => (
-    <CalendarWrapper
+    <InfiniteCalendar
       displayOptions={{
         showTodayHelper: false,
       }}
     />
   ))
-  .add('Hide Months in Year List', () => (
-    <CalendarWrapper
+  .add('Hide Months in Year Selection', () => (
+    <InfiniteCalendar
       display={'years'}
       displayOptions={{
         showMonthsForYears: false,
@@ -240,14 +187,14 @@ storiesOf('Display Options', module)
 
 storiesOf('Events', module)
   .add('On Select', () => (
-    <CalendarWrapper
+    <InfiniteCalendar
       onSelect={date =>
         alert(`You selected: ${format(date, 'ddd, MMM Do YYYY')}`)}
     />
   ))
   .add('On Scroll', () => [
     <label key="label">Check your console logs.</label>,
-    <CalendarWrapper
+    <InfiniteCalendar
       key="calendar"
       onScroll={scrollTop =>
         console.info('onScroll() – Scroll top:', scrollTop)}
