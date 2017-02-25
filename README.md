@@ -128,8 +128,7 @@ Example usage of display options:
 
 Dependencies
 ------------
-React Infinite Calendar has few dependencies. It relies on [`react-virtualized`](https://github.com/bvaughn/react-virtualized) and [`date-fns`](https://github.com/date-fns/date-fns) for handling date manipulation.
-It also has the following peerDependencies: [`react`](https://www.npmjs.com/package/react), [`react-dom`](https://www.npmjs.com/package/react-dom), and [`react-addons-css-transition-group`](https://www.npmjs.com/package/react-addons-css-transition-group).
+React Infinite Calendar has few dependencies. It relies on [`react-virtualized`](https://github.com/bvaughn/react-virtualized) and [`date-fns`](https://github.com/date-fns/date-fns) for handling date manipulation. It also uses [recompose](https://github.com/acdlite/recompose) for extending the default functionality. It also has the following peerDependencies: [`react`](https://www.npmjs.com/package/react), and [`react-addons-css-transition-group`](https://www.npmjs.com/package/react-addons-css-transition-group).
 
 Reporting Issues
 ----------------
