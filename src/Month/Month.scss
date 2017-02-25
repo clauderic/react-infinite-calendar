@@ -1,80 +1,82 @@
 @import "../variables";
 
 .root {
-    position: absolute;
-    width: 100%;
+  position: absolute;
+  width: 100%;
 }
 .rows {
-    position: relative;
-    background: linear-gradient(to bottom, rgba(255,255,255,0) 50%,rgba(0,0,0,0.05) 100%);
+  position: relative;
+  background: linear-gradient(to bottom, rgba(255,255,255,0) 50%,rgba(0,0,0,0.05) 100%);
 }
 .row {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 
+  &:first-child {
+    text-align: right;
+
+    li {
+      position: relative;
+      top: 1px;
+      z-index: 1;
+      margin-top: -1px;
+      background-color: #FFF;
+
+      box-shadow: 0 -1px 0 $borderColor;
+    }
+  }
+  &:nth-child(2) {
+    box-shadow: 0 -1px 0 $borderColor;
+  }
+  &.partial {
     &:first-child {
-        text-align: right;
-
-        li {
-            position: relative;
-            top: 1px;
-            z-index: 1;
-            margin-top: -1px;
-            background-color: #FFF;
-
-            box-shadow: 0 -1px 0 $borderColor;
-        }
-    }
-    &:nth-child(2) {
-        box-shadow: 0 -1px 0 $borderColor;
-    }
-    &.partial {
+      li {
         &:first-child {
-            li {
-                &:first-child {
-                    border-left: 1px solid $borderColor;
-                }
-            }
+          box-shadow: 0px -1px 0 #E9E9E9, inset 1px 0 0 #E9E9E9;
         }
-        &:last-of-type {
-            li {
-                position: relative;
-                z-index: 1;
-            }
-        }
+      }
     }
+    &:last-of-type {
+      li {
+        position: relative;
+        z-index: 1;
+      }
+    }
+  }
 }
 
 .label {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  margin: 0;
+
+  font-size: 30px;
+  font-weight: 500;
+  z-index: 3;
+  pointer-events: none;
+
+  background-color: rgba(255,255,255,0.6);
+
+  opacity: 0;
+  transition: opacity 0.3s ease;
+
+  > span {
     position: absolute;
-    top: 0;
-    bottom: 0;
     left: 0;
     right: 0;
+    top: 0;
+    bottom: $rowHeight;
 
-    font-size: 30px;
-    font-weight: 500;
-    z-index: 3;
-    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-    background-color: rgba(255,255,255,0.6);
-
-    opacity: 0;
-    transition: opacity 0.3s ease;
-
-    > span {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: $rowHeight;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    &.partialFirstRow {
-        top: $rowHeight;
-    }
+  &.partialFirstRow {
+    top: $rowHeight;
+  }
 }

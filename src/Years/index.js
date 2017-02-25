@@ -1,144 +1,161 @@
 import React, {Component, PropTypes} from 'react';
-import {List as VirtualScroll} from 'react-virtualized';
+import {List} from 'react-virtualized';
 import classNames from 'classnames';
-import {keyCodes} from '../utils';
-import moment from 'moment';
-const style = require('./Years.scss');
+import {emptyFn, getMonthsForYear} from '../utils';
+import format from 'date-fns/format';
+import isSameMonth from 'date-fns/is_same_month';
+import styles from './Years.scss';
+
+const SPACING = 40;
 
 export default class Years extends Component {
-    static propTypes = {
-        height: PropTypes.number,
-        width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-        hideYearsOnSelect: PropTypes.bool,
-        maxDate: PropTypes.object,
-        minDate: PropTypes.object,
-        onDaySelect: PropTypes.func,
-        scrollToDate: PropTypes.func,
-        selectedDate: PropTypes.object,
-        setDisplay: PropTypes.func,
-        theme: PropTypes.object,
-        years: PropTypes.array
-    };
-    constructor(props) {
-        super(props);
+  static propTypes = {
+    height: PropTypes.number,
+    hideOnSelect: PropTypes.bool,
+    maxDate: PropTypes.object,
+    minDate: PropTypes.object,
+    onSelect: PropTypes.func,
+    scrollToDate: PropTypes.func,
+    selectedYear: PropTypes.number,
+    setDisplay: PropTypes.func,
+    theme: PropTypes.object,
+    width: PropTypes.number,
+    years: PropTypes.array,
+  };
+  static defaultProps = {
+    onSelect: emptyFn,
+    showMonths: true,
+  };
+  componentDidMount() {
+    let list = this.refs.list;
+    let grid = list && list.refs.Grid;
 
-        this.state = {
-            selectedYear: (props.selectedDate) ? props.selectedDate.year() : moment().year()
-        };
+    this.scrollEl = grid && grid.refs.scrollingContainer;
+  }
+  handleClick(date, e) {
+    let {
+      hideOnSelect,
+      onSelect,
+      setDisplay,
+      scrollToDate,
+    } = this.props;
+
+    onSelect(date, e, (date) => scrollToDate(date));
+
+    if (hideOnSelect) {
+      window.requestAnimationFrame(() => setDisplay('days'));
     }
-    componentDidMount() {
-        let vs = this.refs.VirtualScroll;
-		let grid = vs && vs.refs.Grid;
+  }
+  renderMonths(year) {
+    const {selected, theme, today} = this.props;
+    const months = getMonthsForYear(year, selected.getDate());
 
-		this.scrollEl = grid && grid.refs.scrollingContainer;
-    }
-    handleClick(year, e) {
-        let {hideYearsOnSelect, scrollToDate, selectedDate, setDisplay} = this.props;
-        let date = selectedDate || moment();
-        let newDate = date.clone().year(year);
+    return (
+      <ol>
+        {months.map((date, index) => {
+          const isSelected = isSameMonth(date, selected);
+          const isCurrentMonth = isSameMonth(date, today);
+          const style = Object.assign({}, isSelected && {
+            backgroundColor: (
+              typeof theme.selectionColor === 'function'
+                ? theme.selectionColor(date)
+                : theme.selectionColor
+            ),
+          }, isCurrentMonth && {
+            borderColor: theme.todayColor,
+          });
 
-        this.selectDate(newDate, e, !hideYearsOnSelect);
-        scrollToDate(newDate, -40);
-
-        if (hideYearsOnSelect) {
-            setDisplay('days');
-        }
-    }
-    selectDate(date, e, updateState = true, shouldHeaderAnimate = false) {
-        let {minDate, maxDate, onDaySelect} = this.props;
-
-        if (!date.isBefore(minDate, 'day') && !date.isAfter(maxDate, 'day')) {
-            if (updateState) {
-                this.setState({
-                    selectedYear: date.year()
-                });
-            }
-
-            onDaySelect(date, e, shouldHeaderAnimate);
-        }
-    }
-    handleKeyDown(e) {
-        let {scrollToDate, setDisplay, selectedDate} = this.props;
-        let {selectedYear} = this.state;
-        let delta = 0;
-
-        switch (e.keyCode) {
-            case keyCodes.enter:
-            case keyCodes.escape:
-                setDisplay('days');
-                scrollToDate(selectedDate || moment(selectedYear, 'YYYY'), -40);
-                return;
-            case keyCodes.down:
-                delta = +1;
-                break;
-            case keyCodes.up:
-                delta = -1;
-                break;
-        }
-
-        if (delta) {
-            if (!selectedDate) selectedDate = moment().year(selectedYear);
-
-            let newSelectedDate = selectedDate.clone().add(delta, 'year');
-            this.selectDate(newSelectedDate, e);
-        }
-    }
-    render() {
-        let {height, selectedDate, theme, width} = this.props;
-        let {selectedYear} = this.state;
-        const currentYear = moment().year();
-        let years = this.props.years.slice(0, this.props.years.length);
-        // Add spacer rows at the top and bottom
-        years.unshift(null);
-        years.push(null);
-
-        let selectedYearIndex = years.indexOf(selectedYear);
-        const rowHeight = 50;
-        const containerHeight = (years.length * rowHeight < height + 50) ? years.length * rowHeight : height + 50;
-
-        if (typeof width == 'string' && width.indexOf('%') !== -1) {
-			width = window.innerWidth * parseInt(width.replace('%', ''), 10) / 100; // See https://github.com/bvaughn/react-virtualized/issues/229
-		}
-
-        return (
-            <div
-                className={style.root}
-                style={{color: theme.selectionColor, height: height + 50}}
+          return (
+            <li
+              key={index}
+              onClick={(e) => {
+                e.stopPropagation();
+                this.handleClick(date, e);
+              }}
+              className={classNames(styles.month, {
+                [styles.selected]: isSelected,
+                [styles.currentMonth]: isCurrentMonth,
+              })}
+              style={style}
+              title={`Set date to ${format(date, 'MMMM Do, YYYY')}`}
             >
-                <VirtualScroll
-                    ref="VirtualScroll"
-                    className={style.list}
-                    width={width}
-                    height={containerHeight}
-                    rowCount={years.length}
-                    rowHeight={rowHeight}
-                    scrollToIndex={selectedYearIndex + 1}
-                    scrollToAlignment={'center'}
-                    rowRenderer={({index, style: rowStyle}) => {
-                        let year = years[index];
+              {format(date, 'MMM')}
+            </li>
+          );
+        })}
+      </ol>
+    );
+  }
+  render() {
+    const {height, selected, showMonths, theme, today, width} = this.props;
+    const currentYear = today.getFullYear();
+    const years = this.props.years.slice(0, this.props.years.length);
+    const selectedYearIndex = years.indexOf(selected.getFullYear());
+    const rowHeight = showMonths ? 110 : 50;
+    const heights = years.map((val, index) => index === 0 || index === years.length - 1
+      ? rowHeight + SPACING
+      : rowHeight
+    );
+    const containerHeight = years.length * rowHeight < height + 50
+      ? years.length * rowHeight
+      : height + 50;
 
-                        if (year !== null) {
-                            let isActive = (index == selectedYearIndex);
+    return (
+      <div
+        className={styles.root}
+        style={{color: theme.selectionColor, height: height + 50}}
+      >
+        <List
+          ref="List"
+          className={styles.list}
+          width={width}
+          height={containerHeight}
+          rowCount={years.length}
+          rowHeight={({index}) => heights[index]}
+          scrollToIndex={selectedYearIndex + 1}
+          scrollToAlignment={'center'}
+          rowRenderer={({index, style: rowStyle}) => {
+            const year = years[index];
+            const isActive = index === selectedYearIndex;
 
-                            return (
-                                <div
-                                    className={classNames(style.year, {[style.active]: isActive, [style.currentYear]: (year == currentYear)})}
-                                    onClick={() => this.handleClick(year)}
-                                    title={`Set year to ${year}`}
-                                    data-year={year}
-                                    style={Object.assign({}, rowStyle, {color: (typeof theme.selectionColor == 'function') ? theme.selectionColor(selectedDate.clone().year(year)) : theme.selectionColor})}
-                                >
-                                    <span style={(year == currentYear) ? {borderColor: theme.todayColor} : null}>
-                                        {year}
-                                    </span>
-                                </div>
-                            );
-                        } else {
-                            return <div className={style.spacer}></div>;
-                        }
-                    }}
-                />
-            </div>
-        )
-    }
+            return (
+              <div
+                key={index}
+                className={classNames(styles.year, {
+                  [styles.active]: !showMonths && isActive,
+                  [styles.currentYear]: !showMonths && year === currentYear,
+                  [styles.withMonths]: showMonths,
+                  [styles.first]: index === 0,
+                  [styles.last]: index === years.length - 1,
+                })}
+                onClick={() => this.handleClick(selected.setYear(year))}
+                title={`Set year to ${year}`}
+                data-year={year}
+                style={Object.assign({}, rowStyle, {
+                  color: (
+                    typeof theme.selectionColor === 'function'
+                      ? theme.selectionColor(new Date(year, 0, 1)) // TODO: Change this
+                      : theme.selectionColor
+                  ),
+                })}
+              >
+                <label>
+                  <span
+                    style={
+                      !showMonths && year === currentYear
+                        ? {borderColor: theme.todayColor}
+                        : null
+                    }
+                  >
+                    {year}
+                  </span>
+                </label>
+                {showMonths && this.renderMonths(year)}
+              </div>
+            );
+          }}
+        />
+      </div>
+    );
+  }
 }

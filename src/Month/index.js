@@ -1,80 +1,118 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import classNames from 'classnames';
-import Day from '../Day';
-const style = require('./Month.scss');
+import {getDateString} from '../utils';
+import format from 'date-fns/format';
+import getDay from 'date-fns/get_day';
+import isSameYear from 'date-fns/is_same_year';
+import styles from './Month.scss';
 
-export default class Month extends Component {
-	shouldComponentUpdate(nextProps) {
-		return (!nextProps.isScrolling && !this.props.isScrolling);
-	}
-	renderRows() {
-		let {disabledDates, disabledDays, displayDate, locale, maxDate, minDate, onDaySelect, rowHeight, rows, selectedDate, today, theme} = this.props;
-		let currentYear = today.date.year();
-		let monthShort = displayDate.format('MMM');
-		let monthRows = [];
-		let day = 0;
-		let isDisabled = false;
-		let isSelected = false;
-		let isToday = false;
-		let row, date, days;
+export default class Month extends PureComponent {
+  renderRows() {
+    const {
+      DayComponent,
+      disabledDates,
+      disabledDays,
+      monthDate,
+      locale,
+      maxDate,
+      minDate,
+      rowHeight,
+      rows,
+      selected,
+      today,
+      theme,
+      passThrough,
+    } = this.props;
+    const currentYear = today.getFullYear();
+    const year = monthDate.getFullYear();
+    const month = monthDate.getMonth();
+    const monthShort = format(monthDate, 'MMM', {locale: locale.locale});
+    const monthRows = [];
+    let day = 0;
+    let isDisabled = false;
+    let isToday = false;
+    let date, days, dow, row;
+
+    // Used for faster comparisons
+    const _today = format(today, 'YYYY-MM-DD');
+    const _minDate = format(minDate, 'YYYY-MM-DD');
+    const _maxDate = format(maxDate, 'YYYY-MM-DD');
 
 		// Oh the things we do in the name of performance...
-		for (let i = 0, len = rows.length; i < len; i++) {
-			row = rows[i];
-			days = [];
+    for (let i = 0, len = rows.length; i < len; i++) {
+      row = rows[i];
+      days = [];
+      dow = getDay(new Date(year, month, row[0]));
 
-			for (let k = 0, len = row.length; k < len; k++) {
-				date = row[k];
-				day++;
+      for (let k = 0, len = row.length; k < len; k++) {
+        day = row[k];
 
-				isSelected = (selectedDate && date.yyyymmdd == selectedDate.yyyymmdd);
-				isToday = (today && date.yyyymmdd == today.yyyymmdd);
-				isDisabled = (
-					minDate && date.yyyymmdd < minDate.yyyymmdd ||
-					maxDate && date.yyyymmdd > maxDate.yyyymmdd ||
-					disabledDays && disabledDays.length && disabledDays.indexOf(date.date.day()) !== -1 ||
-					disabledDates && disabledDates.length && disabledDates.indexOf(date.yyyymmdd) !== -1
+        date = getDateString(year, month, day);
+        isToday = (date === _today);
+
+        isDisabled = (
+					minDate && date < _minDate ||
+					maxDate && date > _maxDate ||
+					disabledDays && disabledDays.length && disabledDays.indexOf(dow) !== -1 ||
+					disabledDates && disabledDates.length && disabledDates.indexOf(date) !== -1
 				);
 
-				days[k] = (
-					<Day
+        days[k] = (
+					<DayComponent
 						key={`day-${day}`}
 						currentYear={currentYear}
 						date={date}
 						day={day}
-						handleDayClick={onDaySelect}
+            selected={selected}
 						isDisabled={isDisabled}
 						isToday={isToday}
-						isSelected={isSelected}
 						locale={locale}
-						monthShort={monthShort}
+            month={month}
+            monthShort={monthShort}
 						theme={theme}
+            year={year}
+            {...passThrough.Day}
 					/>
 				);
-			}
-			monthRows[i] = (
-				<ul className={classNames(style.row, {[style.partial]: row.length !== 7})} style={{height: rowHeight}} key={`Row-${i}`} role="row" aria-label={`Week ${i + 1}`}>
-					{days}
-				</ul>
-			);
-		}
 
-		return monthRows;
-	}
-	render() {
-		let {displayDate, today, rows, showOverlay, rowStyle, theme} = this.props;
+        dow += 1;
+      }
+      monthRows[i] = (
+        <ul
+          key={`Row-${i}`}
+          className={classNames(styles.row, {[styles.partial]: row.length !== 7})}
+          style={{height: rowHeight}}
+          role="row"
+          aria-label={`Week ${i + 1}`}
+        >
+          {days}
+        </ul>
+      );
 
-		return (
-			<div className={style.root} style={rowStyle}>
-				<div className={style.rows}>
-					{this.renderRows()}
-					{showOverlay &&
-						<label className={classNames(style.label, {[style.partialFirstRow] : (rows[0].length !== 7)})} style={theme && theme.overlayColor && {backgroundColor: theme.overlayColor}}>
-							<span>{`${displayDate.format('MMMM')}${(!displayDate.isSame(today.date, 'year')) ? ' ' + displayDate.year() : ''}`}</span>
-						</label>
-					}
-				</div>
-			</div>
-		);
-	}
+    }
+
+    return monthRows;
+  }
+  render() {
+    const {monthDate, today, rows, showOverlay, style, theme} = this.props;
+    const dateFormat = isSameYear(monthDate, today) ? 'MMMM' : 'MMMM YYYY';
+
+    return (
+      <div className={styles.root} style={style}>
+  				<div className={styles.rows}>
+  					{this.renderRows()}
+  					{showOverlay &&
+  						<label
+                className={classNames(styles.label, {
+                  [styles.partialFirstRow]: rows[0].length !== 7,
+                })}
+                style={{backgroundColor: theme.overlayColor}}
+              >
+                <span>{format(monthDate, dateFormat)}</span>
+              </label>
+  					}
+  				</div>
+  			</div>
+    );
+  }
 }

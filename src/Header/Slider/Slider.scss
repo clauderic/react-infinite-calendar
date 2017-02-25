@@ -1,0 +1,56 @@
+.root, .slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.root {
+  overflow: hidden;
+}
+
+.slide {
+  padding: 20px 65px;
+
+  &:first-child {
+    padding-left: 20px;
+  }
+}
+
+.wrapper {
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
+.arrow {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 100%;
+
+  opacity: 0.7;
+  cursor: pointer;
+  border-left: 1px solid rgba(255,255,255,0.1);
+
+  svg {
+    width: 15px;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.arrowRight {
+  right: 0;
+}
+.arrowLeft {
+  left: 0;
+  transform: scaleX(-1);
+}

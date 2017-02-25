@@ -1,124 +1,207 @@
 @import "../variables";
 
 @mixin circle() {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: $rowHeight - 4px;
-    height: $rowHeight - 4px;
-    margin-top: -0.5 * ($rowHeight - 4px);
-    margin-left: -0.5 * ($rowHeight - 4px);
-    border-radius: 50%;
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: $rowHeight - 4px;
+  height: $rowHeight - 4px;
+  margin-top: -0.5 * ($rowHeight - 4px);
+  margin-left: -0.5 * ($rowHeight - 4px);
+  border-radius: 50%;
 }
 
 .root {
-    display: inline-block;
-    box-sizing: border-box;
-    width: 1 / 7 * 100%;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 1 / 7 * 100%;
 
-    list-style: none;
+  list-style: none;
 
-    font-size: 16px;
-    text-align: center;
+  font-size: 16px;
+  text-align: center;
 
-    cursor: pointer;
-    user-select: none;
+  cursor: pointer;
+  user-select: none;
 
-    &.enabled {
-        &.highlighted, &:active, &:hover {
-            position: relative;
-            z-index: 1;
+  &.enabled {
+    &.highlighted, &:active, &:hover {
+      position: relative;
+      z-index: 1;
 
-            &:before {
-                @include circle();
+      &:before {
+        @include circle();
 
-                background-color: #EFEFEF;
-                z-index: -1;
-            }
-        }
-
-        &:hover:before {
-            opacity: 0.5;
-        }
-        &.highlighted:before, &:active:before {
-            opacity: 1;
-        }
+        background-color: $cellHoverBg;
+        z-index: -1;
+      }
     }
 
-    &:first-child {
+    &:hover:before {
+      opacity: 0.5;
+    }
+    &.highlighted:before, &:active:before {
+      opacity: 1;
+    }
+  }
+
+  &:first-child {
+      position: relative;
+  }
+
+  &.today {
+      position: relative;
+      z-index: 2;
+
+      > span {
+          color: $textColor;
+      }
+
+      &.disabled > span {
+          color: #AAA;
+      }
+
+      &:before {
+          @include circle();
+          box-shadow: inset 0 0 0 1px;
+          z-index: -1;
+      }
+
+      &.disabled:before {
+          box-shadow: inset 0 0 0 1px #BBB;
+      }
+  }
+  &.selected {
+    position: relative;
+
+    > .month, > .year {
+      display: none;
+    }
+
+    &:before {
+      display: none;
+    }
+
+    .selection {
+      @include circle();
+      line-height: $rowHeight;
+      z-index: 2;
+
+      .month {
+        top: 9px;
+      }
+      .day {
         position: relative;
+        top: 5px;
+
+        font-weight: bold;
+        font-size: 18px;
+      }
     }
-
-    &.today {
-        position: relative;
-        z-index: 2;
-
-        > span {
-            color: $textColor;
-        }
-
-        &.disabled > span {
-            color: #AAA;
-        }
-
-        &:before {
-            @include circle();
-            box-shadow: inset 0 0 0 1px;
-            z-index: -1;
-        }
-
-        &.disabled:before {
-            box-shadow: inset 0 0 0 1px #BBB;
-        }
-    }
-    &.selected {
-        position: relative;
-
-        > .month, > .year {
-            display: none;
-        }
-        
-        &:before {
-            display: none;
-        }
-
-        .selection {
-            @include circle();
-            line-height: $rowHeight;
-            z-index: 2;
-
-            .month {
-                top: 9px;
-            }
-            .day {
-                position: relative;
-                top: 5px;
-
-                font-weight: bold;
-                font-size: 18px;
-            }
-        }
-    }
-    &.disabled {
-        cursor: default;
-        color: #AAA;
-        cursor: not-allowed;
-    }
+  }
+  &.disabled {
+    cursor: default;
+    color: #AAA;
+    cursor: not-allowed;
+  }
 }
 
 .month, .year {
-    position: absolute;
-    left: 0;
-    right: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
 
-    font-size: 12px;
-    line-height: 12px;
+  font-size: 12px;
+  line-height: 12px;
+  text-transform: capitalize;
 }
 
 .month {
-    top: 5px;
+  top: 5px;
 }
+
 .year {
-    bottom: 5px;
+  bottom: 5px;
+}
+
+/*
+ * Range selection styles
+ */
+.range.selected {
+  &.start, &.end {
+    &:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: ($rowHeight - 4px) / 2;
+      height: $rowHeight - 4px;
+      margin-top: -0.5 * ($rowHeight - 4px);
+      box-shadow: inset $rowHeight $rowHeight;
+    }
+  }
+
+  &.disabled {
+    .selection.selection {
+      background-color: #EEE !important;
+
+      .day, .month {
+        color: #AAA;
+        font-weight: 300;
+      }
+    }
+  }
+
+  &.start {
+    .selection {
+      border-top-left-radius: 50%;
+      border-bottom-left-radius: 50%;
+    }
+
+    &:after {
+      right: 0;
+    }
+
+    &.end:after {
+      display: none;
+    }
+  }
+  &.betweenRange {
+    .selection {
+      left: 0;
+      right: 0;
+      width: 100%;
+      margin-left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 0;
+    }
+    .day {
+      top: 0;
+      font-size: 16px;
+    }
+    .month {
+      display: none;
+    }
+  }
+  &.end {
+    &:after {
+      left: 0;
+    }
+
+    .selection {
+      border-top-right-radius: 50%;
+      border-bottom-right-radius: 50%;
+
+      color: inherit !important;
+      background-color: #FFF !important;
+      border: 2px solid;
+      box-sizing: border-box;
+
+      .day {
+        top: 4px;
+      }
+    }
+  }
 }

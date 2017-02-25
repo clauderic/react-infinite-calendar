@@ -1,9 +1,7 @@
-*.DS_Store
-node_modules
-dist
-styles.min.css
-styles.min.css.map
-coverage
-.stories
-.storybook
-npm-debug.log
+/coverage
+/demo/dist
+/es
+/lib
+/node_modules
+/umd
+npm-debug.log*
