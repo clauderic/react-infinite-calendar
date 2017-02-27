@@ -55,11 +55,13 @@ export function getMonth(year, month, weekStartsOn) {
   };
 }
 
-export function getWeek(year, date, weekStartsOn) {
-  const yearStart = new Date(year, 0, 1); // 1st Jan of the Year
+export function getWeek(yearStart, date, weekStartsOn) {
+  const yearStartDate = (typeof yearStart === 'number')
+    ? new Date(yearStart, 0, 1) // 1st Jan of the Year
+    : yearStart;
 
   return Math.ceil(
-    ((date - yearStart) / (60 * 60 * 24 * 1000) + yearStart.getDay() + 1 - weekStartsOn) / 7
+    ((date - yearStartDate) / (60 * 60 * 24 * 1000) + yearStartDate.getDay() + 1 - weekStartsOn) / 7
   );
 }
 

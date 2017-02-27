@@ -9,6 +9,7 @@ import {
   animate,
 } from '../utils';
 import parse from 'date-fns/parse';
+import startOfMonth from 'date-fns/start_of_month';
 import Month from '../Month';
 import styles from './MonthList.scss';
 
@@ -78,7 +79,7 @@ export default class MonthList extends Component {
 
   getDateOffset(date) {
     const {min, rowHeight, locale: {weekStartsOn}, height} = this.props;
-    const weeks = getWeek(min.getFullYear(), parse(date), weekStartsOn);
+    const weeks = getWeek(startOfMonth(min), parse(date), weekStartsOn);
 
     return weeks * rowHeight - (height - rowHeight) / 2;
   }
