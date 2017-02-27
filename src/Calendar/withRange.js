@@ -63,7 +63,7 @@ export const withRange = compose(
         onSelect: (date) => handleYearSelect(date, {displayKey, selected, ...props}),
       },
       Header: {
-        onYearClick: (date, e, key) => setDisplayKey(key),
+        onYearClick: (date, e, key) => setDisplayKey(key || 'start'),
       },
     },
     selected: {

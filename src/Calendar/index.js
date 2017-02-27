@@ -137,13 +137,22 @@ export default class Calendar extends Component {
     this._minDate = parse(props.minDate);
     this._maxDate = parse(props.maxDate);
 
-    let min = this._min.getFullYear();
-    let max = this._max.getFullYear();
+    const min = this._min.getFullYear();
+    const minMonth = this._min.getMonth();
+    const max = this._max.getFullYear();
+    const maxMonth = this._max.getMonth();
 
     const months = [];
     let year, month;
     for (year = min; year <= max; year++) {
       for (month = 0; month < 12; month++) {
+        if (
+          year === min && month < minMonth ||
+          year === max && month > maxMonth
+        ) {
+          continue;
+        }
+
         months.push({month, year});
       }
     }
@@ -186,7 +195,7 @@ export default class Calendar extends Component {
       );
   };
   getScrollSpeed = new ScrollSpeed().getScrollSpeed;
-  onScroll = ({scrollTop}) => {
+  handleScroll = (scrollTop, e) => {
     const {onScroll, rowHeight} = this.props;
     const {isScrolling} = this.state;
     const {showTodayHelper, showOverlay} = this.getDisplayOptions();
@@ -204,10 +213,10 @@ export default class Calendar extends Component {
       this.updateTodayHelperPosition(scrollSpeed);
     }
 
-    onScroll(scrollTop);
-    this.onScrollEnd();
+    onScroll(scrollTop, e);
+    this.handleScrollEnd();
   };
-  onScrollEnd = debounce(() => {
+  handleScrollEnd = debounce(() => {
     const {onScrollEnd} = this.props;
     const {isScrolling} = this.state;
     const {showTodayHelper} = this.getDisplayOptions();
@@ -344,7 +353,7 @@ export default class Calendar extends Component {
               min={this._min}
               minDate={this._minDate}
               months={this.months}
-              onScroll={this.onScroll}
+              onScroll={this.handleScroll}
               overscanMonthCount={overscanMonthCount}
               passThrough={passThrough}
               theme={theme}
