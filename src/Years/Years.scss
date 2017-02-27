@@ -107,6 +107,14 @@
         color: #FFF !important;
         border: 0;
       }
+      &.disabled {
+        cursor: not-allowed;
+        color: $textColorDisabled;
+
+        &:hover {
+          background-color: inherit;
+        }
+      }
 
       &:hover {
         background-color: $cellHoverBg;

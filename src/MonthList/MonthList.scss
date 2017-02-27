@@ -1,8 +1,13 @@
 .root {
   width: 100% !important;
   background-color: #FFF;
+  -webkit-overflow-scrolling: touch;
 
   &.scrolling {
+    > div {
+      pointer-events: none;
+    }
+
     label {
       opacity: 1;
     }

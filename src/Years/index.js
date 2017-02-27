@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {List} from 'react-virtualized';
+import VirtualList from 'react-tiny-virtual-list';
 import classNames from 'classnames';
 import {emptyFn, getMonthsForYear} from '../utils';
 import format from 'date-fns/format';
@@ -27,12 +27,7 @@ export default class Years extends Component {
     onSelect: emptyFn,
     showMonths: true,
   };
-  componentDidMount() {
-    let list = this.refs.list;
-    let grid = list && list.refs.Grid;
 
-    this.scrollEl = grid && grid.refs.scrollingContainer;
-  }
   handleClick(date, e) {
     let {
       hideOnSelect,
@@ -47,15 +42,28 @@ export default class Years extends Component {
       window.requestAnimationFrame(() => setDisplay('days'));
     }
   }
+
   renderMonths(year) {
-    const {locale: {locale}, selected, theme, today} = this.props;
+    const {locale: {locale}, minDate, maxDate, selected, theme, today} = this.props;
     const months = getMonthsForYear(year, selected.getDate());
+    const max = {
+      month: maxDate.getMonth(),
+      year: maxDate.getFullYear(),
+    };
+    const min = {
+      month: minDate.getMonth(),
+      year: minDate.getFullYear(),
+    };
 
     return (
       <ol>
         {months.map((date, index) => {
           const isSelected = isSameMonth(date, selected);
           const isCurrentMonth = isSameMonth(date, today);
+          const isDisabled = (
+            year === min.year && index < min.month ||
+            year === max.year && index > max.month
+          );
           const style = Object.assign({}, isSelected && {
             backgroundColor: (
               typeof theme.selectionColor === 'function'
@@ -71,11 +79,15 @@ export default class Years extends Component {
               key={index}
               onClick={(e) => {
                 e.stopPropagation();
-                this.handleClick(date, e);
+
+                if (!isDisabled) {
+                  this.handleClick(date, e);
+                }
               }}
               className={classNames(styles.month, {
                 [styles.selected]: isSelected,
                 [styles.currentMonth]: isCurrentMonth,
+                [styles.disabled]: isDisabled,
               })}
               style={style}
               title={`Set date to ${format(date, 'MMMM Do, YYYY')}`}
@@ -87,6 +99,7 @@ export default class Years extends Component {
       </ol>
     );
   }
+
   render() {
     const {height, selected, showMonths, theme, today, width} = this.props;
     const currentYear = today.getFullYear();
@@ -106,17 +119,17 @@ export default class Years extends Component {
         className={styles.root}
         style={{color: theme.selectionColor, height: height + 50}}
       >
-        <List
+        <VirtualList
           ref="List"
           className={styles.list}
           width={width}
           height={containerHeight}
-          rowCount={years.length}
-          rowHeight={({index}) => heights[index]}
-          scrollToIndex={selectedYearIndex + 1}
-          scrollToAlignment={'center'}
-          rowRenderer={({index, style: rowStyle}) => {
-            const year = years[index];
+          data={years}
+          estimatedRowHeight={rowHeight}
+          rowHeight={(index) => heights[index]}
+          scrollToIndex={selectedYearIndex}
+          scrollToAlignment='center'
+          renderRow={({index, row: year, style}) => {
             const isActive = index === selectedYearIndex;
 
             return (
@@ -129,13 +142,13 @@ export default class Years extends Component {
                   [styles.first]: index === 0,
                   [styles.last]: index === years.length - 1,
                 })}
-                onClick={() => this.handleClick(selected.setYear(year))}
+                onClick={() => this.handleClick(new Date(selected).setYear(year))}
                 title={`Set year to ${year}`}
                 data-year={year}
-                style={Object.assign({}, rowStyle, {
+                style={Object.assign({}, style, {
                   color: (
                     typeof theme.selectionColor === 'function'
-                      ? theme.selectionColor(new Date(year, 0, 1)) // TODO: Change this
+                      ? theme.selectionColor(new Date(year, 0, 1))
                       : theme.selectionColor
                   ),
                 })}

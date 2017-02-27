@@ -25,21 +25,9 @@
       border-bottom-right-radius: $borderRadius;
     }
   }
-
-  :global {
-    .ReactVirtualized__List {
-      position: relative;
-      overflow: auto;
-      outline: none;
-      overflow-x: hidden !important;
-      -webkit-overflow-scrolling: touch;
-    }
-    .ReactVirtualized__Grid__innerScrollContainer {
-      width: 100% !important;
-    }
-  }
 }
 .listWrapper {
   position: relative;
   overflow: hidden;
+  background-color: #FFF;
 }

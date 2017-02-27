@@ -74,6 +74,7 @@ export function getWeeksInMonth(
   month,
   year = new Date().getFullYear(),
   weekStartsOn,
+  isLastDisplayedMonth
 ) {
   const weekEndsOn = getEndOfWeekIndex(weekStartsOn);
 
@@ -86,7 +87,7 @@ export function getWeeksInMonth(
   let rowCount = lastWeekNumber - firstWeekNumber;
 
   // If the last week contains 7 days, we need to add an extra row
-  if (lastOfMonth.getDay() === weekEndsOn) {
+  if (lastOfMonth.getDay() === weekEndsOn || isLastDisplayedMonth) {
     rowCount++;
   }
 

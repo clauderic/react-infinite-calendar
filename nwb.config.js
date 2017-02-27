@@ -14,7 +14,7 @@ module.exports = {
     }
   },
   babel: {
-    cherryPick: ['react-virtualized', 'recompose'],
+    cherryPick: ['recompose'],
     plugins: [
       ['css-modules-transform', {
         generateScopedName: 'Cal__[name]__[local]',
