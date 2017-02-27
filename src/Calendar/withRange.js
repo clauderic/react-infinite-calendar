@@ -7,6 +7,7 @@ import enhanceHeader from '../Header/withRange';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 import styles from '../Day/Day.scss';
+import eventType from '../utils/eventType';
 
 let isTouchDevice = false;
 
@@ -81,13 +82,15 @@ function getSortedSelection({start, end}) {
 
 function handleSelect(date, {onSelect, selected, selectionStart, setSelectionStart}) {
   if (selectionStart) {
-    onSelect(getSortedSelection({
+    var range = getSortedSelection({
       start: selectionStart,
-      end: date,
-    }));
+      end: date
+    });
+    range.eventType = eventType.END;
+    onSelect(range);
     setSelectionStart(null);
   } else {
-    onSelect({start: date, end: date});
+    onSelect({start: date, end: date, eventType:eventType.START});
     setSelectionStart(date);
   }
 }
@@ -98,10 +101,12 @@ function handleMouseOver(e, {onSelect, selectionStart}) {
 
   if (!date) { return; }
 
-  onSelect(getSortedSelection({
+  var range = getSortedSelection({
     start: selectionStart,
-    end: date,
-  }));
+    end: date
+  });
+  range.eventType = eventType.HOVER;
+  onSelect(range);
 }
 
 function handleYearSelect(date, {displayKey, onSelect, selected, setScrollDate}) {
