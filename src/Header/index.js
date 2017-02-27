@@ -19,6 +19,7 @@ export default class Header extends PureComponent {
     shouldAnimate: PropTypes.bool,
     theme: PropTypes.object,
   };
+  
   render() {
     let {
       layout,

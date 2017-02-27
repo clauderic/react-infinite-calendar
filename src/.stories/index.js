@@ -56,8 +56,8 @@ storiesOf('Higher Order Components', module)
   .add('Range selection', () => (
     <InfiniteCalendar
       selected={{
-        start: new Date(),
-        end: addDays(new Date(), 7),
+        start: addDays(new Date(), 2),
+        end: addDays(new Date(), 17),
       }}
       Component={withRange(withKeyboardSupport(Calendar))}
     />

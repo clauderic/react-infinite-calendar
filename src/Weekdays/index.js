@@ -7,6 +7,7 @@ export default class Weekdays extends PureComponent {
     locale: PropTypes.object,
     theme: PropTypes.object,
   };
+  
   render() {
     const {weekdays, weekStartsOn, theme} = this.props;
     const orderedWeekdays = [...weekdays.slice(weekStartsOn, 7), ...weekdays.slice(0, weekStartsOn)];

@@ -11,6 +11,7 @@ export default class Day extends PureComponent {
       onClick(parse(date));
     }
   };
+
   renderSelection(selectionColor) {
     const {
       day,
@@ -39,6 +40,7 @@ export default class Day extends PureComponent {
       </div>
     );
   }
+  
   render() {
     const {
       className,

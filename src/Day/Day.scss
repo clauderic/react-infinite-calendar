@@ -59,7 +59,7 @@
       }
 
       &.disabled > span {
-          color: #AAA;
+          color: $textColorDisabled;
       }
 
       &:before {
@@ -101,8 +101,7 @@
     }
   }
   &.disabled {
-    cursor: default;
-    color: #AAA;
+    color: $textColorDisabled;
     cursor: not-allowed;
   }
 }
