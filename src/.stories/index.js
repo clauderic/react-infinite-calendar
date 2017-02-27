@@ -17,7 +17,7 @@ import addMonths from 'date-fns/add_months';
 import endOfMonth from 'date-fns/end_of_month';
 import format from 'date-fns/format';
 import isBefore from 'date-fns/is_before';
-import subMonths from 'date-fns/sub_days';
+import subMonths from 'date-fns/sub_months';
 
 const CenterDecorator = story => <div className={styles.center}>{story()}</div>;
 addDecorator(CenterDecorator);
@@ -30,9 +30,9 @@ storiesOf('Basic settings', module)
   .add('Blank Initial State', () => <InfiniteCalendar selected={null} />)
   .add('Min Date', () => (
     <InfiniteCalendar
-      min={subMonths(today, 2)} // Minimum month to render
+      min={subMonths(today, 1)} // Minimum month to render
       minDate={addDays(today, 1)} // Minimum selectable date
-      selectedDate={addDays(today, 5)}
+      selected={addDays(today, 5)}
     />
   ))
   .add('Max Date', () => (
@@ -125,11 +125,11 @@ storiesOf('Customization', module)
     />
   ))
   .add('Select Year First', () => (
-    <InfiniteCalendar display={'years'} selectedDate={null} />
+    <InfiniteCalendar display={'years'} selected={null} />
   ))
   .add('Dynamic Selection Color', () => (
     <InfiniteCalendar
-      selectedDate={addDays(today, -1)}
+      selected={addDays(today, -1)}
       theme={{
         selectionColor: date => {
           return isBefore(date, today) ? '#EC6150' : '#559FFF';
