@@ -3,6 +3,8 @@ import VirtualList from 'react-tiny-virtual-list';
 import classNames from 'classnames';
 import {emptyFn, getMonthsForYear} from '../utils';
 import format from 'date-fns/format';
+import isAfter from 'date-fns/is_after';
+import isBefore from 'date-fns/is_before';
 import isSameMonth from 'date-fns/is_same_month';
 import styles from './Years.scss';
 
@@ -13,7 +15,9 @@ export default class Years extends Component {
     height: PropTypes.number,
     hideOnSelect: PropTypes.bool,
     locale: PropTypes.object,
+    max: PropTypes.object,
     maxDate: PropTypes.object,
+    min: PropTypes.object,
     minDate: PropTypes.object,
     onSelect: PropTypes.func,
     scrollToDate: PropTypes.func,
@@ -44,16 +48,8 @@ export default class Years extends Component {
   }
 
   renderMonths(year) {
-    const {locale: {locale}, minDate, maxDate, selected, theme, today} = this.props;
+    const {locale: {locale}, selected, theme, today, min, max, minDate, maxDate} = this.props;
     const months = getMonthsForYear(year, selected.getDate());
-    const max = {
-      month: maxDate.getMonth(),
-      year: maxDate.getFullYear(),
-    };
-    const min = {
-      month: minDate.getMonth(),
-      year: minDate.getFullYear(),
-    };
 
     return (
       <ol>
@@ -61,8 +57,10 @@ export default class Years extends Component {
           const isSelected = isSameMonth(date, selected);
           const isCurrentMonth = isSameMonth(date, today);
           const isDisabled = (
-            year === min.year && index < min.month ||
-            year === max.year && index > max.month
+            isBefore(date, min) ||
+            isBefore(date, minDate) ||
+            isAfter(date, max) ||
+            isAfter(date, maxDate)
           );
           const style = Object.assign({}, isSelected && {
             backgroundColor: (

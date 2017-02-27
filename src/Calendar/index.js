@@ -274,8 +274,6 @@ export default class Calendar extends Component {
       displayDate,
 			height,
       HeaderComponent,
-			minDate,
-			maxDate,
       rowHeight,
       scrollDate,
       selected,
@@ -373,8 +371,10 @@ export default class Calendar extends Component {
               height={height}
               hideOnSelect={hideYearsOnSelect}
               locale={locale}
-              maxDate={maxDate}
-              minDate={minDate}
+              max={this._max}
+              maxDate={this._maxDate}
+              min={this._min}
+              minDate={this._minDate}
               scrollToDate={this.scrollToDate}
               selected={selected}
               setDisplay={this.setDisplay}
