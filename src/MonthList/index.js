@@ -81,7 +81,7 @@ export default class MonthList extends Component {
     const {min, rowHeight, locale: {weekStartsOn}, height} = this.props;
     const weeks = getWeek(startOfMonth(min), parse(date), weekStartsOn);
 
-    return weeks * rowHeight - (height - rowHeight) / 2;
+    return weeks * rowHeight - (height - rowHeight/2) / 2;
   }
 
   scrollToDate = (date, offset = 0, ...rest) => {

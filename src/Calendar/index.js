@@ -240,16 +240,16 @@ export default class Calendar extends Component {
     let newState;
 
     if (!this._todayOffset) {
-      this._todayOffset = (
-				this.getDateOffset(today) + // scrollTop offset of the month "today" is in
-				Math.ceil((today.getDate() - 7 + getDay(startOfMonth(today))) / 7) * rowHeight // offset of "today" within its month
-			);
+      this._todayOffset = this.getDateOffset(today);
     }
 
-    if (scrollTop >= this._todayOffset + rowHeight * (todayHelperRowOffset+1)) {
-      if (showToday !== DIRECTION_UP) newState = DIRECTION_UP; //today is above the fold
-    } else if (scrollTop + height <= this._todayOffset + rowHeight - rowHeight * (todayHelperRowOffset+1)) {
-      if (showToday !== DIRECTION_DOWN) newState = DIRECTION_DOWN; //today is below the fold
+    // Today is above the fold
+    if (scrollTop >= this._todayOffset + (height - rowHeight) / 2 + rowHeight * todayHelperRowOffset) {
+      if (showToday !== DIRECTION_UP) newState = DIRECTION_UP;
+    }
+    // Today is below the fold
+    else if (scrollTop <= this._todayOffset - height / 2 - rowHeight * (todayHelperRowOffset + 1)) {
+      if (showToday !== DIRECTION_DOWN) newState = DIRECTION_DOWN;
     } else if (showToday && scrollSpeed <= 1) {
       newState = false;
     }
