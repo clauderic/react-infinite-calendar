@@ -1,6 +1,6 @@
 # Contributing to this project
 
-Please take a moment to review this document in order to make the contribution process easy and effective for everyone involved.
+First of all, thanks for contributing! Please take a moment to review this document in order to make the contribution process easy and effective for everyone involved.
 
 Following these guidelines helps to communicate that you respect the time of the developers managing and developing this open source project. In return, they should reciprocate that respect in addressing your issue or assessing patches and features.
 
@@ -8,7 +8,7 @@ Following these guidelines helps to communicate that you respect the time of the
 
 The issue tracker is the preferred channel for bug reports but please respect the following restrictions:
 
-* Please **try not to** use the issue tracker for personal support requests (use [Gitter](https://gitter.im/clauderic/react-sortable-hoc)).
+* Please **try not to** use the issue tracker for personal support requests (use [Gitter](https://gitter.im/clauderic/react-infinite-calendar)).
 * Please **do not** derail or troll issues. Keep the discussion on topic and respect the opinions of others.
 
 ## Feature requests
