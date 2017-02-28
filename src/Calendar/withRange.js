@@ -7,9 +7,14 @@ import enhanceHeader from '../Header/withRange';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 import styles from '../Day/Day.scss';
-import eventType from '../utils/eventType';
 
 let isTouchDevice = false;
+
+export const EVENT_TYPE = {
+  START:1,
+  HOVER:2,
+  END:3
+};
 
 // Enhance Day component to display selected state based on an array of selected dates
 export const enhanceDay = withPropsOnChange(['selected'], ({date, selected, theme}) => {
@@ -82,15 +87,16 @@ function getSortedSelection({start, end}) {
 
 function handleSelect(date, {onSelect, selected, selectionStart, setSelectionStart}) {
   if (selectionStart) {
-    var range = getSortedSelection({
-      start: selectionStart,
-      end: date
+    onSelect({
+      eventType: EVENT_TYPE.END,
+      ...getSortedSelection({
+        start: selectionStart,
+        end: date
+      })
     });
-    range.eventType = eventType.END;
-    onSelect(range);
     setSelectionStart(null);
   } else {
-    onSelect({start: date, end: date, eventType:eventType.START});
+    onSelect({eventType:EVENT_TYPE.START, start: date, end: date});
     setSelectionStart(date);
   }
 }
@@ -101,12 +107,13 @@ function handleMouseOver(e, {onSelect, selectionStart}) {
 
   if (!date) { return; }
 
-  var range = getSortedSelection({
-    start: selectionStart,
-    end: date
+  onSelect({
+    eventType: EVENT_TYPE.HOVER,
+    ...getSortedSelection({
+      start: selectionStart,
+      end: date
+    })
   });
-  range.eventType = eventType.HOVER;
-  onSelect(range);
 }
 
 function handleYearSelect(date, {displayKey, onSelect, selected, setScrollDate}) {
