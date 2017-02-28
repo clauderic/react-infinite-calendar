@@ -11,11 +11,8 @@ import MonthList from '../MonthList';
 import Weekdays from '../Weekdays';
 import Years from '../Years';
 import Day from '../Day';
-
 import parse from 'date-fns/parse';
 import format from 'date-fns/format';
-import getDay from 'date-fns/get_day';
-import startOfMonth from 'date-fns/start_of_month';
 import startOfDay from 'date-fns/start_of_day';
 
 const styles = {
