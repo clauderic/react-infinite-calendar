@@ -119,7 +119,7 @@ storiesOf('Customization', module)
   ))
   .add('Flexible Size', () => (
     <InfiniteCalendar
-      width={window.innerWidth <= 700 ? window.innerWidth : 700}
+      width={'94%'}
       height={window.innerHeight - 147}
       rowHeight={70}
     />
