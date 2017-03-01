@@ -24,7 +24,7 @@ export default class Years extends Component {
     selectedYear: PropTypes.number,
     setDisplay: PropTypes.func,
     theme: PropTypes.object,
-    width: PropTypes.number,
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     years: PropTypes.array,
   };
   static defaultProps = {
