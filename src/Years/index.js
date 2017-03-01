@@ -122,12 +122,13 @@ export default class Years extends Component {
           className={styles.list}
           width={width}
           height={containerHeight}
-          data={years}
-          estimatedRowHeight={rowHeight}
-          rowHeight={(index) => heights[index]}
+          itemCount={years.length}
+          estimatedItemSize={rowHeight}
+          itemSize={(index) => heights[index]}
           scrollToIndex={selectedYearIndex}
           scrollToAlignment='center'
-          renderRow={({index, row: year, style}) => {
+          renderItem={({index, style}) => {
+            const year = years[index];
             const isActive = index === selectedYearIndex;
 
             return (

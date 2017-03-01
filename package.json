@@ -25,7 +25,7 @@
     "classnames": "^2.2.5",
     "date-fns": "^1.27.2",
     "dom-helpers": "^3.2.1",
-    "react-tiny-virtual-list": "^1.0.0",
+    "react-tiny-virtual-list": "^2.0.0",
     "recompose": "^0.22.0"
   },
   "peerDependencies": {

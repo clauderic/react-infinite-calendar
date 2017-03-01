@@ -115,7 +115,7 @@ export default class MonthList extends Component {
     }
   };
 
-  renderMonth = ({row, index, style}) => {
+  renderMonth = ({index, style}) => {
     let {
       DayComponent,
       disabledDates,
@@ -177,12 +177,12 @@ export default class MonthList extends Component {
         ref={this._getRef}
         width={width}
         height={height}
-        data={months}
-        rowHeight={this.getMonthHeight}
-        estimatedRowHeight={rowHeight * AVERAGE_ROWS_PER_MONTH}
-        renderRow={this.renderMonth}
+        itemCount={months.length}
+        itemSize={this.getMonthHeight}
+        estimatedItemSize={rowHeight * AVERAGE_ROWS_PER_MONTH}
+        renderItem={this.renderMonth}
         onScroll={onScroll}
-        scrollTop={scrollTop}
+        scrollOffset={scrollTop}
         className={classNames(styles.root, {[styles.scrolling]: isScrolling})}
         style={{lineHeight: `${rowHeight}px`}}
         overscanCount={overscanMonthCount}

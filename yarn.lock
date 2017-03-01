@@ -5642,9 +5642,9 @@ react-stubber@^1.0.0:
   dependencies:
     babel-runtime "^6.5.0"
 
-react-tiny-virtual-list@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-tiny-virtual-list/-/react-tiny-virtual-list-1.0.0.tgz#8d7b3fcb907577073e1b5b6763b4433d22dbcb69"
+react-tiny-virtual-list@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-tiny-virtual-list/-/react-tiny-virtual-list-2.0.0.tgz#946d2ee650897255f48e79f6c62e68df7e35a92e"
 
 react-transform-catch-errors@1.0.2:
   version "1.0.2"
