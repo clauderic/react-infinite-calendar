@@ -10,6 +10,12 @@ import styles from '../Day/Day.scss';
 
 let isTouchDevice = false;
 
+export const EVENT_TYPE = {
+  START:1,
+  HOVER:2,
+  END:3
+};
+
 // Enhance Day component to display selected state based on an array of selected dates
 export const enhanceDay = withPropsOnChange(['selected'], ({date, selected, theme}) => {
   const isSelected = date >= selected.start && date <= selected.end;
@@ -81,13 +87,16 @@ function getSortedSelection({start, end}) {
 
 function handleSelect(date, {onSelect, selected, selectionStart, setSelectionStart}) {
   if (selectionStart) {
-    onSelect(getSortedSelection({
-      start: selectionStart,
-      end: date,
-    }));
+    onSelect({
+      eventType: EVENT_TYPE.END,
+      ...getSortedSelection({
+        start: selectionStart,
+        end: date
+      })
+    });
     setSelectionStart(null);
   } else {
-    onSelect({start: date, end: date});
+    onSelect({eventType:EVENT_TYPE.START, start: date, end: date});
     setSelectionStart(date);
   }
 }
@@ -98,10 +107,13 @@ function handleMouseOver(e, {onSelect, selectionStart}) {
 
   if (!date) { return; }
 
-  onSelect(getSortedSelection({
-    start: selectionStart,
-    end: date,
-  }));
+  onSelect({
+    eventType: EVENT_TYPE.HOVER,
+    ...getSortedSelection({
+      start: selectionStart,
+      end: date
+    })
+  });
 }
 
 function handleYearSelect(date, {displayKey, onSelect, selected, setScrollDate}) {
