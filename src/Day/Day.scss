@@ -3,12 +3,11 @@
 @mixin circle() {
   content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: $rowHeight - 4px;
-  height: $rowHeight - 4px;
-  margin-top: -0.5 * ($rowHeight - 4px);
-  margin-left: -0.5 * ($rowHeight - 4px);
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  left: 2px;
+  max-width: $rowHeight - 4px;
   border-radius: 50%;
 }
 
@@ -47,31 +46,32 @@
   }
 
   &:first-child {
-      position: relative;
+    position: relative;
   }
 
   &.today {
-      position: relative;
-      z-index: 2;
+    position: relative;
+    z-index: 2;
 
-      > span {
-          color: $textColor;
-      }
+    > span {
+      color: $textColor;
+    }
 
-      &.disabled > span {
-          color: $textColorDisabled;
-      }
+    &.disabled > span {
+      color: $textColorDisabled;
+    }
 
-      &:before {
-          @include circle();
-          box-shadow: inset 0 0 0 1px;
-          z-index: -1;
-      }
+    &:before {
+      @include circle();
+      box-shadow: inset 0 0 0 1px;
+      z-index: -1;
+    }
 
-      &.disabled:before {
-          box-shadow: inset 0 0 0 1px #BBB;
-      }
+    &.disabled:before {
+      box-shadow: inset 0 0 0 1px #BBB;
+    }
   }
+
   &.selected {
     position: relative;
 
@@ -132,11 +132,10 @@
     &:after {
       content: '';
       position: absolute;
-      top: 50%;
-      width: ($rowHeight - 4px) / 2;
-      height: $rowHeight - 4px;
-      margin-top: -0.5 * ($rowHeight - 4px);
-      box-shadow: inset $rowHeight $rowHeight;
+      top: 2px;
+      width: 50%;
+      bottom: 2px;
+      box-shadow: inset 0 $rowHeight - 4px;
     }
   }
 
@@ -170,7 +169,6 @@
       left: 0;
       right: 0;
       width: 100%;
-      margin-left: 0;
       display: flex;
       justify-content: center;
       align-items: center;
