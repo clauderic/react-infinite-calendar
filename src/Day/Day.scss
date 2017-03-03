@@ -7,6 +7,7 @@
   right: 2px;
   bottom: 2px;
   left: 2px;
+  max-height: $rowHeight - 4px;
   max-width: $rowHeight - 4px;
   border-radius: 50%;
 }
@@ -168,7 +169,7 @@
     .selection {
       left: 0;
       right: 0;
-      width: 100%;
+      max-width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
