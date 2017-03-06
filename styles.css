@@ -339,10 +339,6 @@
   .Cal__Month__row:first-child {
     text-align: right; }
     .Cal__Month__row:first-child li {
-      position: relative;
-      top: 1px;
-      z-index: 1;
-      margin-top: -1px;
       background-color: #FFF;
       box-shadow: 0 -1px 0 #E9E9E9; }
   .Cal__Month__row:nth-child(2) {
