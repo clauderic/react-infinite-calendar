@@ -14,7 +14,7 @@ export const enhanceDay = withPropsOnChange(['selected'], props => ({
 }));
 
 const enhanceYear = withPropsOnChange(['selected'], ({selected}) => ({
-  selected: parse(selected),
+  selected: isNaN(parse(selected).getTime()) ? new Date() : parse(selected),
 }));
 
 // Enhancer to handle selecting and displaying a single date

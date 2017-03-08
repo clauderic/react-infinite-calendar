@@ -134,6 +134,11 @@ export default class Calendar extends Component {
     this._minDate = parse(props.minDate);
     this._maxDate = parse(props.maxDate);
 
+    if(isNaN(this._min.getTime())) this._min = new Date(1980, 0, 1);
+    if(isNaN(this._minDate.getTime())) this._minDate = new Date(1980, 0, 1);
+    if(isNaN(this._max.getTime())) this._max = new Date(2050, 11, 31);
+    if(isNaN(this._maxDate.getTime())) this._max = new Date(2050, 11, 31);
+
     const min = this._min.getFullYear();
     const minMonth = this._min.getMonth();
     const max = this._max.getFullYear();

@@ -49,12 +49,13 @@ export default class Years extends Component {
 
   renderMonths(year) {
     const {locale: {locale}, selected, theme, today, min, max, minDate, maxDate} = this.props;
-    const months = getMonthsForYear(year, selected.getDate());
+    var selectedDate = isNaN(selected.getTime()) ? new Date() : selected;
+    const months = getMonthsForYear(year, selectedDate.getDate());
 
     return (
       <ol>
         {months.map((date, index) => {
-          const isSelected = isSameMonth(date, selected);
+          const isSelected = isSameMonth(date, selectedDate);
           const isCurrentMonth = isSameMonth(date, today);
           const isDisabled = (
             isBefore(date, min) ||
@@ -102,7 +103,8 @@ export default class Years extends Component {
     const {height, selected, showMonths, theme, today, width} = this.props;
     const currentYear = today.getFullYear();
     const years = this.props.years.slice(0, this.props.years.length);
-    const selectedYearIndex = years.indexOf(selected.getFullYear());
+    var selectedDate = isNaN(selected.getTime()) ? new Date() : selected;
+    const selectedYearIndex = years.indexOf(selectedDate.getFullYear());
     const rowHeight = showMonths ? 110 : 50;
     const heights = years.map((val, index) => index === 0 || index === years.length - 1
       ? rowHeight + SPACING
@@ -141,7 +143,7 @@ export default class Years extends Component {
                   [styles.first]: index === 0,
                   [styles.last]: index === years.length - 1,
                 })}
-                onClick={() => this.handleClick(new Date(selected).setYear(year))}
+                onClick={() => this.handleClick(new Date(selectedDate).setYear(year))}
                 title={`Set year to ${year}`}
                 data-year={year}
                 style={Object.assign({}, style, {

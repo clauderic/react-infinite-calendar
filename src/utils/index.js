@@ -141,6 +141,7 @@ export function sanitizeDate(date, {
   // Selected date should not be disabled or outside the selectable range
   if (
     !date ||
+    isNaN(date.getTime()) || 
     disabledDates.some(disabledDate => isSameDay(disabledDate, date)) ||
     disabledDays && disabledDays.indexOf(getDay(date)) !== -1 ||
     minDate && isBefore(date, startOfDay(minDate)) ||
