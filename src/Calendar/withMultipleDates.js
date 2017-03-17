@@ -59,6 +59,7 @@ function handleYearSelect(date, callback) {
 }
 
 function getInitialDate({selected}) {
+  if(!selected || !selected[0] || isNaN(selected[0].getTime())) return new Date();
   return selected.length ? selected[0] : new Date();
 }
 
