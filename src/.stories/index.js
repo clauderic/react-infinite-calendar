@@ -55,8 +55,6 @@ storiesOf('Basic settings', module)
 storiesOf('Higher Order Components', module)
   .add('Range selection', () => (
     <InfiniteCalendar
-      display="years"
-      showTodayHelper={ false }
       selected={{
         start: addDays(new Date(), 2),
         end: addDays(new Date(), 17),
