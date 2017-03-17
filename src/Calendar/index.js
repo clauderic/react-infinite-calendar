@@ -294,6 +294,8 @@ export default class Calendar extends Component {
     const theme = this.getTheme();
     const today = this.today = startOfDay(new Date());
 
+    console.log(`showTodayHelper`, showTodayHelper);
+
     return (
       <div
         tabIndex={tabIndex}

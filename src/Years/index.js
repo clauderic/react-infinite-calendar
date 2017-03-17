@@ -102,8 +102,7 @@ export default class Years extends Component {
     const {height, selected, showMonths, theme, today, width} = this.props;
     const currentYear = today.getFullYear();
     const years = this.props.years.slice(0, this.props.years.length);
-    const selectedYearIndex =
-      selected ? years.indexOf(selected.getFullYear()) : 0;
+    const selectedYearIndex = years.indexOf(selected.getFullYear());
     const rowHeight = showMonths ? 110 : 50;
     const heights = years.map((val, index) => index === 0 || index === years.length - 1
       ? rowHeight + SPACING
