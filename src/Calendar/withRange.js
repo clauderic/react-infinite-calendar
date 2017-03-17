@@ -1,7 +1,7 @@
 import {compose, withProps, withPropsOnChange, withState} from 'recompose';
 import classNames from 'classnames';
 import {withDefaultProps} from './';
-import {withImmutableProps} from '../utils';
+import {sanitizeDate, withImmutableProps} from '../utils';
 import isBefore from 'date-fns/is_before';
 import enhanceHeader from '../Header/withRange';
 import format from 'date-fns/format';
@@ -73,8 +73,8 @@ export const withRange = compose(
       },
     },
     selected: {
-      start: format(selected.start, 'YYYY-MM-DD'),
-      end: format(selected.end, 'YYYY-MM-DD'),
+      start: format((sanitizeDate(selected.start,props) ? selected.start : new Date()), 'YYYY-MM-DD'),
+      end: format((sanitizeDate(selected.end,props) ? selected.end : new Date()), 'YYYY-MM-DD'),
     },
   })),
 );
@@ -125,6 +125,7 @@ function handleYearSelect(date, {displayKey, onSelect, selected, setScrollDate})
 }
 
 function getInitialDate({selected}) {
+  if(!selected || !selected.start || isNaN(selected.start.getTime())) return new Date();
   return selected.start || new Date();
 }
 
