@@ -29,10 +29,10 @@ export default function animate({
   onComplete,
   duration = 600,
 }) {
-  const startTime = Date.now();
+  const startTime = performance.now();
 
   const tick = () => {
-    const elapsed = Date.now() - startTime;
+    const elapsed = performance.now() - startTime;
 
     window.requestAnimationFrame(() => onUpdate(
       getValue(fromValue, toValue, elapsed, duration),
