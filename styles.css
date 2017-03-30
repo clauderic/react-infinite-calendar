@@ -1,29 +1,3 @@
-.Cal__Container__root {
-  position: relative;
-  display: table;
-  z-index: 1;
-  font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  line-height: 1.4em;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-weight: 300;
-  outline: none;
-  text-align: left; }
-  .Cal__Container__root.Cal__Container__landscape {
-    display: flex;
-    flex-direction: row; }
-    .Cal__Container__root.Cal__Container__landscape .Cal__Container__wrapper {
-      position: relative;
-      flex-grow: 1;
-      overflow: hidden;
-      z-index: 1;
-      border-top-right-radius: 3px;
-      border-bottom-right-radius: 3px; }
-
-.Cal__Container__listWrapper {
-  position: relative;
-  overflow: hidden;
-  background-color: #FFF; }
 .Cal__Day__root {
   display: inline-block;
   box-sizing: border-box;
@@ -175,61 +149,32 @@
   box-sizing: border-box; }
   .Cal__Day__range.Cal__Day__selected.Cal__Day__end .Cal__Day__selection .Cal__Day__day {
     top: 4px; }
-.Cal__Slider__root, .Cal__Slider__slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0; }
-
-.Cal__Slider__root {
-  overflow: hidden; }
-
-.Cal__Slider__slide {
-  padding: 20px 65px; }
-  .Cal__Slider__slide:first-child {
-    padding-left: 20px; }
-
-.Cal__Slider__wrapper {
-  height: 100%;
-  transition: transform 0.3s ease; }
-
-.Cal__Slider__arrow {
-  position: absolute;
-  top: 0;
+.Cal__Container__root {
+  position: relative;
+  display: table;
   z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 100%;
-  opacity: 0.7;
-  cursor: pointer;
-  border-left: 1px solid rgba(255, 255, 255, 0.1); }
-  .Cal__Slider__arrow svg {
-    width: 15px; }
-  .Cal__Slider__arrow:hover {
-    opacity: 1; }
+  font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  line-height: 1.4em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 300;
+  outline: none;
+  text-align: left; }
+  .Cal__Container__root.Cal__Container__landscape {
+    display: flex;
+    flex-direction: row; }
+    .Cal__Container__root.Cal__Container__landscape .Cal__Container__wrapper {
+      position: relative;
+      flex-grow: 1;
+      overflow: hidden;
+      z-index: 1;
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px; }
 
-.Cal__Slider__arrowRight {
-  right: 0; }
-
-.Cal__Slider__arrowLeft {
-  left: 0;
-  transform: scaleX(-1); }
-.Cal__transition__enter {
-  opacity: 0; }
-
-.Cal__transition__enterActive {
-  opacity: 1;
-  transition: opacity 0.3s ease; }
-
-.Cal__transition__leave {
-  opacity: 1; }
-
-.Cal__transition__leaveActive {
-  opacity: 0;
-  transition: opacity 0.3s ease; }
+.Cal__Container__listWrapper {
+  position: relative;
+  overflow: hidden;
+  background-color: #FFF; }
 .Cal__Header__root {
   position: relative;
   display: flex;
@@ -313,76 +258,6 @@
   .Cal__Header__range .Cal__Header__wrapper .Cal__Header__date {
     white-space: nowrap;
     z-index: 1; }
-.Cal__Animation__enter {
-  opacity: 0;
-  transform: translate3d(0, -100%, 0);
-  transition: 0.25s ease; }
-
-.Cal__Animation__enter.Cal__Animation__enterActive {
-  opacity: 1;
-  transform: translate3d(0, 0, 0); }
-
-.Cal__Animation__leave {
-  transform: translate3d(0, 0, 0);
-  transition: 0.25s ease; }
-
-.Cal__Animation__leave.Cal__Animation__leaveActive {
-  opacity: 0;
-  transform: translate3d(0, 100%, 0); }
-.Cal__Month__rows {
-  position: relative;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.05) 100%); }
-
-.Cal__Month__row {
-  padding: 0;
-  margin: 0; }
-  .Cal__Month__row:first-child {
-    text-align: right; }
-    .Cal__Month__row:first-child li {
-      background-color: #FFF;
-      box-shadow: 0 -1px 0 #E9E9E9; }
-  .Cal__Month__row:nth-child(2) {
-    box-shadow: 0 -1px 0 #E9E9E9; }
-  .Cal__Month__row.Cal__Month__partial:first-child li:first-child {
-    box-shadow: 0px -1px 0 #E9E9E9, inset 1px 0 0 #E9E9E9; }
-  .Cal__Month__row.Cal__Month__partial:last-of-type li {
-    position: relative;
-    z-index: 1; }
-
-.Cal__Month__label {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: 0;
-  font-size: 30px;
-  font-weight: 500;
-  z-index: 3;
-  pointer-events: none;
-  background-color: rgba(255, 255, 255, 0.6);
-  opacity: 0;
-  transition: opacity 0.3s ease; }
-  .Cal__Month__label > span {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-transform: capitalize; }
-  .Cal__Month__label.Cal__Month__partialFirstRow {
-    top: 56px; }
-.Cal__MonthList__root {
-  width: 100% !important;
-  background-color: #FFF;
-  -webkit-overflow-scrolling: touch; }
-  .Cal__MonthList__root.Cal__MonthList__scrolling > div {
-    pointer-events: none; }
-  .Cal__MonthList__root.Cal__MonthList__scrolling label {
-    opacity: 1; }
 .Cal__Today__root {
   position: absolute;
   top: 0;
@@ -417,6 +292,14 @@
     transform: rotate(180deg); }
   .Cal__Today__root.Cal__Today__chevronDown .Cal__Today__chevron {
     transform: rotate(360deg); }
+.Cal__MonthList__root {
+  width: 100% !important;
+  background-color: #FFF;
+  -webkit-overflow-scrolling: touch; }
+  .Cal__MonthList__root.Cal__MonthList__scrolling > div {
+    pointer-events: none; }
+  .Cal__MonthList__root.Cal__MonthList__scrolling label {
+    opacity: 1; }
 .Cal__Weekdays__root {
   position: relative;
   z-index: 5;
@@ -540,3 +423,120 @@
     padding-top: 40px; }
   .Cal__Years__year.Cal__Years__last {
     padding-bottom: 40px; }
+.Cal__Animation__enter {
+  opacity: 0;
+  transform: translate3d(0, -100%, 0);
+  transition: 0.25s ease; }
+
+.Cal__Animation__enter.Cal__Animation__enterActive {
+  opacity: 1;
+  transform: translate3d(0, 0, 0); }
+
+.Cal__Animation__leave {
+  transform: translate3d(0, 0, 0);
+  transition: 0.25s ease; }
+
+.Cal__Animation__leave.Cal__Animation__leaveActive {
+  opacity: 0;
+  transform: translate3d(0, 100%, 0); }
+.Cal__Slider__root, .Cal__Slider__slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0; }
+
+.Cal__Slider__root {
+  overflow: hidden; }
+
+.Cal__Slider__slide {
+  padding: 20px 65px; }
+  .Cal__Slider__slide:first-child {
+    padding-left: 20px; }
+
+.Cal__Slider__wrapper {
+  height: 100%;
+  transition: transform 0.3s ease; }
+
+.Cal__Slider__arrow {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 100%;
+  opacity: 0.7;
+  cursor: pointer;
+  border-left: 1px solid rgba(255, 255, 255, 0.1); }
+  .Cal__Slider__arrow svg {
+    width: 15px; }
+  .Cal__Slider__arrow:hover {
+    opacity: 1; }
+
+.Cal__Slider__arrowRight {
+  right: 0; }
+
+.Cal__Slider__arrowLeft {
+  left: 0;
+  transform: scaleX(-1); }
+.Cal__transition__enter {
+  opacity: 0; }
+
+.Cal__transition__enterActive {
+  opacity: 1;
+  transition: opacity 0.3s ease; }
+
+.Cal__transition__leave {
+  opacity: 1; }
+
+.Cal__transition__leaveActive {
+  opacity: 0;
+  transition: opacity 0.3s ease; }
+.Cal__Month__rows {
+  position: relative;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.05) 100%); }
+
+.Cal__Month__row {
+  padding: 0;
+  margin: 0; }
+  .Cal__Month__row:first-child {
+    text-align: right; }
+    .Cal__Month__row:first-child li {
+      background-color: #FFF;
+      box-shadow: 0 -1px 0 #E9E9E9; }
+  .Cal__Month__row:nth-child(2) {
+    box-shadow: 0 -1px 0 #E9E9E9; }
+  .Cal__Month__row.Cal__Month__partial:first-child li:first-child {
+    box-shadow: 0px -1px 0 #E9E9E9, inset 1px 0 0 #E9E9E9; }
+  .Cal__Month__row.Cal__Month__partial:last-of-type li {
+    position: relative;
+    z-index: 1; }
+
+.Cal__Month__label {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  font-size: 30px;
+  font-weight: 500;
+  z-index: 3;
+  pointer-events: none;
+  background-color: rgba(255, 255, 255, 0.6);
+  opacity: 0;
+  transition: opacity 0.3s ease; }
+  .Cal__Month__label > span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: capitalize; }
+  .Cal__Month__label.Cal__Month__partialFirstRow {
+    top: 56px; }
