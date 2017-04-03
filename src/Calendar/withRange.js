@@ -128,8 +128,10 @@ function getInitialDate({selected}) {
   return selected.start || new Date();
 }
 
-window.addEventListener('touchstart', function onTouch() {
-  isTouchDevice = true;
+if (typeof window !== 'undefined') {
+  window.addEventListener('touchstart', function onTouch() {
+    isTouchDevice = true;
 
-  window.removeEventListener('touchstart', onTouch, false);
-});
+    window.removeEventListener('touchstart', onTouch, false);
+  });
+}
