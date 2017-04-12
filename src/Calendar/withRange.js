@@ -11,9 +11,9 @@ import styles from '../Day/Day.scss';
 let isTouchDevice = false;
 
 export const EVENT_TYPE = {
-  START:1,
-  HOVER:2,
-  END:3
+  END: 3,
+  HOVER: 2,
+  START: 1,
 };
 
 // Enhance Day component to display selected state based on an array of selected dates
@@ -91,8 +91,8 @@ function handleSelect(date, {onSelect, selected, selectionStart, setSelectionSta
       eventType: EVENT_TYPE.END,
       ...getSortedSelection({
         start: selectionStart,
-        end: date
-      })
+        end: date,
+      }),
     });
     setSelectionStart(null);
   } else {
@@ -111,8 +111,8 @@ function handleMouseOver(e, {onSelect, selectionStart}) {
     eventType: EVENT_TYPE.HOVER,
     ...getSortedSelection({
       start: selectionStart,
-      end: date
-    })
+      end: date,
+    }),
   });
 }
 
