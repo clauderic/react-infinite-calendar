@@ -1,4 +1,5 @@
-import React, {PureComponent, PropTypes} from 'react';
+import React, {PureComponent} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import styles from './Today.scss';
 
@@ -19,7 +20,7 @@ export default class Today extends PureComponent {
 
     scrollToDate(new Date(), -40, true);
   };
-  
+
   render() {
     let {todayLabel, show, theme} = this.props;
     return (

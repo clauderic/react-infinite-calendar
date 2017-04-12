@@ -1,4 +1,5 @@
-import React, {PureComponent, PropTypes} from 'react';
+import React, {PureComponent} from 'react';
+import PropTypes from 'prop-types';
 import {scrollbarSize} from '../utils';
 import styles from './Weekdays.scss';
 
@@ -7,7 +8,7 @@ export default class Weekdays extends PureComponent {
     locale: PropTypes.object,
     theme: PropTypes.object,
   };
-  
+
   render() {
     const {weekdays, weekStartsOn, theme} = this.props;
     const orderedWeekdays = [...weekdays.slice(weekStartsOn, 7), ...weekdays.slice(0, weekStartsOn)];

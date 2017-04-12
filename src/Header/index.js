@@ -1,4 +1,5 @@
-import React, {PureComponent, PropTypes} from 'react';
+import React, {PureComponent} from 'react';
+import PropTypes from 'prop-types';
 import {emptyFn} from '../utils';
 import defaultSelectionRenderer from './defaultSelectionRenderer';
 import classNames from 'classnames';
@@ -19,7 +20,7 @@ export default class Header extends PureComponent {
     shouldAnimate: PropTypes.bool,
     theme: PropTypes.object,
   };
-  
+
   render() {
     let {
       layout,
