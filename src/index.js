@@ -6,7 +6,7 @@ export {default as Calendar} from './Calendar';
 export {withDateSelection} from './Calendar/withDateSelection';
 export {withKeyboardSupport} from './Calendar/withKeyboardSupport';
 export {withMultipleDates, defaultMultipleDateInterpolation} from './Calendar/withMultipleDates';
-export {withRange} from './Calendar/withRange';
+export {withRange, EVENT_TYPE} from './Calendar/withRange';
 
 /*
  * By default, Calendar is a controlled component.
