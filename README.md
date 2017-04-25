@@ -109,6 +109,7 @@ For more usage examples, see [http://clauderic.github.io/react-infinite-calendar
 | shouldHeaderAnimate  | Boolean | `true`       | Enable/Disable the header animation                                                                                                              |
 | showOverlay          | Boolean | `true`       | Show/hide the month overlay when scrolling                                                                                                       |
 | showTodayHelper      | Boolean | `true`       | Show/hide the floating back to `Today` helper                                                                                                    |
+| showWeekdays         | Boolean | `true`       | Show/hide the weekdays in the header                                                                                                             |
 | hideYearsOnSelect    | Boolean | `true`       | Whether to automatically hide the `years` view on select.                                                                                        |
 | overscanMonthCount   | Number  | `4`          | Number of months to render above/below the visible months. Tweaking this can help reduce flickering during scrolling on certain browers/devices. |
 | todayHelperRowOffset | Number  | `4`          | This controls the number of rows to scroll past before the *Today* helper appears                                                                |
