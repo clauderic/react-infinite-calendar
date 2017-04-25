@@ -7,5 +7,6 @@ module.exports = {
   showMonthsForYears: true,
   showOverlay: true,
   showTodayHelper: true,
+  showWeekdays: true,
   todayHelperRowOffset: 4,
 };
