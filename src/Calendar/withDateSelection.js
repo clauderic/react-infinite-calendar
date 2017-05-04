@@ -14,7 +14,7 @@ export const enhanceDay = withPropsOnChange(['selected'], props => ({
 }));
 
 const enhanceYear = withPropsOnChange(['selected'], ({selected}) => ({
-  selected: parse(selected),
+  selected: isNaN(parse(selected).getTime()) ? null : parse(selected),
 }));
 
 // Enhancer to handle selecting and displaying a single date
@@ -29,7 +29,7 @@ export const withDateSelection = compose(
     DayComponent: enhanceDay(DayComponent),
     YearsComponent: enhanceYear(YearsComponent),
   })),
-  withState('scrollDate', 'setScrollDate', props => props.selected || new Date()),
+  withState('scrollDate', 'setScrollDate', props => sanitizeDate(props.selected,props) || new Date()),
   withProps(({onSelect, setScrollDate, ...props}) => {
     const selected = sanitizeDate(props.selected, props);
 
