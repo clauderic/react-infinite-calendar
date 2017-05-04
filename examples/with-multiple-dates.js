@@ -7,9 +7,11 @@ import InfiniteCalendar, {
 } from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css';
 
+const MultipleDatesCalendar = withMultipleDates(Calendar);
+  
 render(
   <InfiniteCalendar
-    Component={withMultipleDates(Calendar)}
+    Component={MultipleDatesCalendar}
     /*
      * The `interpolateSelection` prop allows us to map the resulting state when a user selects a date.
      * By default, it adds the date to the selected dates array if it isn't already selected.
