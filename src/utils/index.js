@@ -62,7 +62,7 @@ export function getWeek(yearStart, date, weekStartsOn) {
     : yearStart;
 
   return Math.ceil(
-    ((date - yearStartDate) / (60 * 60 * 24 * 1000) + yearStartDate.getDay() + 1 - weekStartsOn) / 7
+    (Math.round((date - yearStartDate) / (60 * 60 * 24 * 1000)) + yearStartDate.getDay() + 1 - weekStartsOn) / 7
   );
 }
 
