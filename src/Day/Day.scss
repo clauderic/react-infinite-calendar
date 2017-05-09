@@ -133,7 +133,7 @@
       content: '';
       position: absolute;
       top: 50%;
-      width: ($rowHeight - 4px) / 2;
+      width: 50%;
       height: $rowHeight - 4px;
       margin-top: -0.5 * ($rowHeight - 4px);
       box-shadow: inset $rowHeight $rowHeight;
