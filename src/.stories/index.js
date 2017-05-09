@@ -59,6 +59,9 @@ storiesOf('Higher Order Components', module)
         start: addDays(new Date(), 2),
         end: addDays(new Date(), 17),
       }}
+      locale={{
+        headerFormat: 'MMM Do',
+      }}
       Component={withRange(withKeyboardSupport(Calendar))}
     />
   ))
