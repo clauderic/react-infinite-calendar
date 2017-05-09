@@ -1,5 +1,5 @@
 import React, {Children, PureComponent} from 'react';
-import CSSTransitionGroup from 'react-addons-css-transition-group'
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import classNames from 'classnames';
 import styles from './Slider.scss';
 import transition from './transition.scss';

@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import classNames from 'classnames';
 import parse from 'date-fns/parse';
 import format from 'date-fns/format';
@@ -60,7 +60,7 @@ export default function defaultSelectionRenderer(value, {
             })}
             title={title}
           >
-            <ReactCSSTransitionGroup
+            <CSSTransitionGroup
               transitionName={animation}
               transitionEnterTimeout={250}
               transitionLeaveTimeout={250}
@@ -75,7 +75,7 @@ export default function defaultSelectionRenderer(value, {
               >
                 {value}
               </span>
-            </ReactCSSTransitionGroup>
+            </CSSTransitionGroup>
           </div>
         );
       })}
