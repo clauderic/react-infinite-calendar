@@ -6,9 +6,11 @@ import InfiniteCalendar, {
 } from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css';
 
+const CalendarWithRange = withRange(Calendar);
+
 render(
   <InfiniteCalendar
-    Component={withRange(Calendar)}
+    Component={CalendarWithRange}
     selected={{
       start: new Date(2017, 1, 10),
       end: new Date(2017, 1, 18),
