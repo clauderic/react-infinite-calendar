@@ -73,7 +73,9 @@ export default function defaultSelectionRenderer(value, {
                 aria-hidden={true}
                 onClick={handleClick}
               >
-                {value}
+                {value.toString().split(' ').map((value, index) =>
+                  (<span key={index}>{value}{' '}</span>)
+                )}
               </span>
             </CSSTransition>
           </div>

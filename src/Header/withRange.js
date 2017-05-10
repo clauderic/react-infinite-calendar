@@ -12,12 +12,12 @@ export default withImmutableProps(({renderSelection}) => ({
       return defaultSelectionRenderer(values.start, props);
     }
 
-    const dateFormat = props.locale && props.locale.headerFormat || 'MMM Do';
+    const { headerFormat: dateFormat } = props.locale;
 
     return (
       <div className={styles.range} style={{color: props.theme.headerColor}}>
-        {defaultSelectionRenderer(values.start, {...props, dateFormat, key: 'start', shouldAnimate: false})}
-        {defaultSelectionRenderer(values.end, {...props, dateFormat, key: 'end', shouldAnimate: false})}
+        {defaultSelectionRenderer(values.start, { ...props, dateFormat, key: 'start', shouldAnimate: false})}
+        {defaultSelectionRenderer(values.end, { ...props, dateFormat, key: 'end', shouldAnimate: false})}
       </div>
     );
   },

@@ -98,7 +98,14 @@ export default function defaultSelectionRenderer(value, _ref) {
               'aria-hidden': true,
               onClick: handleClick
             },
-            value
+            value.toString().split(' ').map(function (value, index) {
+              return React.createElement(
+                'span',
+                { key: index },
+                value,
+                ' '
+              );
+            })
           )
         )
       );

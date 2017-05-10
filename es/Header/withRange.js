@@ -28,7 +28,8 @@ export default withImmutableProps(function (_ref) {
         return defaultSelectionRenderer(values.start, props);
       }
 
-      var dateFormat = 'MMM Do';
+      var dateFormat = props.locale.headerFormat;
+
 
       return React.createElement(
         'div',
