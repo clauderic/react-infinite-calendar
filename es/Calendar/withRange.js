@@ -14,6 +14,9 @@ import isBefore from 'date-fns/is_before';
 import enhanceHeader from '../Header/withRange';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
+import addDays from 'date-fns/add_days';
+import subDays from 'date-fns/sub_days';
+import differenceInDays from 'date-fns/difference_in_days';
 var styles = {
   'root': 'Cal__Day__root',
   'enabled': 'Cal__Day__enabled',
@@ -117,8 +120,33 @@ function getSortedSelection(_ref4) {
   return isBefore(start, end) ? { start: start, end: end } : { start: end, end: start };
 }
 
+/**
+ * Limits the selection range to include a maximum of `rangeLimit` days.
+ *
+ * If the range is longer, the end date is re-calculated to fit the range limit.
+ * If no limit is set (falsey), original values are returned.
+ *
+ * @param  {number} rangeLimit Limit in days
+ * @param  {Date} start Start date
+ * @param  {Date} end End date
+ * @return {Object} New start and end date
+ */
+function getLimitedRange(rangeLimit, start, end) {
+  if (!rangeLimit) return { start: start, end: end };
+  var range = differenceInDays(end, start);
+  var modifier = range > 0 ? addDays : subDays;
+
+  var endDate = Math.abs(range) >= rangeLimit ? modifier(start, rangeLimit - 1) : end;
+
+  return {
+    start: start,
+    end: endDate
+  };
+}
+
 function handleSelect(date, _ref5) {
   var onSelect = _ref5.onSelect,
+      rangeLimit = _ref5.rangeLimit,
       selected = _ref5.selected,
       selectionStart = _ref5.selectionStart,
       setSelectionStart = _ref5.setSelectionStart;
@@ -126,10 +154,7 @@ function handleSelect(date, _ref5) {
   if (selectionStart) {
     onSelect(_extends({
       eventType: EVENT_TYPE.END
-    }, getSortedSelection({
-      start: selectionStart,
-      end: date
-    })));
+    }, getSortedSelection(getLimitedRange(rangeLimit, selectionStart, date))));
     setSelectionStart(null);
   } else {
     onSelect({ eventType: EVENT_TYPE.START, start: date, end: date });
@@ -139,6 +164,7 @@ function handleSelect(date, _ref5) {
 
 function handleMouseOver(e, _ref6) {
   var onSelect = _ref6.onSelect,
+      rangeLimit = _ref6.rangeLimit,
       selectionStart = _ref6.selectionStart;
 
   var dateStr = e.target.getAttribute('data-date');
@@ -150,10 +176,7 @@ function handleMouseOver(e, _ref6) {
 
   onSelect(_extends({
     eventType: EVENT_TYPE.HOVER
-  }, getSortedSelection({
-    start: selectionStart,
-    end: date
-  })));
+  }, getSortedSelection(getLimitedRange(rangeLimit, selectionStart, date))));
 }
 
 function handleYearSelect(date, _ref7) {

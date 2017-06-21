@@ -11,7 +11,7 @@
 		exports["InfiniteCalendar"] = factory(require("react"), require("react-addons-css-transition-group"));
 	else
 		root["InfiniteCalendar"] = factory(root["React"], root["ReactCSSTransitionGroup"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_28__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_30__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -77,14 +77,14 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 81);
+/******/ 	return __webpack_require__(__webpack_require__.s = 84);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isDate = __webpack_require__(20)
+var isDate = __webpack_require__(23)
 
 var MILLISECONDS_IN_HOUR = 3600000
 var MILLISECONDS_IN_MINUTE = 60000
@@ -419,23 +419,23 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_recompose_withPropsOnChange__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_recompose_withPropsOnChange___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_recompose_withPropsOnChange__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_dom_helpers_util_scrollbarSize__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_dom_helpers_util_scrollbarSize__ = __webpack_require__(69);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_dom_helpers_util_scrollbarSize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_dom_helpers_util_scrollbarSize__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_date_fns_get_days_in_month__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_date_fns_get_days_in_month__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_date_fns_get_days_in_month___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_date_fns_get_days_in_month__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_date_fns_get_day__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_date_fns_get_day__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_date_fns_get_day___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_date_fns_get_day__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_date_fns_is_after__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_date_fns_is_after__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_date_fns_is_after___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_date_fns_is_after__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_date_fns_is_before__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_date_fns_is_before___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_date_fns_is_before__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_date_fns_is_same_day__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_date_fns_is_same_day__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_date_fns_is_same_day___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_date_fns_is_same_day__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_date_fns_end_of_day__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_date_fns_end_of_day__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_date_fns_end_of_day___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_date_fns_end_of_day__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_date_fns_start_of_day__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_date_fns_start_of_day___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_date_fns_start_of_day__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__animate__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__animate__ = __webpack_require__(45);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_9__animate__["a"]; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return keyCodes; });
 /* harmony export (immutable) */ __webpack_exports__["f"] = getMonth;
@@ -720,12 +720,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getDayOfYear = __webpack_require__(33)
-var getISOWeek = __webpack_require__(35)
-var getISOYear = __webpack_require__(19)
+var getDayOfYear = __webpack_require__(52)
+var getISOWeek = __webpack_require__(54)
+var getISOYear = __webpack_require__(22)
 var parse = __webpack_require__(0)
-var isValid = __webpack_require__(39)
-var enLocale = __webpack_require__(43)
+var isValid = __webpack_require__(58)
+var enLocale = __webpack_require__(62)
 
 /**
  * @category Common Helpers
@@ -1078,7 +1078,7 @@ if (true) {
   // By explicitly using `prop-types` you are opting into new development behavior.
   // http://fb.me/prop-types-in-prod
   var throwOnDirectAccess = true;
-  module.exports = __webpack_require__(69)(isValidElement, throwOnDirectAccess);
+  module.exports = __webpack_require__(72)(isValidElement, throwOnDirectAccess);
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
@@ -1101,7 +1101,7 @@ var createHelper = function createHelper(func, helperName) {
   if ("development" !== 'production' && setDisplayName) {
     var _ret = function () {
       /* eslint-disable global-require */
-      var wrapDisplayName = __webpack_require__(80).default;
+      var wrapDisplayName = __webpack_require__(83).default;
       /* eslint-enable global-require */
 
       if (noArgs) {
@@ -1142,7 +1142,7 @@ exports.default = createHelper;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_recompose_defaultProps__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_recompose_defaultProps__ = __webpack_require__(74);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_recompose_defaultProps___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_recompose_defaultProps__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
@@ -1151,18 +1151,18 @@ exports.default = createHelper;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_classnames__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_classnames__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_defaultDisplayOptions__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_defaultDisplayOptions__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_defaultDisplayOptions___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__utils_defaultDisplayOptions__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_defaultLocale__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_defaultLocale__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_defaultLocale___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__utils_defaultLocale__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils_defaultTheme__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils_defaultTheme__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils_defaultTheme___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__utils_defaultTheme__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Today__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__Header__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__MonthList__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__Weekdays__ = __webpack_require__(62);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__Years__ = __webpack_require__(63);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__Day__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Today__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__Header__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__MonthList__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__Weekdays__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__Years__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__Day__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_date_fns_parse__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_date_fns_parse___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14_date_fns_parse__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_date_fns_format__ = __webpack_require__(4);
@@ -1177,7 +1177,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _class,
     _temp,
-    _jsxFileName = '/Users/jacob/Projects/toggl/react-infinite-calendar/src/Calendar/index.js';
+    _jsxFileName = '/Users/tyler/dev/toggl/react-infinite-calendar/src/Calendar/index.js';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1700,11 +1700,11 @@ var Calendar = (_temp = _class = function (_Component) {
 
 exports.__esModule = true;
 
-var _createEagerElementUtil = __webpack_require__(77);
+var _createEagerElementUtil = __webpack_require__(80);
 
 var _createEagerElementUtil2 = _interopRequireDefault(_createEagerElementUtil);
 
-var _isReferentiallyTransparentFunctionComponent = __webpack_require__(74);
+var _isReferentiallyTransparentFunctionComponent = __webpack_require__(77);
 
 var _isReferentiallyTransparentFunctionComponent2 = _interopRequireDefault(_isReferentiallyTransparentFunctionComponent);
 
@@ -1827,7 +1827,7 @@ var _createHelper = __webpack_require__(6);
 
 var _createHelper2 = _interopRequireDefault(_createHelper);
 
-var _mapProps = __webpack_require__(75);
+var _mapProps = __webpack_require__(78);
 
 var _mapProps2 = _interopRequireDefault(_mapProps);
 
@@ -1854,11 +1854,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _react = __webpack_require__(1);
 
-var _pick = __webpack_require__(78);
+var _pick = __webpack_require__(81);
 
 var _pick2 = _interopRequireDefault(_pick);
 
-var _shallowEqual = __webpack_require__(76);
+var _shallowEqual = __webpack_require__(79);
 
 var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
@@ -1988,74 +1988,12 @@ exports.default = (0, _createHelper2.default)(withState, 'withState');
 
 /***/ }),
 /* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var parse = __webpack_require__(0)
-
-/**
- * @category Common Helpers
- * @summary Is the first date after the second one?
- *
- * @description
- * Is the first date after the second one?
- *
- * @param {Date|String|Number} date - the date that should be after the other one to return true
- * @param {Date|String|Number} dateToCompare - the date to compare with
- * @returns {Boolean} the first date is after the second date
- *
- * @example
- * // Is 10 July 1989 after 11 February 1987?
- * var result = isAfter(new Date(1989, 6, 10), new Date(1987, 1, 11))
- * //=> true
- */
-function isAfter (dirtyDate, dirtyDateToCompare) {
-  var date = parse(dirtyDate)
-  var dateToCompare = parse(dirtyDateToCompare)
-  return date.getTime() > dateToCompare.getTime()
-}
-
-module.exports = isAfter
-
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var startOfWeek = __webpack_require__(46)
-
-/**
- * @category ISO Week Helpers
- * @summary Return the start of an ISO week for the given date.
- *
- * @description
- * Return the start of an ISO week for the given date.
- * The result will be in the local timezone.
- *
- * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
- *
- * @param {Date|String|Number} date - the original date
- * @returns {Date} the start of an ISO week
- *
- * @example
- * // The start of an ISO week for 2 September 2014 11:55:00:
- * var result = startOfISOWeek(new Date(2014, 8, 2, 11, 55, 0))
- * //=> Mon Sep 01 2014 00:00:00
- */
-function startOfISOWeek (dirtyDate) {
-  return startOfWeek(dirtyDate, {weekStartsOn: 1})
-}
-
-module.exports = startOfISOWeek
-
-
-/***/ }),
-/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_addons_css_transition_group__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_addons_css_transition_group__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_addons_css_transition_group___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_addons_css_transition_group__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_classnames__);
@@ -2064,7 +2002,7 @@ module.exports = startOfISOWeek
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_date_fns_format__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_date_fns_format___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_date_fns_format__);
 /* harmony export (immutable) */ __webpack_exports__["a"] = defaultSelectionRenderer;
-var _jsxFileName = '/Users/jacob/Projects/toggl/react-infinite-calendar/src/Header/defaultSelectionRenderer.js';
+var _jsxFileName = '/Users/tyler/dev/toggl/react-infinite-calendar/src/Header/defaultSelectionRenderer.js';
 
 
 
@@ -2208,291 +2146,101 @@ function defaultSelectionRenderer(value, _ref) {
 }
 
 /***/ }),
-/* 18 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var parse = __webpack_require__(0)
 
 /**
- * @category Weekday Helpers
- * @summary Get the day of the week of the given date.
+ * @category Day Helpers
+ * @summary Add the specified number of days to the given date.
  *
  * @description
- * Get the day of the week of the given date.
+ * Add the specified number of days to the given date.
  *
- * @param {Date|String|Number} date - the given date
- * @returns {Number} the day of week
+ * @param {Date|String|Number} date - the date to be changed
+ * @param {Number} amount - the amount of days to be added
+ * @returns {Date} the new date with the days added
  *
  * @example
- * // Which day of the week is 29 February 2012?
- * var result = getDay(new Date(2012, 1, 29))
- * //=> 3
+ * // Add 10 days to 1 September 2014:
+ * var result = addDays(new Date(2014, 8, 1), 10)
+ * //=> Thu Sep 11 2014 00:00:00
  */
-function getDay (dirtyDate) {
+function addDays (dirtyDate, dirtyAmount) {
   var date = parse(dirtyDate)
-  var day = date.getDay()
-  return day
+  var amount = Number(dirtyAmount)
+  date.setDate(date.getDate() + amount)
+  return date
 }
 
-module.exports = getDay
+module.exports = addDays
+
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var parse = __webpack_require__(0)
+
+/**
+ * @category Common Helpers
+ * @summary Is the first date after the second one?
+ *
+ * @description
+ * Is the first date after the second one?
+ *
+ * @param {Date|String|Number} date - the date that should be after the other one to return true
+ * @param {Date|String|Number} dateToCompare - the date to compare with
+ * @returns {Boolean} the first date is after the second date
+ *
+ * @example
+ * // Is 10 July 1989 after 11 February 1987?
+ * var result = isAfter(new Date(1989, 6, 10), new Date(1987, 1, 11))
+ * //=> true
+ */
+function isAfter (dirtyDate, dirtyDateToCompare) {
+  var date = parse(dirtyDate)
+  var dateToCompare = parse(dirtyDateToCompare)
+  return date.getTime() > dateToCompare.getTime()
+}
+
+module.exports = isAfter
+
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var startOfWeek = __webpack_require__(65)
+
+/**
+ * @category ISO Week Helpers
+ * @summary Return the start of an ISO week for the given date.
+ *
+ * @description
+ * Return the start of an ISO week for the given date.
+ * The result will be in the local timezone.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @param {Date|String|Number} date - the original date
+ * @returns {Date} the start of an ISO week
+ *
+ * @example
+ * // The start of an ISO week for 2 September 2014 11:55:00:
+ * var result = startOfISOWeek(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Mon Sep 01 2014 00:00:00
+ */
+function startOfISOWeek (dirtyDate) {
+  return startOfWeek(dirtyDate, {weekStartsOn: 1})
+}
+
+module.exports = startOfISOWeek
 
 
 /***/ }),
 /* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var parse = __webpack_require__(0)
-var startOfISOWeek = __webpack_require__(16)
-
-/**
- * @category ISO Week-Numbering Year Helpers
- * @summary Get the ISO week-numbering year of the given date.
- *
- * @description
- * Get the ISO week-numbering year of the given date,
- * which always starts 3 days before the year's first Thursday.
- *
- * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
- *
- * @param {Date|String|Number} date - the given date
- * @returns {Number} the ISO week-numbering year
- *
- * @example
- * // Which ISO-week numbering year is 2 January 2005?
- * var result = getISOYear(new Date(2005, 0, 2))
- * //=> 2004
- */
-function getISOYear (dirtyDate) {
-  var date = parse(dirtyDate)
-  var year = date.getFullYear()
-
-  var fourthOfJanuaryOfNextYear = new Date(0)
-  fourthOfJanuaryOfNextYear.setFullYear(year + 1, 0, 4)
-  fourthOfJanuaryOfNextYear.setHours(0, 0, 0, 0)
-  var startOfNextYear = startOfISOWeek(fourthOfJanuaryOfNextYear)
-
-  var fourthOfJanuaryOfThisYear = new Date(0)
-  fourthOfJanuaryOfThisYear.setFullYear(year, 0, 4)
-  fourthOfJanuaryOfThisYear.setHours(0, 0, 0, 0)
-  var startOfThisYear = startOfISOWeek(fourthOfJanuaryOfThisYear)
-
-  if (date.getTime() >= startOfNextYear.getTime()) {
-    return year + 1
-  } else if (date.getTime() >= startOfThisYear.getTime()) {
-    return year
-  } else {
-    return year - 1
-  }
-}
-
-module.exports = getISOYear
-
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports) {
-
-/**
- * @category Common Helpers
- * @summary Is the given argument an instance of Date?
- *
- * @description
- * Is the given argument an instance of Date?
- *
- * @param {*} argument - the argument to check
- * @returns {Boolean} the given argument is an instance of Date
- *
- * @example
- * // Is 'mayonnaise' a Date?
- * var result = isDate('mayonnaise')
- * //=> false
- */
-function isDate (argument) {
-  return argument instanceof Date
-}
-
-module.exports = isDate
-
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * 
- */
-
-function makeEmptyFunction(arg) {
-  return function () {
-    return arg;
-  };
-}
-
-/**
- * This function accepts and discards inputs; it has no side effects. This is
- * primarily useful idiomatically for overridable function endpoints which
- * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
- */
-var emptyFunction = function emptyFunction() {};
-
-emptyFunction.thatReturns = makeEmptyFunction;
-emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
-emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
-emptyFunction.thatReturnsNull = makeEmptyFunction(null);
-emptyFunction.thatReturnsThis = function () {
-  return this;
-};
-emptyFunction.thatReturnsArgument = function (arg) {
-  return arg;
-};
-
-module.exports = emptyFunction;
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-
-
-/**
- * Use invariant() to assert state which your program assumes to be true.
- *
- * Provide sprintf-style format (only %s is supported) and arguments
- * to provide information about what broke and what you were
- * expecting.
- *
- * The invariant message will be stripped in production, but the invariant
- * will remain to ensure logic does not differ in production.
- */
-
-var validateFormat = function validateFormat(format) {};
-
-if (true) {
-  validateFormat = function validateFormat(format) {
-    if (format === undefined) {
-      throw new Error('invariant requires an error message argument');
-    }
-  };
-}
-
-function invariant(condition, format, a, b, c, d, e, f) {
-  validateFormat(format);
-
-  if (!condition) {
-    var error;
-    if (format === undefined) {
-      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
-    } else {
-      var args = [a, b, c, d, e, f];
-      var argIndex = 0;
-      error = new Error(format.replace(/%s/g, function () {
-        return args[argIndex++];
-      }));
-      error.name = 'Invariant Violation';
-    }
-
-    error.framesToPop = 1; // we don't care about invariant's own frame
-    throw error;
-  }
-}
-
-module.exports = invariant;
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright 2014-2015, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-
-
-var emptyFunction = __webpack_require__(21);
-
-/**
- * Similar to invariant but only logs a warning if the condition is not met.
- * This can be used to log issues in development environments in critical
- * paths. Removing the logging code for production environments will keep the
- * same logic and follow the same code paths.
- */
-
-var warning = emptyFunction;
-
-if (true) {
-  (function () {
-    var printWarning = function printWarning(format) {
-      for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-        args[_key - 1] = arguments[_key];
-      }
-
-      var argIndex = 0;
-      var message = 'Warning: ' + format.replace(/%s/g, function () {
-        return args[argIndex++];
-      });
-      if (typeof console !== 'undefined') {
-        console.error(message);
-      }
-      try {
-        // --- Welcome to debugging React ---
-        // This error was thrown as a convenience so that you can use this stack
-        // to find the callsite that caused this warning to fire.
-        throw new Error(message);
-      } catch (x) {}
-    };
-
-    warning = function warning(condition, format) {
-      if (format === undefined) {
-        throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
-      }
-
-      if (format.indexOf('Failed Composite propType: ') === 0) {
-        return; // Ignore CompositeComponent proptype check.
-      }
-
-      if (!condition) {
-        for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
-          args[_key2 - 2] = arguments[_key2];
-        }
-
-        printWarning.apply(undefined, [format].concat(args));
-      }
-    };
-  })();
-}
-
-module.exports = warning;
-
-/***/ }),
-/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2584,7 +2332,161 @@ function handleYearSelect(date, _ref4) {
 }
 
 /***/ }),
-/* 25 */
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var startOfDay = __webpack_require__(10)
+
+var MILLISECONDS_IN_MINUTE = 60000
+var MILLISECONDS_IN_DAY = 86400000
+
+/**
+ * @category Day Helpers
+ * @summary Get the number of calendar days between the given dates.
+ *
+ * @description
+ * Get the number of calendar days between the given dates.
+ *
+ * @param {Date|String|Number} dateLeft - the later date
+ * @param {Date|String|Number} dateRight - the earlier date
+ * @returns {Number} the number of calendar days
+ *
+ * @example
+ * // How many calendar days are between
+ * // 2 July 2011 23:00:00 and 2 July 2012 00:00:00?
+ * var result = differenceInCalendarDays(
+ *   new Date(2012, 6, 2, 0, 0),
+ *   new Date(2011, 6, 2, 23, 0)
+ * )
+ * //=> 366
+ */
+function differenceInCalendarDays (dirtyDateLeft, dirtyDateRight) {
+  var startOfDayLeft = startOfDay(dirtyDateLeft)
+  var startOfDayRight = startOfDay(dirtyDateRight)
+
+  var timestampLeft = startOfDayLeft.getTime() -
+    startOfDayLeft.getTimezoneOffset() * MILLISECONDS_IN_MINUTE
+  var timestampRight = startOfDayRight.getTime() -
+    startOfDayRight.getTimezoneOffset() * MILLISECONDS_IN_MINUTE
+
+  // Round the number of days to the nearest integer
+  // because the number of milliseconds in a day is not constant
+  // (e.g. it's different in the day of the daylight saving time clock shift)
+  return Math.round((timestampLeft - timestampRight) / MILLISECONDS_IN_DAY)
+}
+
+module.exports = differenceInCalendarDays
+
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var parse = __webpack_require__(0)
+
+/**
+ * @category Weekday Helpers
+ * @summary Get the day of the week of the given date.
+ *
+ * @description
+ * Get the day of the week of the given date.
+ *
+ * @param {Date|String|Number} date - the given date
+ * @returns {Number} the day of week
+ *
+ * @example
+ * // Which day of the week is 29 February 2012?
+ * var result = getDay(new Date(2012, 1, 29))
+ * //=> 3
+ */
+function getDay (dirtyDate) {
+  var date = parse(dirtyDate)
+  var day = date.getDay()
+  return day
+}
+
+module.exports = getDay
+
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var parse = __webpack_require__(0)
+var startOfISOWeek = __webpack_require__(18)
+
+/**
+ * @category ISO Week-Numbering Year Helpers
+ * @summary Get the ISO week-numbering year of the given date.
+ *
+ * @description
+ * Get the ISO week-numbering year of the given date,
+ * which always starts 3 days before the year's first Thursday.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @param {Date|String|Number} date - the given date
+ * @returns {Number} the ISO week-numbering year
+ *
+ * @example
+ * // Which ISO-week numbering year is 2 January 2005?
+ * var result = getISOYear(new Date(2005, 0, 2))
+ * //=> 2004
+ */
+function getISOYear (dirtyDate) {
+  var date = parse(dirtyDate)
+  var year = date.getFullYear()
+
+  var fourthOfJanuaryOfNextYear = new Date(0)
+  fourthOfJanuaryOfNextYear.setFullYear(year + 1, 0, 4)
+  fourthOfJanuaryOfNextYear.setHours(0, 0, 0, 0)
+  var startOfNextYear = startOfISOWeek(fourthOfJanuaryOfNextYear)
+
+  var fourthOfJanuaryOfThisYear = new Date(0)
+  fourthOfJanuaryOfThisYear.setFullYear(year, 0, 4)
+  fourthOfJanuaryOfThisYear.setHours(0, 0, 0, 0)
+  var startOfThisYear = startOfISOWeek(fourthOfJanuaryOfThisYear)
+
+  if (date.getTime() >= startOfNextYear.getTime()) {
+    return year + 1
+  } else if (date.getTime() >= startOfThisYear.getTime()) {
+    return year
+  } else {
+    return year - 1
+  }
+}
+
+module.exports = getISOYear
+
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports) {
+
+/**
+ * @category Common Helpers
+ * @summary Is the given argument an instance of Date?
+ *
+ * @description
+ * Is the given argument an instance of Date?
+ *
+ * @param {*} argument - the argument to check
+ * @returns {Boolean} the given argument is an instance of Date
+ *
+ * @example
+ * // Is 'mayonnaise' a Date?
+ * var result = isDate('mayonnaise')
+ * //=> false
+ */
+function isDate (argument) {
+  return argument instanceof Date
+}
+
+module.exports = isDate
+
+
+/***/ }),
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2605,7 +2507,184 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * 
+ */
+
+function makeEmptyFunction(arg) {
+  return function () {
+    return arg;
+  };
+}
+
+/**
+ * This function accepts and discards inputs; it has no side effects. This is
+ * primarily useful idiomatically for overridable function endpoints which
+ * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
+ */
+var emptyFunction = function emptyFunction() {};
+
+emptyFunction.thatReturns = makeEmptyFunction;
+emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
+emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
+emptyFunction.thatReturnsNull = makeEmptyFunction(null);
+emptyFunction.thatReturnsThis = function () {
+  return this;
+};
+emptyFunction.thatReturnsArgument = function (arg) {
+  return arg;
+};
+
+module.exports = emptyFunction;
+
+/***/ }),
 /* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ */
+
+
+
+/**
+ * Use invariant() to assert state which your program assumes to be true.
+ *
+ * Provide sprintf-style format (only %s is supported) and arguments
+ * to provide information about what broke and what you were
+ * expecting.
+ *
+ * The invariant message will be stripped in production, but the invariant
+ * will remain to ensure logic does not differ in production.
+ */
+
+var validateFormat = function validateFormat(format) {};
+
+if (true) {
+  validateFormat = function validateFormat(format) {
+    if (format === undefined) {
+      throw new Error('invariant requires an error message argument');
+    }
+  };
+}
+
+function invariant(condition, format, a, b, c, d, e, f) {
+  validateFormat(format);
+
+  if (!condition) {
+    var error;
+    if (format === undefined) {
+      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
+    } else {
+      var args = [a, b, c, d, e, f];
+      var argIndex = 0;
+      error = new Error(format.replace(/%s/g, function () {
+        return args[argIndex++];
+      }));
+      error.name = 'Invariant Violation';
+    }
+
+    error.framesToPop = 1; // we don't care about invariant's own frame
+    throw error;
+  }
+}
+
+module.exports = invariant;
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright 2014-2015, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ */
+
+
+
+var emptyFunction = __webpack_require__(25);
+
+/**
+ * Similar to invariant but only logs a warning if the condition is not met.
+ * This can be used to log issues in development environments in critical
+ * paths. Removing the logging code for production environments will keep the
+ * same logic and follow the same code paths.
+ */
+
+var warning = emptyFunction;
+
+if (true) {
+  (function () {
+    var printWarning = function printWarning(format) {
+      for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        args[_key - 1] = arguments[_key];
+      }
+
+      var argIndex = 0;
+      var message = 'Warning: ' + format.replace(/%s/g, function () {
+        return args[argIndex++];
+      });
+      if (typeof console !== 'undefined') {
+        console.error(message);
+      }
+      try {
+        // --- Welcome to debugging React ---
+        // This error was thrown as a convenience so that you can use this stack
+        // to find the callsite that caused this warning to fire.
+        throw new Error(message);
+      } catch (x) {}
+    };
+
+    warning = function warning(condition, format) {
+      if (format === undefined) {
+        throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
+      }
+
+      if (format.indexOf('Failed Composite propType: ') === 0) {
+        return; // Ignore CompositeComponent proptype check.
+      }
+
+      if (!condition) {
+        for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+          args[_key2 - 2] = arguments[_key2];
+        }
+
+        printWarning.apply(undefined, [format].concat(args));
+      }
+    };
+  })();
+}
+
+module.exports = warning;
+
+/***/ }),
+/* 28 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2634,7 +2713,7 @@ var sizeProp = (_sizeProp = {}, _sizeProp[DIRECTION_VERTICAL] = 'height', _sizeP
 var positionProp = (_positionProp = {}, _positionProp[DIRECTION_VERTICAL] = 'top', _positionProp[DIRECTION_HORIZONTAL] = 'left', _positionProp);
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2642,8 +2721,8 @@ var positionProp = (_positionProp = {}, _positionProp[DIRECTION_VERTICAL] = 'top
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__SizeAndPositionManager__ = __webpack_require__(70);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__constants__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__SizeAndPositionManager__ = __webpack_require__(73);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__constants__ = __webpack_require__(28);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return VirtualList; });
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -2909,13 +2988,13 @@ var VirtualList = (_temp2 = _class = function (_PureComponent) {
 } : void 0;
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_28__;
+module.exports = __WEBPACK_EXTERNAL_MODULE_30__;
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2923,15 +3002,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Calendar__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Calendar_withDateSelection__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Calendar_withDateSelection__ = __webpack_require__(19);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Calendar", function() { return __WEBPACK_IMPORTED_MODULE_1__Calendar__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "withDateSelection", function() { return __WEBPACK_IMPORTED_MODULE_2__Calendar_withDateSelection__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Calendar_withKeyboardSupport__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Calendar_withKeyboardSupport__ = __webpack_require__(32);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "withKeyboardSupport", function() { return __WEBPACK_IMPORTED_MODULE_3__Calendar_withKeyboardSupport__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Calendar_withMultipleDates__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Calendar_withMultipleDates__ = __webpack_require__(33);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "withMultipleDates", function() { return __WEBPACK_IMPORTED_MODULE_4__Calendar_withMultipleDates__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "defaultMultipleDateInterpolation", function() { return __WEBPACK_IMPORTED_MODULE_4__Calendar_withMultipleDates__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Calendar_withRange__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Calendar_withRange__ = __webpack_require__(34);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "withRange", function() { return __WEBPACK_IMPORTED_MODULE_5__Calendar_withRange__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "EVENT_TYPE", function() { return __WEBPACK_IMPORTED_MODULE_5__Calendar_withRange__["b"]; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return DefaultCalendar; });
@@ -2939,7 +3018,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _class,
     _temp2,
-    _jsxFileName = '/Users/jacob/Projects/toggl/react-infinite-calendar/src/index.js';
+    _jsxFileName = '/Users/tyler/dev/toggl/react-infinite-calendar/src/index.js';
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
@@ -3027,893 +3106,7 @@ var DefaultCalendar = (_temp2 = _class = function (_Component) {
 
 
 /***/ }),
-/* 30 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var parse = __webpack_require__(0)
-
-/**
- * @category Day Helpers
- * @summary Add the specified number of days to the given date.
- *
- * @description
- * Add the specified number of days to the given date.
- *
- * @param {Date|String|Number} date - the date to be changed
- * @param {Number} amount - the amount of days to be added
- * @returns {Date} the new date with the days added
- *
- * @example
- * // Add 10 days to 1 September 2014:
- * var result = addDays(new Date(2014, 8, 1), 10)
- * //=> Thu Sep 11 2014 00:00:00
- */
-function addDays (dirtyDate, dirtyAmount) {
-  var date = parse(dirtyDate)
-  var amount = Number(dirtyAmount)
-  date.setDate(date.getDate() + amount)
-  return date
-}
-
-module.exports = addDays
-
-
-/***/ }),
-/* 31 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var startOfDay = __webpack_require__(10)
-
-var MILLISECONDS_IN_MINUTE = 60000
-var MILLISECONDS_IN_DAY = 86400000
-
-/**
- * @category Day Helpers
- * @summary Get the number of calendar days between the given dates.
- *
- * @description
- * Get the number of calendar days between the given dates.
- *
- * @param {Date|String|Number} dateLeft - the later date
- * @param {Date|String|Number} dateRight - the earlier date
- * @returns {Number} the number of calendar days
- *
- * @example
- * // How many calendar days are between
- * // 2 July 2011 23:00:00 and 2 July 2012 00:00:00?
- * var result = differenceInCalendarDays(
- *   new Date(2012, 6, 2, 0, 0),
- *   new Date(2011, 6, 2, 23, 0)
- * )
- * //=> 366
- */
-function differenceInCalendarDays (dirtyDateLeft, dirtyDateRight) {
-  var startOfDayLeft = startOfDay(dirtyDateLeft)
-  var startOfDayRight = startOfDay(dirtyDateRight)
-
-  var timestampLeft = startOfDayLeft.getTime() -
-    startOfDayLeft.getTimezoneOffset() * MILLISECONDS_IN_MINUTE
-  var timestampRight = startOfDayRight.getTime() -
-    startOfDayRight.getTimezoneOffset() * MILLISECONDS_IN_MINUTE
-
-  // Round the number of days to the nearest integer
-  // because the number of milliseconds in a day is not constant
-  // (e.g. it's different in the day of the daylight saving time clock shift)
-  return Math.round((timestampLeft - timestampRight) / MILLISECONDS_IN_DAY)
-}
-
-module.exports = differenceInCalendarDays
-
-
-/***/ }),
 /* 32 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var parse = __webpack_require__(0)
-
-/**
- * @category Day Helpers
- * @summary Return the end of a day for the given date.
- *
- * @description
- * Return the end of a day for the given date.
- * The result will be in the local timezone.
- *
- * @param {Date|String|Number} date - the original date
- * @returns {Date} the end of a day
- *
- * @example
- * // The end of a day for 2 September 2014 11:55:00:
- * var result = endOfDay(new Date(2014, 8, 2, 11, 55, 0))
- * //=> Tue Sep 02 2014 23:59:59.999
- */
-function endOfDay (dirtyDate) {
-  var date = parse(dirtyDate)
-  date.setHours(23, 59, 59, 999)
-  return date
-}
-
-module.exports = endOfDay
-
-
-/***/ }),
-/* 33 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var parse = __webpack_require__(0)
-var startOfYear = __webpack_require__(47)
-var differenceInCalendarDays = __webpack_require__(31)
-
-/**
- * @category Day Helpers
- * @summary Get the day of the year of the given date.
- *
- * @description
- * Get the day of the year of the given date.
- *
- * @param {Date|String|Number} date - the given date
- * @returns {Number} the day of year
- *
- * @example
- * // Which day of the year is 2 July 2014?
- * var result = getDayOfYear(new Date(2014, 6, 2))
- * //=> 183
- */
-function getDayOfYear (dirtyDate) {
-  var date = parse(dirtyDate)
-  var diff = differenceInCalendarDays(date, startOfYear(date))
-  var dayOfYear = diff + 1
-  return dayOfYear
-}
-
-module.exports = getDayOfYear
-
-
-/***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var parse = __webpack_require__(0)
-
-/**
- * @category Month Helpers
- * @summary Get the number of days in a month of the given date.
- *
- * @description
- * Get the number of days in a month of the given date.
- *
- * @param {Date|String|Number} date - the given date
- * @returns {Number} the number of days in a month
- *
- * @example
- * // How many days are in February 2000?
- * var result = getDaysInMonth(new Date(2000, 1))
- * //=> 29
- */
-function getDaysInMonth (dirtyDate) {
-  var date = parse(dirtyDate)
-  var year = date.getFullYear()
-  var monthIndex = date.getMonth()
-  var lastDayOfMonth = new Date(0)
-  lastDayOfMonth.setFullYear(year, monthIndex + 1, 0)
-  lastDayOfMonth.setHours(0, 0, 0, 0)
-  return lastDayOfMonth.getDate()
-}
-
-module.exports = getDaysInMonth
-
-
-/***/ }),
-/* 35 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var parse = __webpack_require__(0)
-var startOfISOWeek = __webpack_require__(16)
-var startOfISOYear = __webpack_require__(44)
-
-var MILLISECONDS_IN_WEEK = 604800000
-
-/**
- * @category ISO Week Helpers
- * @summary Get the ISO week of the given date.
- *
- * @description
- * Get the ISO week of the given date.
- *
- * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
- *
- * @param {Date|String|Number} date - the given date
- * @returns {Number} the ISO week
- *
- * @example
- * // Which week of the ISO-week numbering year is 2 January 2005?
- * var result = getISOWeek(new Date(2005, 0, 2))
- * //=> 53
- */
-function getISOWeek (dirtyDate) {
-  var date = parse(dirtyDate)
-  var diff = startOfISOWeek(date).getTime() - startOfISOYear(date).getTime()
-
-  // Round the number of days to the nearest integer
-  // because the number of milliseconds in a week is not constant
-  // (e.g. it's different in the week of the daylight saving time clock shift)
-  return Math.round(diff / MILLISECONDS_IN_WEEK) + 1
-}
-
-module.exports = getISOWeek
-
-
-/***/ }),
-/* 36 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var startOfDay = __webpack_require__(10)
-
-/**
- * @category Day Helpers
- * @summary Are the given dates in the same day?
- *
- * @description
- * Are the given dates in the same day?
- *
- * @param {Date|String|Number} dateLeft - the first date to check
- * @param {Date|String|Number} dateRight - the second date to check
- * @returns {Boolean} the dates are in the same day
- *
- * @example
- * // Are 4 September 06:00:00 and 4 September 18:00:00 in the same day?
- * var result = isSameDay(
- *   new Date(2014, 8, 4, 6, 0),
- *   new Date(2014, 8, 4, 18, 0)
- * )
- * //=> true
- */
-function isSameDay (dirtyDateLeft, dirtyDateRight) {
-  var dateLeftStartOfDay = startOfDay(dirtyDateLeft)
-  var dateRightStartOfDay = startOfDay(dirtyDateRight)
-
-  return dateLeftStartOfDay.getTime() === dateRightStartOfDay.getTime()
-}
-
-module.exports = isSameDay
-
-
-/***/ }),
-/* 37 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var parse = __webpack_require__(0)
-
-/**
- * @category Month Helpers
- * @summary Are the given dates in the same month?
- *
- * @description
- * Are the given dates in the same month?
- *
- * @param {Date|String|Number} dateLeft - the first date to check
- * @param {Date|String|Number} dateRight - the second date to check
- * @returns {Boolean} the dates are in the same month
- *
- * @example
- * // Are 2 September 2014 and 25 September 2014 in the same month?
- * var result = isSameMonth(
- *   new Date(2014, 8, 2),
- *   new Date(2014, 8, 25)
- * )
- * //=> true
- */
-function isSameMonth (dirtyDateLeft, dirtyDateRight) {
-  var dateLeft = parse(dirtyDateLeft)
-  var dateRight = parse(dirtyDateRight)
-  return dateLeft.getFullYear() === dateRight.getFullYear() &&
-    dateLeft.getMonth() === dateRight.getMonth()
-}
-
-module.exports = isSameMonth
-
-
-/***/ }),
-/* 38 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var parse = __webpack_require__(0)
-
-/**
- * @category Year Helpers
- * @summary Are the given dates in the same year?
- *
- * @description
- * Are the given dates in the same year?
- *
- * @param {Date|String|Number} dateLeft - the first date to check
- * @param {Date|String|Number} dateRight - the second date to check
- * @returns {Boolean} the dates are in the same year
- *
- * @example
- * // Are 2 September 2014 and 25 September 2014 in the same year?
- * var result = isSameYear(
- *   new Date(2014, 8, 2),
- *   new Date(2014, 8, 25)
- * )
- * //=> true
- */
-function isSameYear (dirtyDateLeft, dirtyDateRight) {
-  var dateLeft = parse(dirtyDateLeft)
-  var dateRight = parse(dirtyDateRight)
-  return dateLeft.getFullYear() === dateRight.getFullYear()
-}
-
-module.exports = isSameYear
-
-
-/***/ }),
-/* 39 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var isDate = __webpack_require__(20)
-
-/**
- * @category Common Helpers
- * @summary Is the given date valid?
- *
- * @description
- * Returns false if argument is Invalid Date and true otherwise.
- * Invalid Date is a Date, whose time value is NaN.
- *
- * Time value of Date: http://es5.github.io/#x15.9.1.1
- *
- * @param {Date} date - the date to check
- * @returns {Boolean} the date is valid
- * @throws {TypeError} argument must be an instance of Date
- *
- * @example
- * // For the valid date:
- * var result = isValid(new Date(2014, 1, 31))
- * //=> true
- *
- * @example
- * // For the invalid date:
- * var result = isValid(new Date(''))
- * //=> false
- */
-function isValid (dirtyDate) {
-  if (isDate(dirtyDate)) {
-    return !isNaN(dirtyDate)
-  } else {
-    throw new TypeError(toString.call(dirtyDate) + ' is not an instance of Date')
-  }
-}
-
-module.exports = isValid
-
-
-/***/ }),
-/* 40 */
-/***/ (function(module, exports) {
-
-var commonFormatterKeys = [
-  'M', 'MM', 'Q', 'D', 'DD', 'DDD', 'DDDD', 'd',
-  'E', 'W', 'WW', 'YY', 'YYYY', 'GG', 'GGGG',
-  'H', 'HH', 'h', 'hh', 'm', 'mm',
-  's', 'ss', 'S', 'SS', 'SSS',
-  'Z', 'ZZ', 'X', 'x'
-]
-
-function buildFormattingTokensRegExp (formatters) {
-  var formatterKeys = []
-  for (var key in formatters) {
-    if (formatters.hasOwnProperty(key)) {
-      formatterKeys.push(key)
-    }
-  }
-
-  var formattingTokens = commonFormatterKeys
-    .concat(formatterKeys)
-    .sort()
-    .reverse()
-  var formattingTokensRegExp = new RegExp(
-    '(\\[[^\\[]*\\])|(\\\\)?' + '(' + formattingTokens.join('|') + '|.)', 'g'
-  )
-
-  return formattingTokensRegExp
-}
-
-module.exports = buildFormattingTokensRegExp
-
-
-/***/ }),
-/* 41 */
-/***/ (function(module, exports) {
-
-function buildDistanceInWordsLocale () {
-  var distanceInWordsLocale = {
-    lessThanXSeconds: {
-      one: 'less than a second',
-      other: 'less than {{count}} seconds'
-    },
-
-    xSeconds: {
-      one: '1 second',
-      other: '{{count}} seconds'
-    },
-
-    halfAMinute: 'half a minute',
-
-    lessThanXMinutes: {
-      one: 'less than a minute',
-      other: 'less than {{count}} minutes'
-    },
-
-    xMinutes: {
-      one: '1 minute',
-      other: '{{count}} minutes'
-    },
-
-    aboutXHours: {
-      one: 'about 1 hour',
-      other: 'about {{count}} hours'
-    },
-
-    xHours: {
-      one: '1 hour',
-      other: '{{count}} hours'
-    },
-
-    xDays: {
-      one: '1 day',
-      other: '{{count}} days'
-    },
-
-    aboutXMonths: {
-      one: 'about 1 month',
-      other: 'about {{count}} months'
-    },
-
-    xMonths: {
-      one: '1 month',
-      other: '{{count}} months'
-    },
-
-    aboutXYears: {
-      one: 'about 1 year',
-      other: 'about {{count}} years'
-    },
-
-    xYears: {
-      one: '1 year',
-      other: '{{count}} years'
-    },
-
-    overXYears: {
-      one: 'over 1 year',
-      other: 'over {{count}} years'
-    },
-
-    almostXYears: {
-      one: 'almost 1 year',
-      other: 'almost {{count}} years'
-    }
-  }
-
-  function localize (token, count, options) {
-    options = options || {}
-
-    var result
-    if (typeof distanceInWordsLocale[token] === 'string') {
-      result = distanceInWordsLocale[token]
-    } else if (count === 1) {
-      result = distanceInWordsLocale[token].one
-    } else {
-      result = distanceInWordsLocale[token].other.replace('{{count}}', count)
-    }
-
-    if (options.addSuffix) {
-      if (options.comparison > 0) {
-        return 'in ' + result
-      } else {
-        return result + ' ago'
-      }
-    }
-
-    return result
-  }
-
-  return {
-    localize: localize
-  }
-}
-
-module.exports = buildDistanceInWordsLocale
-
-
-/***/ }),
-/* 42 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var buildFormattingTokensRegExp = __webpack_require__(40)
-
-function buildFormatLocale () {
-  // Note: in English, the names of days of the week and months are capitalized.
-  // If you are making a new locale based on this one, check if the same is true for the language you're working on.
-  // Generally, formatted dates should look like they are in the middle of a sentence,
-  // e.g. in Spanish language the weekdays and months should be in the lowercase.
-  var months3char = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  var monthsFull = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-  var weekdays2char = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
-  var weekdays3char = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-  var weekdaysFull = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-  var meridiemUppercase = ['AM', 'PM']
-  var meridiemLowercase = ['am', 'pm']
-  var meridiemFull = ['a.m.', 'p.m.']
-
-  var formatters = {
-    // Month: Jan, Feb, ..., Dec
-    'MMM': function (date) {
-      return months3char[date.getMonth()]
-    },
-
-    // Month: January, February, ..., December
-    'MMMM': function (date) {
-      return monthsFull[date.getMonth()]
-    },
-
-    // Day of week: Su, Mo, ..., Sa
-    'dd': function (date) {
-      return weekdays2char[date.getDay()]
-    },
-
-    // Day of week: Sun, Mon, ..., Sat
-    'ddd': function (date) {
-      return weekdays3char[date.getDay()]
-    },
-
-    // Day of week: Sunday, Monday, ..., Saturday
-    'dddd': function (date) {
-      return weekdaysFull[date.getDay()]
-    },
-
-    // AM, PM
-    'A': function (date) {
-      return (date.getHours() / 12) >= 1 ? meridiemUppercase[1] : meridiemUppercase[0]
-    },
-
-    // am, pm
-    'a': function (date) {
-      return (date.getHours() / 12) >= 1 ? meridiemLowercase[1] : meridiemLowercase[0]
-    },
-
-    // a.m., p.m.
-    'aa': function (date) {
-      return (date.getHours() / 12) >= 1 ? meridiemFull[1] : meridiemFull[0]
-    }
-  }
-
-  // Generate ordinal version of formatters: M -> Mo, D -> Do, etc.
-  var ordinalFormatters = ['M', 'D', 'DDD', 'd', 'Q', 'W']
-  ordinalFormatters.forEach(function (formatterToken) {
-    formatters[formatterToken + 'o'] = function (date, formatters) {
-      return ordinal(formatters[formatterToken](date))
-    }
-  })
-
-  return {
-    formatters: formatters,
-    formattingTokensRegExp: buildFormattingTokensRegExp(formatters)
-  }
-}
-
-function ordinal (number) {
-  var rem100 = number % 100
-  if (rem100 > 20 || rem100 < 10) {
-    switch (rem100 % 10) {
-      case 1:
-        return number + 'st'
-      case 2:
-        return number + 'nd'
-      case 3:
-        return number + 'rd'
-    }
-  }
-  return number + 'th'
-}
-
-module.exports = buildFormatLocale
-
-
-/***/ }),
-/* 43 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var buildDistanceInWordsLocale = __webpack_require__(41)
-var buildFormatLocale = __webpack_require__(42)
-
-/**
- * @category Locales
- * @summary English locale.
- */
-module.exports = {
-  distanceInWords: buildDistanceInWordsLocale(),
-  format: buildFormatLocale()
-}
-
-
-/***/ }),
-/* 44 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var getISOYear = __webpack_require__(19)
-var startOfISOWeek = __webpack_require__(16)
-
-/**
- * @category ISO Week-Numbering Year Helpers
- * @summary Return the start of an ISO week-numbering year for the given date.
- *
- * @description
- * Return the start of an ISO week-numbering year,
- * which always starts 3 days before the year's first Thursday.
- * The result will be in the local timezone.
- *
- * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
- *
- * @param {Date|String|Number} date - the original date
- * @returns {Date} the start of an ISO year
- *
- * @example
- * // The start of an ISO week-numbering year for 2 July 2005:
- * var result = startOfISOYear(new Date(2005, 6, 2))
- * //=> Mon Jan 03 2005 00:00:00
- */
-function startOfISOYear (dirtyDate) {
-  var year = getISOYear(dirtyDate)
-  var fourthOfJanuary = new Date(0)
-  fourthOfJanuary.setFullYear(year, 0, 4)
-  fourthOfJanuary.setHours(0, 0, 0, 0)
-  var date = startOfISOWeek(fourthOfJanuary)
-  return date
-}
-
-module.exports = startOfISOYear
-
-
-/***/ }),
-/* 45 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var parse = __webpack_require__(0)
-
-/**
- * @category Month Helpers
- * @summary Return the start of a month for the given date.
- *
- * @description
- * Return the start of a month for the given date.
- * The result will be in the local timezone.
- *
- * @param {Date|String|Number} date - the original date
- * @returns {Date} the start of a month
- *
- * @example
- * // The start of a month for 2 September 2014 11:55:00:
- * var result = startOfMonth(new Date(2014, 8, 2, 11, 55, 0))
- * //=> Mon Sep 01 2014 00:00:00
- */
-function startOfMonth (dirtyDate) {
-  var date = parse(dirtyDate)
-  date.setDate(1)
-  date.setHours(0, 0, 0, 0)
-  return date
-}
-
-module.exports = startOfMonth
-
-
-/***/ }),
-/* 46 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var parse = __webpack_require__(0)
-
-/**
- * @category Week Helpers
- * @summary Return the start of a week for the given date.
- *
- * @description
- * Return the start of a week for the given date.
- * The result will be in the local timezone.
- *
- * @param {Date|String|Number} date - the original date
- * @param {Object} [options] - the object with options
- * @param {Number} [options.weekStartsOn=0] - the index of the first day of the week (0 - Sunday)
- * @returns {Date} the start of a week
- *
- * @example
- * // The start of a week for 2 September 2014 11:55:00:
- * var result = startOfWeek(new Date(2014, 8, 2, 11, 55, 0))
- * //=> Sun Aug 31 2014 00:00:00
- *
- * @example
- * // If the week starts on Monday, the start of the week for 2 September 2014 11:55:00:
- * var result = startOfWeek(new Date(2014, 8, 2, 11, 55, 0), {weekStartsOn: 1})
- * //=> Mon Sep 01 2014 00:00:00
- */
-function startOfWeek (dirtyDate, dirtyOptions) {
-  var weekStartsOn = dirtyOptions ? (Number(dirtyOptions.weekStartsOn) || 0) : 0
-
-  var date = parse(dirtyDate)
-  var day = date.getDay()
-  var diff = (day < weekStartsOn ? 7 : 0) + day - weekStartsOn
-
-  date.setDate(date.getDate() - diff)
-  date.setHours(0, 0, 0, 0)
-  return date
-}
-
-module.exports = startOfWeek
-
-
-/***/ }),
-/* 47 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var parse = __webpack_require__(0)
-
-/**
- * @category Year Helpers
- * @summary Return the start of a year for the given date.
- *
- * @description
- * Return the start of a year for the given date.
- * The result will be in the local timezone.
- *
- * @param {Date|String|Number} date - the original date
- * @returns {Date} the start of a year
- *
- * @example
- * // The start of a year for 2 September 2014 11:55:00:
- * var result = startOfYear(new Date(2014, 8, 2, 11, 55, 00))
- * //=> Wed Jan 01 2014 00:00:00
- */
-function startOfYear (dirtyDate) {
-  var cleanDate = parse(dirtyDate)
-  var date = new Date(0)
-  date.setFullYear(cleanDate.getFullYear(), 0, 1)
-  date.setHours(0, 0, 0, 0)
-  return date
-}
-
-module.exports = startOfYear
-
-
-/***/ }),
-/* 48 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
-module.exports = exports['default'];
-
-/***/ }),
-/* 49 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-exports.default = function (recalc) {
-  if (!size || recalc) {
-    if (_inDOM2.default) {
-      var scrollDiv = document.createElement('div');
-
-      scrollDiv.style.position = 'absolute';
-      scrollDiv.style.top = '-9999px';
-      scrollDiv.style.width = '50px';
-      scrollDiv.style.height = '50px';
-      scrollDiv.style.overflow = 'scroll';
-
-      document.body.appendChild(scrollDiv);
-      size = scrollDiv.offsetWidth - scrollDiv.clientWidth;
-      document.body.removeChild(scrollDiv);
-    }
-  }
-
-  return size;
-};
-
-var _inDOM = __webpack_require__(48);
-
-var _inDOM2 = _interopRequireDefault(_inDOM);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var size = void 0;
-
-module.exports = exports['default'];
-
-/***/ }),
-/* 50 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @typechecks
- * 
- */
-
-/*eslint-disable no-self-compare */
-
-
-
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-
-/**
- * inlined Object.is polyfill to avoid requiring consumers ship their own
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
- */
-function is(x, y) {
-  // SameValue algorithm
-  if (x === y) {
-    // Steps 1-5, 7-10
-    // Steps 6.b-6.e: +0 != -0
-    // Added the nonzero y check to make Flow happy, but it is redundant
-    return x !== 0 || y !== 0 || 1 / x === 1 / y;
-  } else {
-    // Step 6.a: NaN == NaN
-    return x !== x && y !== y;
-  }
-}
-
-/**
- * Performs equality by iterating through keys on an object and returning false
- * when any key has values which are not strictly equal between the arguments.
- * Returns true when the values of all keys are strictly equal.
- */
-function shallowEqual(objA, objB) {
-  if (is(objA, objB)) {
-    return true;
-  }
-
-  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
-    return false;
-  }
-
-  var keysA = Object.keys(objA);
-  var keysB = Object.keys(objB);
-
-  if (keysA.length !== keysB.length) {
-    return false;
-  }
-
-  // Test for A's keys different from B.
-  for (var i = 0; i < keysA.length; i++) {
-    if (!hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
-module.exports = shallowEqual;
-
-/***/ }),
-/* 51 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3921,15 +3114,15 @@ module.exports = shallowEqual;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_recompose_withState___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_recompose_withState__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_recompose_withProps__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_recompose_withProps___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_recompose_withProps__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_recompose_withHandlers__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_recompose_withHandlers__ = __webpack_require__(82);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_recompose_withHandlers___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_recompose_withHandlers__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_recompose_compose__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_recompose_compose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_recompose_compose__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_date_fns_add_days__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_date_fns_add_days__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_date_fns_add_days___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_date_fns_add_days__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_date_fns_format__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_date_fns_format___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_date_fns_format__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_date_fns_is_after__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_date_fns_is_after__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_date_fns_is_after___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_date_fns_is_after__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_date_fns_is_before__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_date_fns_is_before___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_date_fns_is_before__);
@@ -4043,7 +3236,7 @@ function getInitialDate(_ref3) {
 }
 
 /***/ }),
-/* 52 */
+/* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4057,7 +3250,7 @@ function getInitialDate(_ref3) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_recompose_compose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_recompose_compose__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4____ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Header_withMultipleDates__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Header_withMultipleDates__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_date_fns_format__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_date_fns_format___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_date_fns_format__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_date_fns_parse__ = __webpack_require__(0);
@@ -4165,7 +3358,7 @@ function defaultMultipleDateInterpolation(date, selected) {
 }
 
 /***/ }),
-/* 53 */
+/* 34 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4183,11 +3376,17 @@ function defaultMultipleDateInterpolation(date, selected) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_date_fns_is_before__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_date_fns_is_before___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_date_fns_is_before__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Header_withRange__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Header_withRange__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_date_fns_format__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_date_fns_format___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_date_fns_format__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_date_fns_parse__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_date_fns_parse___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_date_fns_parse__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_date_fns_add_days__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_date_fns_add_days___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_date_fns_add_days__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_date_fns_sub_days__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_date_fns_sub_days___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12_date_fns_sub_days__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_date_fns_difference_in_days__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_date_fns_difference_in_days___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_date_fns_difference_in_days__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return EVENT_TYPE; });
 /* unused harmony export enhanceDay */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return withRange; });
@@ -4199,6 +3398,9 @@ function defaultMultipleDateInterpolation(date, selected) {
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+
+
 
 
 
@@ -4310,8 +3512,33 @@ function getSortedSelection(_ref4) {
   return __WEBPACK_IMPORTED_MODULE_7_date_fns_is_before___default()(start, end) ? { start: start, end: end } : { start: end, end: start };
 }
 
+/**
+ * Limits the selection range to include a maximum of `rangeLimit` days.
+ *
+ * If the range is longer, the end date is re-calculated to fit the range limit.
+ * If no limit is set (falsey), original values are returned.
+ *
+ * @param  {number} rangeLimit Limit in days
+ * @param  {Date} start Start date
+ * @param  {Date} end End date
+ * @return {Object} New start and end date
+ */
+function getLimitedRange(rangeLimit, start, end) {
+  if (!rangeLimit) return { start: start, end: end };
+  var range = __WEBPACK_IMPORTED_MODULE_13_date_fns_difference_in_days___default()(end, start);
+  var modifier = range > 0 ? __WEBPACK_IMPORTED_MODULE_11_date_fns_add_days___default.a : __WEBPACK_IMPORTED_MODULE_12_date_fns_sub_days___default.a;
+
+  var endDate = Math.abs(range) >= rangeLimit ? modifier(start, rangeLimit - 1) : end;
+
+  return {
+    start: start,
+    end: endDate
+  };
+}
+
 function handleSelect(date, _ref5) {
   var onSelect = _ref5.onSelect,
+      rangeLimit = _ref5.rangeLimit,
       selected = _ref5.selected,
       selectionStart = _ref5.selectionStart,
       setSelectionStart = _ref5.setSelectionStart;
@@ -4319,10 +3546,7 @@ function handleSelect(date, _ref5) {
   if (selectionStart) {
     onSelect(_extends({
       eventType: EVENT_TYPE.END
-    }, getSortedSelection({
-      start: selectionStart,
-      end: date
-    })));
+    }, getSortedSelection(getLimitedRange(rangeLimit, selectionStart, date))));
     setSelectionStart(null);
   } else {
     onSelect({ eventType: EVENT_TYPE.START, start: date, end: date });
@@ -4332,6 +3556,7 @@ function handleSelect(date, _ref5) {
 
 function handleMouseOver(e, _ref6) {
   var onSelect = _ref6.onSelect,
+      rangeLimit = _ref6.rangeLimit,
       selectionStart = _ref6.selectionStart;
 
   var dateStr = e.target.getAttribute('data-date');
@@ -4343,10 +3568,7 @@ function handleMouseOver(e, _ref6) {
 
   onSelect(_extends({
     eventType: EVENT_TYPE.HOVER
-  }, getSortedSelection({
-    start: selectionStart,
-    end: date
-  })));
+  }, getSortedSelection(getLimitedRange(rangeLimit, selectionStart, date))));
 }
 
 function handleYearSelect(date, _ref7) {
@@ -4377,7 +3599,7 @@ if (typeof window !== 'undefined') {
 }
 
 /***/ }),
-/* 54 */
+/* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4390,7 +3612,7 @@ if (typeof window !== 'undefined') {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Day; });
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _jsxFileName = '/Users/jacob/Projects/toggl/react-infinite-calendar/src/Day/index.js';
+var _jsxFileName = '/Users/tyler/dev/toggl/react-infinite-calendar/src/Day/index.js';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -4574,18 +3796,18 @@ var Day = function (_PureComponent) {
 
 
 /***/ }),
-/* 55 */
+/* 36 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_addons_css_transition_group__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_addons_css_transition_group__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_addons_css_transition_group___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_addons_css_transition_group__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_classnames__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Slider; });
-var _jsxFileName = '/Users/jacob/Projects/toggl/react-infinite-calendar/src/Header/Slider/index.js',
+var _jsxFileName = '/Users/tyler/dev/toggl/react-infinite-calendar/src/Header/Slider/index.js',
     _this = this;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4763,7 +3985,7 @@ var Slider = function (_PureComponent) {
 
 
 /***/ }),
-/* 56 */
+/* 37 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4772,13 +3994,13 @@ var Slider = function (_PureComponent) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__defaultSelectionRenderer__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__defaultSelectionRenderer__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_classnames__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_classnames__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Header; });
 var _class,
     _temp,
-    _jsxFileName = '/Users/jacob/Projects/toggl/react-infinite-calendar/src/Header/index.js';
+    _jsxFileName = '/Users/tyler/dev/toggl/react-infinite-calendar/src/Header/index.js';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -4867,22 +4089,22 @@ var Header = (_temp = _class = function (_PureComponent) {
 
 
 /***/ }),
-/* 57 */
+/* 38 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__defaultSelectionRenderer__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Slider__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__defaultSelectionRenderer__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Slider__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_date_fns_parse__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_date_fns_parse___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_date_fns_parse__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_date_fns_format__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_date_fns_format___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_date_fns_format__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _jsxFileName = '/Users/jacob/Projects/toggl/react-infinite-calendar/src/Header/withMultipleDates.js',
+var _jsxFileName = '/Users/tyler/dev/toggl/react-infinite-calendar/src/Header/withMultipleDates.js',
     _this = this;
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
@@ -4938,17 +4160,17 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 });
 
 /***/ }),
-/* 58 */
+/* 39 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__defaultSelectionRenderer__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__defaultSelectionRenderer__ = __webpack_require__(15);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _jsxFileName = '/Users/jacob/Projects/toggl/react-infinite-calendar/src/Header/withRange.js',
+var _jsxFileName = '/Users/tyler/dev/toggl/react-infinite-calendar/src/Header/withRange.js',
     _this = this;
 
 
@@ -4998,7 +4220,7 @@ var styles = {
 });
 
 /***/ }),
-/* 59 */
+/* 40 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5009,14 +4231,14 @@ var styles = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_date_fns_format__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_date_fns_format___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_date_fns_format__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_date_fns_get_day__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_date_fns_get_day__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_date_fns_get_day___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_date_fns_get_day__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_date_fns_is_same_year__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_date_fns_is_same_year__ = __webpack_require__(57);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_date_fns_is_same_year___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_date_fns_is_same_year__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Month; });
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _jsxFileName = '/Users/jacob/Projects/toggl/react-infinite-calendar/src/Month/index.js';
+var _jsxFileName = '/Users/tyler/dev/toggl/react-infinite-calendar/src/Month/index.js';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -5206,7 +4428,7 @@ var Month = function (_PureComponent) {
 
 
 /***/ }),
-/* 60 */
+/* 41 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5214,21 +4436,21 @@ var Month = function (_PureComponent) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_tiny_virtual_list__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_tiny_virtual_list__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_classnames__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_classnames__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_date_fns_parse__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_date_fns_parse___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_date_fns_parse__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_date_fns_start_of_month__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_date_fns_start_of_month__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_date_fns_start_of_month___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_date_fns_start_of_month__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Month__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Month__ = __webpack_require__(40);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MonthList; });
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _class,
     _temp2,
-    _jsxFileName = '/Users/jacob/Projects/toggl/react-infinite-calendar/src/MonthList/index.js';
+    _jsxFileName = '/Users/tyler/dev/toggl/react-infinite-calendar/src/MonthList/index.js';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -5480,7 +4702,7 @@ var MonthList = (_temp2 = _class = function (_Component) {
 
 
 /***/ }),
-/* 61 */
+/* 42 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5495,7 +4717,7 @@ var MonthList = (_temp2 = _class = function (_Component) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return Today; });
 var _class,
     _temp2,
-    _jsxFileName = '/Users/jacob/Projects/toggl/react-infinite-calendar/src/Today/index.js';
+    _jsxFileName = '/Users/tyler/dev/toggl/react-infinite-calendar/src/Today/index.js';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -5602,7 +4824,7 @@ var Today = (_temp2 = _class = function (_PureComponent) {
 
 
 /***/ }),
-/* 62 */
+/* 43 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5614,7 +4836,7 @@ var Today = (_temp2 = _class = function (_PureComponent) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Weekdays; });
 var _class,
     _temp,
-    _jsxFileName = '/Users/jacob/Projects/toggl/react-infinite-calendar/src/Weekdays/index.js';
+    _jsxFileName = '/Users/tyler/dev/toggl/react-infinite-calendar/src/Weekdays/index.js';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -5687,7 +4909,7 @@ var Weekdays = (_temp = _class = function (_PureComponent) {
 
 
 /***/ }),
-/* 63 */
+/* 44 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5695,22 +4917,22 @@ var Weekdays = (_temp = _class = function (_PureComponent) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_tiny_virtual_list__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_tiny_virtual_list__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_classnames__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_classnames__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_date_fns_format__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_date_fns_format___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_date_fns_format__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_date_fns_is_after__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_date_fns_is_after__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_date_fns_is_after___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_date_fns_is_after__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_date_fns_is_before__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_date_fns_is_before___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_date_fns_is_before__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_date_fns_is_same_month__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_date_fns_is_same_month__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_date_fns_is_same_month___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_date_fns_is_same_month__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Years; });
 var _class,
     _temp,
-    _jsxFileName = '/Users/jacob/Projects/toggl/react-infinite-calendar/src/Years/index.js';
+    _jsxFileName = '/Users/tyler/dev/toggl/react-infinite-calendar/src/Years/index.js';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -5963,7 +5185,7 @@ var Years = (_temp = _class = function (_Component) {
 
 
 /***/ }),
-/* 64 */
+/* 45 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6016,7 +5238,7 @@ function animate(_ref) {
 };
 
 /***/ }),
-/* 65 */
+/* 46 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -6033,7 +5255,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 66 */
+/* 47 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -6047,7 +5269,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 67 */
+/* 48 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -6068,7 +5290,946 @@ module.exports = {
 };
 
 /***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var parse = __webpack_require__(0)
+
+/**
+ * @category Common Helpers
+ * @summary Compare the two dates and return -1, 0 or 1.
+ *
+ * @description
+ * Compare the two dates and return 1 if the first date is after the second,
+ * -1 if the first date is before the second or 0 if dates are equal.
+ *
+ * @param {Date|String|Number} dateLeft - the first date to compare
+ * @param {Date|String|Number} dateRight - the second date to compare
+ * @returns {Number} the result of the comparison
+ *
+ * @example
+ * // Compare 11 February 1987 and 10 July 1989:
+ * var result = compareAsc(
+ *   new Date(1987, 1, 11),
+ *   new Date(1989, 6, 10)
+ * )
+ * //=> -1
+ *
+ * @example
+ * // Sort the array of dates:
+ * var result = [
+ *   new Date(1995, 6, 2),
+ *   new Date(1987, 1, 11),
+ *   new Date(1989, 6, 10)
+ * ].sort(compareAsc)
+ * //=> [
+ * //   Wed Feb 11 1987 00:00:00,
+ * //   Mon Jul 10 1989 00:00:00,
+ * //   Sun Jul 02 1995 00:00:00
+ * // ]
+ */
+function compareAsc (dirtyDateLeft, dirtyDateRight) {
+  var dateLeft = parse(dirtyDateLeft)
+  var timeLeft = dateLeft.getTime()
+  var dateRight = parse(dirtyDateRight)
+  var timeRight = dateRight.getTime()
+
+  if (timeLeft < timeRight) {
+    return -1
+  } else if (timeLeft > timeRight) {
+    return 1
+  } else {
+    return 0
+  }
+}
+
+module.exports = compareAsc
+
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var parse = __webpack_require__(0)
+var differenceInCalendarDays = __webpack_require__(20)
+var compareAsc = __webpack_require__(49)
+
+/**
+ * @category Day Helpers
+ * @summary Get the number of full days between the given dates.
+ *
+ * @description
+ * Get the number of full days between the given dates.
+ *
+ * @param {Date|String|Number} dateLeft - the later date
+ * @param {Date|String|Number} dateRight - the earlier date
+ * @returns {Number} the number of full days
+ *
+ * @example
+ * // How many full days are between
+ * // 2 July 2011 23:00:00 and 2 July 2012 00:00:00?
+ * var result = differenceInDays(
+ *   new Date(2012, 6, 2, 0, 0),
+ *   new Date(2011, 6, 2, 23, 0)
+ * )
+ * //=> 365
+ */
+function differenceInDays (dirtyDateLeft, dirtyDateRight) {
+  var dateLeft = parse(dirtyDateLeft)
+  var dateRight = parse(dirtyDateRight)
+
+  var sign = compareAsc(dateLeft, dateRight)
+  var difference = Math.abs(differenceInCalendarDays(dateLeft, dateRight))
+  dateLeft.setDate(dateLeft.getDate() - sign * difference)
+
+  // Math.abs(diff in full days - diff in calendar days) === 1 if last calendar day is not full
+  // If so, result must be decreased by 1 in absolute value
+  var isLastDayNotFull = compareAsc(dateLeft, dateRight) === -sign
+  return sign * (difference - isLastDayNotFull)
+}
+
+module.exports = differenceInDays
+
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var parse = __webpack_require__(0)
+
+/**
+ * @category Day Helpers
+ * @summary Return the end of a day for the given date.
+ *
+ * @description
+ * Return the end of a day for the given date.
+ * The result will be in the local timezone.
+ *
+ * @param {Date|String|Number} date - the original date
+ * @returns {Date} the end of a day
+ *
+ * @example
+ * // The end of a day for 2 September 2014 11:55:00:
+ * var result = endOfDay(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Tue Sep 02 2014 23:59:59.999
+ */
+function endOfDay (dirtyDate) {
+  var date = parse(dirtyDate)
+  date.setHours(23, 59, 59, 999)
+  return date
+}
+
+module.exports = endOfDay
+
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var parse = __webpack_require__(0)
+var startOfYear = __webpack_require__(66)
+var differenceInCalendarDays = __webpack_require__(20)
+
+/**
+ * @category Day Helpers
+ * @summary Get the day of the year of the given date.
+ *
+ * @description
+ * Get the day of the year of the given date.
+ *
+ * @param {Date|String|Number} date - the given date
+ * @returns {Number} the day of year
+ *
+ * @example
+ * // Which day of the year is 2 July 2014?
+ * var result = getDayOfYear(new Date(2014, 6, 2))
+ * //=> 183
+ */
+function getDayOfYear (dirtyDate) {
+  var date = parse(dirtyDate)
+  var diff = differenceInCalendarDays(date, startOfYear(date))
+  var dayOfYear = diff + 1
+  return dayOfYear
+}
+
+module.exports = getDayOfYear
+
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var parse = __webpack_require__(0)
+
+/**
+ * @category Month Helpers
+ * @summary Get the number of days in a month of the given date.
+ *
+ * @description
+ * Get the number of days in a month of the given date.
+ *
+ * @param {Date|String|Number} date - the given date
+ * @returns {Number} the number of days in a month
+ *
+ * @example
+ * // How many days are in February 2000?
+ * var result = getDaysInMonth(new Date(2000, 1))
+ * //=> 29
+ */
+function getDaysInMonth (dirtyDate) {
+  var date = parse(dirtyDate)
+  var year = date.getFullYear()
+  var monthIndex = date.getMonth()
+  var lastDayOfMonth = new Date(0)
+  lastDayOfMonth.setFullYear(year, monthIndex + 1, 0)
+  lastDayOfMonth.setHours(0, 0, 0, 0)
+  return lastDayOfMonth.getDate()
+}
+
+module.exports = getDaysInMonth
+
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var parse = __webpack_require__(0)
+var startOfISOWeek = __webpack_require__(18)
+var startOfISOYear = __webpack_require__(63)
+
+var MILLISECONDS_IN_WEEK = 604800000
+
+/**
+ * @category ISO Week Helpers
+ * @summary Get the ISO week of the given date.
+ *
+ * @description
+ * Get the ISO week of the given date.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @param {Date|String|Number} date - the given date
+ * @returns {Number} the ISO week
+ *
+ * @example
+ * // Which week of the ISO-week numbering year is 2 January 2005?
+ * var result = getISOWeek(new Date(2005, 0, 2))
+ * //=> 53
+ */
+function getISOWeek (dirtyDate) {
+  var date = parse(dirtyDate)
+  var diff = startOfISOWeek(date).getTime() - startOfISOYear(date).getTime()
+
+  // Round the number of days to the nearest integer
+  // because the number of milliseconds in a week is not constant
+  // (e.g. it's different in the week of the daylight saving time clock shift)
+  return Math.round(diff / MILLISECONDS_IN_WEEK) + 1
+}
+
+module.exports = getISOWeek
+
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var startOfDay = __webpack_require__(10)
+
+/**
+ * @category Day Helpers
+ * @summary Are the given dates in the same day?
+ *
+ * @description
+ * Are the given dates in the same day?
+ *
+ * @param {Date|String|Number} dateLeft - the first date to check
+ * @param {Date|String|Number} dateRight - the second date to check
+ * @returns {Boolean} the dates are in the same day
+ *
+ * @example
+ * // Are 4 September 06:00:00 and 4 September 18:00:00 in the same day?
+ * var result = isSameDay(
+ *   new Date(2014, 8, 4, 6, 0),
+ *   new Date(2014, 8, 4, 18, 0)
+ * )
+ * //=> true
+ */
+function isSameDay (dirtyDateLeft, dirtyDateRight) {
+  var dateLeftStartOfDay = startOfDay(dirtyDateLeft)
+  var dateRightStartOfDay = startOfDay(dirtyDateRight)
+
+  return dateLeftStartOfDay.getTime() === dateRightStartOfDay.getTime()
+}
+
+module.exports = isSameDay
+
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var parse = __webpack_require__(0)
+
+/**
+ * @category Month Helpers
+ * @summary Are the given dates in the same month?
+ *
+ * @description
+ * Are the given dates in the same month?
+ *
+ * @param {Date|String|Number} dateLeft - the first date to check
+ * @param {Date|String|Number} dateRight - the second date to check
+ * @returns {Boolean} the dates are in the same month
+ *
+ * @example
+ * // Are 2 September 2014 and 25 September 2014 in the same month?
+ * var result = isSameMonth(
+ *   new Date(2014, 8, 2),
+ *   new Date(2014, 8, 25)
+ * )
+ * //=> true
+ */
+function isSameMonth (dirtyDateLeft, dirtyDateRight) {
+  var dateLeft = parse(dirtyDateLeft)
+  var dateRight = parse(dirtyDateRight)
+  return dateLeft.getFullYear() === dateRight.getFullYear() &&
+    dateLeft.getMonth() === dateRight.getMonth()
+}
+
+module.exports = isSameMonth
+
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var parse = __webpack_require__(0)
+
+/**
+ * @category Year Helpers
+ * @summary Are the given dates in the same year?
+ *
+ * @description
+ * Are the given dates in the same year?
+ *
+ * @param {Date|String|Number} dateLeft - the first date to check
+ * @param {Date|String|Number} dateRight - the second date to check
+ * @returns {Boolean} the dates are in the same year
+ *
+ * @example
+ * // Are 2 September 2014 and 25 September 2014 in the same year?
+ * var result = isSameYear(
+ *   new Date(2014, 8, 2),
+ *   new Date(2014, 8, 25)
+ * )
+ * //=> true
+ */
+function isSameYear (dirtyDateLeft, dirtyDateRight) {
+  var dateLeft = parse(dirtyDateLeft)
+  var dateRight = parse(dirtyDateRight)
+  return dateLeft.getFullYear() === dateRight.getFullYear()
+}
+
+module.exports = isSameYear
+
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isDate = __webpack_require__(23)
+
+/**
+ * @category Common Helpers
+ * @summary Is the given date valid?
+ *
+ * @description
+ * Returns false if argument is Invalid Date and true otherwise.
+ * Invalid Date is a Date, whose time value is NaN.
+ *
+ * Time value of Date: http://es5.github.io/#x15.9.1.1
+ *
+ * @param {Date} date - the date to check
+ * @returns {Boolean} the date is valid
+ * @throws {TypeError} argument must be an instance of Date
+ *
+ * @example
+ * // For the valid date:
+ * var result = isValid(new Date(2014, 1, 31))
+ * //=> true
+ *
+ * @example
+ * // For the invalid date:
+ * var result = isValid(new Date(''))
+ * //=> false
+ */
+function isValid (dirtyDate) {
+  if (isDate(dirtyDate)) {
+    return !isNaN(dirtyDate)
+  } else {
+    throw new TypeError(toString.call(dirtyDate) + ' is not an instance of Date')
+  }
+}
+
+module.exports = isValid
+
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports) {
+
+var commonFormatterKeys = [
+  'M', 'MM', 'Q', 'D', 'DD', 'DDD', 'DDDD', 'd',
+  'E', 'W', 'WW', 'YY', 'YYYY', 'GG', 'GGGG',
+  'H', 'HH', 'h', 'hh', 'm', 'mm',
+  's', 'ss', 'S', 'SS', 'SSS',
+  'Z', 'ZZ', 'X', 'x'
+]
+
+function buildFormattingTokensRegExp (formatters) {
+  var formatterKeys = []
+  for (var key in formatters) {
+    if (formatters.hasOwnProperty(key)) {
+      formatterKeys.push(key)
+    }
+  }
+
+  var formattingTokens = commonFormatterKeys
+    .concat(formatterKeys)
+    .sort()
+    .reverse()
+  var formattingTokensRegExp = new RegExp(
+    '(\\[[^\\[]*\\])|(\\\\)?' + '(' + formattingTokens.join('|') + '|.)', 'g'
+  )
+
+  return formattingTokensRegExp
+}
+
+module.exports = buildFormattingTokensRegExp
+
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports) {
+
+function buildDistanceInWordsLocale () {
+  var distanceInWordsLocale = {
+    lessThanXSeconds: {
+      one: 'less than a second',
+      other: 'less than {{count}} seconds'
+    },
+
+    xSeconds: {
+      one: '1 second',
+      other: '{{count}} seconds'
+    },
+
+    halfAMinute: 'half a minute',
+
+    lessThanXMinutes: {
+      one: 'less than a minute',
+      other: 'less than {{count}} minutes'
+    },
+
+    xMinutes: {
+      one: '1 minute',
+      other: '{{count}} minutes'
+    },
+
+    aboutXHours: {
+      one: 'about 1 hour',
+      other: 'about {{count}} hours'
+    },
+
+    xHours: {
+      one: '1 hour',
+      other: '{{count}} hours'
+    },
+
+    xDays: {
+      one: '1 day',
+      other: '{{count}} days'
+    },
+
+    aboutXMonths: {
+      one: 'about 1 month',
+      other: 'about {{count}} months'
+    },
+
+    xMonths: {
+      one: '1 month',
+      other: '{{count}} months'
+    },
+
+    aboutXYears: {
+      one: 'about 1 year',
+      other: 'about {{count}} years'
+    },
+
+    xYears: {
+      one: '1 year',
+      other: '{{count}} years'
+    },
+
+    overXYears: {
+      one: 'over 1 year',
+      other: 'over {{count}} years'
+    },
+
+    almostXYears: {
+      one: 'almost 1 year',
+      other: 'almost {{count}} years'
+    }
+  }
+
+  function localize (token, count, options) {
+    options = options || {}
+
+    var result
+    if (typeof distanceInWordsLocale[token] === 'string') {
+      result = distanceInWordsLocale[token]
+    } else if (count === 1) {
+      result = distanceInWordsLocale[token].one
+    } else {
+      result = distanceInWordsLocale[token].other.replace('{{count}}', count)
+    }
+
+    if (options.addSuffix) {
+      if (options.comparison > 0) {
+        return 'in ' + result
+      } else {
+        return result + ' ago'
+      }
+    }
+
+    return result
+  }
+
+  return {
+    localize: localize
+  }
+}
+
+module.exports = buildDistanceInWordsLocale
+
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var buildFormattingTokensRegExp = __webpack_require__(59)
+
+function buildFormatLocale () {
+  // Note: in English, the names of days of the week and months are capitalized.
+  // If you are making a new locale based on this one, check if the same is true for the language you're working on.
+  // Generally, formatted dates should look like they are in the middle of a sentence,
+  // e.g. in Spanish language the weekdays and months should be in the lowercase.
+  var months3char = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  var monthsFull = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+  var weekdays2char = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
+  var weekdays3char = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+  var weekdaysFull = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+  var meridiemUppercase = ['AM', 'PM']
+  var meridiemLowercase = ['am', 'pm']
+  var meridiemFull = ['a.m.', 'p.m.']
+
+  var formatters = {
+    // Month: Jan, Feb, ..., Dec
+    'MMM': function (date) {
+      return months3char[date.getMonth()]
+    },
+
+    // Month: January, February, ..., December
+    'MMMM': function (date) {
+      return monthsFull[date.getMonth()]
+    },
+
+    // Day of week: Su, Mo, ..., Sa
+    'dd': function (date) {
+      return weekdays2char[date.getDay()]
+    },
+
+    // Day of week: Sun, Mon, ..., Sat
+    'ddd': function (date) {
+      return weekdays3char[date.getDay()]
+    },
+
+    // Day of week: Sunday, Monday, ..., Saturday
+    'dddd': function (date) {
+      return weekdaysFull[date.getDay()]
+    },
+
+    // AM, PM
+    'A': function (date) {
+      return (date.getHours() / 12) >= 1 ? meridiemUppercase[1] : meridiemUppercase[0]
+    },
+
+    // am, pm
+    'a': function (date) {
+      return (date.getHours() / 12) >= 1 ? meridiemLowercase[1] : meridiemLowercase[0]
+    },
+
+    // a.m., p.m.
+    'aa': function (date) {
+      return (date.getHours() / 12) >= 1 ? meridiemFull[1] : meridiemFull[0]
+    }
+  }
+
+  // Generate ordinal version of formatters: M -> Mo, D -> Do, etc.
+  var ordinalFormatters = ['M', 'D', 'DDD', 'd', 'Q', 'W']
+  ordinalFormatters.forEach(function (formatterToken) {
+    formatters[formatterToken + 'o'] = function (date, formatters) {
+      return ordinal(formatters[formatterToken](date))
+    }
+  })
+
+  return {
+    formatters: formatters,
+    formattingTokensRegExp: buildFormattingTokensRegExp(formatters)
+  }
+}
+
+function ordinal (number) {
+  var rem100 = number % 100
+  if (rem100 > 20 || rem100 < 10) {
+    switch (rem100 % 10) {
+      case 1:
+        return number + 'st'
+      case 2:
+        return number + 'nd'
+      case 3:
+        return number + 'rd'
+    }
+  }
+  return number + 'th'
+}
+
+module.exports = buildFormatLocale
+
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var buildDistanceInWordsLocale = __webpack_require__(60)
+var buildFormatLocale = __webpack_require__(61)
+
+/**
+ * @category Locales
+ * @summary English locale.
+ */
+module.exports = {
+  distanceInWords: buildDistanceInWordsLocale(),
+  format: buildFormatLocale()
+}
+
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getISOYear = __webpack_require__(22)
+var startOfISOWeek = __webpack_require__(18)
+
+/**
+ * @category ISO Week-Numbering Year Helpers
+ * @summary Return the start of an ISO week-numbering year for the given date.
+ *
+ * @description
+ * Return the start of an ISO week-numbering year,
+ * which always starts 3 days before the year's first Thursday.
+ * The result will be in the local timezone.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @param {Date|String|Number} date - the original date
+ * @returns {Date} the start of an ISO year
+ *
+ * @example
+ * // The start of an ISO week-numbering year for 2 July 2005:
+ * var result = startOfISOYear(new Date(2005, 6, 2))
+ * //=> Mon Jan 03 2005 00:00:00
+ */
+function startOfISOYear (dirtyDate) {
+  var year = getISOYear(dirtyDate)
+  var fourthOfJanuary = new Date(0)
+  fourthOfJanuary.setFullYear(year, 0, 4)
+  fourthOfJanuary.setHours(0, 0, 0, 0)
+  var date = startOfISOWeek(fourthOfJanuary)
+  return date
+}
+
+module.exports = startOfISOYear
+
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var parse = __webpack_require__(0)
+
+/**
+ * @category Month Helpers
+ * @summary Return the start of a month for the given date.
+ *
+ * @description
+ * Return the start of a month for the given date.
+ * The result will be in the local timezone.
+ *
+ * @param {Date|String|Number} date - the original date
+ * @returns {Date} the start of a month
+ *
+ * @example
+ * // The start of a month for 2 September 2014 11:55:00:
+ * var result = startOfMonth(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Mon Sep 01 2014 00:00:00
+ */
+function startOfMonth (dirtyDate) {
+  var date = parse(dirtyDate)
+  date.setDate(1)
+  date.setHours(0, 0, 0, 0)
+  return date
+}
+
+module.exports = startOfMonth
+
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var parse = __webpack_require__(0)
+
+/**
+ * @category Week Helpers
+ * @summary Return the start of a week for the given date.
+ *
+ * @description
+ * Return the start of a week for the given date.
+ * The result will be in the local timezone.
+ *
+ * @param {Date|String|Number} date - the original date
+ * @param {Object} [options] - the object with options
+ * @param {Number} [options.weekStartsOn=0] - the index of the first day of the week (0 - Sunday)
+ * @returns {Date} the start of a week
+ *
+ * @example
+ * // The start of a week for 2 September 2014 11:55:00:
+ * var result = startOfWeek(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Sun Aug 31 2014 00:00:00
+ *
+ * @example
+ * // If the week starts on Monday, the start of the week for 2 September 2014 11:55:00:
+ * var result = startOfWeek(new Date(2014, 8, 2, 11, 55, 0), {weekStartsOn: 1})
+ * //=> Mon Sep 01 2014 00:00:00
+ */
+function startOfWeek (dirtyDate, dirtyOptions) {
+  var weekStartsOn = dirtyOptions ? (Number(dirtyOptions.weekStartsOn) || 0) : 0
+
+  var date = parse(dirtyDate)
+  var day = date.getDay()
+  var diff = (day < weekStartsOn ? 7 : 0) + day - weekStartsOn
+
+  date.setDate(date.getDate() - diff)
+  date.setHours(0, 0, 0, 0)
+  return date
+}
+
+module.exports = startOfWeek
+
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var parse = __webpack_require__(0)
+
+/**
+ * @category Year Helpers
+ * @summary Return the start of a year for the given date.
+ *
+ * @description
+ * Return the start of a year for the given date.
+ * The result will be in the local timezone.
+ *
+ * @param {Date|String|Number} date - the original date
+ * @returns {Date} the start of a year
+ *
+ * @example
+ * // The start of a year for 2 September 2014 11:55:00:
+ * var result = startOfYear(new Date(2014, 8, 2, 11, 55, 00))
+ * //=> Wed Jan 01 2014 00:00:00
+ */
+function startOfYear (dirtyDate) {
+  var cleanDate = parse(dirtyDate)
+  var date = new Date(0)
+  date.setFullYear(cleanDate.getFullYear(), 0, 1)
+  date.setHours(0, 0, 0, 0)
+  return date
+}
+
+module.exports = startOfYear
+
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var addDays = __webpack_require__(16)
+
+/**
+ * @category Day Helpers
+ * @summary Subtract the specified number of days from the given date.
+ *
+ * @description
+ * Subtract the specified number of days from the given date.
+ *
+ * @param {Date|String|Number} date - the date to be changed
+ * @param {Number} amount - the amount of days to be subtracted
+ * @returns {Date} the new date with the days subtracted
+ *
+ * @example
+ * // Subtract 10 days from 1 September 2014:
+ * var result = subDays(new Date(2014, 8, 1), 10)
+ * //=> Fri Aug 22 2014 00:00:00
+ */
+function subDays (dirtyDate, dirtyAmount) {
+  var amount = Number(dirtyAmount)
+  return addDays(dirtyDate, -amount)
+}
+
+module.exports = subDays
+
+
+/***/ }),
 /* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
+module.exports = exports['default'];
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (recalc) {
+  if (!size || recalc) {
+    if (_inDOM2.default) {
+      var scrollDiv = document.createElement('div');
+
+      scrollDiv.style.position = 'absolute';
+      scrollDiv.style.top = '-9999px';
+      scrollDiv.style.width = '50px';
+      scrollDiv.style.height = '50px';
+      scrollDiv.style.overflow = 'scroll';
+
+      document.body.appendChild(scrollDiv);
+      size = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+      document.body.removeChild(scrollDiv);
+    }
+  }
+
+  return size;
+};
+
+var _inDOM = __webpack_require__(68);
+
+var _inDOM2 = _interopRequireDefault(_inDOM);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var size = void 0;
+
+module.exports = exports['default'];
+
+/***/ }),
+/* 70 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * @typechecks
+ * 
+ */
+
+/*eslint-disable no-self-compare */
+
+
+
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+
+/**
+ * inlined Object.is polyfill to avoid requiring consumers ship their own
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
+ */
+function is(x, y) {
+  // SameValue algorithm
+  if (x === y) {
+    // Steps 1-5, 7-10
+    // Steps 6.b-6.e: +0 != -0
+    // Added the nonzero y check to make Flow happy, but it is redundant
+    return x !== 0 || y !== 0 || 1 / x === 1 / y;
+  } else {
+    // Step 6.a: NaN == NaN
+    return x !== x && y !== y;
+  }
+}
+
+/**
+ * Performs equality by iterating through keys on an object and returning false
+ * when any key has values which are not strictly equal between the arguments.
+ * Returns true when the values of all keys are strictly equal.
+ */
+function shallowEqual(objA, objB) {
+  if (is(objA, objB)) {
+    return true;
+  }
+
+  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
+    return false;
+  }
+
+  var keysA = Object.keys(objA);
+  var keysB = Object.keys(objB);
+
+  if (keysA.length !== keysB.length) {
+    return false;
+  }
+
+  // Test for A's keys different from B.
+  for (var i = 0; i < keysA.length; i++) {
+    if (!hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+module.exports = shallowEqual;
+
+/***/ }),
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6084,9 +6245,9 @@ module.exports = {
 
 
 if (true) {
-  var invariant = __webpack_require__(22);
-  var warning = __webpack_require__(23);
-  var ReactPropTypesSecret = __webpack_require__(25);
+  var invariant = __webpack_require__(26);
+  var warning = __webpack_require__(27);
+  var ReactPropTypesSecret = __webpack_require__(24);
   var loggedTypeFailures = {};
 }
 
@@ -6136,7 +6297,7 @@ module.exports = checkPropTypes;
 
 
 /***/ }),
-/* 69 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6151,12 +6312,12 @@ module.exports = checkPropTypes;
 
 
 
-var emptyFunction = __webpack_require__(21);
-var invariant = __webpack_require__(22);
-var warning = __webpack_require__(23);
+var emptyFunction = __webpack_require__(25);
+var invariant = __webpack_require__(26);
+var warning = __webpack_require__(27);
 
-var ReactPropTypesSecret = __webpack_require__(25);
-var checkPropTypes = __webpack_require__(68);
+var ReactPropTypesSecret = __webpack_require__(24);
+var checkPropTypes = __webpack_require__(71);
 
 module.exports = function(isValidElement, throwOnDirectAccess) {
   /* global Symbol */
@@ -6462,6 +6623,20 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
       return emptyFunction.thatReturnsNull;
     }
 
+    for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
+      var checker = arrayOfTypeCheckers[i];
+      if (typeof checker !== 'function') {
+        warning(
+          false,
+          'Invalid argument supplid to oneOfType. Expected an array of check functions, but ' +
+          'received %s at index %s.',
+          getPostfixForTypeWarning(checker),
+          i
+        );
+        return emptyFunction.thatReturnsNull;
+      }
+    }
+
     function validate(props, propName, componentName, location, propFullName) {
       for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
         var checker = arrayOfTypeCheckers[i];
@@ -6594,6 +6769,9 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
   // This handles more types than `getPropType`. Only used for error messages.
   // See `createPrimitiveTypeChecker`.
   function getPreciseType(propValue) {
+    if (typeof propValue === 'undefined' || propValue === null) {
+      return '' + propValue;
+    }
     var propType = getPropType(propValue);
     if (propType === 'object') {
       if (propValue instanceof Date) {
@@ -6603,6 +6781,23 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
       }
     }
     return propType;
+  }
+
+  // Returns a string that is postfixed to a warning about an invalid type.
+  // For example, "undefined" or "of type array"
+  function getPostfixForTypeWarning(value) {
+    var type = getPreciseType(value);
+    switch (type) {
+      case 'array':
+      case 'object':
+        return 'an ' + type;
+      case 'boolean':
+      case 'date':
+      case 'regexp':
+        return 'a ' + type;
+      default:
+        return type;
+    }
   }
 
   // Returns class name of the object, if any.
@@ -6621,11 +6816,11 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 
 
 /***/ }),
-/* 70 */
+/* 73 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants__ = __webpack_require__(28);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SizeAndPositionManager; });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -6891,7 +7086,7 @@ var SizeAndPositionManager = function () {
 
 
 /***/ }),
-/* 71 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6923,7 +7118,7 @@ var defaultProps = function defaultProps(props) {
 exports.default = (0, _createHelper2.default)(defaultProps, 'defaultProps');
 
 /***/ }),
-/* 72 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6945,7 +7140,7 @@ var getDisplayName = function getDisplayName(Component) {
 exports.default = getDisplayName;
 
 /***/ }),
-/* 73 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6959,7 +7154,7 @@ var isClassComponent = function isClassComponent(Component) {
 exports.default = isClassComponent;
 
 /***/ }),
-/* 74 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6967,7 +7162,7 @@ exports.default = isClassComponent;
 
 exports.__esModule = true;
 
-var _isClassComponent = __webpack_require__(73);
+var _isClassComponent = __webpack_require__(76);
 
 var _isClassComponent2 = _interopRequireDefault(_isClassComponent);
 
@@ -6980,7 +7175,7 @@ var isReferentiallyTransparentFunctionComponent = function isReferentiallyTransp
 exports.default = isReferentiallyTransparentFunctionComponent;
 
 /***/ }),
-/* 75 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7010,7 +7205,7 @@ var mapProps = function mapProps(propsMapper) {
 exports.default = (0, _createHelper2.default)(mapProps, 'mapProps');
 
 /***/ }),
-/* 76 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7018,7 +7213,7 @@ exports.default = (0, _createHelper2.default)(mapProps, 'mapProps');
 
 exports.__esModule = true;
 
-var _shallowEqual = __webpack_require__(50);
+var _shallowEqual = __webpack_require__(70);
 
 var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
@@ -7027,7 +7222,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _shallowEqual2.default;
 
 /***/ }),
-/* 77 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7067,7 +7262,7 @@ var createEagerElementUtil = function createEagerElementUtil(hasKey, isReferenti
 exports.default = createEagerElementUtil;
 
 /***/ }),
-/* 78 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7088,7 +7283,7 @@ var pick = function pick(obj, keys) {
 exports.default = pick;
 
 /***/ }),
-/* 79 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7186,7 +7381,7 @@ var withHandlers = function withHandlers(handlers) {
 exports.default = (0, _createHelper2.default)(withHandlers, 'withHandlers');
 
 /***/ }),
-/* 80 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7194,7 +7389,7 @@ exports.default = (0, _createHelper2.default)(withHandlers, 'withHandlers');
 
 exports.__esModule = true;
 
-var _getDisplayName = __webpack_require__(72);
+var _getDisplayName = __webpack_require__(75);
 
 var _getDisplayName2 = _interopRequireDefault(_getDisplayName);
 
@@ -7207,10 +7402,10 @@ var wrapDisplayName = function wrapDisplayName(BaseComponent, hocName) {
 exports.default = wrapDisplayName;
 
 /***/ }),
-/* 81 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(29);
+module.exports = __webpack_require__(31);
 
 
 /***/ })
