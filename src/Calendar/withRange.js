@@ -6,6 +6,9 @@ import isBefore from 'date-fns/is_before';
 import enhanceHeader from '../Header/withRange';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
+import addDays from 'date-fns/add_days';
+import subDays from 'date-fns/sub_days';
+import differenceInDays from 'date-fns/difference_in_days';
 import styles from '../Day/Day.scss';
 
 let isTouchDevice = false;
@@ -85,14 +88,37 @@ function getSortedSelection({start, end}) {
     : {start: end, end: start};
 }
 
-function handleSelect(date, {onSelect, selected, selectionStart, setSelectionStart}) {
+/**
+ * Limits the selection range to include a maximum of `rangeLimit` days.
+ *
+ * If the range is longer, the end date is re-calculated to fit the range limit.
+ * If no limit is set (falsey), original values are returned.
+ *
+ * @param  {number} rangeLimit Limit in days
+ * @param  {Date} start Start date
+ * @param  {Date} end End date
+ * @return {Object} New start and end date
+ */
+function getLimitedRange (rangeLimit, start, end) {
+  if (!rangeLimit) return { start, end };
+  const range = differenceInDays(end, start);
+  const modifier = range > 0 ? addDays : subDays;
+
+  const endDate = Math.abs(range) >= rangeLimit
+    ? modifier(start, rangeLimit - 1)
+    : end;
+
+  return {
+    start,
+    end: endDate,
+  };
+}
+
+function handleSelect(date, {onSelect, rangeLimit, selected, selectionStart, setSelectionStart}) {
   if (selectionStart) {
     onSelect({
       eventType: EVENT_TYPE.END,
-      ...getSortedSelection({
-        start: selectionStart,
-        end: date,
-      }),
+      ...getSortedSelection(getLimitedRange(rangeLimit, selectionStart, date)),
     });
     setSelectionStart(null);
   } else {
@@ -101,7 +127,7 @@ function handleSelect(date, {onSelect, selected, selectionStart, setSelectionSta
   }
 }
 
-function handleMouseOver(e, {onSelect, selectionStart}) {
+function handleMouseOver(e, {onSelect, rangeLimit, selectionStart}) {
   const dateStr = e.target.getAttribute('data-date');
   const date = dateStr && parse(dateStr);
 
@@ -109,10 +135,7 @@ function handleMouseOver(e, {onSelect, selectionStart}) {
 
   onSelect({
     eventType: EVENT_TYPE.HOVER,
-    ...getSortedSelection({
-      start: selectionStart,
-      end: date,
-    }),
+    ...getSortedSelection(getLimitedRange(rangeLimit, selectionStart, date)),
   });
 }
 
