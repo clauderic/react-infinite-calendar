@@ -210,3 +210,52 @@ storiesOf('Events', module)
         console.info('onScroll() – Scroll top:', scrollTop)}
     />,
   ]);
+
+storiesOf('API', module)
+  .add('getScrollDate', () => {
+    const rowHeight = 56;
+    const height = 500;
+    let calendarInstance;
+
+    const displayDate = offset => {
+      const date = calendarInstance.getScrollDate(offset);
+      alert(date);
+    };
+
+    return (
+      <div>
+        <button type='button' onClick={e => displayDate(rowHeight / 2)} style={{fontSize: '1em'}}>Top viewport date</button>
+        <button type='button' onClick={e => displayDate(height - rowHeight / 2)} style={{fontSize: '1em', float: 'right'}}>Bottom viewport date</button>
+        <InfiniteCalendar
+          height={height}
+          rowHeight={rowHeight}
+          ref={cal => calendarInstance = cal}
+        />
+      </div>
+    );
+  })
+  .add('scrollToDate', () => {
+    const rowHeight = 56;
+    const height = 500;
+    let calendarInstance;
+
+    const scrollToMonth = monthOffset => {
+      const viewportOffset = (height - rowHeight) / 2;
+      const date = calendarInstance.getScrollDate(viewportOffset);
+      const startOfNextMonth = new Date(date.getFullYear(), date.getMonth() + monthOffset, 1);
+      calendarInstance.scrollToDate(startOfNextMonth);
+    };
+
+    return (
+      <div>
+        <button type='button' onClick={e => scrollToMonth(-1)} style={{fontSize: '1em'}}>Previous month</button>
+        <button type='button' onClick={e => scrollToMonth(+1)} style={{fontSize: '1em', float: 'right'}}>Next month</button>
+        <InfiniteCalendar
+          height={height}
+          rowHeight={rowHeight}
+          ref={cal => calendarInstance = cal}
+        />
+      </div>
+    );
+  });
+

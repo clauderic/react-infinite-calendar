@@ -52,8 +52,9 @@ export const withRange = compose(
     DayComponent: enhanceDay(DayComponent),
     HeaderComponent: enhanceHeader(HeaderComponent),
   })),
-  withProps(({displayKey, passThrough, selected, setDisplayKey, ...props}) => ({
+  withProps(({displayKey, passThrough, withRef, selected, setDisplayKey, ...props}) => ({
     /* eslint-disable sort-keys */
+    ref: withRef,
     passThrough: {
       ...passThrough,
       Day: {

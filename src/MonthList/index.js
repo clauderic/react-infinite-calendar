@@ -11,6 +11,8 @@ import {
 } from '../utils';
 import parse from 'date-fns/parse';
 import startOfMonth from 'date-fns/start_of_month';
+import addWeeks from 'date-fns/add_weeks';
+import setDay from 'date-fns/set_day';
 import Month from '../Month';
 import styles from './MonthList.scss';
 
@@ -83,6 +85,16 @@ export default class MonthList extends Component {
     const weeks = getWeek(startOfMonth(min), parse(date), weekStartsOn);
 
     return weeks * rowHeight - (height - rowHeight/2) / 2;
+  }
+
+  getScrollDate(offset = 0) {
+    const {min, locale: {weekStartsOn}, rowHeight, height} = this.props;
+
+    const scrollTop = this.scrollEl.scrollTop || this.state.scrollTop;
+    const scrollOffset = scrollTop + offset;
+    const weeks = Math.floor(scrollOffset / rowHeight);
+    const date = addWeeks(new Date(min), weeks);
+    return setDay(date, weekStartsOn);
   }
 
   scrollToDate = (date, offset = 0, ...rest) => {

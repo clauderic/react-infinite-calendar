@@ -179,6 +179,11 @@ export default class Calendar extends Component {
   getDateOffset = (date) => {
     return this._MonthList && this._MonthList.getDateOffset(date);
   };
+
+  getScrollDate = (offset) => {
+    return this._MonthList && this._MonthList.getScrollDate(offset);
+  };
+
   scrollTo = (offset) => {
     return this._MonthList && this._MonthList.scrollTo(offset);
   }
