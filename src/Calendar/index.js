@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {debounce, emptyFn, range, ScrollSpeed} from '../utils';
+import {debounce, emptyFn, range, ScrollSpeed, getDateClasses} from '../utils';
 import {defaultProps} from 'recompose';
 import defaultDisplayOptions from '../utils/defaultDisplayOptions';
 import defaultLocale from '../utils/defaultLocale';
@@ -57,6 +57,7 @@ export default class Calendar extends Component {
   static propTypes = {
     autoFocus: PropTypes.bool,
     className: PropTypes.string,
+    dateClasses: PropTypes.arrayOf(PropTypes.object),
     DayComponent: PropTypes.func,
     disabledDates: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
     disabledDays: PropTypes.arrayOf(PropTypes.number),
@@ -268,6 +269,7 @@ export default class Calendar extends Component {
     let {
 			className,
       passThrough,
+      dateClasses,
       DayComponent,
 			disabledDays,
       displayDate,
@@ -296,6 +298,7 @@ export default class Calendar extends Component {
     const locale = this.getLocale();
     const theme = this.getTheme();
     const today = this.today = startOfDay(new Date());
+    const dateClassObj = getDateClasses(dateClasses);
 
     return (
       <div
@@ -343,6 +346,7 @@ export default class Calendar extends Component {
               ref={instance => {
                 this._MonthList = instance;
               }}
+              dateClassObj={dateClassObj}
               DayComponent={DayComponent}
               disabledDates={disabledDates}
               disabledDays={disabledDays}
