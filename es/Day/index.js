@@ -20,6 +20,8 @@ var styles = {
   'year': 'Cal__Day__year',
   'selection': 'Cal__Day__selection',
   'day': 'Cal__Day__day',
+  'hasMonth': 'Cal__Day__hasMonth',
+  'hasYear': 'Cal__Day__hasYear',
   'range': 'Cal__Day__range',
   'start': 'Cal__Day__start',
   'end': 'Cal__Day__end',
@@ -112,15 +114,18 @@ var Day = function (_PureComponent) {
       color = todayColor;
     }
 
+    var showMonth = day === 1;
+    var showYear = showMonth && currentYear !== year;
+
     return React.createElement(
       'li',
       _extends({
         style: color ? { color: color } : null,
-        className: classNames(styles.root, (_classNames = {}, _classNames[styles.today] = isToday, _classNames[styles.highlighted] = isHighlighted, _classNames[styles.selected] = isSelected, _classNames[styles.disabled] = isDisabled, _classNames[styles.enabled] = !isDisabled, _classNames), className),
+        className: classNames(styles.root, (_classNames = {}, _classNames[styles.today] = isToday, _classNames[styles.highlighted] = isHighlighted, _classNames[styles.selected] = isSelected, _classNames[styles.disabled] = isDisabled, _classNames[styles.enabled] = !isDisabled, _classNames[styles.hasMonth] = showMonth, _classNames[styles.hasYear] = showYear, _classNames), className),
         onClick: this.handleClick,
         'data-date': date
       }, handlers),
-      day === 1 && React.createElement(
+      showMonth && React.createElement(
         'span',
         { className: styles.month },
         monthShort
@@ -130,7 +135,7 @@ var Day = function (_PureComponent) {
         null,
         day
       ) : day,
-      day === 1 && currentYear !== year && React.createElement(
+      showYear && React.createElement(
         'span',
         { className: styles.year },
         year

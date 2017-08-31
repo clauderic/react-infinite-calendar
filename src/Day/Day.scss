@@ -104,6 +104,12 @@
     color: $textColorDisabled;
     cursor: not-allowed;
   }
+  &.hasMonth {
+    /* keep me */
+  }
+  &.hasYear {
+    /* keep me */
+  }
 }
 
 .month, .year {

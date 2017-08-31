@@ -40,7 +40,7 @@ export default class Day extends PureComponent {
       </div>
     );
   }
-  
+
   render() {
     const {
       className,
@@ -66,6 +66,9 @@ export default class Day extends PureComponent {
       color = todayColor;
     }
 
+    var showMonth = day === 1;
+    var showYear = showMonth && currentYear !== year;
+
     return (
       <li
         style={color ? {color} : null}
@@ -75,16 +78,16 @@ export default class Day extends PureComponent {
           [styles.selected]: isSelected,
           [styles.disabled]: isDisabled,
           [styles.enabled]: !isDisabled,
+          [styles.hasMonth]: showMonth,
+          [styles.hasYear]: showYear
         }, className)}
         onClick={this.handleClick}
         data-date={date}
         {...handlers}
       >
-        {day === 1 && <span className={styles.month}>{monthShort}</span>}
+        {showMonth && <span className={styles.month}>{monthShort}</span>}
         {isToday ? <span>{day}</span> : day}
-        {day === 1 &&
-          currentYear !== year &&
-          <span className={styles.year}>{year}</span>}
+        {showYear && <span className={styles.year}>{year}</span>}
         {isSelected && this.renderSelection()}
       </li>
     );
