@@ -9,6 +9,8 @@
 [![Gitter](https://badges.gitter.im/clauderic/react-infinite-calendar.svg)](https://gitter.im/clauderic/react-infinite-calendar)
 ### Examples available here: <a href="#">http://clauderic.github.io/react-infinite-calendar/</a>
 
+<a href="https://app.codesponsor.io/link/oN9PDWZz8fQcbh9sxpDEUvD5/clauderic/react-infinite-calendar" rel="nofollow"><img src="https://app.codesponsor.io/embed/oN9PDWZz8fQcbh9sxpDEUvD5/clauderic/react-infinite-calendar.svg" style="width: 888px; height: 68px;" alt="Sponsor" /></a>
+
 Features
 ---------------
 
