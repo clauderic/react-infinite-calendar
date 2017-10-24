@@ -4,6 +4,7 @@
   "description": "Infinite scrolling date-picker built with React, with localization, themes, keyboard support, and more.",
   "main": "lib/index.js",
   "module": "es/index.js",
+  "types": "index.d.ts",
   "files": [
     "css",
     "es",
@@ -36,6 +37,7 @@
   "devDependencies": {
     "@kadira/storybook": "^2.35.3",
     "@kadira/storybook-addon-options": "^1.0.1",
+    "@types/react": "^16.0.18",
     "babel-eslint": "^7.0.0",
     "babel-plugin-css-modules-transform": "^1.2.1",
     "eslint": "^3.8.1",
