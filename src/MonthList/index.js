@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import VirtualList from 'react-tiny-virtual-list';
+import withScrollLock from '../utils/withScrollLock';
 import classNames from 'classnames';
 import {
   emptyFn,
@@ -16,7 +17,8 @@ import styles from './MonthList.scss';
 
 const AVERAGE_ROWS_PER_MONTH = 5;
 
-/* eslint-disable react/no-deprecated */
+const ListWithScrollLock = withScrollLock(VirtualList);
+
 export default class MonthList extends Component {
   static propTypes = {
     disabledDates: PropTypes.arrayOf(PropTypes.string),
@@ -69,14 +71,6 @@ export default class MonthList extends Component {
 
   componentDidMount() {
     this.scrollEl = this.VirtualList.rootNode;
-  }
-
-  UNSAFE_componentWillReceiveProps({scrollDate}) {
-    if (scrollDate !== this.props.scrollDate) {
-      this.setState({
-        scrollTop: this.getDateOffset(scrollDate),
-      });
-    }
   }
 
   componentWillReceiveProps({scrollDate}) {
@@ -183,7 +177,7 @@ export default class MonthList extends Component {
     const {scrollTop} = this.state;
 
     return (
-      <VirtualList
+      <ListWithScrollLock
         ref={this._getRef}
         width={width}
         height={height}

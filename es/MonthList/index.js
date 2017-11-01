@@ -9,6 +9,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import VirtualList from 'react-tiny-virtual-list';
+import withScrollLock from '../utils/withScrollLock';
 import classNames from 'classnames';
 import { emptyFn, getMonth, getWeek, getWeeksInMonth, animate } from '../utils';
 import parse from 'date-fns/parse';
@@ -21,6 +22,8 @@ var styles = {
 
 
 var AVERAGE_ROWS_PER_MONTH = 5;
+
+var ListWithScrollLock = withScrollLock(VirtualList);
 
 var MonthList = function (_Component) {
   _inherits(MonthList, _Component);
@@ -197,7 +200,7 @@ var MonthList = function (_Component) {
     var scrollTop = this.state.scrollTop;
 
 
-    return React.createElement(VirtualList, {
+    return React.createElement(ListWithScrollLock, {
       ref: this._getRef,
       width: width,
       height: height,
