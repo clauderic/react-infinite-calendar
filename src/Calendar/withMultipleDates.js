@@ -61,7 +61,7 @@ function handleYearSelect(date, callback) {
 function getInitialDate({selected}) {
   return selected.length ? selected[0] : new Date();
 }
-
+//why is this needed when it could all technically be housed within this HOC's handle select function
 export function defaultMultipleDateInterpolation(date, selected) {
   const selectedMap = selected.map(date => format(date, 'YYYY-MM-DD'));
   const index = selectedMap.indexOf(format(date, 'YYYY-MM-DD'));

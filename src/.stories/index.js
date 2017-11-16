@@ -8,6 +8,7 @@ import InfiniteCalendar, {
   withKeyboardSupport,
   withMultipleDates,
   withRange,
+  withMultipleRanges,
 } from '../';
 import styles from './stories.scss';
 
@@ -63,6 +64,18 @@ storiesOf('Higher Order Components', module)
         headerFormat: 'MMM Do',
       }}
       Component={withRange(withKeyboardSupport(Calendar))}
+    />
+  ))
+  .add('Multiple Range selection', () => (
+    <InfiniteCalendar
+      selected={[{
+        start: addDays(new Date(), 2),
+        end: addDays(new Date(), 17),
+      }]}
+      locale={{
+        headerFormat: 'MMM Do',
+      }}
+      Component={withMultipleRanges(Calendar)}
     />
   ))
   .add('Multiple date selection', () => {
