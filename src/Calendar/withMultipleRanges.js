@@ -129,7 +129,7 @@ function handleSelect(date, {onSelect, selected, selectionStart, setSelectionSta
 }
 
 function updateSelectedState(displayIdx, selectStart, selectStartIdx, selected, {onSelect, setSelectionStart, setSelectionStartIdx, setDisplayIndex}) {
-  onSelect(selected);
+  onSelect(selected, { eventType: selectStart ? EVENT_TYPES.START : EVENT_TYPES.END });
   setDisplayIndex(displayIdx);
   setSelectionStart(selectStart);
   setSelectionStartIdx(selectStartIdx);
