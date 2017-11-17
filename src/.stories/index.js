@@ -69,9 +69,13 @@ storiesOf('Higher Order Components', module)
   .add('Multiple Range selection', () => (
     <InfiniteCalendar
       selected={[{
-        start: addDays(new Date(), 2),
-        end: addDays(new Date(), 17),
+        start: addDays(today, 2),
+        end: addDays(today, 5),
+      }, {
+          start: addDays(today, 45),
+          end: addDays(today, 50),
       }]}
+      initialSelectedDate={addDays(today, 45)}
       locale={{
         headerFormat: 'MMM Do',
       }}
@@ -82,6 +86,7 @@ storiesOf('Higher Order Components', module)
     return (
       <InfiniteCalendar
         selected={[addDays(today, -600), addDays(today, -200), today, addDays(today, 50), addDays(today, 400)]}
+        initialSelectedDate={today}
         interpolateSelection={defaultMultipleDateInterpolation}
         Component={withMultipleDates(withKeyboardSupport(Calendar))}
       />

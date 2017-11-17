@@ -129,7 +129,7 @@ function handleSelect(date, {onSelect, selected, selectionStart, setSelectionSta
 }
 
 function updateSelectedState(displayIdx, selectStart, selectStartIdx, selected, {onSelect, setSelectionStart, setSelectionStartIdx, setDisplayIndex}) {
-  onSelect(selected, { eventType: selectStart ? EVENT_TYPES.START : EVENT_TYPES.END });
+  onSelect(selected, { eventType: selectStart ? EVENT_TYPES.START : EVENT_TYPES.END, modifiedDateIndex: displayIdx });
   setDisplayIndex(displayIdx);
   setSelectionStart(selectStart);
   setSelectionStartIdx(selectStartIdx);
@@ -156,8 +156,8 @@ function handleYearSelect(date, callback) {
   callback(parse(date));
 }
 
-function getInitialDate({selected}) { //add
-  return selected && selected.length && selected[0].start || new Date();
+function getInitialDate({selected, initialSelectedDate}) { //add
+  return initialSelectedDate || selected && selected.length && selected[0].start || new Date();
 }
 
 if (typeof window !== 'undefined') {
