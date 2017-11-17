@@ -3,14 +3,14 @@ import classNames from 'classnames';
 import {withDefaultProps} from './';
 import {sanitizeDate, withImmutableProps} from '../utils';
 import isBefore from 'date-fns/is_before';
-import enhanceHeader from '../Header/withRange';
+import enhanceHeader from '../Header/withMultipleRanges';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 import styles from '../Day/Day.scss';
 
 let isTouchDevice = false;
 
-export const EVENT_TYPE = {
+export const EVENT_TYPES = {
   DELETE: 4,
   END: 3,
   HOVER: 2,
@@ -50,6 +50,7 @@ export const enhanceDay = withPropsOnChange(['selected'], ({date, selected, them
 // Enhancer to handle selecting and displaying multiple dates
 export const withMultipleRanges = compose(
   withDefaultProps,
+  withState('displayIndex', 'setDisplayIndex', 0),
   withState('scrollDate', 'setScrollDate', getInitialDate),
   withState('displayKey', 'setDisplayKey', getInitialDate),
   withState('selectionStart', 'setSelectionStart', null),
@@ -62,12 +63,12 @@ export const withMultipleRanges = compose(
     DayComponent: enhanceDay(DayComponent),
     HeaderComponent: enhanceHeader(HeaderComponent),
   })),
-  withProps(({displayKey, passThrough, selected, setDisplayKey, ...props}) => ({
+  withProps(({displayKey, passThrough, selected, setDisplayKey, setDisplayIndex, displayIndex, ...props}) => ({
     /* eslint-disable sort-keys */
     passThrough: {
       ...passThrough,
       Day: {
-        onClick: (date) => handleSelect(date, {selected, ...props}),
+        onClick: (date) => handleSelect(date, {selected, setDisplayIndex, ...props}),
         handlers: {
           onMouseOver: !isTouchDevice && props.selectionStart
             ? (e) => handleMouseOver(e, {selected, ...props})
@@ -75,10 +76,12 @@ export const withMultipleRanges = compose(
         },
       },
       Years: {
-        selected: selected && selected[displayKey],
-        onSelect: (date) => handleYearSelect(date, {displayKey, selected, ...props}),
+        selected: selected[displayIndex] && parse(selected[displayIndex][displayKey]),
+        onSelect: (date, e, callback) => handleYearSelect(date, callback),
       },
       Header: {
+        setDisplayIndex,
+        displayIndex,
         onYearClick: (date, e, key) => setDisplayKey(key || 'start'),
       },
     },
@@ -98,40 +101,38 @@ function getSortedSelection({start, end}) {
     : {start: end, end: start};
 }
 
-function handleSelect(date, {onSelect, selected, selectionStart, setSelectionStart, selectionStartIdx, setSelectionStartIdx}) {
+function handleSelect(date, {onSelect, selected, selectionStart, setSelectionStart, selectionStartIdx, setSelectionStartIdx, setDisplayIndex}) {
   const positionOfDate = determineIfDateAlreadySelected(date, selected);
+  const funcs = {onSelect, setSelectionStart, setSelectionStartIdx, setDisplayIndex};
 
   if(positionOfDate.value && !selectionStart) { //selecting an already defined range
     const selectedDate = selected[positionOfDate.index];//not clone so modding this is modding selected
     selectedDate.end = date; //not possible to have start/end reversed when clicking on already set range
-    selectedDate.eventType = EVENT_TYPE.START;
 
-    onSelect(selected);
-    setSelectionStart(selectedDate.start);
-    setSelectionStartIdx(positionOfDate.index);//grab index of selected and set in state
-  } else if (selectionStart) { //ending new date range
+    updateSelectedState(positionOfDate.index, selectedDate.start, positionOfDate.index, selected, funcs);//grab index of selected and set in state
+  } else if (selectionStart) { //ending date range selection
     if (positionOfDate.value === PositionTypes.START && !(date < selectionStart)) { //if in process and selecting start, assume they want to cancel
-      selected[selectionStartIdx].eventType = EVENT_TYPE.DELETE
-      onSelect(selected); //call twice to notify parent component something is about to be deleted
-      onSelect([...selected.slice(0, positionOfDate.index), ...selected.slice(positionOfDate.index+1)]);
+      const displayIdx = positionOfDate.index > 0 ? positionOfDate.index -1 : 0;
+      updateSelectedState(displayIdx, null, null, [...selected.slice(0, positionOfDate.index), ...selected.slice(positionOfDate.index+1)], funcs);
     } else {
       selected[selectionStartIdx] = { //modifying passed in object without clone due to immediate set state
-        eventType: EVENT_TYPE.END,
         ...getSortedSelection({
           start: selectionStart,
           end: date,
         }),
       };
-      onSelect(selected);
+      updateSelectedState(positionOfDate.index, null, null, selected, funcs);
     }
-    setSelectionStart(null);
-    setSelectionStartIdx(null);
   } else { //starting new date range
-    onSelect(selected.concat({eventType:EVENT_TYPE.START, start: date, end: date}));
-
-    setSelectionStart(date);
-    setSelectionStartIdx(selected.length);//accounts for increase due to concat
+    updateSelectedState(selected.length, date, selected.length, selected.concat({eventType:EVENT_TYPES.START, start: date, end: date}), funcs)//length accounts for increase due to concat
   }
+}
+
+function updateSelectedState(displayIdx, selectStart, selectStartIdx, selected, {onSelect, setSelectionStart, setSelectionStartIdx, setDisplayIndex}) {
+  onSelect(selected);
+  setDisplayIndex(displayIdx);
+  setSelectionStart(selectStart);
+  setSelectionStartIdx(selectStartIdx);
 }
 
 function handleMouseOver(e, {onSelect, selectionStart, selectionStartIdx, selected}) {
@@ -142,7 +143,7 @@ function handleMouseOver(e, {onSelect, selectionStart, selectionStartIdx, select
   if (selectionStartIdx === null) { return; }
 
   selected[selectionStartIdx] = {
-    eventType: EVENT_TYPE.HOVER,
+    eventType: EVENT_TYPES.HOVER,
     ...getSortedSelection({
       start: selectionStart,
       end: date,
@@ -151,12 +152,8 @@ function handleMouseOver(e, {onSelect, selectionStart, selectionStartIdx, select
   onSelect(selected);
 }
 
-function handleYearSelect(date, {displayKey, onSelect, selected, setScrollDate}) {
-
-  setScrollDate(date);
-  onSelect(getSortedSelection(
-    Object.assign({}, selected, {[displayKey]: parse(date)}))
-  );
+function handleYearSelect(date, callback) {
+  callback(parse(date));
 }
 
 function getInitialDate({selected}) { //add

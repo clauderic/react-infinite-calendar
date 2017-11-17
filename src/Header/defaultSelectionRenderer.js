@@ -15,6 +15,7 @@ export default function defaultSelectionRenderer(value, {
   scrollToDate,
   setDisplay,
   shouldAnimate,
+  idx,
 }) {
   const date = parse(value);
   const values = date && [
