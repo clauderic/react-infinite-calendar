@@ -28,14 +28,14 @@
     opacity: 1; }
   .Cal__Day__root:first-child {
     position: relative; }
-  .Cal__Day__root.Cal__Day__today {
+  .Cal__Day__root.Cal__Day__today, .Cal__Day__root.Cal__Day__event {
     position: relative;
     z-index: 2; }
-    .Cal__Day__root.Cal__Day__today > span {
+    .Cal__Day__root.Cal__Day__today > span, .Cal__Day__root.Cal__Day__event > span {
       color: #3d3d3d; }
-    .Cal__Day__root.Cal__Day__today.Cal__Day__disabled > span {
+    .Cal__Day__root.Cal__Day__today.Cal__Day__disabled > span, .Cal__Day__root.Cal__Day__event.Cal__Day__disabled > span {
       color: #AAA; }
-    .Cal__Day__root.Cal__Day__today:before {
+    .Cal__Day__root.Cal__Day__today:before, .Cal__Day__root.Cal__Day__event:before {
       content: '';
       position: absolute;
       top: 50%;
@@ -47,7 +47,7 @@
       border-radius: 50%;
       box-shadow: inset 0 0 0 1px;
       z-index: -1; }
-    .Cal__Day__root.Cal__Day__today.Cal__Day__disabled:before {
+    .Cal__Day__root.Cal__Day__today.Cal__Day__disabled:before, .Cal__Day__root.Cal__Day__event.Cal__Day__disabled:before {
       box-shadow: inset 0 0 0 1px #BBB; }
   .Cal__Day__root.Cal__Day__selected {
     position: relative; }

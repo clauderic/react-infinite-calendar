@@ -50,7 +50,7 @@
       position: relative;
   }
 
-  &.today {
+  &.today, &.event {
       position: relative;
       z-index: 2;
 

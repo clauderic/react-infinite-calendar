@@ -12,6 +12,7 @@ export default class Month extends PureComponent {
       DayComponent,
       disabledDates,
       disabledDays,
+      events,
       monthDate,
       locale,
       maxDate,
@@ -30,6 +31,7 @@ export default class Month extends PureComponent {
     const monthRows = [];
     let day = 0;
     let isDisabled = false;
+    let isEvent = false;
     let isToday = false;
     let date, days, dow, row;
 
@@ -57,6 +59,10 @@ export default class Month extends PureComponent {
 					disabledDates && disabledDates.length && disabledDates.indexOf(date) !== -1
 				);
 
+        isEvent = (
+					events && events.length && events.indexOf(date) !== -1
+				);
+
         days[k] = (
 					<DayComponent
 						key={`day-${day}`}
@@ -65,6 +71,7 @@ export default class Month extends PureComponent {
 						day={day}
             selected={selected}
 						isDisabled={isDisabled}
+						isEvent={isEvent}
 						isToday={isToday}
 						locale={locale}
             month={month}

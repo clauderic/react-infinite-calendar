@@ -1,5 +1,6 @@
 module.exports = {
   accentColor: '#448AFF',
+  eventsColor: 'rgb(68, 138, 255)',
   floatingNav: {
     background: 'rgba(56, 87, 138, 0.94)',
     chevron: '#FFA726',

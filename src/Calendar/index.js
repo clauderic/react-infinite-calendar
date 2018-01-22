@@ -73,6 +73,7 @@ export default class Calendar extends Component {
   		showWeekdays: PropTypes.bool,
       todayHelperRowOffset: PropTypes.number,
     }),
+    events: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
     height: PropTypes.number,
     keyboardSupport: PropTypes.bool,
     locale: PropTypes.shape({
@@ -160,6 +161,9 @@ export default class Calendar extends Component {
   }
   getDisabledDates(disabledDates) {
     return disabledDates && disabledDates.map((date) => format(parse(date), 'YYYY-MM-DD'));
+  }
+  getEvents(events) {
+    return events && events.map((date) => format(parse(date), 'YYYY-MM-DD'));
   }
   _displayOptions = {};
   getDisplayOptions(displayOptions = this.props.displayOptions) {
@@ -293,6 +297,7 @@ export default class Calendar extends Component {
     } = this.getDisplayOptions();
     const {display, isScrolling, showToday} = this.state;
     const disabledDates = this.getDisabledDates(this.props.disabledDates);
+    const events = this.getEvents(this.props.events);
     const locale = this.getLocale();
     const theme = this.getTheme();
     const today = this.today = startOfDay(new Date());
@@ -346,6 +351,7 @@ export default class Calendar extends Component {
               DayComponent={DayComponent}
               disabledDates={disabledDates}
               disabledDays={disabledDays}
+              events={events}
               height={height}
               isScrolling={isScrolling}
               locale={locale}

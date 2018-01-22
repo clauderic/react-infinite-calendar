@@ -49,11 +49,12 @@ export default class Day extends PureComponent {
       day,
       handlers,
       isDisabled,
+      isEvent,
       isHighlighted,
       isToday,
       isSelected,
       monthShort,
-      theme: {selectionColor, todayColor},
+      theme: {selectionColor, todayColor, eventsColor},
       year,
     } = this.props;
     let color;
@@ -65,12 +66,16 @@ export default class Day extends PureComponent {
     } else if (isToday) {
       color = todayColor;
     }
+    else if(isEvent){
+      color = eventsColor;
+    }
 
     return (
       <li
         style={color ? {color} : null}
         className={classNames(styles.root, {
           [styles.today]: isToday,
+          [styles.event]: isEvent,
           [styles.highlighted]: isHighlighted,
           [styles.selected]: isSelected,
           [styles.disabled]: isDisabled,
@@ -81,7 +86,7 @@ export default class Day extends PureComponent {
         {...handlers}
       >
         {day === 1 && <span className={styles.month}>{monthShort}</span>}
-        {isToday ? <span>{day}</span> : day}
+        {isToday || isEvent ? <span>{day}</span> : day}
         {day === 1 &&
           currentYear !== year &&
           <span className={styles.year}>{year}</span>}
