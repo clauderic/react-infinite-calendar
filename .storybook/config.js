@@ -1,5 +1,5 @@
-import {configure} from '@kadira/storybook';
-import {setOptions} from '@kadira/storybook-addon-options';
+import {configure} from '@storybook/react';
+import {setOptions} from '@storybook/addon-options';
 
 setOptions({
   name: 'INFINITE CALENDAR',
