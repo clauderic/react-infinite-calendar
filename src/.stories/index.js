@@ -255,7 +255,12 @@ storiesOf('API', module)
     const scrollToMonth = monthOffset => {
       const viewportOffset = (height - rowHeight) / 2;
       const date = calendarInstance.getScrollDate(viewportOffset);
-      const startOfNextMonth = new Date(date.getFullYear(), date.getMonth() + monthOffset, 1);
+      const endRowDate = addDays(date, 6);
+      const monthsToAdd = date.getMonth() !== endRowDate.getMonth() ? 2 : 1;
+
+      const startOfNextMonth = addMonths(new Date(date), monthsToAdd);
+      startOfNextMonth.setDate(1);
+
       calendarInstance.scrollToDate(startOfNextMonth);
     };
 
