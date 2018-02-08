@@ -44,11 +44,12 @@
     "eslint-plugin-import": "^2.0.1",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.4.1",
-    "node-sass": "^4.5.0",
-    "nwb": "^0.15.6",
-    "nwb-sass": "^0.7.1",
+    "node-sass": "^4.7.2",
+    "nwb": "^0.21.5",
+    "nwb-sass": "^0.8.2",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "sass-loader": "^6.0.6"
   },
   "author": {
     "name": "Clauderic Demers",
