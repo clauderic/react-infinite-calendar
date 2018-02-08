@@ -65,6 +65,19 @@ storiesOf('Higher Order Components', module)
       Component={withRange(withKeyboardSupport(Calendar))}
     />
   ))
+  .add('Range selection on doucle click', () => (
+    <InfiniteCalendar
+      selected={{
+        start: addDays(new Date(), 2),
+        end: addDays(new Date(), 17),
+      }}
+      locale={{
+        headerFormat: 'MMM Do',
+      }}
+      Component={withRange(withKeyboardSupport(Calendar))}
+      rangeSelectOnDoubleClick={true}
+    />
+  ))
   .add('Multiple date selection', () => {
     return (
       <InfiniteCalendar

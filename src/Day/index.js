@@ -12,6 +12,14 @@ export default class Day extends PureComponent {
     }
   };
 
+  handleDoubleClick = () => {
+    let {date, isDisabled, onDoubleClick} = this.props;
+
+    if (!isDisabled && typeof onDoubleClick === 'function') {
+      onDoubleClick(parse(date));
+    }
+  };
+
   renderSelection(selectionColor) {
     const {
       day,
@@ -77,6 +85,7 @@ export default class Day extends PureComponent {
           [styles.enabled]: !isDisabled,
         }, className)}
         onClick={this.handleClick}
+        onDoubleClick={this.handleDoubleClick}
         data-date={date}
         {...handlers}
       >
