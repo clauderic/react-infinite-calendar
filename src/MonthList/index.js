@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import VirtualList from 'react-tiny-virtual-list';
 import classNames from 'classnames';
@@ -18,7 +18,7 @@ import styles from './MonthList.scss';
 
 const AVERAGE_ROWS_PER_MONTH = 5;
 
-export default class MonthList extends Component {
+export default class MonthList extends PureComponent {
   static propTypes = {
     disabledDates: PropTypes.arrayOf(PropTypes.string),
     disabledDays: PropTypes.arrayOf(PropTypes.number),
