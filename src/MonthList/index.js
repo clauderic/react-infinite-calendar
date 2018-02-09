@@ -88,7 +88,7 @@ export default class MonthList extends Component {
   }
 
   getScrollDate(offset = 0) {
-    const {min, locale: {weekStartsOn}, rowHeight, height} = this.props;
+    const {min, locale: {weekStartsOn}, rowHeight} = this.props;
 
     const scrollTop = this.scrollEl.scrollTop || this.state.scrollTop;
     const scrollOffset = scrollTop + offset;
