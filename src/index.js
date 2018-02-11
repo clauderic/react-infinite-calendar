@@ -37,7 +37,10 @@ export default class DefaultCalendar extends Component {
   }
 
   _setCalendarInstance = ref => {
-    this.calendar = ref;
+    // Guard to protect against incorrect ref setting when more 
+    // that one composition used with Calendar component
+    if (ref instanceof Calendar)
+      this.calendar = ref;
   }
 
   getScrollDate = offset => {
