@@ -1,16 +1,5 @@
 @import "../variables";
-
-@mixin circle() {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: $rowHeight - 4px;
-  height: $rowHeight - 4px;
-  margin-top: -0.5 * ($rowHeight - 4px);
-  margin-left: -0.5 * ($rowHeight - 4px);
-  border-radius: 50%;
-}
+@import "../Calendar/Range/Range";
 
 .root {
   display: inline-block;
@@ -31,7 +20,7 @@
       z-index: 1;
 
       &:before {
-        @include circle();
+        @include circle($rowHeight);
 
         background-color: $cellHoverBg;
         z-index: -1;
@@ -63,7 +52,7 @@
       }
 
       &:before {
-          @include circle();
+          @include circle($rowHeight);
           box-shadow: inset 0 0 0 1px;
           z-index: -1;
       }
@@ -84,7 +73,7 @@
     }
 
     .selection {
-      @include circle();
+      @include circle($rowHeight);
       line-height: $rowHeight;
       z-index: 2;
 
