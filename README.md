@@ -31,7 +31,7 @@ Getting Started
 
 Using [npm](https://www.npmjs.com/):
 ```
-npm install react-infinite-calendar react-addons-css-transition-group --save
+npm install react-infinite-calendar --save
 ```
 
 ES6, CommonJS, and UMD builds are available with each distribution. For example:
@@ -127,7 +127,7 @@ Example usage of display options:
 
 Dependencies
 ------------
-React Infinite Calendar has very few dependencies. It relies on [`react-tiny-virtual-list`](https://github.com/clauderic/react-tiny-virtual-list) for virtualization and [`date-fns`](https://github.com/date-fns/date-fns) for handling date manipulation. It also uses [recompose](https://github.com/acdlite/recompose) for extending the default functionality. It also has the following peerDependencies: [`react`](https://www.npmjs.com/package/react), and [`react-addons-css-transition-group`](https://www.npmjs.com/package/react-addons-css-transition-group).
+React Infinite Calendar has very few dependencies. It relies on [`react-tiny-virtual-list`](https://github.com/clauderic/react-tiny-virtual-list) for virtualization and [`date-fns`](https://github.com/date-fns/date-fns) for handling date manipulation. It also uses [recompose](https://github.com/acdlite/recompose) for extending the default functionality. It also has the following peerDependency: [`react`](https://www.npmjs.com/package/react).
 
 Reporting Issues
 ----------------
