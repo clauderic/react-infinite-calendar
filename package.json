@@ -28,7 +28,7 @@
     "prop-types": "^15.5.7",
     "react-tiny-virtual-list": "^2.0.0",
     "react-transition-group": "^1.1.3",
-    "recompose": "^0.22.0"
+    "recompose": "^0.26.0"
   },
   "peerDependencies": {
     "react": "^15.3.0 || ^16.0.0-alpha"
