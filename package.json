@@ -1,7 +1,6 @@
 {
   "name": "react-infinite-calendar",
   "version": "2.3.1",
-  "description": "Infinite scrolling date-picker built with React, with localization, themes, keyboard support, and more.",
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [
@@ -10,17 +9,7 @@
     "lib",
     "umd",
     "styles.css"
-  ],
-  "scripts": {
-    "build": "npm run clean && nwb build-react-component --no-vendor",
-    "clean": "nwb clean-module && nwb clean-demo",
-    "start": "nwb serve-react-demo",
-    "storybook": "start-storybook -p 9001 -c .storybook",
-    "test": "nwb test-react",
-    "test:coverage": "nwb test-react --coverage",
-    "test:watch": "nwb test-react --server",
-    "lint": "eslint --fix src/**/*.js"
-  },
+    ],
   "dependencies": {
     "classnames": "^2.2.5",
     "date-fns": "^1.27.2",
@@ -49,37 +38,5 @@
     "nwb-sass": "^0.7.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
-  },
-  "author": {
-    "name": "Clauderic Demers",
-    "email": "me@ced.io"
-  },
-  "user": "clauderic",
-  "homepage": "https://github.com/clauderic/react-infinite-calendar",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/clauderic/react-infinite-calendar.git"
-  },
-  "bugs": {
-    "url": "https://github.com/clauderic/react-infinite-calendar/issues"
-  },
-  "keywords": [
-    "react",
-    "reactjs",
-    "react-component",
-    "infinite",
-    "calendar",
-    "endless",
-    "date",
-    "date-picker",
-    "month",
-    "day",
-    "year",
-    "scrolling",
-    "virtual",
-    "picker",
-    "material",
-    "flat"
-  ]
+  }
 }
