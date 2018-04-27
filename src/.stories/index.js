@@ -191,8 +191,8 @@ storiesOf('Display Options', module)
     <InfiniteCalendar
       Component={withRange(withKeyboardSupport(Calendar))}
       selected={{
-        start: addDays(new Date(), 2000),
-        end: addDays(new Date(), 2001),
+        start: addDays(new Date(), 1),
+        end: addDays(new Date(), 2),
       }}
       locale={{
         headerFormat: 'MMM Do',
