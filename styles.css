@@ -1,3 +1,7 @@
+/*
+  imported from Day.scss 
+ */
+
 .Cal__Day__root {
   display: inline-block;
   box-sizing: border-box;
@@ -149,6 +153,8 @@
   box-sizing: border-box; }
   .Cal__Day__range.Cal__Day__selected.Cal__Day__end .Cal__Day__selection .Cal__Day__day {
     top: 4px; }
+/*  imported from Container.scss  */
+
 .Cal__Container__root {
   position: relative;
   display: table;
@@ -175,6 +181,8 @@
   position: relative;
   overflow: hidden;
   background-color: #FFF; }
+/*  imported from Header.scss  */
+
 .Cal__Header__root {
   position: relative;
   display: flex;
@@ -258,6 +266,18 @@
   .Cal__Header__range .Cal__Header__wrapper .Cal__Header__date {
     white-space: nowrap;
     z-index: 1; }
+/*  imported from MonthList.scss  */
+
+.Cal__MonthList__root {
+  width: 100% !important;
+  background-color: #FFF;
+  -webkit-overflow-scrolling: touch; }
+  .Cal__MonthList__root.Cal__MonthList__scrolling > div {
+    pointer-events: none; }
+  .Cal__MonthList__root.Cal__MonthList__scrolling label {
+    opacity: 1; }
+/*  imported from Today.scss  */
+
 .Cal__Today__root {
   position: absolute;
   top: 0;
@@ -292,14 +312,8 @@
     transform: rotate(180deg); }
   .Cal__Today__root.Cal__Today__chevronDown .Cal__Today__chevron {
     transform: rotate(360deg); }
-.Cal__MonthList__root {
-  width: 100% !important;
-  background-color: #FFF;
-  -webkit-overflow-scrolling: touch; }
-  .Cal__MonthList__root.Cal__MonthList__scrolling > div {
-    pointer-events: none; }
-  .Cal__MonthList__root.Cal__MonthList__scrolling label {
-    opacity: 1; }
+/*  imported from Weekdays.scss  */
+
 .Cal__Weekdays__root {
   position: relative;
   z-index: 5;
@@ -315,6 +329,8 @@
   flex-grow: 1;
   font-weight: 500;
   text-align: center; }
+/*  imported from Years.scss  */
+
 .Cal__Years__root {
   position: absolute;
   left: 0;
@@ -423,6 +439,8 @@
     padding-top: 40px; }
   .Cal__Years__year.Cal__Years__last {
     padding-bottom: 40px; }
+/*  imported from Animation.scss  */
+
 .Cal__Animation__enter {
   opacity: 0;
   transform: translate3d(0, -100%, 0);
@@ -439,6 +457,8 @@
 .Cal__Animation__leave.Cal__Animation__leaveActive {
   opacity: 0;
   transform: translate3d(0, 100%, 0); }
+/*  imported from Slider.scss  */
+
 .Cal__Slider__root, .Cal__Slider__slide {
   position: absolute;
   top: 0;
@@ -481,6 +501,8 @@
 .Cal__Slider__arrowLeft {
   left: 0;
   transform: scaleX(-1); }
+/*  imported from transition.scss  */
+
 .Cal__transition__enter {
   opacity: 0; }
 
@@ -494,6 +516,8 @@
 .Cal__transition__leaveActive {
   opacity: 0;
   transition: opacity 0.3s ease; }
+/*  imported from Month.scss  */
+
 .Cal__Month__rows {
   position: relative;
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.05) 100%); }

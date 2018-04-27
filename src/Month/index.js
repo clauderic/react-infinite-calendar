@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import {getDateString} from '../utils';
 import format from 'date-fns/format';
 import getDay from 'date-fns/get_day';
+import getDaysInMonth from 'date-fns/get_days_in_month';
 import isSameYear from 'date-fns/is_same_year';
 import styles from './Month.scss';
 
@@ -19,6 +20,7 @@ export default class Month extends PureComponent {
       rowHeight,
       rows,
       selected,
+      showMonthLabels,
       today,
       theme,
       passThrough,
@@ -47,40 +49,59 @@ export default class Month extends PureComponent {
       for (let k = 0, len = row.length; k < len; k++) {
         day = row[k];
 
-        date = getDateString(year, month, day);
-        isToday = (date === _today);
+        if (day < 0 || day > getDaysInMonth(getDateString(year, month, day))) {
+          days[k] = (
+            <DayComponent
+              key={`day-${day}`}
+              theme={theme}
+              isPadding={true}
+              selected={selected}
+              locale={locale}
+              day={0}
+              date={getDateString(year, month, day)}
+              month={month}
+              year={year}
+              {...passThrough.Day}
+            />
+          );
+        } else {
+          date = getDateString(year, month, day);
+          isToday = (date === _today);
 
-        isDisabled = (
-					minDate && date < _minDate ||
-					maxDate && date > _maxDate ||
-					disabledDays && disabledDays.length && disabledDays.indexOf(dow) !== -1 ||
-					disabledDates && disabledDates.length && disabledDates.indexOf(date) !== -1
-				);
+          isDisabled = (
+            minDate && date < _minDate ||
+            maxDate && date > _maxDate ||
+            disabledDays && disabledDays.length && disabledDays.indexOf(dow) !== -1 ||
+            disabledDates && disabledDates.length && disabledDates.indexOf(date) !== -1
+          );
 
-        days[k] = (
-					<DayComponent
-						key={`day-${day}`}
-						currentYear={currentYear}
-						date={date}
-						day={day}
-            selected={selected}
-						isDisabled={isDisabled}
-						isToday={isToday}
-						locale={locale}
-            month={month}
-            monthShort={monthShort}
-						theme={theme}
-            year={year}
-            {...passThrough.Day}
-					/>
-				);
+          days[k] = (
+            <DayComponent
+              key={`day-${day}`}
+              currentYear={currentYear}
+              date={date}
+              day={day}
+              selected={selected}
+              isDisabled={isDisabled}
+              isToday={isToday}
+              locale={locale}
+              hideMonthYear={showMonthLabels}
+              month={month}
+              monthShort={monthShort}
+              theme={theme}
+              year={year}
+              {...passThrough.Day}
+            />
+          );
+        }
 
         dow += 1;
       }
       monthRows[i] = (
         <ul
           key={`Row-${i}`}
-          className={classNames(styles.row, {[styles.partial]: row.length !== 7})}
+          className={showMonthLabels ?
+            classNames(styles['padded-row'], {[styles.partial]: row.length !== 7}) : classNames(styles.row, {[styles.partial]: row.length !== 7})}
           style={{height: rowHeight}}
           role="row"
           aria-label={`Week ${i + 1}`}
@@ -95,11 +116,26 @@ export default class Month extends PureComponent {
   }
 
   render() {
-    const {locale: {locale}, monthDate, today, rows, rowHeight, showOverlay, style, theme} = this.props;
+    const {
+      locale: {locale},
+      monthDate,
+      today,
+      rows,
+      rowHeight,
+      showOverlay,
+      showMonthLabels,
+      style,
+      theme,
+    } = this.props;
     const dateFormat = isSameYear(monthDate, today) ? 'MMMM' : 'MMMM YYYY';
 
     return (
       <div className={styles.root} style={{...style, lineHeight: `${rowHeight}px`}}>
+        {showMonthLabels &&
+        <div className={styles.header}>
+          {format(monthDate, dateFormat, {locale})}
+        </div>
+        }
   				<div className={styles.rows}>
   					{this.renderRows()}
   					{showOverlay &&

@@ -4,6 +4,7 @@ module.exports = {
   overscanMonthCount: 2,
   shouldHeaderAnimate: true,
   showHeader: true,
+  showLabelsBetweenMonths: false,
   showMonthsForYears: true,
   showOverlay: true,
   showTodayHelper: true,

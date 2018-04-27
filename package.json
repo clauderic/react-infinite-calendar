@@ -4,6 +4,7 @@
   "description": "Infinite scrolling date-picker built with React, with localization, themes, keyboard support, and more.",
   "main": "lib/index.js",
   "module": "es/index.js",
+  "types": "lib/main.d.ts",
   "files": [
     "css",
     "es",
@@ -45,8 +46,8 @@
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.4.1",
     "node-sass": "^4.5.0",
-    "nwb": "^0.15.6",
-    "nwb-sass": "^0.7.1",
+    "nwb": "0.15.6",
+    "nwb-sass": "0.7.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
   },
@@ -54,7 +55,12 @@
     "name": "Clauderic Demers",
     "email": "me@ced.io"
   },
-  contri
+  "contributors": [
+    {
+      "name": "Jonathan Kolb",
+      "email": "jkolb@teikametrics.com"
+    }
+  ],
   "user": "teikametrics",
   "homepage": "https://github.com/teikametrics/react-infinite-calendar",
   "license": "MIT",

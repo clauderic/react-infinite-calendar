@@ -5,8 +5,11 @@ import classNames from 'classnames';
 import {
   emptyFn,
   getMonth,
+  getMonthWithPadding,
   getWeek,
+  getMonthsCount,
   getWeeksInMonth,
+  getWeeksInMonthNoPadding,
   animate,
 } from '../utils';
 import parse from 'date-fns/parse';
@@ -32,35 +35,41 @@ export default class MonthList extends Component {
     overscanMonthCount: PropTypes.number,
     rowHeight: PropTypes.number,
     selectedDate: PropTypes.instanceOf(Date),
+    showMonthLabels: PropTypes.bool,
     showOverlay: PropTypes.bool,
     theme: PropTypes.object,
     today: PropTypes.instanceOf(Date),
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   };
-  state = {
-    scrollTop: this.getDateOffset(this.props.scrollDate),
-  };
   cache = {};
   memoize = function(param) {
     if (!this.cache[param]) {
-      const {locale: {weekStartsOn}} = this.props;
+      const {locale: {weekStartsOn}, showMonthLabels} = this.props;
       const [year, month] = param.split(':');
-      const result = getMonth(year, month, weekStartsOn);
-      this.cache[param] = result;
+      this.cache[param] = showMonthLabels ?
+        getMonthWithPadding(year, month, weekStartsOn) : getMonth(year, month, weekStartsOn);
     }
     return this.cache[param];
   };
   monthHeights = [];
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      scrollTop: this.getDateOffset(this.props.scrollDate),
+    };
+  }
+
   _getRef = (instance) => { this.VirtualList = instance; }
 
   getMonthHeight = (index) => {
     if (!this.monthHeights[index]) {
-      let {locale: {weekStartsOn}, months, rowHeight} = this.props;
+      let {locale: {weekStartsOn}, months, rowHeight, showMonthLabels} = this.props;
       let {month, year} = months[index];
-      let weeks = getWeeksInMonth(month, year, weekStartsOn, index === months.length - 1);
-      let height = weeks * rowHeight;
-      this.monthHeights[index] = height;
+      let weeks = showMonthLabels ?
+        getWeeksInMonthNoPadding(month, year, weekStartsOn) :
+        getWeeksInMonth(month, year, weekStartsOn, index === months.length - 1);
+      this.monthHeights[index] = weeks * rowHeight + (showMonthLabels ? rowHeight : 0);
     }
 
     return this.monthHeights[index];
@@ -78,12 +87,23 @@ export default class MonthList extends Component {
     }
   }
 
-  getDateOffset(date) {
-    const {min, rowHeight, locale: {weekStartsOn}, height} = this.props;
-    const weeks = getWeek(startOfMonth(min), parse(date), weekStartsOn);
+  getDateOffset = (date) => {
+    const {min, rowHeight, locale: {weekStartsOn}, height, showMonthLabels} = this.props;
 
-    return weeks * rowHeight - (height - rowHeight/2) / 2;
-  }
+    if (showMonthLabels) {
+      const totalMonths = getMonthsCount(startOfMonth(min), parse(date));
+      let index = 0;
+      let totalHeight = 0;
+      while(index++ <= totalMonths) {
+        totalHeight += this.getMonthHeight(index);
+      }
+      return totalHeight;
+
+    } else {
+      const weeks = getWeek(startOfMonth(min), parse(date), weekStartsOn);
+      return weeks * rowHeight - (height - rowHeight / 2) / 2;
+    }
+  };
 
   scrollToDate = (date, offset = 0, ...rest) => {
     let offsetTop = this.getDateOffset(date);
@@ -128,6 +148,7 @@ export default class MonthList extends Component {
       passThrough,
       rowHeight,
       selected,
+      showMonthLabels,
       showOverlay,
       theme,
       today,
@@ -150,6 +171,7 @@ export default class MonthList extends Component {
         rows={rows}
         rowHeight={rowHeight}
         isScrolling={false}
+        showMonthLabels={showMonthLabels}
         showOverlay={showOverlay}
         today={today}
         theme={theme}

@@ -71,6 +71,7 @@ export default class Calendar extends Component {
   		showOverlay: PropTypes.bool,
   		showTodayHelper: PropTypes.bool,
   		showWeekdays: PropTypes.bool,
+      showLabelsBetweenMonths: PropTypes.bool,
       todayHelperRowOffset: PropTypes.number,
     }),
     height: PropTypes.number,
@@ -290,6 +291,7 @@ export default class Calendar extends Component {
       showOverlay,
       showTodayHelper,
       showWeekdays,
+      showLabelsBetweenMonths,
     } = this.getDisplayOptions();
     const {display, isScrolling, showToday} = this.state;
     const disabledDates = this.getDisabledDates(this.props.disabledDates);
@@ -353,6 +355,7 @@ export default class Calendar extends Component {
               min={this._min}
               minDate={this._minDate}
               months={this.months}
+              showMonthLabels={showLabelsBetweenMonths}
               onScroll={this.handleScroll}
               overscanMonthCount={overscanMonthCount}
               passThrough={passThrough}

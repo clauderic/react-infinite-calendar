@@ -187,6 +187,21 @@ storiesOf('Display Options', module)
       }}
     />
   ))
+  .add('Add Label between months', () => (
+    <InfiniteCalendar
+      Component={withRange(withKeyboardSupport(Calendar))}
+      selected={{
+        start: addDays(new Date(), 2000),
+        end: addDays(new Date(), 2001),
+      }}
+      locale={{
+        headerFormat: 'MMM Do',
+      }}
+      displayOptions={{
+        showLabelsBetweenMonths: true,
+      }}
+    />
+  ))
   .add('Hide Weekdays Helper', () => (
     <InfiniteCalendar
       displayOptions={{

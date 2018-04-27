@@ -55,6 +55,31 @@ export function getMonth(year, month, weekStartsOn) {
     rows,
   };
 }
+/**
+ * Given a year and a month, returns the rows for that month to be iterated over assuming that
+ * @param {Number} year - the year number
+ * @param {Number} month - the index of the month
+ * @param {Number} weekStartsOn - the index of the first day of the week (from 0 to 6)
+ * @return {Object} - Returns the first day of the month and the rows of that month
+ */
+export function getMonthWithPadding(year, month, weekStartsOn) {
+  const { date, rows } = getMonth(year, month, weekStartsOn);
+  let index = -1;
+  while (rows[0].length < 7) {
+    rows[0].unshift(index--);
+  }
+
+  const last = rows[rows.length - 1];
+  index = last[last.length - 1] + 1;
+  while (last.length < 7) {
+    last.push(index++);
+  }
+
+  return {
+    date,
+    rows,
+  };
+}
 
 export function getWeek(yearStart, date, weekStartsOn) {
   const yearStartDate = (typeof yearStart === 'number')
@@ -64,6 +89,17 @@ export function getWeek(yearStart, date, weekStartsOn) {
   return Math.ceil(
     (Math.round((date - yearStartDate) / (60 * 60 * 24 * 1000)) + yearStartDate.getDay() + 1 - weekStartsOn) / 7
   );
+}
+
+export function getMonthsCount(yearStart, date) {
+  const yearStartDate = (typeof yearStart === 'number')
+    ? new Date(yearStart, 0, 1) // 1st Jan of the Year
+    : yearStart;
+
+  let months = (date.getFullYear() - yearStartDate.getFullYear()) * 12;
+  months -= yearStartDate.getMonth() + 1;
+  months += date.getMonth();
+  return months;
 }
 
 /**
@@ -95,6 +131,28 @@ export function getWeeksInMonth(
   }
 
   return rowCount;
+}
+
+/**
+ * Get the number of weeks in a given month to be able to calculate the height of that month
+ * @param {Number} year - the year number
+ * @param {Number} month - the index of the month
+ * @param {Number} weekStartsOn - the index of the first day of the week (from 0 to 6)
+ * @return {Number} - Returns the number of weeks for the given month
+ */
+export function getWeeksInMonthNoPadding(
+  month,
+  year = new Date().getFullYear(),
+  weekStartsOn,
+) {
+
+  const firstOfMonth = new Date(year, month, 1);
+  const firstWeekNumber = getWeek(year, firstOfMonth, weekStartsOn);
+
+  const lastOfMonth = new Date(year, month + 1, 0); // Last date of the Month
+  const lastWeekNumber = getWeek(year, lastOfMonth, weekStartsOn);
+
+  return (lastWeekNumber - firstWeekNumber) + 1;
 }
 
 /**
