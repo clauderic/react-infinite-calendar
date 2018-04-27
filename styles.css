@@ -6,11 +6,14 @@
   display: inline-block;
   box-sizing: border-box;
   width: 14.28571%;
+  height: 100%;
   list-style: none;
   font-size: 16px;
   text-align: center;
   cursor: pointer;
   user-select: none; }
+  .Cal__Day__root.Cal__Day__padding {
+    cursor: default; }
   .Cal__Day__root.Cal__Day__enabled.Cal__Day__highlighted, .Cal__Day__root.Cal__Day__enabled:active, .Cal__Day__root.Cal__Day__enabled:hover {
     position: relative;
     z-index: 1; }
@@ -153,6 +156,10 @@
   box-sizing: border-box; }
   .Cal__Day__range.Cal__Day__selected.Cal__Day__end .Cal__Day__selection .Cal__Day__day {
     top: 4px; }
+
+.Cal__Day__range.Cal__Day__selected.Cal__Day__hideMonthYear .Cal__Day__selection .Cal__Day__day {
+  position: relative;
+  top: 0px; }
 /*  imported from Container.scss  */
 
 .Cal__Container__root {
@@ -266,16 +273,6 @@
   .Cal__Header__range .Cal__Header__wrapper .Cal__Header__date {
     white-space: nowrap;
     z-index: 1; }
-/*  imported from MonthList.scss  */
-
-.Cal__MonthList__root {
-  width: 100% !important;
-  background-color: #FFF;
-  -webkit-overflow-scrolling: touch; }
-  .Cal__MonthList__root.Cal__MonthList__scrolling > div {
-    pointer-events: none; }
-  .Cal__MonthList__root.Cal__MonthList__scrolling label {
-    opacity: 1; }
 /*  imported from Today.scss  */
 
 .Cal__Today__root {
@@ -329,6 +326,16 @@
   flex-grow: 1;
   font-weight: 500;
   text-align: center; }
+/*  imported from MonthList.scss  */
+
+.Cal__MonthList__root {
+  width: 100% !important;
+  background-color: #FFF;
+  -webkit-overflow-scrolling: touch; }
+  .Cal__MonthList__root.Cal__MonthList__scrolling > div {
+    pointer-events: none; }
+  .Cal__MonthList__root.Cal__MonthList__scrolling label {
+    opacity: 1; }
 /*  imported from Years.scss  */
 
 .Cal__Years__root {
@@ -522,6 +529,13 @@
   position: relative;
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.05) 100%); }
 
+.Cal__Month__padded-rows {
+  position: relative; }
+
+.Cal__Month__padded-row {
+  padding: 0;
+  margin: 0; }
+
 .Cal__Month__row {
   padding: 0;
   margin: 0; }
@@ -537,6 +551,13 @@
   .Cal__Month__row.Cal__Month__partial:last-of-type li {
     position: relative;
     z-index: 1; }
+
+.Cal__Month__header {
+  position: relative;
+  top: 0;
+  left: 0;
+  font-size: 20px;
+  font-weight: 500; }
 
 .Cal__Month__label {
   position: absolute;
