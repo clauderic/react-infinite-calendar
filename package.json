@@ -4,13 +4,14 @@
   "description": "Infinite scrolling date-picker built with React, with localization, themes, keyboard support, and more.",
   "main": "lib/index.js",
   "module": "es/index.js",
-  "types": "lib/main.d.ts",
+  "types": "main.d.ts",
   "files": [
     "css",
     "es",
     "lib",
     "umd",
-    "styles.css"
+    "styles.css",
+    "main.d.ts"
   ],
   "scripts": {
     "build": "npm run clean && nwb build-react-component --no-vendor",
