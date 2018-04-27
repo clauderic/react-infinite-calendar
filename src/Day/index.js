@@ -20,8 +20,25 @@ export default class Day extends PureComponent {
       locale: {todayLabel},
       monthShort,
       theme: {textColor},
+      hideMonthYear,
+      isPadding,
       selectionStyle,
     } = this.props;
+
+    if (isPadding) {
+      return (
+        <div
+          className={styles.selection}
+          data-date={date}
+          style={{
+            backgroundColor: this.selectionColor,
+            color: isPadding ? this.selectionColor : textColor.active,
+            ...selectionStyle,
+          }}
+          dangerouslySetInnerHTML={{ __html: '&nbsp;'}}
+        />
+      );
+    }
 
     return (
       <div
@@ -33,9 +50,11 @@ export default class Day extends PureComponent {
           ...selectionStyle,
         }}
       >
-        <span className={styles.month}>
-          {isToday ? todayLabel.short || todayLabel.long : monthShort}
-        </span>
+        { !hideMonthYear && (
+          <span className={styles.month}>
+            {isToday ? todayLabel.short || todayLabel.long : monthShort}
+          </span>
+        )}
         <span className={styles.day}>{day}</span>
       </div>
     );
@@ -55,6 +74,8 @@ export default class Day extends PureComponent {
       monthShort,
       theme: {selectionColor, todayColor},
       year,
+      isPadding,
+      hideMonthYear,
     } = this.props;
     let color;
 
@@ -65,7 +86,21 @@ export default class Day extends PureComponent {
     } else if (isToday) {
       color = todayColor;
     }
-
+    if (isPadding) {
+      return (
+        <li
+          style={color ? {color} : null}
+          className={classNames(styles.root, {
+            [styles.padding]: isPadding,
+            [styles.selected]: isSelected,
+          }, className)}
+          {...handlers}
+        >
+          <span dangerouslySetInnerHTML={{__html: '&nbsp;'}}/>
+          {isSelected && this.renderSelection()}
+        </li>
+      );
+    }
     return (
       <li
         style={color ? {color} : null}
@@ -75,14 +110,15 @@ export default class Day extends PureComponent {
           [styles.selected]: isSelected,
           [styles.disabled]: isDisabled,
           [styles.enabled]: !isDisabled,
+          [styles.hideMonthYear]: hideMonthYear,
         }, className)}
         onClick={this.handleClick}
         data-date={date}
         {...handlers}
       >
-        {day === 1 && <span className={styles.month}>{monthShort}</span>}
+        {!hideMonthYear && day === 1 && <span className={styles.month}>{monthShort}</span>}
         {isToday ? <span>{day}</span> : day}
-        {day === 1 &&
+        {!hideMonthYear && day === 1 &&
           currentYear !== year &&
           <span className={styles.year}>{year}</span>}
         {isSelected && this.renderSelection()}

@@ -8,6 +8,16 @@
   position: relative;
   background: linear-gradient(to bottom, rgba(255,255,255,0) 50%,rgba(0,0,0,0.05) 100%);
 }
+
+.padded-rows {
+  position: relative;
+}
+
+.padded-row {
+  padding: 0;
+  margin: 0;
+}
+
 .row {
   padding: 0;
   margin: 0;
@@ -38,6 +48,14 @@
       }
     }
   }
+}
+
+.header {
+  position: relative;
+  top: 0;
+  left: 0;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .label {
