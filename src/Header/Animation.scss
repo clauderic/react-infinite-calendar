@@ -7,11 +7,11 @@
   opacity: 1;
   transform: translate3d(0, 0, 0);
 }
-.leave {
+.exit {
   transform: translate3d(0, 0, 0);
   transition: 0.25s ease;
 }
-.leave.leaveActive {
+.exit.exitActive {
   opacity: 0;
   transform: translate3d(0, 100%, 0);
 }

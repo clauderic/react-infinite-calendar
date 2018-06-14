@@ -1,5 +1,5 @@
 import React from 'react';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import {CSSTransition} from 'react-transition-group';
 import classNames from 'classnames';
 import parse from 'date-fns/parse';
 import format from 'date-fns/format';
@@ -46,6 +46,7 @@ export default function defaultSelectionRenderer(value, {
   ];
 
   return (
+
     <div
       key={key}
       className={styles.wrapper}
@@ -60,12 +61,11 @@ export default function defaultSelectionRenderer(value, {
             })}
             title={title}
           >
-            <CSSTransitionGroup
-              transitionName={animation}
-              transitionEnterTimeout={250}
-              transitionLeaveTimeout={250}
-              transitionEnter={shouldAnimate}
-              transitionLeave={shouldAnimate}
+            <CSSTransition
+              timeout={250}
+              classNames={animation}
+              enter={shouldAnimate}
+              exit={shouldAnimate}
             >
               <span
                 key={`${item}-${value}`}
@@ -75,7 +75,7 @@ export default function defaultSelectionRenderer(value, {
               >
                 {value}
               </span>
-            </CSSTransitionGroup>
+            </CSSTransition>
           </div>
         );
       })}

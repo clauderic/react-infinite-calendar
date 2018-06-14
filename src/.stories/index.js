@@ -1,6 +1,6 @@
 /* eslint-disable sort-keys */
 import React from 'react';
-import {addDecorator, storiesOf} from '@kadira/storybook';
+import {addDecorator, storiesOf} from '@storybook/react';
 import InfiniteCalendar, {
   Calendar,
   defaultMultipleDateInterpolation,

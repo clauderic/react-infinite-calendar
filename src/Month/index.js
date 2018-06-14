@@ -38,7 +38,7 @@ export default class Month extends PureComponent {
     const _minDate = format(minDate, 'YYYY-MM-DD');
     const _maxDate = format(maxDate, 'YYYY-MM-DD');
 
-		// Oh the things we do in the name of performance...
+    // Oh the things we do in the name of performance...
     for (let i = 0, len = rows.length; i < len; i++) {
       row = rows[i];
       days = [];
@@ -51,29 +51,29 @@ export default class Month extends PureComponent {
         isToday = (date === _today);
 
         isDisabled = (
-					minDate && date < _minDate ||
+          minDate && date < _minDate ||
 					maxDate && date > _maxDate ||
 					disabledDays && disabledDays.length && disabledDays.indexOf(dow) !== -1 ||
 					disabledDates && disabledDates.length && disabledDates.indexOf(date) !== -1
-				);
+        );
 
         days[k] = (
-					<DayComponent
-						key={`day-${day}`}
-						currentYear={currentYear}
-						date={date}
-						day={day}
+          <DayComponent
+            key={`day-${day}`}
+            currentYear={currentYear}
+            date={date}
+            day={day}
             selected={selected}
-						isDisabled={isDisabled}
-						isToday={isToday}
-						locale={locale}
+            isDisabled={isDisabled}
+            isToday={isToday}
+            locale={locale}
             month={month}
             monthShort={monthShort}
-						theme={theme}
+            theme={theme}
             year={year}
             {...passThrough.Day}
-					/>
-				);
+          />
+        );
 
         dow += 1;
       }
@@ -104,13 +104,13 @@ export default class Month extends PureComponent {
   					{this.renderRows()}
   					{showOverlay &&
   						<label
-                className={classNames(styles.label, {
-                  [styles.partialFirstRow]: rows[0].length !== 7,
-                })}
-                style={{backgroundColor: theme.overlayColor}}
-              >
-                <span>{format(monthDate, dateFormat, {locale})}</span>
-              </label>
+  						  className={classNames(styles.label, {
+  						    [styles.partialFirstRow]: rows[0].length !== 7,
+  						  })}
+  						  style={{backgroundColor: theme.overlayColor}}
+  						>
+  						  <span>{format(monthDate, dateFormat, {locale})}</span>
+  						</label>
   					}
   				</div>
   			</div>

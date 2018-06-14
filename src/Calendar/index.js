@@ -44,6 +44,7 @@ export const withDefaultProps = defaultProps({
   YearsComponent: Years,
 });
 
+/* eslint-disable react/no-deprecated */
 export default class Calendar extends Component {
   constructor(props) {
     super(...arguments);
@@ -117,6 +118,17 @@ export default class Calendar extends Component {
 
     if (autoFocus) {
       this.node.focus();
+    }
+  }
+  UNSAFE_componentWillUpdate(nextProps, nextState) {
+    let {min, minDate, max, maxDate} = this.props;
+
+    if (nextProps.min !== min || nextProps.minDate !== minDate || nextProps.max !== max || nextProps.maxDate !== maxDate) {
+      this.updateYears(nextProps);
+    }
+
+    if (nextProps.display !== this.props.display) {
+      this.setState({display: nextProps.display});
     }
   }
   componentWillUpdate(nextProps, nextState) {
@@ -201,7 +213,7 @@ export default class Calendar extends Component {
     const scrollSpeed = this.scrollSpeed = Math.abs(this.getScrollSpeed(scrollTop));
     this.scrollTop = scrollTop;
 
-		// We only want to display the months overlay if the user is rapidly scrolling
+    // We only want to display the months overlay if the user is rapidly scrolling
     if (showOverlay && scrollSpeed > rowHeight && !isScrolling) {
       this.setState({
         isScrolling: true,
@@ -266,20 +278,20 @@ export default class Calendar extends Component {
   }
   render() {
     let {
-			className,
+      className,
       passThrough,
       DayComponent,
-			disabledDays,
+      disabledDays,
       displayDate,
-			height,
+      height,
       HeaderComponent,
       rowHeight,
       scrollDate,
       selected,
-			tabIndex,
-			width,
+      tabIndex,
+      width,
       YearsComponent,
-		} = this.props;
+    } = this.props;
     const {
       hideYearsOnSelect,
       layout,

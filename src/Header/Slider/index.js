@@ -1,5 +1,5 @@
 import React, {Children, PureComponent} from 'react';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import {CSSTransition} from 'react-transition-group';
 import classNames from 'classnames';
 import styles from './Slider.scss';
 import transition from './transition.scss';
@@ -52,15 +52,14 @@ export default class Slider extends PureComponent {
         {index !== 0 &&
           <Arrow onClick={this.handleClick} direction={DIRECTIONS.LEFT} />
         }
-        <CSSTransitionGroup
+        <CSSTransition
           className={styles.wrapper}
           component='div'
           style={{
             transform: `translate3d(-${100 * index}%, 0, 0)`,
           }}
-          transitionName={transition}
-          transitionEnterTimeout={300}
-          transitionLeaveTimeout={300}
+          classNames={transition}
+          timeout={300}
         >
           {Children.map(children, (child, i) => (
             <div
@@ -71,7 +70,7 @@ export default class Slider extends PureComponent {
               {child}
             </div>
           ))}
-        </CSSTransitionGroup>
+        </CSSTransition>
         {index !== children.length - 1 &&
           <Arrow onClick={this.handleClick} direction={DIRECTIONS.RIGHT} />
         }

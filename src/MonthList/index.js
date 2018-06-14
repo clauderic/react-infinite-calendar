@@ -16,6 +16,7 @@ import styles from './MonthList.scss';
 
 const AVERAGE_ROWS_PER_MONTH = 5;
 
+/* eslint-disable react/no-deprecated */
 export default class MonthList extends Component {
   static propTypes = {
     disabledDates: PropTypes.arrayOf(PropTypes.string),
@@ -68,6 +69,14 @@ export default class MonthList extends Component {
 
   componentDidMount() {
     this.scrollEl = this.VirtualList.rootNode;
+  }
+
+  UNSAFE_componentWillReceiveProps({scrollDate}) {
+    if (scrollDate !== this.props.scrollDate) {
+      this.setState({
+        scrollTop: this.getDateOffset(scrollDate),
+      });
+    }
   }
 
   componentWillReceiveProps({scrollDate}) {

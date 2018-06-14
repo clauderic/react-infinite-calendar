@@ -4,13 +4,7 @@
   "description": "Infinite scrolling date-picker built with React, with localization, themes, keyboard support, and more.",
   "main": "lib/index.js",
   "module": "es/index.js",
-  "files": [
-    "css",
-    "es",
-    "lib",
-    "umd",
-    "styles.css"
-  ],
+  "files": ["css", "es", "lib", "umd", "styles.css"],
   "scripts": {
     "build": "npm run clean && nwb build-react-component --no-vendor",
     "clean": "nwb clean-module && nwb clean-demo",
@@ -26,29 +20,35 @@
     "date-fns": "^1.27.2",
     "dom-helpers": "^3.2.1",
     "prop-types": "^15.5.7",
-    "react-tiny-virtual-list": "^2.0.0",
-    "react-transition-group": "^1.1.3",
-    "recompose": "^0.22.0"
+    "react-tiny-virtual-list": "^2.1.4",
+    "react-transition-group": "^2.3.1",
+    "recompose": "^0.27.0"
   },
   "peerDependencies": {
-    "react": "^15.3.0 || ^16.0.0-alpha"
+    "react": "^15.3.0 || ^16.0.0"
   },
   "devDependencies": {
-    "@kadira/storybook": "^2.35.3",
-    "@kadira/storybook-addon-options": "^1.0.1",
-    "babel-eslint": "^7.0.0",
+    "@storybook/addon-options": "^3.4.5",
+    "@storybook/addon-viewport": "^3.4.5",
+    "@storybook/addons": "^3.4.5",
+    "@storybook/react": "^3.4.5",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^7.2.3",
     "babel-plugin-css-modules-transform": "^1.2.1",
-    "eslint": "^3.8.1",
-    "eslint-config-react-app": "^0.5.1",
-    "eslint-plugin-flowtype": "^2.21.0",
-    "eslint-plugin-import": "^2.0.1",
-    "eslint-plugin-jsx-a11y": "^2.2.3",
-    "eslint-plugin-react": "^6.4.1",
+    "babel-runtime": "^6.26.0",
+    "eslint": "^4.1.1",
+    "eslint-config-react-app": "^2.1.0",
+    "eslint-plugin-flowtype": "^2.34.1",
+    "eslint-plugin-import": "^2.6.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.1.0",
+    "gh-pages": "^1.1.0",
     "node-sass": "^4.5.0",
-    "nwb": "^0.15.6",
-    "nwb-sass": "^0.7.1",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "nwb": "^0.21.5",
+    "nwb-sass": "^0.8.4",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "sass-loader": "^7.0.1"
   },
   "author": {
     "name": "Clauderic Demers",

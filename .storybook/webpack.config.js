@@ -1,12 +1,25 @@
 module.exports = {
   module: {
-    loaders: [
+    rules: [
       {
         test: /(\.scss)$/,
         loaders: [
-          'style',
-          'css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]',
-          'sass?sourceMap'
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              importLoaders: 1,
+              sourceMap: true,
+              localIdentName: '[name]__[local]'
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true
+            }
+          }
         ]
       }
     ]
