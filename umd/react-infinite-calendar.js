@@ -1,5 +1,5 @@
 /*!
- * react-infinite-calendar v2.2.1 - https://github.com/clauderic/react-infinite-calendar
+ * react-infinite-calendar v2.2.2 - https://github.com/clauderic/react-infinite-calendar
  * MIT Licensed
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -1175,7 +1175,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _class,
     _temp,
-    _jsxFileName = '/Users/jacob/Projects/toggl/react-infinite-calendar/src/Calendar/index.js';
+    _jsxFileName = '/home/leaf/toggl/react-infinite-calendar/src/Calendar/index.js';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2095,7 +2095,7 @@ module.exports = startOfISOWeek
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_date_fns_format__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_date_fns_format___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_date_fns_format__);
 /* harmony export (immutable) */ __webpack_exports__["a"] = defaultSelectionRenderer;
-var _jsxFileName = '/Users/jacob/Projects/toggl/react-infinite-calendar/src/Header/defaultSelectionRenderer.js';
+var _jsxFileName = '/home/leaf/toggl/react-infinite-calendar/src/Header/defaultSelectionRenderer.js';
 
 
 
@@ -2965,7 +2965,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _class,
     _temp2,
-    _jsxFileName = '/Users/jacob/Projects/toggl/react-infinite-calendar/src/index.js';
+    _jsxFileName = '/home/leaf/toggl/react-infinite-calendar/src/index.js';
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
@@ -4423,18 +4423,49 @@ function getLimitedRange(rangeLimit, start, end) {
   };
 }
 
+/**
+ * Adjusts the selection range during hover according to a provided function.
+ *
+ * @param  {function} adjustRangeFunc Function taking (selectionStart, date) (in YYYY-MM-DD)
+ *                                    returning some of { start, end, startOverride } (YYYY-MM-DD) to be changed
+ * @param  {Date}     selectionStart  Date first clicked to start range selection
+ * @param  {Date}     date            Hovered date
+ * @return {Object} Return value of adjustRangeFunc. (With start, end added if missing)
+ */
+function getAdjustedRange(adjustRangeFunc, selectionStart, date) {
+  if (!adjustRangeFunc) return { start: selectionStart, end: date };
+
+  var desired = adjustRangeFunc(__WEBPACK_IMPORTED_MODULE_9_date_fns_format___default()(selectionStart, 'YYYY-MM-DD'), __WEBPACK_IMPORTED_MODULE_9_date_fns_format___default()(date, 'YYYY-MM-DD')) || {};
+
+  return {
+    startOverride: desired.startOverride ? __WEBPACK_IMPORTED_MODULE_10_date_fns_parse___default()(desired.startOverride) : null,
+    start: desired.start ? __WEBPACK_IMPORTED_MODULE_10_date_fns_parse___default()(desired.start) : desired.startOverride ? __WEBPACK_IMPORTED_MODULE_10_date_fns_parse___default()(desired.startOverride) : selectionStart,
+    end: desired.end ? __WEBPACK_IMPORTED_MODULE_10_date_fns_parse___default()(desired.end) : date
+  };
+}
+
 function handleSelect(date, _ref5) {
   var onSelect = _ref5.onSelect,
+      adjustRangeFunc = _ref5.adjustRangeFunc,
       rangeLimit = _ref5.rangeLimit,
       selected = _ref5.selected,
       selectionStart = _ref5.selectionStart,
       setSelectionStart = _ref5.setSelectionStart;
 
   if (selectionStart) {
-    onSelect(_extends({
-      eventType: EVENT_TYPE.END
-    }, getSortedSelection(getLimitedRange(rangeLimit, selectionStart, date))));
-    setSelectionStart(null);
+    if (adjustRangeFunc) {
+      var adjustment = getAdjustedRange(adjustRangeFunc, selectionStart, date);
+      // Don't need to cope with adjustment.startOverride in handleSelect, as we're about to setSelectionStart(null) anyway.
+      onSelect(_extends({
+        eventType: EVENT_TYPE.END
+      }, getSortedSelection(getLimitedRange(rangeLimit, adjustment.start, adjustment.end))));
+      setSelectionStart(null);
+    } else {
+      onSelect(_extends({
+        eventType: EVENT_TYPE.END
+      }, getSortedSelection(getLimitedRange(rangeLimit, selectionStart, date))));
+      setSelectionStart(null);
+    }
   } else {
     onSelect({ eventType: EVENT_TYPE.START, start: date, end: date });
     setSelectionStart(date);
@@ -4443,8 +4474,10 @@ function handleSelect(date, _ref5) {
 
 function handleMouseOver(e, _ref6) {
   var onSelect = _ref6.onSelect,
+      adjustRangeFunc = _ref6.adjustRangeFunc,
       rangeLimit = _ref6.rangeLimit,
-      selectionStart = _ref6.selectionStart;
+      selectionStart = _ref6.selectionStart,
+      setSelectionStart = _ref6.setSelectionStart;
 
   var dateStr = e.target.getAttribute('data-date');
   var date = dateStr && __WEBPACK_IMPORTED_MODULE_10_date_fns_parse___default()(dateStr);
@@ -4453,9 +4486,20 @@ function handleMouseOver(e, _ref6) {
     return;
   }
 
-  onSelect(_extends({
-    eventType: EVENT_TYPE.HOVER
-  }, getSortedSelection(getLimitedRange(rangeLimit, selectionStart, date))));
+  if (adjustRangeFunc) {
+    var adjustment = getAdjustedRange(adjustRangeFunc, selectionStart, date);
+    if (adjustment.startOverride) {
+      onSelect({ eventType: EVENT_TYPE.START, start: adjustment.startOverride, end: adjustment.startOverride });
+      setSelectionStart(adjustment.startOverride);
+    }
+    onSelect(_extends({
+      eventType: EVENT_TYPE.HOVER
+    }, getSortedSelection(getLimitedRange(rangeLimit, adjustment.start, adjustment.end))));
+  } else {
+    onSelect(_extends({
+      eventType: EVENT_TYPE.HOVER
+    }, getSortedSelection(getLimitedRange(rangeLimit, selectionStart, date))));
+  }
 }
 
 function handleYearSelect(date, _ref7) {
@@ -4499,7 +4543,7 @@ if (typeof window !== 'undefined') {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Day; });
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _jsxFileName = '/Users/jacob/Projects/toggl/react-infinite-calendar/src/Day/index.js';
+var _jsxFileName = '/home/leaf/toggl/react-infinite-calendar/src/Day/index.js';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -4699,7 +4743,7 @@ var Day = function (_PureComponent) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_classnames__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Slider; });
-var _jsxFileName = '/Users/jacob/Projects/toggl/react-infinite-calendar/src/Header/Slider/index.js',
+var _jsxFileName = '/home/leaf/toggl/react-infinite-calendar/src/Header/Slider/index.js',
     _this = this;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4892,7 +4936,7 @@ var Slider = function (_PureComponent) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Header; });
 var _class,
     _temp,
-    _jsxFileName = '/Users/jacob/Projects/toggl/react-infinite-calendar/src/Header/index.js';
+    _jsxFileName = '/home/leaf/toggl/react-infinite-calendar/src/Header/index.js';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -4996,7 +5040,7 @@ var Header = (_temp = _class = function (_PureComponent) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_date_fns_format___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_date_fns_format__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _jsxFileName = '/Users/jacob/Projects/toggl/react-infinite-calendar/src/Header/withMultipleDates.js',
+var _jsxFileName = '/home/leaf/toggl/react-infinite-calendar/src/Header/withMultipleDates.js',
     _this = this;
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
@@ -5062,7 +5106,7 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__defaultSelectionRenderer__ = __webpack_require__(18);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _jsxFileName = '/Users/jacob/Projects/toggl/react-infinite-calendar/src/Header/withRange.js',
+var _jsxFileName = '/home/leaf/toggl/react-infinite-calendar/src/Header/withRange.js',
     _this = this;
 
 
@@ -5130,7 +5174,7 @@ var styles = {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Month; });
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _jsxFileName = '/Users/jacob/Projects/toggl/react-infinite-calendar/src/Month/index.js';
+var _jsxFileName = '/home/leaf/toggl/react-infinite-calendar/src/Month/index.js';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -5343,7 +5387,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _class,
     _temp2,
-    _jsxFileName = '/Users/jacob/Projects/toggl/react-infinite-calendar/src/MonthList/index.js';
+    _jsxFileName = '/home/leaf/toggl/react-infinite-calendar/src/MonthList/index.js';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -5613,7 +5657,7 @@ var MonthList = (_temp2 = _class = function (_Component) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return Today; });
 var _class,
     _temp2,
-    _jsxFileName = '/Users/jacob/Projects/toggl/react-infinite-calendar/src/Today/index.js';
+    _jsxFileName = '/home/leaf/toggl/react-infinite-calendar/src/Today/index.js';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -5732,7 +5776,7 @@ var Today = (_temp2 = _class = function (_PureComponent) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Weekdays; });
 var _class,
     _temp,
-    _jsxFileName = '/Users/jacob/Projects/toggl/react-infinite-calendar/src/Weekdays/index.js';
+    _jsxFileName = '/home/leaf/toggl/react-infinite-calendar/src/Weekdays/index.js';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -5828,7 +5872,7 @@ var Weekdays = (_temp = _class = function (_PureComponent) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Years; });
 var _class,
     _temp,
-    _jsxFileName = '/Users/jacob/Projects/toggl/react-infinite-calendar/src/Years/index.js';
+    _jsxFileName = '/home/leaf/toggl/react-infinite-calendar/src/Years/index.js';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 

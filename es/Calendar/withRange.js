@@ -146,18 +146,49 @@ function getLimitedRange(rangeLimit, start, end) {
   };
 }
 
+/**
+ * Adjusts the selection range during hover according to a provided function.
+ *
+ * @param  {function} adjustRangeFunc Function taking (selectionStart, date) (in YYYY-MM-DD)
+ *                                    returning some of { start, end, startOverride } (YYYY-MM-DD) to be changed
+ * @param  {Date}     selectionStart  Date first clicked to start range selection
+ * @param  {Date}     date            Hovered date
+ * @return {Object} Return value of adjustRangeFunc. (With start, end added if missing)
+ */
+function getAdjustedRange(adjustRangeFunc, selectionStart, date) {
+  if (!adjustRangeFunc) return { start: selectionStart, end: date };
+
+  var desired = adjustRangeFunc(format(selectionStart, 'YYYY-MM-DD'), format(date, 'YYYY-MM-DD')) || {};
+
+  return {
+    startOverride: desired.startOverride ? parse(desired.startOverride) : null,
+    start: desired.start ? parse(desired.start) : desired.startOverride ? parse(desired.startOverride) : selectionStart,
+    end: desired.end ? parse(desired.end) : date
+  };
+}
+
 function handleSelect(date, _ref5) {
   var onSelect = _ref5.onSelect,
+      adjustRangeFunc = _ref5.adjustRangeFunc,
       rangeLimit = _ref5.rangeLimit,
       selected = _ref5.selected,
       selectionStart = _ref5.selectionStart,
       setSelectionStart = _ref5.setSelectionStart;
 
   if (selectionStart) {
-    onSelect(_extends({
-      eventType: EVENT_TYPE.END
-    }, getSortedSelection(getLimitedRange(rangeLimit, selectionStart, date))));
-    setSelectionStart(null);
+    if (adjustRangeFunc) {
+      var adjustment = getAdjustedRange(adjustRangeFunc, selectionStart, date);
+      // Don't need to cope with adjustment.startOverride in handleSelect, as we're about to setSelectionStart(null) anyway.
+      onSelect(_extends({
+        eventType: EVENT_TYPE.END
+      }, getSortedSelection(getLimitedRange(rangeLimit, adjustment.start, adjustment.end))));
+      setSelectionStart(null);
+    } else {
+      onSelect(_extends({
+        eventType: EVENT_TYPE.END
+      }, getSortedSelection(getLimitedRange(rangeLimit, selectionStart, date))));
+      setSelectionStart(null);
+    }
   } else {
     onSelect({ eventType: EVENT_TYPE.START, start: date, end: date });
     setSelectionStart(date);
@@ -166,8 +197,10 @@ function handleSelect(date, _ref5) {
 
 function handleMouseOver(e, _ref6) {
   var onSelect = _ref6.onSelect,
+      adjustRangeFunc = _ref6.adjustRangeFunc,
       rangeLimit = _ref6.rangeLimit,
-      selectionStart = _ref6.selectionStart;
+      selectionStart = _ref6.selectionStart,
+      setSelectionStart = _ref6.setSelectionStart;
 
   var dateStr = e.target.getAttribute('data-date');
   var date = dateStr && parse(dateStr);
@@ -176,9 +209,20 @@ function handleMouseOver(e, _ref6) {
     return;
   }
 
-  onSelect(_extends({
-    eventType: EVENT_TYPE.HOVER
-  }, getSortedSelection(getLimitedRange(rangeLimit, selectionStart, date))));
+  if (adjustRangeFunc) {
+    var adjustment = getAdjustedRange(adjustRangeFunc, selectionStart, date);
+    if (adjustment.startOverride) {
+      onSelect({ eventType: EVENT_TYPE.START, start: adjustment.startOverride, end: adjustment.startOverride });
+      setSelectionStart(adjustment.startOverride);
+    }
+    onSelect(_extends({
+      eventType: EVENT_TYPE.HOVER
+    }, getSortedSelection(getLimitedRange(rangeLimit, adjustment.start, adjustment.end))));
+  } else {
+    onSelect(_extends({
+      eventType: EVENT_TYPE.HOVER
+    }, getSortedSelection(getLimitedRange(rangeLimit, selectionStart, date))));
+  }
 }
 
 function handleYearSelect(date, _ref7) {
