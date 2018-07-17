@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import parse from 'date-fns/parse';
 import format from 'date-fns/format';
@@ -18,8 +18,8 @@ var styles = {
 var animation = {
   'enter': 'Cal__Animation__enter',
   'enterActive': 'Cal__Animation__enterActive',
-  'leave': 'Cal__Animation__leave',
-  'leaveActive': 'Cal__Animation__leaveActive'
+  'exit': 'Cal__Animation__exit',
+  'exitActive': 'Cal__Animation__exitActive'
 };
 
 
@@ -82,13 +82,12 @@ export default function defaultSelectionRenderer(value, _ref) {
           title: title
         },
         React.createElement(
-          ReactCSSTransitionGroup,
+          CSSTransition,
           {
-            transitionName: animation,
-            transitionEnterTimeout: 250,
-            transitionLeaveTimeout: 250,
-            transitionEnter: shouldAnimate,
-            transitionLeave: shouldAnimate
+            timeout: 250,
+            classNames: animation,
+            enter: shouldAnimate,
+            exit: shouldAnimate
           },
           React.createElement(
             'span',

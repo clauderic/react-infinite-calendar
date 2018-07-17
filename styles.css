@@ -262,6 +262,14 @@
   .Cal__Header__range .Cal__Header__wrapper .Cal__Header__date {
     white-space: nowrap;
     z-index: 1; }
+.Cal__MonthList__root {
+  width: 100% !important;
+  background-color: #FFF;
+  -webkit-overflow-scrolling: touch; }
+  .Cal__MonthList__root.Cal__MonthList__scrolling > div {
+    pointer-events: none; }
+  .Cal__MonthList__root.Cal__MonthList__scrolling label {
+    opacity: 1; }
 .Cal__Today__root {
   position: absolute;
   top: 0;
@@ -296,14 +304,6 @@
     transform: rotate(180deg); }
   .Cal__Today__root.Cal__Today__chevronDown .Cal__Today__chevron {
     transform: rotate(360deg); }
-.Cal__MonthList__root {
-  width: 100% !important;
-  background-color: #FFF;
-  -webkit-overflow-scrolling: touch; }
-  .Cal__MonthList__root.Cal__MonthList__scrolling > div {
-    pointer-events: none; }
-  .Cal__MonthList__root.Cal__MonthList__scrolling label {
-    opacity: 1; }
 .Cal__Weekdays__root {
   position: relative;
   z-index: 5;

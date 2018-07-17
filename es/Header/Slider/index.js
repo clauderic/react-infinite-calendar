@@ -5,7 +5,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 import React, { Children, PureComponent } from 'react';
-import CSSTransitionGroup from 'react-addons-css-transition-group';
+import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 var styles = {
   'root': 'Cal__Slider__root',
@@ -98,16 +98,15 @@ var Slider = function (_PureComponent) {
       { className: styles.root },
       index !== 0 && React.createElement(Arrow, { onClick: this.handleClick, direction: DIRECTIONS.LEFT }),
       React.createElement(
-        CSSTransitionGroup,
+        CSSTransition,
         {
           className: styles.wrapper,
           component: 'div',
           style: {
             transform: 'translate3d(-' + 100 * index + '%, 0, 0)'
           },
-          transitionName: transition,
-          transitionEnterTimeout: 300,
-          transitionLeaveTimeout: 300
+          classNames: transition,
+          timeout: 300
         },
         Children.map(children, function (child, i) {
           return React.createElement(

@@ -164,8 +164,18 @@ var MonthList = function (_Component) {
     this.scrollEl = this.VirtualList.rootNode;
   };
 
-  MonthList.prototype.componentWillReceiveProps = function componentWillReceiveProps(_ref2) {
+  MonthList.prototype.UNSAFE_componentWillReceiveProps = function UNSAFE_componentWillReceiveProps(_ref2) {
     var scrollDate = _ref2.scrollDate;
+
+    if (scrollDate !== this.props.scrollDate) {
+      this.setState({
+        scrollTop: this.getDateOffset(scrollDate)
+      });
+    }
+  };
+
+  MonthList.prototype.componentWillReceiveProps = function componentWillReceiveProps(_ref3) {
+    var scrollDate = _ref3.scrollDate;
 
     if (scrollDate !== this.props.scrollDate) {
       this.setState({
@@ -220,7 +230,7 @@ var MonthList = function (_Component) {
 }(Component);
 
 export { MonthList as default };
-process.env.NODE_ENV !== "production" ? MonthList.propTypes = {
+MonthList.propTypes = process.env.NODE_ENV !== "production" ? {
   disabledDates: PropTypes.arrayOf(PropTypes.string),
   disabledDays: PropTypes.arrayOf(PropTypes.number),
   height: PropTypes.number,
@@ -239,4 +249,4 @@ process.env.NODE_ENV !== "production" ? MonthList.propTypes = {
   theme: PropTypes.object,
   today: PropTypes.instanceOf(Date),
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-} : void 0;
+} : {};

@@ -30,9 +30,11 @@ export default withImmutableProps(function (_ref) {
         {
           index: index !== -1 ? index : dates.length - 1,
           onChange: function onChange(index) {
-            return setDisplayDate(dates[index], setTimeout(function () {
-              return scrollToDate(dates[index], 0, true);
-            }, 50));
+            return setDisplayDate(dates[index], function () {
+              return setTimeout(function () {
+                return scrollToDate(dates[index], 0, true);
+              }, 50);
+            });
           }
         },
         dates.map(function (value) {

@@ -76,6 +76,8 @@ export var withDefaultProps = _defaultProps({
   YearsComponent: Years
 });
 
+/* eslint-disable react/no-deprecated */
+
 var Calendar = function (_Component) {
   _inherits(Calendar, _Component);
 
@@ -218,12 +220,29 @@ var Calendar = function (_Component) {
     }
   };
 
-  Calendar.prototype.componentWillUpdate = function componentWillUpdate(nextProps, nextState) {
+  Calendar.prototype.UNSAFE_componentWillUpdate = function UNSAFE_componentWillUpdate(nextProps, nextState) {
     var _props = this.props,
         min = _props.min,
         minDate = _props.minDate,
         max = _props.max,
         maxDate = _props.maxDate;
+
+
+    if (nextProps.min !== min || nextProps.minDate !== minDate || nextProps.max !== max || nextProps.maxDate !== maxDate) {
+      this.updateYears(nextProps);
+    }
+
+    if (nextProps.display !== this.props.display) {
+      this.setState({ display: nextProps.display });
+    }
+  };
+
+  Calendar.prototype.componentWillUpdate = function componentWillUpdate(nextProps, nextState) {
+    var _props2 = this.props,
+        min = _props2.min,
+        minDate = _props2.minDate,
+        max = _props2.max,
+        maxDate = _props2.maxDate;
 
 
     if (nextProps.min !== min || nextProps.minDate !== minDate || nextProps.max !== max || nextProps.maxDate !== maxDate) {
@@ -288,20 +307,20 @@ var Calendar = function (_Component) {
     var _classNames,
         _this2 = this;
 
-    var _props2 = this.props,
-        className = _props2.className,
-        passThrough = _props2.passThrough,
-        DayComponent = _props2.DayComponent,
-        disabledDays = _props2.disabledDays,
-        displayDate = _props2.displayDate,
-        height = _props2.height,
-        HeaderComponent = _props2.HeaderComponent,
-        rowHeight = _props2.rowHeight,
-        scrollDate = _props2.scrollDate,
-        selected = _props2.selected,
-        tabIndex = _props2.tabIndex,
-        width = _props2.width,
-        YearsComponent = _props2.YearsComponent;
+    var _props3 = this.props,
+        className = _props3.className,
+        passThrough = _props3.passThrough,
+        DayComponent = _props3.DayComponent,
+        disabledDays = _props3.disabledDays,
+        displayDate = _props3.displayDate,
+        height = _props3.height,
+        HeaderComponent = _props3.HeaderComponent,
+        rowHeight = _props3.rowHeight,
+        scrollDate = _props3.scrollDate,
+        selected = _props3.selected,
+        tabIndex = _props3.tabIndex,
+        width = _props3.width,
+        YearsComponent = _props3.YearsComponent;
 
     var _getDisplayOptions = this.getDisplayOptions(),
         hideYearsOnSelect = _getDisplayOptions.hideYearsOnSelect,
@@ -415,7 +434,7 @@ var Calendar = function (_Component) {
 }(Component);
 
 export { Calendar as default };
-process.env.NODE_ENV !== "production" ? Calendar.propTypes = {
+Calendar.propTypes = process.env.NODE_ENV !== "production" ? {
   autoFocus: PropTypes.bool,
   className: PropTypes.string,
   DayComponent: PropTypes.func,
@@ -472,5 +491,5 @@ process.env.NODE_ENV !== "production" ? Calendar.propTypes = {
   }),
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   YearsComponent: PropTypes.func
-} : void 0;
+} : {};
 ;

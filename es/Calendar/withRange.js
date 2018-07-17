@@ -96,7 +96,7 @@ var withRange = _compose(withDefaultProps, _withState('scrollDate', 'setScrollDa
         }
       },
       Years: {
-        selected: selected[displayKey],
+        selected: selected && selected[displayKey],
         onSelect: function onSelect(date) {
           return handleYearSelect(date, _extends({ displayKey: displayKey, selected: selected }, props));
         }
@@ -108,8 +108,8 @@ var withRange = _compose(withDefaultProps, _withState('scrollDate', 'setScrollDa
       }
     }),
     selected: {
-      start: format(selected.start, 'YYYY-MM-DD'),
-      end: format(selected.end, 'YYYY-MM-DD')
+      start: selected && format(selected.start, 'YYYY-MM-DD'),
+      end: selected && format(selected.end, 'YYYY-MM-DD')
     }
   };
 }));
@@ -241,7 +241,7 @@ function handleYearSelect(date, _ref7) {
 function getInitialDate(_ref8) {
   var selected = _ref8.selected;
 
-  return selected.start || new Date();
+  return selected && selected.start || new Date();
 }
 
 if (typeof window !== 'undefined') {

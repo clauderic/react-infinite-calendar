@@ -66,7 +66,7 @@ var Header = (_temp = _class = function (_PureComponent) {
   renderSelection: defaultSelectionRenderer
 }, _temp);
 export { Header as default };
-process.env.NODE_ENV !== "production" ? Header.propTypes = {
+Header.propTypes = process.env.NODE_ENV !== "production" ? {
   dateFormat: PropTypes.string,
   display: PropTypes.string,
   layout: PropTypes.string,
@@ -75,4 +75,4 @@ process.env.NODE_ENV !== "production" ? Header.propTypes = {
   selected: PropTypes.any,
   shouldAnimate: PropTypes.bool,
   theme: PropTypes.object
-} : void 0;
+} : {};
