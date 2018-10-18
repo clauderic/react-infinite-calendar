@@ -1,7 +1,6 @@
 @import "../variables";
-
 @mixin circle() {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -16,85 +15,75 @@
   display: inline-block;
   box-sizing: border-box;
   width: 1 / 7 * 100%;
-
   list-style: none;
-
   font-size: 16px;
   text-align: center;
-
   cursor: pointer;
   user-select: none;
-
   &.enabled {
-    &.highlighted, &:active, &:hover {
+    &.highlighted,
+    &:active,
+    &:hover {
       position: relative;
       z-index: 1;
-
       &:before {
         @include circle();
-
         background-color: $cellHoverBg;
         z-index: -1;
       }
     }
-
     &:hover:before {
       opacity: 0.5;
     }
-    &.highlighted:before, &:active:before {
+    &.highlighted:before,
+    &:active:before {
       opacity: 1;
     }
   }
-
-  &:first-child {
-      position: relative;
+  &.marked {
+    border-radius: 50%;
+    background-color: $cellMarkedBg;
   }
-
+  &:first-child {
+    position: relative;
+  }
   &.today {
-      position: relative;
-      z-index: 2;
-
-      > span {
-          color: $textColor;
-      }
-
-      &.disabled > span {
-          color: $textColorDisabled;
-      }
-
-      &:before {
-          @include circle();
-          box-shadow: inset 0 0 0 1px;
-          z-index: -1;
-      }
-
-      &.disabled:before {
-          box-shadow: inset 0 0 0 1px #BBB;
-      }
+    position: relative;
+    z-index: 2;
+    > span {
+      color: $textColor;
+    }
+    &.disabled > span {
+      color: $textColorDisabled;
+    }
+    &:before {
+      @include circle();
+      box-shadow: inset 0 0 0 1px;
+      z-index: -1;
+    }
+    &.disabled:before {
+      box-shadow: inset 0 0 0 1px #bbb;
+    }
   }
   &.selected {
     position: relative;
-
-    > .month, > .year {
+    > .month,
+    > .year {
       display: none;
     }
-
     &:before {
       display: none;
     }
-
     .selection {
       @include circle();
       line-height: $rowHeight;
       z-index: 2;
-
       .month {
         top: 9px;
       }
       .day {
         position: relative;
         top: 5px;
-
         font-weight: bold;
         font-size: 18px;
       }
@@ -106,11 +95,11 @@
   }
 }
 
-.month, .year {
+.month,
+.year {
   position: absolute;
   left: 0;
   right: 0;
-
   font-size: 12px;
   line-height: 12px;
   text-transform: capitalize;
@@ -127,10 +116,12 @@
 /*
  * Range selection styles
  */
+
 .range.selected {
-  &.start, &.end {
+  &.start,
+  &.end {
     &:after {
-      content: '';
+      content: "";
       position: absolute;
       top: 50%;
       width: 50%;
@@ -139,28 +130,24 @@
       box-shadow: inset $rowHeight $rowHeight;
     }
   }
-
   &.disabled {
     .selection.selection {
-      background-color: #EEE !important;
-
-      .day, .month {
-        color: #AAA;
+      background-color: #eee !important;
+      .day,
+      .month {
+        color: #aaa;
         font-weight: 300;
       }
     }
   }
-
   &.start {
     .selection {
       border-top-left-radius: 50%;
       border-bottom-left-radius: 50%;
     }
-
     &:after {
       right: 0;
     }
-
     &.end:after {
       display: none;
     }
@@ -188,16 +175,13 @@
     &:after {
       left: 0;
     }
-
     .selection {
       border-top-right-radius: 50%;
       border-bottom-right-radius: 50%;
-
       color: inherit !important;
-      background-color: #FFF !important;
+      background-color: #fff !important;
       border: 2px solid;
       box-sizing: border-box;
-
       .day {
         top: 4px;
       }
