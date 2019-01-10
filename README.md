@@ -131,7 +131,7 @@ React Infinite Calendar has very few dependencies. It relies on [`react-tiny-vir
 
 Reporting Issues
 ----------------
-If you find an [issue](https://github.com/clauderic/react-infinite-calendar/issues), please report it along with any relevant details to reproduce it. The easiest way to do so is to fork this [jsfiddle](https://jsfiddle.net/clauderic/4rhn03do/).
+If you find an [issue](https://github.com/clauderic/react-infinite-calendar/issues), please report it along with any relevant details to reproduce it. The easiest way to do so is to [fork this sandbox on CodeSandbox](https://codesandbox.io/s/zroj1zp7v4).
 
 Contributions
 ------------
