@@ -3,6 +3,8 @@
 </div>
 
 # React Infinite Calendar
+**Currently looking for maintainers to help maintain this project, please reach out if you would be interested**
+
 [![npm version](https://img.shields.io/npm/v/react-infinite-calendar.svg)](https://www.npmjs.com/package/react-infinite-calendar)
 [![downloads](https://img.shields.io/npm/dm/react-infinite-calendar.svg)](https://www.npmjs.com/package/react-infinite-calendar)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/clauderic/react-infinite-calendar/blob/master/LICENSE)
