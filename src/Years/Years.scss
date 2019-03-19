@@ -1,4 +1,7 @@
 @import "../variables";
+@import "../Calendar/Range/Range";
+
+$cellSize: 44px;
 
 .root {
   position: absolute;
@@ -41,7 +44,6 @@
 }
 
 .year {
-  $cellSize: 44px;
 
   display: flex;
   padding: 0 20px;
@@ -91,6 +93,7 @@
       justify-content: center;
       list-style: none;
       border-radius: 50%;
+      margin-bottom: 2px;
       box-sizing: border-box;
 
       color: #444;
@@ -106,6 +109,12 @@
         background-color: blue;
         color: #FFF !important;
         border: 0;
+
+        .selection {
+          @include circle($cellSize);
+          line-height: $cellSize;
+          z-index: 2;
+        }
       }
       &.disabled {
         cursor: not-allowed;
@@ -157,5 +166,76 @@
   }
   &.last {
     padding-bottom: $spacing;
+  }
+}
+
+/*
+ * Range selection styles
+ */
+.range.selected {
+  &.start, &.end {
+    &:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 50%;
+      height: $cellSize;
+      margin-top: -0.5 * $cellSize;
+      background-color: #559fff;
+    }
+  }
+
+  &.disabled {
+      background-color: #EEE !important;
+    .selection.selection {
+      background-color: #EEE !important;
+      color: #FFF;
+    }
+    &:after {
+        background-color: #EEE !important;
+    }
+  }
+
+  &.start {
+    .selection {
+      background-color: #448aff;
+      border-top-left-radius: 50%;
+      border-bottom-left-radius: 50%;
+    }
+
+    &:after {
+      right: 0;
+    }
+
+    &.end:after {
+      display: none;
+    }
+  }
+  &.betweenRange {
+    border-radius: 0;
+    .selection {
+      left: 0;
+      right: 0;
+      width: 100%;
+      margin-left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 0;
+    }
+  }
+  &.end {
+    &:after {
+      left: 0;
+    }
+
+    .selection {
+      border-top-right-radius: 50%;
+      border-bottom-right-radius: 50%;
+
+      color: #559fff;
+      background-color: #FFF;
+      box-sizing: border-box;
+    }
   }
 }

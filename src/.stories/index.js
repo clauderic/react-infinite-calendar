@@ -8,6 +8,7 @@ import InfiniteCalendar, {
   withKeyboardSupport,
   withMultipleDates,
   withRange,
+  withMonthRange,
 } from '../';
 import styles from './stories.scss';
 
@@ -64,6 +65,22 @@ storiesOf('Higher Order Components', module)
       }}
       Component={withRange(withKeyboardSupport(Calendar))}
     />
+  ))
+  .add('Month Range selection', () => (
+  <InfiniteCalendar
+    selected={{
+      start: subMonths(new Date(), 1),
+      end: addMonths(new Date(), 1),
+    }}
+    display={'years'}
+    displayOptions={{
+        showHeader: false,
+        hideYearsOnSelect: false,
+    }}
+    minDate={subMonths(new Date(), 10)}
+    maxDate={addMonths(new Date(), 10)}
+    Component={withMonthRange(Calendar)}
+  />
   ))
   .add('Multiple date selection', () => {
     return (
