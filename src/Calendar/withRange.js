@@ -69,7 +69,7 @@ export const withRange = compose(
         onSelect: (date) => handleYearSelect(date, {displayKey, selected, ...props}),
       },
       Header: {
-        onYearClick: (date, e, key) => setDisplayKey(key || 'start'),
+        onYearClick: (date, e, key) => setDisplayKey( key || 'start'),
       },
     },
     selected: {
@@ -124,8 +124,8 @@ function handleYearSelect(date, {displayKey, onSelect, selected, setScrollDate})
   );
 }
 
-function getInitialDate({selected}) {
-  return selected && selected.start || new Date();
+function getInitialDate({selected, initialSelectedDate}) {
+  return initialSelectedDate || selected && selected.start || new Date();
 }
 
 if (typeof window !== 'undefined') {

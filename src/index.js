@@ -7,6 +7,7 @@ export {withDateSelection} from './Calendar/withDateSelection';
 export {withKeyboardSupport} from './Calendar/withKeyboardSupport';
 export {withMultipleDates, defaultMultipleDateInterpolation} from './Calendar/withMultipleDates';
 export {withRange, EVENT_TYPE} from './Calendar/withRange';
+export {withMultipleRanges, EVENT_TYPES} from './Calendar/withMultipleRanges';
 
 /*
  * By default, Calendar is a controlled component.
@@ -27,10 +28,10 @@ export default class DefaultCalendar extends Component {
       this.setState({selected});
     }
   }
-  handleSelect = (selected) => {
+  handleSelect = (selected, eventData) => {
     const {onSelect, interpolateSelection} = this.props;
 
-    if (typeof onSelect === 'function') { onSelect(selected); }
+    if (typeof onSelect === 'function') { onSelect(selected, eventData); }
 
     this.setState({selected: interpolateSelection(selected, this.state.selected)});
   }
