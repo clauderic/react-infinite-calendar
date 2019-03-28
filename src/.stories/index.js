@@ -48,6 +48,12 @@ storiesOf('Basic settings', module)
       )}
     />
   ))
+  .add('Filter Dates', () => (
+    <InfiniteCalendar
+      selected={today}
+      filterDate={date => [format(today, 'YYYY-MM-DD'), format(addDays(today, 3), 'YYYY-MM-DD')].indexOf(format(date, 'YYYY-MM-DD')) !== -1} // Custom date filtering
+    />
+  ))
   .add('Disable Specific Weekdays', () => (
     <InfiniteCalendar disabledDays={[0, 6]} />
   ));

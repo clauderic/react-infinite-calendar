@@ -20,6 +20,7 @@ export default class MonthList extends Component {
   static propTypes = {
     disabledDates: PropTypes.arrayOf(PropTypes.string),
     disabledDays: PropTypes.arrayOf(PropTypes.number),
+    filterDate: PropTypes.func,
     height: PropTypes.number,
     isScrolling: PropTypes.bool,
     locale: PropTypes.object,
@@ -121,6 +122,7 @@ export default class MonthList extends Component {
       DayComponent,
       disabledDates,
       disabledDays,
+      filterDate,
       locale,
       maxDate,
       minDate,
@@ -145,6 +147,7 @@ export default class MonthList extends Component {
         monthDate={date}
         disabledDates={disabledDates}
         disabledDays={disabledDays}
+        filterDate={filterDate}
         maxDate={maxDate}
         minDate={minDate}
         rows={rows}
