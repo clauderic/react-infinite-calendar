@@ -157,7 +157,10 @@ export function getDateString(year, month, date) {
 }
 
 export function getMonthsForYear(year, day = 1) {
-  return Array.apply(null, Array(12)).map((val, index) => new Date(year, index, day));
+  return Array.apply(null, Array(12)).map((val, index) => {
+    const constrainedDay = Math.min(getDaysInMonth(new Date(year, index, 1)), day);
+    return new Date(year, index, constrainedDay);
+  });
 }
 
 export const withImmutableProps = (props) => withPropsOnChange(() => false, props);
