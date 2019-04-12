@@ -282,10 +282,8 @@
     .Cal__Today__root.Cal__Today__show .Cal__Today__chevron {
       transition: transform 0.3s ease; }
   .Cal__Today__root .Cal__Today__chevron {
-    position: absolute;
-    top: 50%;
-    margin-top: -6px;
-    margin-left: 5px;
+    position: relative;
+    margin-left: 10px;
     transform: rotate(270deg);
     transition: transform 0.3s ease; }
   .Cal__Today__root.Cal__Today__chevronUp .Cal__Today__chevron {
