@@ -114,6 +114,12 @@
   border-top-left-radius: 50%;
   border-bottom-left-radius: 50%; }
 
+.Cal__Month__row.Cal__Month__partial:first-child li:first-child.Cal__Day__range div.Cal__Day__selection {
+    border-left: 1px solid #448AFF; }
+
+.Cal__Month__row.Cal__Month__partial:first-child li:first-child.Cal__Day__range.Cal__Day__selected.Cal__Day__end::after {
+    border-left: 1px solid #448AFF; }
+
 .Cal__Day__range.Cal__Day__selected.Cal__Day__start:after {
   right: 0; }
 
