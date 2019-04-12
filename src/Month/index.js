@@ -9,6 +9,7 @@ import styles from './Month.scss';
 export default class Month extends PureComponent {
   renderRows() {
     const {
+      dateClassObj,
       DayComponent,
       disabledDates,
       disabledDays,
@@ -71,6 +72,7 @@ export default class Month extends PureComponent {
             monthShort={monthShort}
 						theme={theme}
             year={year}
+            className={dateClassObj[date]}
             {...passThrough.Day}
 					/>
 				);

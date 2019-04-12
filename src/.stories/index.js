@@ -50,6 +50,19 @@ storiesOf('Basic settings', module)
   ))
   .add('Disable Specific Weekdays', () => (
     <InfiniteCalendar disabledDays={[0, 6]} />
+  ))
+  .add('Assign Custom Classes Specific Dates', () => (
+    <InfiniteCalendar dateClasses={[{
+      className: "yellowBg",
+      dates: [-10, -5, -6, 5, 6, 7, 2].map(amount =>
+        addDays(today, amount)
+      ),
+    },{
+      className: "boldText",
+      dates: [-10, -7, 2, 5, 6, 10].map(amount =>
+        addDays(today, amount)
+      )
+    }]} />
   ));
 
 storiesOf('Higher Order Components', module)

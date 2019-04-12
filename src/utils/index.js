@@ -187,3 +187,26 @@ export function range(start, stop, step = 1) {
 };
 
 export {default as animate} from './animate';
+
+export function getDateClasses(dateClasses){
+  const dateClassObj = {};
+
+  if(dateClasses){
+
+    dateClasses.forEach(dateClass => {
+
+      dateClass.dates.forEach(dateItem => {
+        const year = dateItem.getFullYear();
+        const month = dateItem.getMonth();
+        const day = dateItem.getDate();
+        const date = getDateString(year, month, day);
+        dateClassObj[date] = dateClassObj[date] ? `${dateClassObj[date]} ${dateClass.className}` : dateClass.className;
+
+      });
+
+    });
+
+  }
+
+  return dateClassObj;
+}
