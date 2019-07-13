@@ -29,10 +29,11 @@ export default class DefaultCalendar extends Component {
   }
   handleSelect = (selected) => {
     const {onSelect, interpolateSelection} = this.props;
+    const interpolatedSelection = interpolateSelection(selected, this.state.selected);
 
-    if (typeof onSelect === 'function') { onSelect(selected); }
+    if (typeof onSelect === 'function') { onSelect(interpolatedSelection); }
 
-    this.setState({selected: interpolateSelection(selected, this.state.selected)});
+    this.setState({selected: interpolatedSelection});
   }
   render() {
     // eslint-disable-next-line no-unused-vars
