@@ -1,33 +1,3 @@
-/*  imported from Container.scss  */
-
-.Cal__Container__root {
-  position: relative;
-  display: table;
-  z-index: 1;
-  font-family: 'Lato', sans-serif;
-  font-size: 12px;
-  line-height: 1.4em;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-weight: 300;
-  outline: none;
-  text-align: left;
-  border-bottom: 1px solid #c6d3df; }
-  .Cal__Container__root.Cal__Container__landscape {
-    display: flex;
-    flex-direction: row; }
-    .Cal__Container__root.Cal__Container__landscape .Cal__Container__wrapper {
-      position: relative;
-      flex-grow: 1;
-      overflow: hidden;
-      z-index: 1;
-      border-top-right-radius: 3px;
-      border-bottom-right-radius: 3px; }
-
-.Cal__Container__listWrapper {
-  position: relative;
-  overflow: hidden;
-  background-color: #FFF; }
 /*
   imported from Day.scss 
  */
@@ -178,65 +148,36 @@
   border-top-right-radius: 50%;
   border-bottom-right-radius: 50%;
   box-sizing: border-box; }
-/*  imported from Slider.scss  */
+/*  imported from Container.scss  */
 
-.Cal__Slider__root, .Cal__Slider__slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0; }
-
-.Cal__Slider__root {
-  overflow: hidden; }
-
-.Cal__Slider__slide {
-  padding: 20px 65px; }
-  .Cal__Slider__slide:first-child {
-    padding-left: 20px; }
-
-.Cal__Slider__wrapper {
-  height: 100%;
-  transition: transform 0.3s ease; }
-
-.Cal__Slider__arrow {
-  position: absolute;
-  top: 0;
+.Cal__Container__root {
+  position: relative;
+  display: table;
   z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 100%;
-  opacity: 0.7;
-  cursor: pointer;
-  border-left: 1px solid rgba(255, 255, 255, 0.1); }
-  .Cal__Slider__arrow svg {
-    width: 15px; }
-  .Cal__Slider__arrow:hover {
-    opacity: 1; }
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  line-height: 1.4em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 300;
+  outline: none;
+  text-align: left;
+  border-bottom: 1px solid #c6d3df; }
+  .Cal__Container__root.Cal__Container__landscape {
+    display: flex;
+    flex-direction: row; }
+    .Cal__Container__root.Cal__Container__landscape .Cal__Container__wrapper {
+      position: relative;
+      flex-grow: 1;
+      overflow: hidden;
+      z-index: 1;
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px; }
 
-.Cal__Slider__arrowRight {
-  right: 0; }
-
-.Cal__Slider__arrowLeft {
-  left: 0;
-  transform: scaleX(-1); }
-/*  imported from transition.scss  */
-
-.Cal__transition__enter {
-  opacity: 0; }
-
-.Cal__transition__enterActive {
-  opacity: 1;
-  transition: opacity 0.3s ease; }
-
-.Cal__transition__leave {
-  opacity: 1; }
-
-.Cal__transition__leaveActive {
-  opacity: 0;
-  transition: opacity 0.3s ease; }
+.Cal__Container__listWrapper {
+  position: relative;
+  overflow: hidden;
+  background-color: #FFF; }
 /*  imported from Header.scss  */
 
 .Cal__Header__root {
@@ -322,52 +263,6 @@
   .Cal__Header__range .Cal__Header__wrapper .Cal__Header__date {
     white-space: nowrap;
     z-index: 1; }
-/*  imported from Animation.scss  */
-
-.Cal__Animation__enter {
-  opacity: 0;
-  transform: translate3d(0, -100%, 0);
-  transition: 0.25s ease; }
-
-.Cal__Animation__enter.Cal__Animation__enterActive {
-  opacity: 1;
-  transform: translate3d(0, 0, 0); }
-
-.Cal__Animation__leave {
-  transform: translate3d(0, 0, 0);
-  transition: 0.25s ease; }
-
-.Cal__Animation__leave.Cal__Animation__leaveActive {
-  opacity: 0;
-  transform: translate3d(0, 100%, 0); }
-/*  imported from Month.scss  */
-
-.Cal__Month__root {
-  position: absolute;
-  width: 100%; }
-
-.Cal__Month__rows {
-  position: relative;
-  background-color: white; }
-
-.Cal__Month__row {
-  padding: 0;
-  margin: 0; }
-  .Cal__Month__row:first-child {
-    text-align: right; }
-
-.Cal__Month__label {
-  text-align: center; }
-/*  imported from MonthList.scss  */
-
-.Cal__MonthList__root {
-  width: 100% !important;
-  background-color: #FFF;
-  -webkit-overflow-scrolling: touch; }
-  .Cal__MonthList__root.Cal__MonthList__scrolling > div {
-    pointer-events: none; }
-  .Cal__MonthList__root.Cal__MonthList__scrolling label {
-    opacity: 1; }
 /*  imported from Today.scss  */
 
 .Cal__Today__root {
@@ -404,6 +299,16 @@
     transform: rotate(180deg); }
   .Cal__Today__root.Cal__Today__chevronDown .Cal__Today__chevron {
     transform: rotate(360deg); }
+/*  imported from MonthList.scss  */
+
+.Cal__MonthList__root {
+  width: 100% !important;
+  background-color: #FFF;
+  -webkit-overflow-scrolling: touch; }
+  .Cal__MonthList__root.Cal__MonthList__scrolling > div {
+    pointer-events: none; }
+  .Cal__MonthList__root.Cal__MonthList__scrolling label {
+    opacity: 1; }
 /*  imported from Weekdays.scss  */
 
 .Cal__Weekdays__root {
@@ -533,3 +438,98 @@
     padding-top: 40px; }
   .Cal__Years__year.Cal__Years__last {
     padding-bottom: 40px; }
+/*  imported from Animation.scss  */
+
+.Cal__Animation__enter {
+  opacity: 0;
+  transform: translate3d(0, -100%, 0);
+  transition: 0.25s ease; }
+
+.Cal__Animation__enter.Cal__Animation__enterActive {
+  opacity: 1;
+  transform: translate3d(0, 0, 0); }
+
+.Cal__Animation__leave {
+  transform: translate3d(0, 0, 0);
+  transition: 0.25s ease; }
+
+.Cal__Animation__leave.Cal__Animation__leaveActive {
+  opacity: 0;
+  transform: translate3d(0, 100%, 0); }
+/*  imported from Slider.scss  */
+
+.Cal__Slider__root, .Cal__Slider__slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0; }
+
+.Cal__Slider__root {
+  overflow: hidden; }
+
+.Cal__Slider__slide {
+  padding: 20px 65px; }
+  .Cal__Slider__slide:first-child {
+    padding-left: 20px; }
+
+.Cal__Slider__wrapper {
+  height: 100%;
+  transition: transform 0.3s ease; }
+
+.Cal__Slider__arrow {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 100%;
+  opacity: 0.7;
+  cursor: pointer;
+  border-left: 1px solid rgba(255, 255, 255, 0.1); }
+  .Cal__Slider__arrow svg {
+    width: 15px; }
+  .Cal__Slider__arrow:hover {
+    opacity: 1; }
+
+.Cal__Slider__arrowRight {
+  right: 0; }
+
+.Cal__Slider__arrowLeft {
+  left: 0;
+  transform: scaleX(-1); }
+/*  imported from transition.scss  */
+
+.Cal__transition__enter {
+  opacity: 0; }
+
+.Cal__transition__enterActive {
+  opacity: 1;
+  transition: opacity 0.3s ease; }
+
+.Cal__transition__leave {
+  opacity: 1; }
+
+.Cal__transition__leaveActive {
+  opacity: 0;
+  transition: opacity 0.3s ease; }
+/*  imported from Month.scss  */
+
+.Cal__Month__root {
+  position: absolute;
+  width: 100%; }
+
+.Cal__Month__rows {
+  position: relative;
+  background-color: white; }
+
+.Cal__Month__row {
+  padding: 0;
+  margin: 0; }
+  .Cal__Month__row:first-child {
+    text-align: right; }
+
+.Cal__Month__label {
+  text-align: center; }
