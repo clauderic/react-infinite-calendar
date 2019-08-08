@@ -1,6 +1,8 @@
 @import "../variables";
 
 .root {
+  background-color: white;
+  color: #c6d3df;
   position: relative;
   z-index: 5;
 
@@ -8,7 +10,7 @@
   padding: 0;
   margin: 0;
   list-style: none;
-  box-shadow: inset 0 -1px rgba(0,0,0,0.04);
+  border-bottom: 2px solid #c6d3df;
 }
 
 .day {

@@ -7,6 +7,7 @@ import {
   getMonth,
   getWeek,
   getWeeksInMonth,
+  getRenderedWeekRows,
   animate,
 } from '../utils';
 import parse from 'date-fns/parse';
@@ -80,7 +81,7 @@ export default class MonthList extends Component {
 
   getDateOffset(date) {
     const {min, rowHeight, locale: {weekStartsOn}, height} = this.props;
-    const weeks = getWeek(startOfMonth(min), parse(date), weekStartsOn);
+    const weeks = getRenderedWeekRows(startOfMonth(min), parse(date), weekStartsOn);
 
     return weeks * rowHeight - (height - rowHeight/2) / 2;
   }

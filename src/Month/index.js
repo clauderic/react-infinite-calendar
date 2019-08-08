@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import {getDateString} from '../utils';
 import format from 'date-fns/format';
 import getDay from 'date-fns/get_day';
-import isSameYear from 'date-fns/is_same_year';
 import styles from './Month.scss';
 
 export default class Month extends PureComponent {
@@ -95,23 +94,12 @@ export default class Month extends PureComponent {
   }
 
   render() {
-    const {locale: {locale}, monthDate, today, rows, rowHeight, showOverlay, style, theme} = this.props;
-    const dateFormat = isSameYear(monthDate, today) ? 'MMMM' : 'MMMM YYYY';
-
+    const {locale: {locale}, monthDate, rowHeight, style} = this.props;
     return (
       <div className={styles.root} style={{...style, lineHeight: `${rowHeight}px`}}>
+          <div className={styles.label}>{format(monthDate, 'MMMM YYYY', {locale})}</div>
   				<div className={styles.rows}>
   					{this.renderRows()}
-  					{showOverlay &&
-  						<label
-                className={classNames(styles.label, {
-                  [styles.partialFirstRow]: rows[0].length !== 7,
-                })}
-                style={{backgroundColor: theme.overlayColor}}
-              >
-                <span>{format(monthDate, dateFormat, {locale})}</span>
-              </label>
-  					}
   				</div>
   			</div>
     );

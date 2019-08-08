@@ -19,7 +19,6 @@
 
   list-style: none;
 
-  font-size: 16px;
   text-align: center;
 
   cursor: pointer;
@@ -85,18 +84,15 @@
 
     .selection {
       @include circle();
+      display: flex;
+      justify-content: center;
+      align-items: center;
       line-height: $rowHeight;
       z-index: 2;
 
-      .month {
-        top: 9px;
-      }
       .day {
         position: relative;
-        top: 5px;
-
         font-weight: bold;
-        font-size: 18px;
       }
     }
   }
@@ -114,10 +110,6 @@
   font-size: 12px;
   line-height: 12px;
   text-transform: capitalize;
-}
-
-.month {
-  top: 5px;
 }
 
 .year {
@@ -176,9 +168,21 @@
       align-items: center;
       border-radius: 0;
     }
+
+    &:last-child {
+      .selection {
+        border-radius: 0 17px 17px 0
+      }
+    }
+
+    &:first-child {
+      .selection {
+        border-radius: 17px 0 0 17px
+      }
+    }
+
     .day {
       top: 0;
-      font-size: 16px;
     }
     .month {
       display: none;
@@ -192,15 +196,7 @@
     .selection {
       border-top-right-radius: 50%;
       border-bottom-right-radius: 50%;
-
-      color: inherit !important;
-      background-color: #FFF !important;
-      border: 2px solid;
       box-sizing: border-box;
-
-      .day {
-        top: 4px;
-      }
     }
   }
 }
