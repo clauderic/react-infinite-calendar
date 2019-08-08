@@ -168,6 +168,19 @@
       align-items: center;
       border-radius: 0;
     }
+
+    &:last-child {
+      .selection {
+        border-radius: 0 17px 17px 0
+      }
+    }
+
+    &:first-child {
+      .selection {
+        border-radius: 17px 0 0 17px
+      }
+    }
+
     .day {
       top: 0;
     }
@@ -183,10 +196,6 @@
     .selection {
       border-top-right-radius: 50%;
       border-bottom-right-radius: 50%;
-
-      color: inherit !important;
-      background-color: #FFF !important;
-      border: 2px solid;
       box-sizing: border-box;
     }
   }

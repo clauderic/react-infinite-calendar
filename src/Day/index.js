@@ -50,9 +50,7 @@ export default class Day extends PureComponent {
     let color;
 
     if (isSelected) {
-      color = this.selectionColor = typeof selectionColor === 'function'
-        ? selectionColor(date)
-        : selectionColor;
+      color = this.selectionColor = selectionColor;
     } else if (isToday) {
       color = todayColor;
     }
