@@ -20,3 +20,7 @@ const today = new Date();
 
 const stories = storiesOf('Basic settings', module)
 stories.add('Customized version', () => <InfiniteCalendar  />)
+stories.add('With preselected dates', () => <InfiniteCalendar selected={{
+  start: today,
+  end: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 8)
+}} />)

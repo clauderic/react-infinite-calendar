@@ -80,7 +80,7 @@ export function getRenderedWeekRows(start, date, weekStartsOn) {
   // we add those by hand
   const startedMonthWeeks = Math.floor(date.getDate() / 7);
 
-  return renderedWeeks + startedMonthWeeks;
+  return renderedWeeks + startedMonthWeeks + 1;
 }
 
 export function getWeek(yearStart, date, weekStartsOn) {
@@ -114,8 +114,8 @@ export function getWeeksInMonth(
 
   let rowCount = lastWeekNumber - firstWeekNumber;
 
-  // We also want to include started weeks
-  return rowCount + 1;
+  // We also want to include started weeks and the month inidcator
+  return rowCount + 2;
 }
 
 /**
