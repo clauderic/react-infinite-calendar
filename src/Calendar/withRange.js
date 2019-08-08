@@ -23,8 +23,7 @@ export const enhanceDay = withPropsOnChange(['selected'], ({date, selected, them
   const isEnd = date === selected.end;
   const isRange = !(isStart && isEnd);
   const style = isRange && (
-    isStart && {backgroundColor: theme.accentColor} ||
-    isEnd && {borderColor: theme.accentColor}
+    (isStart || isEnd) && {backgroundColor: theme.accentColor, color: '#FFF'}
   );
 
   return {
