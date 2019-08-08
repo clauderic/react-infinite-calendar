@@ -102,12 +102,11 @@ export default class Month extends PureComponent {
       <div className={styles.root} style={{...style, lineHeight: `${rowHeight}px`}}>
   				<div className={styles.rows}>
   					{this.renderRows()}
-  					{showOverlay &&
+  					{false &&
   						<label
                 className={classNames(styles.label, {
                   [styles.partialFirstRow]: rows[0].length !== 7,
                 })}
-                style={{backgroundColor: theme.overlayColor}}
               >
                 <span>{format(monthDate, dateFormat, {locale})}</span>
               </label>

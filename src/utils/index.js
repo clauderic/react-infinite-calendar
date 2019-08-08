@@ -56,6 +56,33 @@ export function getMonth(year, month, weekStartsOn) {
   };
 }
 
+function isInCurrentMonth(controlVar, elimVar) {
+  if (controlVar.getFullYear() !== elimVar.getFullYear()) return false;
+
+  return controlVar.getMonth() === elimVar.getMonth();
+}
+
+export function getRenderedWeekRows(start, date, weekStartsOn) {
+  const startDate = (typeof start === 'number')
+    ? new Date(start, 0, 1) // 1st Jan of the Year
+    : start;
+
+  let renderedWeeks = 0;
+
+  // Loop from start to date in monthly steps
+  for (let d = startDate; !isInCurrentMonth(d, date); d.setMonth(d.getMonth() + 1)) {
+    let numOfWeeks = getWeeksInMonth(d.getMonth(), d.getFullYear(), weekStartsOn);
+
+    renderedWeeks += numOfWeeks;
+  }
+
+  // The loop does not consider the weeks in the started month, so
+  // we add those by hand
+  const startedMonthWeeks = Math.floor(date.getDate() / 7);
+
+  return renderedWeeks + startedMonthWeeks;
+}
+
 export function getWeek(yearStart, date, weekStartsOn) {
   const yearStartDate = (typeof yearStart === 'number')
     ? new Date(yearStart, 0, 1) // 1st Jan of the Year
@@ -79,8 +106,6 @@ export function getWeeksInMonth(
   weekStartsOn,
   isLastDisplayedMonth
 ) {
-  const weekEndsOn = getEndOfWeekIndex(weekStartsOn);
-
   const firstOfMonth = new Date(year, month, 1);
   const firstWeekNumber = getWeek(year, firstOfMonth, weekStartsOn);
 
@@ -89,12 +114,8 @@ export function getWeeksInMonth(
 
   let rowCount = lastWeekNumber - firstWeekNumber;
 
-  // If the last week contains 7 days, we need to add an extra row
-  if (lastOfMonth.getDay() === weekEndsOn || isLastDisplayedMonth) {
-    rowCount++;
-  }
-
-  return rowCount;
+  // We also want to include started weeks
+  return rowCount + 1;
 }
 
 /**

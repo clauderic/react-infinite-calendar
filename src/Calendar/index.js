@@ -25,7 +25,11 @@ export const withDefaultProps = defaultProps({
   autoFocus: true,
   DayComponent: Day,
   display: 'days',
-  displayOptions: {},
+  displayOptions: {
+    showHeader: false,
+    showOverlay: false,
+    showTodayHelper: false,
+  },
   HeaderComponent: Header,
   height: 500,
   keyboardSupport: true,

@@ -1,8 +1,8 @@
 @import "../variables";
 
 .root {
-  // position: absolute;
-  // width: 100%;
+  position: absolute;
+  width: 100%;
 }
 .rows {
   position: relative;
@@ -55,9 +55,6 @@
   pointer-events: none;
 
   background-color: rgba(255,255,255,0.6);
-
-  opacity: 0;
-  transition: opacity 0.3s ease;
 
   > span {
     position: absolute;
