@@ -24,3 +24,7 @@ stories.add('With preselected dates', () => <InfiniteCalendar selected={{
   start: today,
   end: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 8)
 }} />)
+stories.add('With preselected dates in disabled range', () => <InfiniteCalendar selected={{
+  start: today,
+  end: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 8)
+}} maxDate={new Date(today.getFullYear(), today.getMonth(), today.getDate() + 5)} minDate={today}/>)

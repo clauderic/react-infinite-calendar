@@ -141,6 +141,10 @@
         font-weight: 300;
       }
     }
+    
+    &.end:after {
+      color: #EEE !important;
+    }
   }
 
   &.start {
