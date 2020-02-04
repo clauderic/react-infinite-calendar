@@ -1,6 +1,6 @@
 /* eslint-disable sort-keys */
 import React from 'react';
-import {addDecorator, storiesOf} from '@kadira/storybook';
+import {addDecorator, storiesOf} from '@storybook/react';
 import InfiniteCalendar, {
   Calendar,
   defaultMultipleDateInterpolation,
@@ -63,6 +63,19 @@ storiesOf('Higher Order Components', module)
         headerFormat: 'MMM Do',
       }}
       Component={withRange(withKeyboardSupport(Calendar))}
+    />
+  ))
+  .add('Range selection on doucle click', () => (
+    <InfiniteCalendar
+      selected={{
+        start: addDays(new Date(), 2),
+        end: addDays(new Date(), 17),
+      }}
+      locale={{
+        headerFormat: 'MMM Do',
+      }}
+      Component={withRange(withKeyboardSupport(Calendar))}
+      rangeSelectOnDoubleClick={true}
     />
   ))
   .add('Multiple date selection', () => {
@@ -210,3 +223,58 @@ storiesOf('Events', module)
         console.info('onScroll() – Scroll top:', scrollTop)}
     />,
   ]);
+
+storiesOf('API', module)
+  .add('getScrollDate', () => {
+    const rowHeight = 56;
+    const height = 500;
+    let calendarInstance;
+
+    const displayDate = offset => {
+      const date = calendarInstance.getScrollDate(offset);
+      alert(date);
+    };
+
+    return (
+      <div>
+        <button type='button' onClick={e => displayDate(rowHeight / 2)} style={{fontSize: '1em'}}>Top viewport date</button>
+        <button type='button' onClick={e => displayDate(height - rowHeight / 2)} style={{fontSize: '1em', float: 'right'}}>Bottom viewport date</button>
+        <InfiniteCalendar
+          height={height}
+          rowHeight={rowHeight}
+          ref={cal => calendarInstance = cal}
+        />
+      </div>
+    );
+  })
+  .add('scrollToDate', () => {
+    const rowHeight = 56;
+    const height = 500;
+    let calendarInstance;
+
+    const scrollToMonth = monthOffset => {
+      const viewportOffset = (height - rowHeight) / 2;
+      const date = calendarInstance.getScrollDate(viewportOffset);
+      const endRowDate = addDays(date, 6);
+      if (date.getMonth() !== endRowDate.getMonth()) 
+        monthOffset += 1;
+
+      const startOfNextMonth = addMonths(new Date(date), monthOffset);
+      startOfNextMonth.setDate(1);
+
+      calendarInstance.scrollToDate(startOfNextMonth, 0, true);
+    };
+
+    return (
+      <div>
+        <button type='button' onClick={e => scrollToMonth(-1)} style={{fontSize: '1em'}}>Previous month</button>
+        <button type='button' onClick={e => scrollToMonth(+1)} style={{fontSize: '1em', float: 'right'}}>Next month</button>
+        <InfiniteCalendar
+          height={height}
+          rowHeight={rowHeight}
+          ref={cal => calendarInstance = cal}
+        />
+      </div>
+    );
+  });
+

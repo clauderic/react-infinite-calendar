@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import VirtualList from 'react-tiny-virtual-list';
 import classNames from 'classnames';
@@ -11,12 +11,14 @@ import {
 } from '../utils';
 import parse from 'date-fns/parse';
 import startOfMonth from 'date-fns/start_of_month';
+import addWeeks from 'date-fns/add_weeks';
+import setDay from 'date-fns/set_day';
 import Month from '../Month';
 import styles from './MonthList.scss';
 
 const AVERAGE_ROWS_PER_MONTH = 5;
 
-export default class MonthList extends Component {
+export default class MonthList extends PureComponent {
   static propTypes = {
     disabledDates: PropTypes.arrayOf(PropTypes.string),
     disabledDays: PropTypes.arrayOf(PropTypes.number),
@@ -37,10 +39,21 @@ export default class MonthList extends Component {
     today: PropTypes.instanceOf(Date),
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   };
-  state = {
-    scrollTop: this.getDateOffset(this.props.scrollDate),
-  };
-  cache = {};
+
+  constructor(props) {
+    super();
+
+    const dateOffset = this.getDateOffset.call({props}, props.scrollDate);
+    const viewportCenterOffset = (props.height - props.rowHeight/2) / 2;
+
+    this.state = {
+      scrollTop: Math.max(0, dateOffset - viewportCenterOffset),
+    };
+
+    this.cache = {};
+    this.monthHeights = [];
+  }
+
   memoize = function(param) {
     if (!this.cache[param]) {
       const {locale: {weekStartsOn}} = this.props;
@@ -50,7 +63,6 @@ export default class MonthList extends Component {
     }
     return this.cache[param];
   };
-  monthHeights = [];
 
   _getRef = (instance) => { this.VirtualList = instance; }
 
@@ -72,17 +84,30 @@ export default class MonthList extends Component {
 
   componentWillReceiveProps({scrollDate}) {
     if (scrollDate !== this.props.scrollDate) {
+      const dateOffset = this.getDateOffset(scrollDate);
+      const viewportCenterOffset = (this.props.height - this.props.rowHeight/2) / 2;
+
       this.setState({
-        scrollTop: this.getDateOffset(scrollDate),
+        scrollTop: Math.max(0, dateOffset - viewportCenterOffset),
       });
     }
   }
 
   getDateOffset(date) {
-    const {min, rowHeight, locale: {weekStartsOn}, height} = this.props;
+    const {min, rowHeight, locale: {weekStartsOn}} = this.props;
     const weeks = getWeek(startOfMonth(min), parse(date), weekStartsOn);
 
-    return weeks * rowHeight - (height - rowHeight/2) / 2;
+    return (weeks - 1) * rowHeight;
+  }
+
+  getScrollDate(offset = 0) {
+    const {min, locale: {weekStartsOn}, rowHeight} = this.props;
+
+    const scrollTop = this.scrollEl.scrollTop;
+    const scrollOffset = scrollTop + offset;
+    const weeks = Math.floor(scrollOffset / rowHeight);
+    const date = addWeeks(new Date(min), weeks);
+    return setDay(date, weekStartsOn);
   }
 
   scrollToDate = (date, offset = 0, ...rest) => {

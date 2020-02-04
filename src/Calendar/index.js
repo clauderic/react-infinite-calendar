@@ -48,12 +48,14 @@ export default class Calendar extends Component {
   constructor(props) {
     super(...arguments);
 
+    this.today = startOfDay(new Date());
     this.updateYears(props);
 
     this.state = {
       display: props.display,
     };
   }
+
   static propTypes = {
     autoFocus: PropTypes.bool,
     className: PropTypes.string,
@@ -179,6 +181,11 @@ export default class Calendar extends Component {
   getDateOffset = (date) => {
     return this._MonthList && this._MonthList.getDateOffset(date);
   };
+
+  getScrollDate = (offset) => {
+    return this._MonthList && this._MonthList.getScrollDate(offset);
+  };
+
   scrollTo = (offset) => {
     return this._MonthList && this._MonthList.scrollTo(offset);
   }
@@ -295,7 +302,7 @@ export default class Calendar extends Component {
     const disabledDates = this.getDisabledDates(this.props.disabledDates);
     const locale = this.getLocale();
     const theme = this.getTheme();
-    const today = this.today = startOfDay(new Date());
+    const today = this.today;
 
     return (
       <div

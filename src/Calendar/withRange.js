@@ -52,12 +52,16 @@ export const withRange = compose(
     DayComponent: enhanceDay(DayComponent),
     HeaderComponent: enhanceHeader(HeaderComponent),
   })),
-  withProps(({displayKey, passThrough, selected, setDisplayKey, ...props}) => ({
+  withProps(({displayKey, passThrough, withRef, selected, setDisplayKey, ...props}) => ({
     /* eslint-disable sort-keys */
+    ref: withRef,
     passThrough: {
       ...passThrough,
       Day: {
-        onClick: (date) => handleSelect(date, {selected, ...props}),
+        onClick: (date) => handleSelect(date, props),
+        onDoubleClick: props.rangeSelectOnDoubleClick 
+          ? date => handleDoubleClickSelect(date, props)
+          : null,
         handlers: {
           onMouseOver: !isTouchDevice && props.selectionStart
             ? (e) => handleMouseOver(e, {selected, ...props})
@@ -85,7 +89,7 @@ function getSortedSelection({start, end}) {
     : {start: end, end: start};
 }
 
-function handleSelect(date, {onSelect, selected, selectionStart, setSelectionStart}) {
+function handleSelect(date, {onSelect, selectionStart, setSelectionStart, rangeSelectOnDoubleClick}) {
   if (selectionStart) {
     onSelect({
       eventType: EVENT_TYPE.END,
@@ -95,10 +99,19 @@ function handleSelect(date, {onSelect, selected, selectionStart, setSelectionSta
       }),
     });
     setSelectionStart(null);
-  } else {
+  } 
+  else if (rangeSelectOnDoubleClick)
+    // Case where selection is not stated, ie a single click
+    onSelect({eventType: EVENT_TYPE.END, start: date, end: date});
+  else {
     onSelect({eventType:EVENT_TYPE.START, start: date, end: date});
     setSelectionStart(date);
   }
+}
+
+function handleDoubleClickSelect(date, {onSelect, selectionStart, setSelectionStart}) {
+  onSelect({eventType: EVENT_TYPE.START, start: date, end: date});
+  setSelectionStart(date);
 }
 
 function handleMouseOver(e, {onSelect, selectionStart}) {

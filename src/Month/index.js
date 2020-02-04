@@ -1,12 +1,32 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
+import shallowEqual from 'fbjs/lib/shallowEqual';
 import classNames from 'classnames';
 import {getDateString} from '../utils';
 import format from 'date-fns/format';
 import getDay from 'date-fns/get_day';
 import isSameYear from 'date-fns/is_same_year';
+import endOfMonth from 'date-fns/end_of_month';
 import styles from './Month.scss';
 
-export default class Month extends PureComponent {
+export default class Month extends Component {
+  componentDidMount() {
+    this.startMonth = format(this.props.monthDate, 'YYYY-MM-DD');
+    this.endMonth = format(endOfMonth(this.props.monthDate), 'YYYY-MM-DD');
+  }
+
+  shouldComponentUpdate(nextProps) {
+    const {selected: nextSelected, ...nextRest} = nextProps;
+    const {selected, ...rest} = this.props;
+
+    const selectedDaysOverlapMonth = nextSelected !== selected
+      && (
+           (nextSelected.start <= this.endMonth && nextSelected.end >= this.startMonth) // Update month for next selection
+        || (selected.start <= this.endMonth && selected.end >= this.startMonth)         // Update month for former selection
+      );
+
+    return !shallowEqual(nextRest, rest) || selectedDaysOverlapMonth;
+  }
+
   renderRows() {
     const {
       DayComponent,
@@ -23,6 +43,7 @@ export default class Month extends PureComponent {
       theme,
       passThrough,
     } = this.props;
+
     const currentYear = today.getFullYear();
     const year = monthDate.getFullYear();
     const month = monthDate.getMonth();

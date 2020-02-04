@@ -29,7 +29,8 @@ export const withMultipleDates = compose(
     HeaderComponent: enhanceHeader(HeaderComponent),
     YearsComponent: enhanceYears(YearsComponent),
   })),
-  withProps(({displayDate, onSelect, setDisplayDate, scrollToDate, ...props}) => ({
+  withProps(({displayDate, onSelect, setDisplayDate, scrollToDate, withRef, ...props}) => ({
+    ref: withRef,
     passThrough: {
       Day: {
         onClick: (date) => handleSelect(date, {onSelect, setDisplayDate}),

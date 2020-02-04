@@ -30,10 +30,11 @@ export const withDateSelection = compose(
     YearsComponent: enhanceYear(YearsComponent),
   })),
   withState('scrollDate', 'setScrollDate', props => props.selected || new Date()),
-  withProps(({onSelect, setScrollDate, ...props}) => {
+  withProps(({onSelect, setScrollDate, withRef, ...props}) => {
     const selected = sanitizeDate(props.selected, props);
 
     return {
+      ref: withRef,
       passThrough: {
         Day: {
           onClick: onSelect,
