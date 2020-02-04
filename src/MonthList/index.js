@@ -103,7 +103,7 @@ export default class MonthList extends PureComponent {
   getScrollDate(offset = 0) {
     const {min, locale: {weekStartsOn}, rowHeight} = this.props;
 
-    const scrollTop = this.scrollEl.scrollTop || this.state.scrollTop;
+    const scrollTop = this.scrollEl.scrollTop;
     const scrollOffset = scrollTop + offset;
     const weeks = Math.floor(scrollOffset / rowHeight);
     const date = addWeeks(new Date(min), weeks);
