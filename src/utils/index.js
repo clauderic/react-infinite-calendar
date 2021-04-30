@@ -69,6 +69,11 @@ export function getRenderedWeekRows(start, date, weekStartsOn) {
 
   let renderedWeeks = 0;
 
+  if(isAfter(startDate, date)) {
+    console.log('d was after date');
+    startDate = date;
+  }
+
   // Loop from start to date in monthly steps
   for (let d = startDate; !isInCurrentMonth(d, date); d.setMonth(d.getMonth() + 1)) {
     let numOfWeeks = getWeeksInMonth(d.getMonth(), d.getFullYear(), weekStartsOn);
